@@ -626,4 +626,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Built with ❤️ by [XBG Solutions](https://xbg.solutions) for rapid MVP development and AI-assisted coding**
 
-*Ready to build your next project? Run `npm run setup` and start coding!*
+If this project helps you, please consider buying us a beer or two!
+https://xbg.solutions/donations
+
+---
