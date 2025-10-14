@@ -1,0 +1,97 @@
+ <!-- src/app.html -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#ffffff" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<!-- Preloaded inline styles to prevent FOUC and loading indicators -->
+		<style>
+			/* Hide all loading indicators - critical CSS */
+			.htmx-indicator,
+			.loading-indicator,
+			progress,
+			[role="progressbar"],
+			html:before, html:after,
+			body:before, body:after {
+				display: none !important;
+				content: none !important;
+				opacity: 0 !important;
+				visibility: hidden !important;
+			}
+			
+			/* Hide these browser default loading indicators */
+			:root {
+				--spinner-size: 0 !important;
+				--spinner-color: transparent !important;
+			}
+			
+			/* Reset any browser-native loading indicators */
+			@keyframes turnOffProgressBar {
+				to { visibility: hidden; opacity: 0; display: none; }
+			}
+			
+			::-webkit-progress-bar,
+			::-webkit-progress-value,
+			::-moz-progress-bar {
+				animation: turnOffProgressBar 0.01s forwards !important;
+				display: none !important;
+				opacity: 0 !important;
+				visibility: hidden !important;
+			}
+			
+			/* Ensure the body is immediately visible */
+			body {
+				display: block !important;
+				visibility: visible !important;
+				opacity: 1 !important;
+				background-color: #ffffff;
+			}
+			
+			/* Hide Chrome's loading bar */
+			body::before {
+				display: none !important;
+				content: none !important;
+			}
+			
+			/* Hide Firefox's loading indicators */
+			html {
+				background: #ffffff;
+			}
+		</style>
+		<!-- No-JS fallback - ensures immediate content display -->
+		<noscript>
+			<style>
+				body, html {
+					display: block !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+			</style>
+		</noscript>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+		<!-- Ensure loading indicators are disabled via script -->
+		<script>
+			// Immediately hide any loading indicators
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', function() {
+					// Hide any straggling indicators after DOM is loaded
+					const style = document.createElement('style');
+					style.textContent = `
+						progress, [role="progressbar"], .progress-bar {
+							display: none !important;
+							opacity: 0 !important;
+							visibility: hidden !important;
+						}
+					`;
+					document.head.appendChild(style);
+				});
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,278 @@
+/* TAILWIND BASE IMPORTS - Core framework */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* SHADCN VARIANT SETUP - Dark mode support */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* XBG BRAND COLORS - Custom RGB values for design system */
+  --brand-primary: 41 70 91;
+  --brand-mid: 100 126 145;
+  --brand-light: 179 192 201;
+  --accent-primary: 115 144 136;
+  --accent-mid: 158 178 173;
+  --accent-light: 201 212 209;
+  --alt-primary: 107 94 135;
+  --alt-mid: 149 140 173;
+  --alt-light: 191 185 203;
+  --danger: 139 69 70;
+  --neutral-charcoal: 37 37 37;
+  --neutral-dark-grey: 133 133 133;
+  --neutral-mid-grey: 226 226 226;
+  --neutral-light-grey: 247 247 247;
+
+  /* CONTAINER SYSTEM - Layout containers */
+  --container-max-width: 2000px;
+  --container-padding-x: 2rem;
+  --container-padding-x-tablet: 1.5rem;
+  --container-padding-x-mobile: 1rem;
+
+  /* SHADCN UI COMPONENT COLORS (LIGHT MODE) - Using XBG brand palette */
+  --radius: 0.625rem;
+  --background: rgb(var(--neutral-light-grey));
+  --foreground: rgb(var(--neutral-charcoal));
+  --card: rgb(var(--neutral-light-grey));
+  --card-foreground: rgb(var(--neutral-charcoal));
+  --popover: rgb(var(--neutral-light-grey));
+  --popover-foreground: rgb(var(--neutral-charcoal));
+  --primary: rgb(var(--brand-primary));
+  --primary-foreground: rgb(var(--neutral-light-grey));
+  --secondary: rgb(var(--accent-primary));
+  --secondary-foreground: rgb(var(--neutral-light-grey));
+  --muted: color-mix(in srgb, rgb(var(--accent-light)) 25%, rgb(var(--neutral-light-grey)));
+  --muted-foreground: rgb(var(--neutral-dark-grey));
+  --accent: rgb(var(--alt-primary));
+  --accent-foreground: rgb(var(--neutral-light-grey));
+  --destructive: rgb(var(--danger));
+  --destructive-foreground: rgb(var(--neutral-light-grey));
+  --border: rgb(var(--neutral-mid-grey)) / 60%;
+  --input: rgb(var(--neutral-mid-grey));
+  --ring: rgb(var(--brand-primary));
+  --chart-1: rgb(var(--brand-primary));
+  --chart-2: rgb(var(--accent-primary));
+  --chart-3: rgb(var(--alt-primary));
+  --chart-4: rgb(var(--brand-mid));
+  --chart-5: rgb(var(--accent-mid));
+}
+
+/* DARK MODE THEME - Light colors on dark backgrounds */
+.dark {
+  --background: rgb(var(--neutral-charcoal));
+  --foreground: rgb(var(--neutral-light-grey));
+  --card: rgb(var(--neutral-dark-grey));
+  --card-foreground: rgb(var(--neutral-light-grey));
+  --popover: rgb(var(--neutral-dark-grey));
+  --popover-foreground: rgb(var(--neutral-light-grey));
+  --primary: rgb(var(--brand-light));
+  --primary-foreground: rgb(var(--neutral-charcoal));
+  --secondary: rgb(var(--accent-light));
+  --secondary-foreground: rgb(var(--neutral-charcoal));
+  --muted: color-mix(in srgb, rgb(var(--alt-mid)) 30%, rgb(var(--neutral-charcoal)));
+  --muted-foreground: rgb(var(--neutral-mid-grey));
+  --accent: rgb(var(--alt-light));
+  --accent-foreground: rgb(var(--neutral-charcoal));
+  --destructive: rgb(var(--danger));
+  --destructive-foreground: rgb(var(--neutral-light-grey));
+  --border: rgb(var(--neutral-dark-grey)) / 50%;
+  --input: rgb(var(--neutral-dark-grey));
+  --ring: rgb(var(--brand-light));
+  --chart-1: rgb(var(--brand-light));
+  --chart-2: rgb(var(--accent-light));
+  --chart-3: rgb(var(--alt-light));
+  --chart-4: rgb(var(--brand-mid));
+  --chart-5: rgb(var(--accent-mid));
+}
+
+/* TAILWIND THEME INLINE - Modern CSS-in-CSS approach */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Map SHADCN colors to Tailwind */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  
+  /* XBG BRAND PALETTE - Available as Tailwind utilities */
+  --color-xbg-brand-primary: rgb(var(--brand-primary));
+  --color-xbg-brand-mid: rgb(var(--brand-mid));
+  --color-xbg-brand-light: rgb(var(--brand-light));
+  --color-xbg-accent-primary: rgb(var(--accent-primary));
+  --color-xbg-accent-mid: rgb(var(--accent-mid));
+  --color-xbg-accent-light: rgb(var(--accent-light));
+  --color-xbg-alt-primary: rgb(var(--alt-primary));
+  --color-xbg-alt-mid: rgb(var(--alt-mid));
+  --color-xbg-alt-light: rgb(var(--alt-light));
+  --color-xbg-danger: rgb(var(--danger));
+}
+
+/* BASE LAYER - Core element styles and XBG typography */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Source Sans 3', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* XBG TYPOGRAPHY HIERARCHY */
+  h1,
+  .font-display {
+    @apply text-4xl font-normal tracking-tight;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  h2,
+  h3,
+  .font-header {
+    @apply font-semibold tracking-tight;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  .font-base {
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  h4 {
+    @apply text-xl font-extrabold;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+
+  p,
+  a {
+    @apply leading-7;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    @apply text-sm;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  /* RESPONSIVE TYPOGRAPHY */
+  @screen md {
+    h1,
+    .font-display {
+      @apply text-5xl;
+    }
+    
+    h2 {
+      @apply text-4xl;
+    }
+    
+    h3 {
+      @apply text-3xl;
+    }
+  }
+
+  @screen lg {
+    h1,
+    .font-display {
+      @apply text-6xl;
+    }
+  }
+}
+
+/* UTILITIES LAYER - XBG brand utilities */
+@layer utilities {
+  /* Brand color utilities */
+  .text-brand {
+    color: rgb(var(--brand-primary));
+  }
+  
+  .bg-brand {
+    background-color: rgb(var(--brand-primary));
+  }
+  
+  .border-brand {
+    border-color: rgb(var(--brand-primary));
+  }
+  
+  /* Container utilities */
+  .container-xbg {
+    max-width: var(--container-max-width);
+    padding-left: var(--container-padding-x);
+    padding-right: var(--container-padding-x);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @screen md {
+    .container-xbg {
+      padding-left: var(--container-padding-x-tablet);
+      padding-right: var(--container-padding-x-tablet);
+    }
+  }
+  
+  @screen sm {
+    .container-xbg {
+      padding-left: var(--container-padding-x-mobile);
+      padding-right: var(--container-padding-x-mobile);
+    }
+  }
+}
+
+/* COMPONENTS LAYER - Optional XBG-specific components */
+@layer components {
+  /* Example branded button variant - customize as needed */
+  .btn-xbg {
+    @apply bg-brand text-white hover:bg-xbg-brand-mid transition-colors;
+    @apply px-6 py-3 rounded-lg font-semibold;
+  }
+  
+  /* Example branded card - customize as needed */
+  .card-xbg {
+    @apply bg-white dark:bg-neutral-charcoal;
+    @apply border border-xbg-brand-light dark:border-xbg-brand-mid;
+    @apply rounded-lg shadow-sm;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "xbgsolutions"
+  },
+  "targets": {
+    "xbgsolutions": {
+      "hosting": {
+        "target_name": [
+          "api-bot"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

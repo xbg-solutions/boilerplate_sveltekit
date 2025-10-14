@@ -1,0 +1,276 @@
+# Dev task list / prompts
+__docs__/
+
+# === Node.js and Package Managers ===
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Package lock files (choose one based on your package manager)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# === Build Outputs ===
+# SvelteKit
+.svelte-kit/
+build/
+dist/
+dist-ssr/
+.output/
+.vercel_build_output/
+.netlify/
+
+# Static site generation
+static/
+public/build/
+
+# === Environment and Configuration ===
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+.env.test
+.env.*
+!.env.example
+
+# Configuration files that might contain secrets
+.envrc
+.direnv/
+
+# === Firebase ===
+# Firebase cache and logs
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+firebase.json
+.firebaserc
+service-account*.json
+firebase-adminsdk*.json
+
+# Firebase hosting cache
+.firebase-cache/
+
+# === Testing and Coverage ===
+# Test outputs
+coverage/
+.coverage/
+.nyc_output/
+*.lcov
+junit.xml
+test-results/
+
+# Vitest
+.vitest/
+
+# === Development Tools ===
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/snippets/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# === Operating System ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# === Temporary and Cache Files ===
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+tmp/
+temp/
+
+# Cache directories
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vitepress/cache/
+.turbo/
+
+# === Performance and Analysis ===
+# Bundle analysis
+bundle-analyzer-report.html
+performance-audit.json
+lighthouse-report.html
+*.tsbuildinfo
+
+# Webpack
+.webpack/
+
+# === Logs ===
+logs/
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+
+# === Runtime and Process ===
+# Node.js runtime
+.node_repl_history
+.npm
+.eslintcache
+.stylelintcache
+
+# Optional dependencies
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# === AI and Development Tools ===
+# Claude AI
+.claude/
+.cursor/
+
+# GitHub Copilot
+.github/copilot/
+
+# === Database and Local Development ===
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# Local development databases
+*.db-journal
+db.json
+
+# === SSL and Certificates ===
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# === Deployment and Cloud ===
+# Vercel
+.vercel/
+.vercel_build_output/
+
+# Netlify
+.netlify/
+netlify/functions/
+.netlify-cache/
+
+# Serverless
+.serverless/
+serverless_sdk/
+
+# AWS
+.aws-sam/
+
+# === File Upload and Media ===
+# Uploaded files (if storing locally)
+uploads/
+user-uploads/
+temp-uploads/
+
+# Media cache
+media-cache/
+image-cache/
+
+# === TypeScript ===
+*.tsbuildinfo
+
+# === Miscellaneous ===
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archive files (usually shouldn't be committed)
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# === Project Specific ===
+# Error reports
+error-reports.json
+crash-reports/
+
+# Performance reports
+lighthouse-*.json
+performance-*.json
+
+# Custom build outputs
+__rebuild__/
+
+# Local configuration overrides
+local.config.*
+*.local.json
+
+# === Comments for Team ===
+# Uncomment the following lines if needed:
+# .vscode/settings.json  # Include if you want shared VS Code settings
+# .env.local             # Include if you have team-shared local configs
