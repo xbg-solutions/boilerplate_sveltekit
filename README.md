@@ -55,13 +55,13 @@ This boilerplate is specifically designed for:
 - **Single Configuration File**: Edit one file (`src/lib/config/app.config.ts`) to customize everything
 - **Atomic Components Only**: 30 SHADCN components for composition (no opinionated page layouts)
 - **Consistent Import Patterns**: Standardized imports from `$lib/components/ui` and `$lib/config/app.config`
-- **Agent-Specific Documentation**: [Agentic Development Guide](__docs__/agentic-development-guide.md) for AI systems
+- **Agent-Specific Documentation**: [Agentic Development Guide](mcp/frontend/guides/agentic-development.md) for AI systems
 - **Decision Trees**: Built-in guardrails eliminate ambiguity for one-shot success
 - **Predictable Structure**: SHADCN component patterns for reliable code generation
 - **Backend Integration**: Accepts Postman collections or direct API access (mono-repo)
 
 ### Production Features
-- **871 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](__docs__/testing-guide.md))
+- **871 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](mcp/frontend/guides/testing.md))
 - **Accessibility Compliance**: WCAG Level AA with all build warnings resolved
 - **Performance Optimized**: Bundle analysis, code splitting, and performance monitoring
 - **Security First**: CSRF protection, input sanitization, secure authentication
@@ -226,7 +226,7 @@ __scripts__/                       # CLI tools and generators
 └── generate-service.js            # Service creation
 
 __tests__/                         # 677 behavioral tests ✅
-__docs__/                          # Comprehensive documentation
+mcp/frontend/                      # MCP Knowledge Base (comprehensive documentation)
 ```
 
 ---
@@ -507,7 +507,7 @@ docker build -t my-app .
 docker run -p 3000:3000 my-app
 ```
 
-See [__docs__/deployment-guide.md](__docs__/deployment-guide.md) for comprehensive deployment documentation.
+See [deployment-guide.md](mcp/frontend/guides/deployment.md) for comprehensive deployment documentation.
 
 ---
 
@@ -547,18 +547,17 @@ npm run preview           # Preview build
 ## 📚 Documentation
 
 ### For Developers
-- **[Getting Started](__docs__/getting-started.md)**: Comprehensive setup and first feature guide ⭐ NEW
-- **[Quick Start Guide](__docs__/quick-start.md)**: Get started in 15 minutes
-- **[Testing Guide](__docs__/testing-guide.md)**: Testing philosophy and 871-test suite details ⭐ NEW
-- **[Configuration Guide](__docs__/configuration.md)**: Detailed configuration options
-- **[API Documentation](src/lib/docs/api-documentation.md)**: Complete service API reference
-- **[Component Interfaces](src/lib/docs/component-interfaces.md)**: TypeScript interfaces for all components
-- **[Production Readiness Checklist](__docs__/production-readiness-checklist.md)**: Pre-deployment validation
-- **[Deployment Guide](__docs__/deployment-guide.md)**: CI/CD and hosting setup
+- **[Getting Started](mcp/frontend/overview/getting-started.md)**: Comprehensive setup and first feature guide ⭐ NEW
+- **[Quick Start Guide](mcp/frontend/overview/quick-start.md)**: Get started in 15 minutes
+- **[Testing Guide](mcp/frontend/guides/testing.md)**: Testing philosophy and 871-test suite details ⭐ NEW
+- **[Configuration Guide](mcp/frontend/guides/configuration.md)**: Detailed configuration options
+- **[API Documentation](mcp/frontend/api/api-documentation.md)**: Complete service API reference
+- **[Component Interfaces](mcp/frontend/api/component-interfaces.md)**: TypeScript interfaces for all components
+- **[Deployment Guide](mcp/frontend/guides/deployment.md)**: CI/CD and hosting setup
+- **[Patterns Guide](mcp/frontend/guides/patterns.md)**: Development patterns and best practices
 
 ### For AI Agents
-- **[Agentic Development Guide](__docs__/agentic-development-guide.md)**: Complete agent workflow patterns ⭐ NEW
-- **[AI Patterns](src/lib/docs/ai-patterns.md)**: AI-specific development patterns and examples
+- **[Agentic Development Guide](mcp/frontend/guides/agentic-development.md)**: Complete agent workflow patterns ⭐ NEW
 - **[MCP Knowledge Base](mcp/frontend/README.md)**: Query via Model Context Protocol ⭐ NEW
 - **Consistent Imports**: All components from `$lib/components/ui`, config from `$lib/config/app.config`
 - **Decision Trees**: Built-in guardrails for routing, components, imports, and testing
@@ -689,7 +688,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - **Issues**: Report bugs and request features via [GitHub Issues](https://github.com/xbg-solutions/boilerplate_frontend/issues)
 - **Discussions**: Community support via [GitHub Discussions](https://github.com/xbg-solutions/boilerplate_frontend/discussions)
-- **Documentation**: Comprehensive docs in `__docs__/` and `src/lib/docs/`
+- **Documentation**: Comprehensive docs in `mcp/frontend/` (MCP Knowledge Base)
 - **Website**: [https://xbg.solutions](https://xbg.solutions)
 
 ---
