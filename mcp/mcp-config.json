@@ -1,0 +1,400 @@
+{
+  "mcpServers": {
+    "boilerplate-frontend-docs": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/mcp/frontend"],
+      "metadata": {
+        "name": "XBG Boilerplate Frontend Documentation",
+        "version": "1.0.0",
+        "description": "MCP server for SvelteKit 5 AI-compatible boilerplate documentation",
+        "provider": "XBG Solutions",
+        "url": "https://xbg.solutions/boilerplates/mcp-config.json",
+        "repository": "https://github.com/xbg-solutions/boilerplate_frontend"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "get_project_overview",
+      "description": "Get high-level overview of the SvelteKit 5 boilerplate project, including philosophy, architecture, and agentic development approach",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "type": "string",
+            "enum": ["main", "getting-started", "quick-start", "agentic-development", "testing", "configuration", "deployment"],
+            "description": "Which overview section to retrieve"
+          }
+        }
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown content from the requested overview document"
+      },
+      "files": {
+        "main": "mcp/frontend/overview/README.md",
+        "getting-started": "mcp/frontend/overview/getting-started.md",
+        "quick-start": "mcp/frontend/overview/quick-start.md",
+        "agentic-development": "mcp/frontend/guides/agentic-development.md",
+        "testing": "mcp/frontend/guides/testing.md",
+        "configuration": "mcp/frontend/guides/configuration.md",
+        "deployment": "mcp/frontend/guides/deployment.md"
+      }
+    },
+    {
+      "name": "get_sveltekit_architecture",
+      "description": "Get comprehensive SvelteKit architecture overview including services, utilities, stores, and components organization",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown content with complete SvelteKit architecture documentation"
+      },
+      "files": {
+        "main": "mcp/frontend/sveltekit/README.md"
+      }
+    },
+    {
+      "name": "get_service_docs",
+      "description": "Get documentation for a specific service (auth, api, token, toast, events, caching, file-upload, file-handling, initialization, logging, state, tab-sync, error-reporting)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string",
+            "enum": [
+              "overview",
+              "auth",
+              "api",
+              "token",
+              "toast",
+              "events",
+              "caching",
+              "file-upload",
+              "file-handling",
+              "initialization",
+              "logging",
+              "state",
+              "tab-sync",
+              "error-reporting"
+            ],
+            "description": "Which service to get documentation for"
+          }
+        },
+        "required": ["service"]
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown documentation for the requested service"
+      },
+      "files": {
+        "overview": "mcp/frontend/sveltekit/services/README.md",
+        "auth": "mcp/frontend/sveltekit/services/auth.md",
+        "api": "mcp/frontend/sveltekit/services/api.md",
+        "token": "mcp/frontend/sveltekit/services/token.md",
+        "toast": "mcp/frontend/sveltekit/services/toast.md",
+        "events": "mcp/frontend/sveltekit/services/events.md",
+        "caching": "mcp/frontend/sveltekit/services/caching.md",
+        "file-upload": "mcp/frontend/sveltekit/services/file-upload.md",
+        "file-handling": "mcp/frontend/sveltekit/services/file-handling.md",
+        "initialization": "mcp/frontend/sveltekit/services/initialization.md",
+        "logging": "mcp/frontend/sveltekit/services/logging.md",
+        "state": "mcp/frontend/sveltekit/services/state.md",
+        "tab-sync": "mcp/frontend/sveltekit/services/tab-sync.md",
+        "error-reporting": "mcp/frontend/sveltekit/services/error-reporting.md"
+      }
+    },
+    {
+      "name": "get_utility_docs",
+      "description": "Get documentation for a specific utility (error-handler, sanitizer, route-handler, rbac, secure-storage, firebase, tokens, cache-helpers, performance, seo, mutex, auth-guard, cn, csrf, firebase-storage, recaptcha, signout, sse, browser, error-testing, error-handler-toast)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "utility": {
+            "type": "string",
+            "enum": [
+              "overview",
+              "error-handler",
+              "sanitizer",
+              "route-handler",
+              "rbac",
+              "secure-storage",
+              "firebase",
+              "tokens",
+              "cache-helpers",
+              "performance",
+              "seo",
+              "mutex",
+              "auth-guard",
+              "cn",
+              "csrf",
+              "firebase-storage",
+              "recaptcha",
+              "signout",
+              "sse",
+              "browser",
+              "error-testing",
+              "error-handler-toast"
+            ],
+            "description": "Which utility to get documentation for"
+          }
+        },
+        "required": ["utility"]
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown documentation for the requested utility"
+      },
+      "files": {
+        "overview": "mcp/frontend/sveltekit/utils/README.md",
+        "error-handler": "mcp/frontend/sveltekit/utils/error-handler.md",
+        "sanitizer": "mcp/frontend/sveltekit/utils/sanitizer.md",
+        "route-handler": "mcp/frontend/sveltekit/utils/route-handler.md",
+        "rbac": "mcp/frontend/sveltekit/utils/rbac.md",
+        "secure-storage": "mcp/frontend/sveltekit/utils/secure-storage.md",
+        "firebase": "mcp/frontend/sveltekit/utils/firebase.md",
+        "tokens": "mcp/frontend/sveltekit/utils/tokens.md",
+        "cache-helpers": "mcp/frontend/sveltekit/utils/cache-helpers.md",
+        "performance": "mcp/frontend/sveltekit/utils/performance.md",
+        "seo": "mcp/frontend/sveltekit/utils/seo.md",
+        "mutex": "mcp/frontend/sveltekit/utils/mutex.md",
+        "auth-guard": "mcp/frontend/sveltekit/utils/auth-guard.md",
+        "cn": "mcp/frontend/sveltekit/utils/cn.md",
+        "csrf": "mcp/frontend/sveltekit/utils/csrf.md",
+        "firebase-storage": "mcp/frontend/sveltekit/utils/firebase-storage.md",
+        "recaptcha": "mcp/frontend/sveltekit/utils/recaptcha.md",
+        "signout": "mcp/frontend/sveltekit/utils/signout.md",
+        "sse": "mcp/frontend/sveltekit/utils/sse.md",
+        "browser": "mcp/frontend/sveltekit/utils/browser.md",
+        "error-testing": "mcp/frontend/sveltekit/utils/error-testing.md",
+        "error-handler-toast": "mcp/frontend/sveltekit/utils/error-handler-toast.md"
+      }
+    },
+    {
+      "name": "get_store_docs",
+      "description": "Get documentation for a specific Svelte store (auth, token, event, toast, loading, state-manager, tab-sync, initialization, logging, csrf, user-creation, event-bus, pub-sub, rbac, recaptcha, route-handler, secure-storage)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "store": {
+            "type": "string",
+            "enum": [
+              "overview",
+              "auth",
+              "token",
+              "event",
+              "toast",
+              "loading",
+              "state-manager",
+              "tab-sync",
+              "initialization",
+              "logging",
+              "csrf",
+              "user-creation",
+              "event-bus",
+              "pub-sub",
+              "rbac",
+              "recaptcha",
+              "route-handler",
+              "secure-storage"
+            ],
+            "description": "Which store to get documentation for"
+          }
+        },
+        "required": ["store"]
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown documentation for the requested store"
+      },
+      "files": {
+        "overview": "mcp/frontend/sveltekit/stores/README.md",
+        "auth": "mcp/frontend/sveltekit/stores/auth.store.md",
+        "token": "mcp/frontend/sveltekit/stores/token.store.md",
+        "event": "mcp/frontend/sveltekit/stores/event.store.md",
+        "toast": "mcp/frontend/sveltekit/stores/toast.store.md",
+        "loading": "mcp/frontend/sveltekit/stores/loading.store.md",
+        "state-manager": "mcp/frontend/sveltekit/stores/state-manager.store.md",
+        "tab-sync": "mcp/frontend/sveltekit/stores/tab-sync.store.md",
+        "initialization": "mcp/frontend/sveltekit/stores/initialization.store.md",
+        "logging": "mcp/frontend/sveltekit/stores/logging.store.md",
+        "csrf": "mcp/frontend/sveltekit/stores/csrf.store.md",
+        "user-creation": "mcp/frontend/sveltekit/stores/user-creation.store.md",
+        "event-bus": "mcp/frontend/sveltekit/stores/event-bus.store.md",
+        "pub-sub": "mcp/frontend/sveltekit/stores/pub-sub.store.md",
+        "rbac": "mcp/frontend/sveltekit/stores/rbac.store.md",
+        "recaptcha": "mcp/frontend/sveltekit/stores/recaptcha.store.md",
+        "route-handler": "mcp/frontend/sveltekit/stores/route-handler.store.md",
+        "secure-storage": "mcp/frontend/sveltekit/stores/secure-storage.store.md"
+      }
+    },
+    {
+      "name": "get_component_docs",
+      "description": "Get documentation for component categories (ui, auth, layout, animations, advanced, diagnostics, error, error-boundary)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "overview",
+              "ui",
+              "auth",
+              "layout",
+              "animations",
+              "advanced",
+              "diagnostics",
+              "error",
+              "error-boundary"
+            ],
+            "description": "Which component category to get documentation for"
+          }
+        },
+        "required": ["category"]
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown documentation for the requested component category"
+      },
+      "files": {
+        "overview": "mcp/frontend/sveltekit/components/README.md",
+        "ui": "mcp/frontend/sveltekit/components/ui.md",
+        "auth": "mcp/frontend/sveltekit/components/auth.md",
+        "layout": "mcp/frontend/sveltekit/components/layout.md",
+        "animations": "mcp/frontend/sveltekit/components/animations.md",
+        "advanced": "mcp/frontend/sveltekit/components/advanced.md",
+        "diagnostics": "mcp/frontend/sveltekit/components/diagnostics.md",
+        "error": "mcp/frontend/sveltekit/components/error.md",
+        "error-boundary": "mcp/frontend/sveltekit/components/error-boundary.md"
+      }
+    },
+    {
+      "name": "get_api_reference",
+      "description": "Get API reference documentation (component interfaces, API documentation, type definitions)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "enum": ["component-interfaces", "component-api-reference", "api-documentation"],
+            "description": "Which API reference to retrieve"
+          }
+        },
+        "required": ["reference"]
+      },
+      "responseSchema": {
+        "type": "string",
+        "description": "Markdown content from the requested API reference"
+      },
+      "files": {
+        "component-interfaces": "mcp/frontend/api/component-interfaces.md",
+        "component-api-reference": "mcp/frontend/api/component-api-reference.md",
+        "api-documentation": "mcp/frontend/api/api-documentation.md"
+      }
+    },
+    {
+      "name": "search_documentation",
+      "description": "Search across all documentation for specific keywords or concepts. Returns relevant documentation sections.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query (keywords or concepts to find)"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["all", "services", "utilities", "stores", "components", "guides"],
+            "description": "Limit search to specific category (optional)",
+            "default": "all"
+          }
+        },
+        "required": ["query"]
+      },
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "file": {"type": "string"},
+                "category": {"type": "string"},
+                "relevance": {"type": "number"},
+                "excerpt": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "resources": {
+    "documentation_root": "mcp/frontend",
+    "categories": {
+      "overview": {
+        "path": "mcp/frontend/overview",
+        "description": "Project overview and getting started guides",
+        "files": ["README.md", "getting-started.md", "quick-start.md"]
+      },
+      "guides": {
+        "path": "mcp/frontend/guides",
+        "description": "Comprehensive guides for agentic development, testing, configuration, deployment, and patterns",
+        "files": ["agentic-development.md", "testing.md", "configuration.md", "deployment.md", "patterns.md"]
+      },
+      "api": {
+        "path": "mcp/frontend/api",
+        "description": "API reference documentation including TypeScript interfaces and component APIs",
+        "files": ["component-interfaces.md", "component-api-reference.md", "api-documentation.md"]
+      },
+      "services": {
+        "path": "mcp/frontend/sveltekit/services",
+        "description": "Business logic services (auth, api, token, events, toast, caching, file-handling, etc.)",
+        "count": 14,
+        "index": "README.md"
+      },
+      "utilities": {
+        "path": "mcp/frontend/sveltekit/utils",
+        "description": "Utility functions (error-handler, sanitizer, route-handler, rbac, firebase, tokens, etc.)",
+        "count": 21,
+        "index": "README.md"
+      },
+      "stores": {
+        "path": "mcp/frontend/sveltekit/stores",
+        "description": "Svelte stores for state management (auth, token, event, toast, loading, etc.)",
+        "count": 17,
+        "index": "README.md"
+      },
+      "components": {
+        "path": "mcp/frontend/sveltekit/components",
+        "description": "UI components organized by category (ui/SHADCN, auth, layout, animations, advanced, etc.)",
+        "count": 81,
+        "index": "README.md"
+      }
+    }
+  },
+  "metadata": {
+    "total_files": 78,
+    "last_updated": "2025-12-14",
+    "boilerplate_version": "1.0.0",
+    "sveltekit_version": "5.x",
+    "documentation_format": "markdown",
+    "target_audience": ["ai_agents", "developers"],
+    "optimization": {
+      "agentic_development": true,
+      "one_shot_success": true,
+      "constrained_patterns": true,
+      "decision_trees": true
+    },
+    "features": {
+      "services": 14,
+      "utilities": 21,
+      "stores": 17,
+      "components": 81,
+      "tests": 871
+    }
+  }
+}

@@ -559,18 +559,10 @@ npm run preview           # Preview build
 ### For AI Agents
 - **[Agentic Development Guide](__docs__/agentic-development-guide.md)**: Complete agent workflow patterns ⭐ NEW
 - **[AI Patterns](src/lib/docs/ai-patterns.md)**: AI-specific development patterns and examples
-- **[MCP Knowledge Base](mcp/frontend/README.md)**: Query via Model Context Protocol ⭐ NEW
 - **Consistent Imports**: All components from `$lib/components/ui`, config from `$lib/config/app.config`
 - **Decision Trees**: Built-in guardrails for routing, components, imports, and testing
 - **Type Exports**: All interfaces exported for AI code generation
 - **Predictable Structure**: Follow established patterns for reliable generation
-
-### MCP Integration
-- **MCP Server**: Access comprehensive documentation via Model Context Protocol
-- **Configuration**: `https://xbg.solutions/boilerplates/mcp-config.json`
-- **Tools Available**: Query services, utilities, stores, components, and guides
-- **78 Documentation Files**: Complete knowledge base for AI-assisted development
-- **Categories**: Services (14), Utilities (21), Stores (17), Components (81+)
 
 ### Backend Integration
 - **[boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)**: Companion backend boilerplate
@@ -580,40 +572,6 @@ npm run preview           # Preview build
 ---
 
 ## 🎯 AI Integration Patterns
-
-### Using the MCP Knowledge Base
-
-AI agents can query the comprehensive documentation via Model Context Protocol:
-
-```typescript
-// Example: Query service documentation
-const authDocs = await mcpClient.callTool('get_service_docs', {
-  service: 'auth'
-});
-
-// Example: Query utility documentation
-const errorHandlerDocs = await mcpClient.callTool('get_utility_docs', {
-  utility: 'error-handler'
-});
-
-// Example: Search across documentation
-const results = await mcpClient.callTool('search_documentation', {
-  query: 'authentication',
-  category: 'all'
-});
-```
-
-**Available MCP Tools:**
-- `get_project_overview` - High-level project overview
-- `get_sveltekit_architecture` - Complete architecture documentation
-- `get_service_docs` - Service-specific documentation (14 services)
-- `get_utility_docs` - Utility-specific documentation (21 utilities)
-- `get_store_docs` - Store-specific documentation (17 stores)
-- `get_component_docs` - Component category documentation (81+ components)
-- `get_api_reference` - API reference and TypeScript interfaces
-- `search_documentation` - Search across all documentation
-
-**MCP Configuration URL:** `https://xbg.solutions/boilerplates/mcp-config.json`
 
 ### Quick Customization via Setup Wizard
 
