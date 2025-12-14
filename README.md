@@ -15,21 +15,27 @@ Build and launch MVPs in **days, not months** using modern AI-assisted developme
 ## 🎯 What Makes This Different
 
 This boilerplate is specifically designed for:
+- **Agentic Development**: Constrained, opinionated architecture that railroads AI agents into one-shot success
 - **AI-Assisted Development**: Consistent patterns and comprehensive documentation optimized for AI code generation
 - **Rapid MVP Development**: 3-minute interactive setup wizard and 30+ ready-to-use atomic components
 - **Design-to-Code Pipeline**: Optimized for Figma → AI → Svelte workflows with SHADCN components
-- **Production Readiness**: 677 passing tests, accessibility compliance, and deployment infrastructure
+- **Production Readiness**: 871 passing tests, accessibility compliance, and deployment infrastructure
+- **Backend Integration**: Works standalone or pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) for full-stack MVPs
 - **Developer Experience**: Type-safe, well-documented, and following modern best practices
 
-### The Modern Development Workflow
+### The Agentic Development Workflow
 
 ```
-1. Design in Figma          →  2. AI Generates Code    →  3. Deploy
-   (SHADCN components)          (Figma MCP export)          (Firebase/Vercel)
+1. Requirements Input       →  2. Agent Development    →  3. Deploy
+   (MoSCoW + Figma/Designs)     (Constrained patterns)      (Production-ready)
    ↓                            ↓                           ↓
-   Sketches + AI design         +page.svelte files          npm run deploy
-   UX team refinement           API integration             Done!
+   • User journeys              • Update config             • 871 tests pass
+   • Figma designs              • Build with SHADCN         • Accessibility ✓
+   • API specs/Postman          • Connect backend           • Type-safe ✓
+   • Feature requirements       • Generate tests            • Deploy!
 ```
+
+**Designed for one-shot success**: Opinionated constraints guide AI agents to production-ready code without human intervention.
 
 ---
 
@@ -43,16 +49,19 @@ This boilerplate is specifically designed for:
 - **Firebase**: Authentication, hosting, and backend integration
 - **Vitest**: Modern testing framework with 677 passing tests
 
-### AI-Optimized Architecture
-- **Interactive Setup Wizard**: 3-minute configuration with automatic validation ⭐ NEW
+### Agentic & AI-Optimized Architecture
+- **Constrained by Design**: Opinionated architecture that railroads agents into best practices
+- **Interactive Setup Wizard**: 3-minute configuration with automatic validation
 - **Single Configuration File**: Edit one file (`src/lib/config/app.config.ts`) to customize everything
-- **Atomic Components**: 30 SHADCN components perfect for AI composition (not opinionated page layouts)
+- **Atomic Components Only**: 30 SHADCN components for composition (no opinionated page layouts)
 - **Consistent Import Patterns**: Standardized imports from `$lib/components/ui` and `$lib/config/app.config`
-- **Comprehensive Documentation**: AI-specific comments and patterns throughout codebase
+- **Agent-Specific Documentation**: [Agentic Development Guide](__docs__/agentic-development-guide.md) for AI systems
+- **Decision Trees**: Built-in guardrails eliminate ambiguity for one-shot success
 - **Predictable Structure**: SHADCN component patterns for reliable code generation
+- **Backend Integration**: Accepts Postman collections or direct API access (mono-repo)
 
 ### Production Features
-- **677 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte
+- **871 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](__docs__/testing-guide.md))
 - **Accessibility Compliance**: WCAG Level AA with all build warnings resolved
 - **Performance Optimized**: Bundle analysis, code splitting, and performance monitoring
 - **Security First**: CSRF protection, input sanitization, secure authentication
@@ -127,31 +136,39 @@ Then create your `.env` file with the corresponding environment variables.
 
 ---
 
-## 💡 Core Philosophy: Atomic Components, Not Opinionated Pages
+## 💡 Core Philosophy: Constrained for Agentic Success
 
-### What We Provide
+### Atomic Components, Not Opinionated Pages
 
-**Atomic Building Blocks:**
-- Button, Card, Input, Dialog (30 SHADCN components)
-- Authentication service, routing, state management
-- Testing infrastructure, deployment pipelines
-- Type-safe APIs and error handling
+**What We Provide:**
+- **30 SHADCN atomic components**: Button, Card, Input, Dialog, etc.
+- **Authentication & routing**: Firebase auth, protected routes, role-based access
+- **Testing infrastructure**: Behavioral test patterns, 871 passing tests
+- **Backend integration**: Postman collection import, API client utilities
+- **Type-safe APIs**: Full TypeScript with strict mode
+- **Deployment pipelines**: CI/CD, multiple hosting options
 
-### What We DON'T Provide
-
-**Pre-built Opinionated Layouts:**
+**What We DON'T Provide:**
 - ❌ Pre-built dashboards, user profiles, admin panels
-- ❌ Opinionated page structures
+- ❌ Opinionated page structures or layouts
 - ❌ Complex composed components
 
-### Why?
+**Why This Constraint?**
 
-In modern AI-assisted workflows:
-1. **You design pages in Figma** using our SHADCN component library
-2. **AI generates the composed components** (DashboardStats, UserTable, etc.)
-3. **Our boilerplate provides the atoms** that AI composes together
+In **agentic development workflows**, AI agents:
+1. **Receive requirements** (MoSCoW, Figma designs, API specs)
+2. **Compose atomic components** into features using constrained patterns
+3. **Generate production code** with one-shot success
 
-This gives you **maximum flexibility** while maintaining **design system consistency**.
+**Constraints = Guardrails = Success**
+
+By limiting choices, we:
+- Eliminate decision paralysis for agents
+- Ensure consistent, maintainable code
+- Enable reliable, predictable code generation
+- Accelerate from requirements to production
+
+**Pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)** for full-stack agentic development.
 
 ```svelte
 <!-- AI generates this FROM Figma designs, using YOUR 30 base components -->
@@ -530,18 +547,27 @@ npm run preview           # Preview build
 ## 📚 Documentation
 
 ### For Developers
-- **[Quick Start Guide](__docs__/quick-start.md)**: Get started in minutes
+- **[Getting Started](__docs__/getting-started.md)**: Comprehensive setup and first feature guide ⭐ NEW
+- **[Quick Start Guide](__docs__/quick-start.md)**: Get started in 15 minutes
+- **[Testing Guide](__docs__/testing-guide.md)**: Testing philosophy and 871-test suite details ⭐ NEW
 - **[Configuration Guide](__docs__/configuration.md)**: Detailed configuration options
 - **[API Documentation](src/lib/docs/api-documentation.md)**: Complete service API reference
 - **[Component Interfaces](src/lib/docs/component-interfaces.md)**: TypeScript interfaces for all components
 - **[Production Readiness Checklist](__docs__/production-readiness-checklist.md)**: Pre-deployment validation
 - **[Deployment Guide](__docs__/deployment-guide.md)**: CI/CD and hosting setup
 
-### For AI Systems
+### For AI Agents
+- **[Agentic Development Guide](__docs__/agentic-development-guide.md)**: Complete agent workflow patterns ⭐ NEW
 - **[AI Patterns](src/lib/docs/ai-patterns.md)**: AI-specific development patterns and examples
 - **Consistent Imports**: All components from `$lib/components/ui`, config from `$lib/config/app.config`
+- **Decision Trees**: Built-in guardrails for routing, components, imports, and testing
 - **Type Exports**: All interfaces exported for AI code generation
 - **Predictable Structure**: Follow established patterns for reliable generation
+
+### Backend Integration
+- **[boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)**: Companion backend boilerplate
+- **Postman Integration**: Import API collections for automatic service generation
+- **Mono-repo Support**: Direct backend access for full-stack development
 
 ---
 
@@ -590,12 +616,14 @@ import { authService } from '$lib/services/auth';
 
 ## 📊 Project Status
 
-- **677 Tests Passing**: Comprehensive test coverage ✅
+- **871 Tests Passing**: Comprehensive behavioral test coverage ✅
 - **100% TypeScript**: Strict mode with full type safety ✅
 - **WCAG Level AA**: Accessibility compliance verified ✅
 - **Production Ready**: Deployment infrastructure complete ✅
 - **30+ Components**: Complete SHADCN atomic design system ✅
 - **3-Minute Setup**: Interactive wizard for rapid onboarding ✅
+- **Agentic Workflows**: Built-in guardrails for AI agent development ✅
+- **Backend Compatible**: Pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) ✅
 
 ---
 

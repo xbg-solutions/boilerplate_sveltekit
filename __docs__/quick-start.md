@@ -2,11 +2,21 @@
 
 Get your SvelteKit 5 boilerplate up and running in 15 minutes.
 
+> **For comprehensive guide**: See [Getting Started](__docs__/getting-started.md) for detailed agentic development workflows and building your first feature.
+
+> **For AI agents**: See [Agentic Development Guide](__docs__/agentic-development-guide.md) for constrained patterns and decision trees.
+
 ## Prerequisites
 
 - **Node.js 18+** ([Download](https://nodejs.org/))
 - **Firebase Account** ([Create free account](https://firebase.google.com/))
 - **Git** (for version control)
+
+### Optional (for Backend Integration)
+
+- **Backend Repository**: [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) for full-stack MVPs
+- **Postman**: For API collection import and testing
+- **Mono-repo Setup**: For direct backend access
 
 ## Step 1: Clone and Setup
 
@@ -238,10 +248,14 @@ src/
 
 ## Getting Help
 
-- **Documentation**: Check the `/docs` folder
-- **Components**: See `docs/COMPONENTS.md`
-- **Configuration**: See `docs/CONFIGURATION.md`
-- **Patterns**: See `docs/PATTERNS.md`
+- **Documentation**: Check the `__docs__/` folder
+- **Getting Started**: See [getting-started.md](__docs__/getting-started.md) for comprehensive guide
+- **Agentic Development**: See [agentic-development-guide.md](__docs__/agentic-development-guide.md) for AI patterns
+- **Testing**: See [testing-guide.md](__docs__/testing-guide.md) for testing philosophy
+- **Components**: See `__docs__/components.md`
+- **Configuration**: See `__docs__/configuration.md`
+- **Patterns**: See `__docs__/patterns.md`
+- **Backend Integration**: See [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)
 
 ## Production Deployment
 
