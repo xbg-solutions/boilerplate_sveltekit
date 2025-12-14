@@ -566,9 +566,9 @@ npm run preview           # Preview build
 
 ### MCP Integration
 - **MCP Server**: Access comprehensive documentation via Model Context Protocol
-- **Configuration**: `https://xbg.solutions/boilerplates/mcp-config.json`
+- **Configuration**: `https://xbg.solutions/mcp/config.json`
 - **Tools Available**: Query services, utilities, stores, components, and guides
-- **78 Documentation Files**: Complete knowledge base for AI-assisted development
+- **78 Documentation Files**: Complete knowledge base for AI coding tools and agentic developers
 - **Categories**: Services (14), Utilities (21), Stores (17), Components (81+)
 
 ### Backend Integration
@@ -612,7 +612,7 @@ const results = await mcpClient.callTool('search_documentation', {
 - `get_api_reference` - API reference and TypeScript interfaces
 - `search_documentation` - Search across all documentation
 
-**MCP Configuration URL:** `https://xbg.solutions/boilerplates/mcp-config.json`
+**MCP Configuration URL:** `https://xbg.solutions/mcp/config.json`
 
 ### Quick Customization via Setup Wizard
 
