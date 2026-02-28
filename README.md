@@ -19,7 +19,7 @@ This boilerplate is specifically designed for:
 - **AI-Assisted Development**: Consistent patterns and comprehensive documentation optimized for AI code generation
 - **Rapid MVP Development**: 3-minute interactive setup wizard and 30+ ready-to-use atomic components
 - **Design-to-Code Pipeline**: Optimized for Figma → AI → Svelte workflows with SHADCN components
-- **Production Readiness**: 871 passing tests, accessibility compliance, and deployment infrastructure
+- **Production Readiness**: 677 passing tests, accessibility compliance, and deployment infrastructure
 - **Backend Integration**: Works standalone or pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) for full-stack MVPs
 - **Developer Experience**: Type-safe, well-documented, and following modern best practices
 
@@ -29,7 +29,7 @@ This boilerplate is specifically designed for:
 1. Requirements Input       →  2. Agent Development    →  3. Deploy
    (MoSCoW + Figma/Designs)     (Constrained patterns)      (Production-ready)
    ↓                            ↓                           ↓
-   • User journeys              • Update config             • 871 tests pass
+   • User journeys              • Update config             • 677 tests pass
    • Figma designs              • Build with SHADCN         • Accessibility ✓
    • API specs/Postman          • Connect backend           • Type-safe ✓
    • Feature requirements       • Generate tests            • Deploy!
@@ -61,7 +61,7 @@ This boilerplate is specifically designed for:
 - **Backend Integration**: Accepts Postman collections or direct API access (mono-repo)
 
 ### Production Features
-- **871 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](mcp/frontend/guides/testing.md))
+- **677 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](mcp/frontend/guides/testing.md))
 - **Accessibility Compliance**: WCAG Level AA with all build warnings resolved
 - **Performance Optimized**: Bundle analysis, code splitting, and performance monitoring
 - **Security First**: CSRF protection, input sanitization, secure authentication
@@ -77,62 +77,53 @@ This boilerplate is specifically designed for:
 - Firebase account ([Create free](https://firebase.google.com/))
 - Git
 
-### Setup (3 Minutes)
+### Setup (~5 Minutes)
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/xbg-solutions/boilerplate_frontend.git
-cd boilerplate_frontend
+git clone https://github.com/xbg-solutions/boilerplate_frontend.git my-app
+cd my-app
 npm install
 
-# 2. Run interactive setup wizard ⭐ NEW
+# 2. Run the interactive setup wizard
 npm run setup
+```
 
-# The wizard will:
-#   • Ask 6 simple questions about your project
-#   • Auto-detect Firebase config (or help you enter it)
-#   • Generate your .env file automatically
-#   • Update app.config.ts with your values
-#   • Validate everything works
+The wizard runs 8 steps in a single session:
 
-# 3. Validate setup (optional but recommended)
+| Step | What it configures |
+|------|--------------------|
+| 0 | Context detection (standalone vs mono-repo with `functions/`) |
+| 1 | App name, short name, domain, support email |
+| 2 | Firebase — updates `firebase.json` + `.firebaserc` automatically |
+| 3 | API base URLs (dev + prod) |
+| 4 | RBAC — roles, hierarchy, permissions, JWT claim map |
+| 5 | Custom JWT attributes (tenantId, orgId, etc.) |
+| 6 | Feature flags (phone auth, analytics, real-time, etc.) |
+| 7 | Writes `.env`, updates `app.config.ts`, validates |
+
+```bash
+# 3. Validate (optional but recommended)
 npm run validate
 
-# 4. Start developing!
+# 4. Start developing
 npm run dev
 ```
 
-Visit `http://localhost:5173` - you're ready to build! 🎉
+Visit `http://localhost:5173` — ready to build.
 
 ### Alternative: Manual Configuration
 
-If you prefer manual setup, edit the configuration file directly:
-
-```typescript
-// src/lib/config/app.config.ts
-
-export const APP_CONFIG = {
-  app: {
-    name: 'Your App Name',        // FIXME: Set your app name
-    domain: 'your-domain.com',    // FIXME: Set your domain
-    supportEmail: 'support@your-domain.com' // FIXME: Set support email
-  },
-  firebase: {
-    projectId: 'your-firebase-project', // FIXME: Firebase project ID
-    apiKey: 'your-api-key',             // FIXME: Firebase API key
-    // ... other Firebase config
-  },
-  api: {
-    baseUrl: {
-      development: 'http://localhost:5001',     // FIXME: Dev API URL
-      production: 'https://api.your-domain.com' // FIXME: Prod API URL
-    }
-  }
-  // All other configuration follows...
-}
+```bash
+cp .env.example .env
+# Fill in all VITE_* values
 ```
 
-Then create your `.env` file with the corresponding environment variables.
+Then edit `src/lib/config/app.config.ts` — find the `SETUP:start:roles` and
+`SETUP:start:features` marker blocks and update roles, permissions, and feature flags.
+
+All secrets and IDs live in `.env`. Role definitions and feature flags are structural
+TypeScript in `app.config.ts`. Neither file contains placeholder strings after setup.
 
 ---
 
@@ -143,7 +134,7 @@ Then create your `.env` file with the corresponding environment variables.
 **What We Provide:**
 - **30 SHADCN atomic components**: Button, Card, Input, Dialog, etc.
 - **Authentication & routing**: Firebase auth, protected routes, role-based access
-- **Testing infrastructure**: Behavioral test patterns, 871 passing tests
+- **Testing infrastructure**: Behavioral test patterns, 677 passing tests
 - **Backend integration**: Postman collection import, API client utilities
 - **Type-safe APIs**: Full TypeScript with strict mode
 - **Deployment pipelines**: CI/CD, multiple hosting options
@@ -416,40 +407,71 @@ The validator checks:
 - ✅ Tests passing
 - ⚠️ Warns about placeholder values
 
-### Manual Configuration
+### Configuration Model
 
-All configuration lives in **one file**: `src/lib/config/app.config.ts`
+Two files, two responsibilities:
 
-```typescript
-export const APP_CONFIG = {
-  app: {
-    name: import.meta.env.VITE_APP_NAME,
-    domain: import.meta.env.VITE_APP_DOMAIN,
-    supportEmail: import.meta.env.VITE_SUPPORT_EMAIL
-  },
-  
-  firebase: {
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    // ... other Firebase config
-  },
-  
-  api: {
-    baseUrl: {
-      development: import.meta.env.VITE_API_BASE_URL_DEV,
-      production: import.meta.env.VITE_API_BASE_URL_PROD,
-    }
-  },
-  
-  features: {
-    authentication: true,
-    emailVerification: true,
-    phoneVerification: false,
-    analytics: false,
-  }
-};
+**`.env`** — secrets and IDs (written by the wizard, never committed):
+```bash
+VITE_APP_NAME="Acme Dashboard"
+VITE_APP_SHORT_NAME="acme"          # → drives localStorage prefix
+VITE_FIREBASE_PROJECT_ID="acme-prod"
+VITE_FIREBASE_API_KEY="AIza..."
+VITE_API_BASE_URL_DEV="http://localhost:5001/acme-prod/us-central1/api"
+VITE_API_BASE_URL_PROD="https://us-central1-acme-prod.cloudfunctions.net/api"
 ```
+
+**`src/lib/config/app.config.ts`** — structural config (wizard edits the marked blocks):
+```typescript
+auth: {
+  /* SETUP:start:roles */
+  roles: { USER: 'user', ADMIN: 'admin', ... },
+  roleHierarchy: { admin: ['user'], ... },
+  permissions: { user: ['editOwnProfile'], admin: [...], ... },
+  claimMap: { admin: 'isAdmin', ... },  // role → JWT boolean claim key
+  /* SETUP:end:roles */
+},
+features: {
+  /* SETUP:start:features */
+  emailVerification: true,
+  phoneVerification: false,
+  analytics: false,
+  /* SETUP:end:features */
+},
+```
+
+`APP_CONFIG` is the single object imported everywhere — no duplicate config objects.
+
+---
+
+## 🔗 Mono-Repo Usage
+
+This boilerplate is designed to work both standalone and as the `frontend/` half of a
+mono-repo paired with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend).
+
+```
+my-project/
+├── .claude/           ← moved here from frontend/ (see setup wizard)
+├── __docs__/          ← moved here from frontend/
+├── firebase.json      ← root Firebase config (Hosting + Functions)
+├── .firebaserc        ← root project + target aliases
+├── firestore.rules
+├── storage.rules
+├── cors.json
+├── frontend/          ← this boilerplate
+│   ├── src/
+│   ├── package.json
+│   └── ...
+└── functions/         ← boilerplate_backend
+    ├── src/
+    └── package.json
+```
+
+When the wizard detects a mono-repo (sibling `functions/` directory or parent `firebase.json`),
+it generates `__scripts__/monorepo-setup.sh` — a script that moves shared files (`.claude/`,
+`__docs__/`, `.gitignore`) to the project root so the first commit stays clean.
+
+See `xbg_bpsk_setup` skill for the full mono-repo workflow.
 
 ---
 
@@ -549,7 +571,7 @@ npm run preview           # Preview build
 ### For Developers
 - **[Getting Started](mcp/frontend/overview/getting-started.md)**: Comprehensive setup and first feature guide ⭐ NEW
 - **[Quick Start Guide](mcp/frontend/overview/quick-start.md)**: Get started in 15 minutes
-- **[Testing Guide](mcp/frontend/guides/testing.md)**: Testing philosophy and 871-test suite details ⭐ NEW
+- **[Testing Guide](mcp/frontend/guides/testing.md)**: Testing philosophy and 677-test suite details ⭐ NEW
 - **[Configuration Guide](mcp/frontend/guides/configuration.md)**: Detailed configuration options
 - **[API Documentation](mcp/frontend/api/api-documentation.md)**: Complete service API reference
 - **[Component Interfaces](mcp/frontend/api/component-interfaces.md)**: TypeScript interfaces for all components
@@ -657,7 +679,7 @@ import { authService } from '$lib/services/auth';
 
 ## 📊 Project Status
 
-- **871 Tests Passing**: Comprehensive behavioral test coverage ✅
+- **677 Tests Passing**: Comprehensive behavioral test coverage ✅
 - **100% TypeScript**: Strict mode with full type safety ✅
 - **WCAG Level AA**: Accessibility compliance verified ✅
 - **Production Ready**: Deployment infrastructure complete ✅

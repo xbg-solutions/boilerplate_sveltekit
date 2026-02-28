@@ -2,7 +2,7 @@
 
 **Skill: `xbg_bpsk_setup`**
 
-Everything needed to bootstrap, configure, validate, and run the boilerplate for a new or existing project.
+Everything needed to bootstrap, configure, validate, and run the boilerplate.
 
 ---
 
@@ -21,142 +21,202 @@ git clone https://github.com/xbg-solutions/boilerplate_frontend.git my-app
 cd my-app
 npm install
 
-# Interactive setup wizard (recommended)
+# Interactive setup wizard — covers everything in one go
 npm run setup
-# Wizard asks 6 questions, generates .env, updates app.config.ts, validates
 
-# Or manual: copy .env.example → .env and fill in values
-cp .env.example .env
-
-# Validate everything is wired correctly
-npm run validate        # Full check (build + tests)
+# Validate
+npm run validate        # Full check (env + build + tests)
 npm run validate:quick  # Skip slow checks
 
-npm run dev             # Start dev server at http://localhost:5173
+npm run dev             # http://localhost:5173
 ```
 
 ---
 
-## Environment Variables
+## What `npm run setup` Does
 
-All secrets live in `.env` (gitignored). The file `.env.example` lists every variable.
+The wizard runs 8 steps and requires ~5 minutes:
 
-Key variables:
+| Step | What it covers |
+|------|----------------|
+| 0 | **Context detection** — standalone vs mono-repo (sibling `functions/`) |
+| 1 | **Project identity** — name, shortName, description, domain, support email |
+| 2 | **Firebase** — project ID, API key, auth domain, etc.; updates `firebase.json` + `.firebaserc` |
+| 3 | **API / Backend** — dev + prod base URLs (pre-fills Firebase Functions pattern) |
+| 4 | **RBAC** — define roles, hierarchy, permissions, JWT boolean claim map |
+| 5 | **Custom JWT attributes** — extra claims your backend sets (e.g. `tenantId`, `orgId`) |
+| 6 | **Feature flags** — phone auth, analytics, real-time updates, etc. |
+| 7 | **Generate & validate** — writes `.env`, `.env.example`, updates `app.config.ts`, firebase files |
+
+Mono-repo mode also generates `__scripts__/monorepo-setup.sh` (see below).
+
+---
+
+## Two-Part Configuration Model
+
+```
+.env  (project-specific secrets / IDs)     app.config.ts  (structural code)
+─────────────────────────────────────      ──────────────────────────────────────
+VITE_APP_NAME                              auth.roles
+VITE_APP_SHORT_NAME  ← storage prefix     auth.roleHierarchy
+VITE_FIREBASE_PROJECT_ID                   auth.permissions
+VITE_FIREBASE_API_KEY                      auth.claimMap    ← role → JWT bool flag
+VITE_API_BASE_URL_DEV / _PROD             features.*
+VITE_GA_MEASUREMENT_ID                     routes.*
+...                                        ui.*, security.*, tabSync.*
+```
+
+**The wizard writes both.** After setup neither file contains placeholder strings.
+
+---
+
+## Environment Variables (Key Ones)
 
 ```bash
-# App identity
-VITE_APP_NAME="My App"
-VITE_APP_DOMAIN="myapp.com"
-VITE_SUPPORT_EMAIL="support@myapp.com"
+# App identity — VITE_APP_SHORT_NAME drives localStorage/tabSync prefix
+VITE_APP_NAME="Acme Dashboard"
+VITE_APP_SHORT_NAME="acme"       # → localStorage key prefix: acme_*
+VITE_APP_DESCRIPTION="..."
+VITE_APP_DOMAIN="acme.com"
+VITE_SUPPORT_EMAIL="support@acme.com"
 
-# Firebase
-VITE_FIREBASE_PROJECT_ID="my-project-id"
+# Firebase — all 6 are required
+VITE_FIREBASE_PROJECT_ID="acme-prod"
 VITE_FIREBASE_API_KEY="AIza..."
-VITE_FIREBASE_AUTH_DOMAIN="my-project-id.firebaseapp.com"
-VITE_FIREBASE_STORAGE_BUCKET="my-project-id.appspot.com"
+VITE_FIREBASE_AUTH_DOMAIN="acme-prod.firebaseapp.com"
+VITE_FIREBASE_STORAGE_BUCKET="acme-prod.appspot.com"
 VITE_FIREBASE_MESSAGING_SENDER_ID="123456789"
 VITE_FIREBASE_APP_ID="1:123456789:web:abc123"
 
-# API endpoints
-VITE_API_BASE_URL_DEV="http://localhost:5001/my-project-id/us-central1/api"
-VITE_API_BASE_URL_PROD="https://us-central1-my-project-id.cloudfunctions.net/api"
+# API
+VITE_API_BASE_URL_DEV="http://localhost:5001/acme-prod/us-central1/api"
+VITE_API_BASE_URL_PROD="https://us-central1-acme-prod.cloudfunctions.net/api"
 
-# SEO
-VITE_SEO_DEFAULT_TITLE="My App"
-VITE_SEO_DEFAULT_DESCRIPTION="My app description"
-VITE_SEO_DEFAULT_IMAGE="/og-image.jpg"
-VITE_SEO_DEFAULT_KEYWORDS="keyword1,keyword2"
+# Feature IDs (structural flags live in app.config.ts features block)
+VITE_GA_MEASUREMENT_ID="G-XXXXXXXXXX"   # only if analytics=true
+VITE_RECAPTCHA_SITE_KEY="..."           # only if phoneVerification=true
+
+# Emulators (uncomment for local dev)
+# VITE_FIREBASE_AUTH_EMULATOR_HOST="localhost"
+# VITE_FIREBASE_AUTH_EMULATOR_PORT="9099"
+# VITE_USE_EMULATORS="true"
 ```
 
-> **Important:** `VITE_` prefix is required for values to be accessible client-side via `import.meta.env`.
+> `VITE_` prefix is required for client-side access via `import.meta.env`.
 
 ---
 
-## After Setting `.env` — Update `app.config.ts`
+## After Setup — `app.config.ts` Structural Sections
 
-`src/lib/config/app.config.ts` is the **single source of truth**. Search for `FIXME` comments:
+The wizard writes the RBAC and features blocks. To edit manually, find the `SETUP:start/end` markers:
 
 ```typescript
 // src/lib/config/app.config.ts
-export const APP_CONFIG = {
-  project: {
-    name: 'Your App Name',       // FIXME
-    domain: 'yourapp.com',       // FIXME
-  },
-  firebase: {
-    projectId: 'your-project-id', // FIXME
-    apiKey: 'your-api-key',        // FIXME
-    // ...
-  },
-  api: {
-    baseUrl: {
-      development: 'http://localhost:5001/your-project-id/us-central1/api', // FIXME
-      production: 'https://us-central1-your-project-id.cloudfunctions.net/api', // FIXME
-    }
-  }
-};
+
+auth: {
+  /* SETUP:start:roles */
+  roles: { USER: 'user', ADMIN: 'admin', ... },
+  roleHierarchy: { admin: ['user'], ... },
+  permissions: { user: ['editOwnProfile'], admin: [...], ... },
+  claimMap: { admin: 'isAdmin', ... },   // role value → JWT boolean claim key
+  /* SETUP:end:roles */
+  tokenTTL: 3600,
+  ...
+},
+
+features: {
+  /* SETUP:start:features */
+  authentication: true,
+  emailVerification: true,
+  phoneVerification: false,
+  analytics: false,
+  ...
+  /* SETUP:end:features */
+  debugMode: isDev,   // auto — don't edit
+},
 ```
 
-The config file reads from `import.meta.env` so the `.env` file values automatically populate it.
+Re-running `npm run setup` replaces only these marked blocks.
 
 ---
 
 ## App Initialization Flow
 
-The application initializes in a specific sequence. Understanding this prevents race conditions:
-
 ```
 Browser load
   → +layout.svelte mounts
-  → AppInitializer component calls initializationService.initialize()
-  → initializationService:
+  → initializationService.initialize({ firebaseConfig: APP_CONFIG.firebase })
       1. initializeApp(firebaseConfig)    ← Firebase SDK
-      2. authService.initialize()         ← Sets up Firebase Auth listener
-      3. tabSyncService.initialize()      ← Cross-tab coordination
+      2. authService.initialize()         ← auth state listener
+      3. tabSyncService.initialize()      ← cross-tab coordination
       4. Publishes 'app:initialized'
   → initializationStore.isInitialized = true
-  → UI renders (ClientOnly wrapper lifts)
+  → UI renders
 ```
 
-The `ClientOnly` component in `+layout.svelte` prevents SSR hydration mismatches:
-
-```svelte
-<!-- src/routes/+layout.svelte -->
-<ClientOnly>
-  <!-- Everything here only renders in browser -->
-  <HeaderNav {isAuthenticated} {claims} />
-  <slot />
-</ClientOnly>
-```
+`APP_CONFIG.firebase` is the **single source** passed to the initialization service —
+no inline `firebaseConfig` objects elsewhere.
 
 ---
 
 ## Firebase Auth Setup
 
-### Enable Required Auth Methods
-
 In Firebase Console → Authentication → Sign-in methods, enable:
 - **Email/Link (passwordless)** — primary auth method
-- **Phone** — optional, set `features.phoneVerification: true` in config
-- **Google / others** — optional federation providers
+- **Phone** — only if `features.phoneVerification = true`
 
-### Firebase Emulators (Local Dev)
+### Emulators
 
 ```bash
-# Install Firebase CLI
 npm install -g firebase-tools
 firebase login
-
-# Start auth emulator
 firebase emulators:start --only auth
 
-# initializationService auto-connects to emulator when useEmulators=true
-# Set in your layout or entry point:
-await initializationService.initialize({
-  firebaseConfig: APP_CONFIG.firebase,
-  useEmulators: true  // connects to localhost:9099
-});
+# In .env:
+VITE_FIREBASE_AUTH_EMULATOR_HOST="localhost"
+VITE_FIREBASE_AUTH_EMULATOR_PORT="9099"
+VITE_USE_EMULATORS="true"
 ```
+
+---
+
+## Mono-Repo Setup
+
+When `boilerplate_sveltekit` lives as `frontend/` alongside `functions/` in a mono-repo:
+
+```
+my-project/
+├── .claude/          ← move here from frontend/ (wizard generates script)
+├── __docs__/         ← move here from frontend/
+├── .gitignore        ← merge from frontend/
+├── firebase.json     ← root Firebase config (Hosting + Functions)
+├── .firebaserc       ← root Firebase project config
+├── firestore.rules
+├── storage.rules
+├── cors.json
+├── frontend/         ← boilerplate_sveltekit lives here
+│   ├── src/
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── ...
+└── functions/        ← boilerplate_backend lives here
+    ├── src/
+    └── package.json
+```
+
+The setup wizard detects the mono-repo and generates:
+
+```bash
+__scripts__/monorepo-setup.sh
+```
+
+Review and run it to move `.claude/`, `__docs__/`, and merge `.gitignore` to the project root.
+
+**What stays in `frontend/`**: `package.json`, `src/`, `vite.config.ts`, `svelte.config.js`,
+`tailwind.config.js`, `tsconfig.json`, `__tests__/`, `__scripts__/`, build output.
+
+**What stays in project root**: `firebase.json`, `.firebaserc`, `firestore.rules`,
+`storage.rules`, `cors.json`, root `package.json` (deploy orchestration).
 
 ---
 
@@ -167,17 +227,15 @@ npm run dev              # Dev server (port 5173)
 npm run build            # Production build
 npm run preview          # Preview production build
 
-# Code quality
+# Quality
 npm run lint             # ESLint
 npm run typecheck        # TypeScript strict check
-npm run format           # Prettier
 
 # Testing
-npm test                 # All tests (unit + integration)
+npm test                 # All tests
 npm run test:unit        # Unit tests only
 npm run test:integration # Integration tests
 npm run test:coverage    # Coverage report
-npm run test:watch       # Watch mode
 
 # Generators
 npm run generate:component UserProfile --type=feature --with-test
@@ -185,12 +243,12 @@ npm run generate:route dashboard --auth --roles=user,admin
 npm run generate:service analytics
 
 # Setup & Validation
-npm run setup            # Interactive project configuration wizard
+npm run setup            # Interactive wizard
 npm run validate         # Full validation (env + build + tests)
-npm run validate:quick   # Skip build/test, just check env
+npm run validate:quick   # Skip build/test — env check only
 
 # Performance
-npm run analyze          # Bundle size analysis
+npm run analyze          # Bundle analysis
 npm run perf:audit       # Lighthouse audit
 ```
 
@@ -198,79 +256,26 @@ npm run perf:audit       # Lighthouse audit
 
 ## Deployment
 
-### Firebase Hosting (Recommended)
+### Firebase Hosting
 
 ```bash
-# One-time setup
-firebase init hosting    # Select build/ as public dir, SPA rewrites
-
 npm run build
 firebase deploy --only hosting
 
-# Or use the deploy script
+# Or shorthand:
 npm run deploy
 ```
 
-`firebase.json` is pre-configured for SPA routing:
-
-```json
-{
-  "hosting": {
-    "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [{"source": "**", "destination": "/index.html"}]
-  }
-}
-```
+`firebase.json` is pre-configured for SPA routing (`build/` directory, `/index.html` fallback).
+The wizard sets the hosting target alias and region during setup.
 
 ### Other Platforms
 
 ```bash
-# Vercel / Netlify — connect repo, set build command:
-npm run build
-# Publish directory: build
-
+# Vercel / Netlify — connect repo, build: npm run build, publish: build/
 # Docker
 docker build -t my-app .
 docker run -p 3000:3000 my-app
-```
-
----
-
-## Generating New Routes
-
-```bash
-# Authenticated route with role restriction
-npm run generate:route admin/users --auth --roles=admin,sysadmin --with-load
-
-# Generated files:
-# src/routes/admin/users/+page.svelte
-# src/routes/admin/users/+page.ts   (with guardRoute)
-```
-
-The generated `+page.ts` pattern:
-
-```typescript
-// src/routes/protected/my-feature/+page.ts
-import { guardRoute } from '$lib/utils/auth-guard';
-import { browser } from '$app/environment';
-import { goto } from '$app/navigation';
-
-export const load = async () => {
-  if (!browser) return {};
-
-  const guard = guardRoute({
-    requiredAnyRoles: ['admin', 'user'],
-    redirectTo: '/'
-  });
-
-  if (guard.status !== 'authorized') {
-    goto(guard.redirect!);
-    return {};
-  }
-
-  return {};
-};
 ```
 
 ---
@@ -279,9 +284,10 @@ export const load = async () => {
 
 | Mistake | Symptom | Fix |
 |---|---|---|
-| Missing `VITE_` prefix on env vars | `undefined` at runtime | Add `VITE_` prefix |
-| Firebase config mismatch | Auth fails silently | Run `npm run validate` |
-| Accessing stores before initialization | Empty/stale state | Wait for `initializationStore.isInitialized` |
+| Missing `VITE_` prefix | `undefined` at runtime | Add `VITE_` prefix |
+| Firebase config mismatch | Auth fails silently | `npm run validate` |
+| `VITE_APP_SHORT_NAME` not set | Generic storage prefix (`app_*`) | Set in `.env` or re-run setup |
+| Stores accessed before init | Empty/stale state | Wait for `initializationStore.isInitialized` |
 | `goto()` in `+layout.ts` load | Navigation loops | Use `redirect()` from `@sveltejs/kit` |
-| SSR rendering browser APIs | Hydration errors | Wrap in `browser` check or `ClientOnly` |
-| Not running `npm run setup` for a fresh clone | Broken Firebase config | Run `npm run setup` first |
+| SSR browser API access | Hydration errors | Wrap in `browser` check or `ClientOnly` |
+| `.claude/` left in `frontend/` (mono-repo) | Agent context missing at root | Run `monorepo-setup.sh` |

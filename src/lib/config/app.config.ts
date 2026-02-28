@@ -1,105 +1,135 @@
 /**
  * Central Application Configuration
- * 
- * This is THE primary configuration file for the boilerplate.
- * 
- * FOR NEW PROJECTS: Search for "FIXME" to find all customization points.
- * Update these values to customize the application for your specific project.
- * 
- * AI SYSTEMS: This file contains all configuration patterns that should be
- * modified when generating new projects. Follow the FIXME comments for
- * customization points.
+ *
+ * THE single source of truth for this project.
+ *
+ * ─── How values get in here ─────────────────────────────────────────────────
+ * • Project identity, Firebase, API URLs  →  read from .env (VITE_* vars)
+ * • Auth roles, permissions, claim map    →  structural TypeScript edited by
+ *                                            `npm run setup` (or manually)
+ * • Routes, UI, security internals        →  structural constants — no need
+ *                                            to touch these for typical projects
+ *
+ * Run `npm run setup` to configure everything interactively.
+ * Run `npm run validate` to verify configuration is correct.
+ * ────────────────────────────────────────────────────────────────────────────
  */
 
 // Environment detection
-const isDev = typeof window !== 'undefined' 
+const isDev = typeof window !== 'undefined'
   ? window.location.hostname === 'localhost'
   : process.env.NODE_ENV === 'development';
 
-const isProd = typeof window !== 'undefined'
-  ? window.location.hostname !== 'localhost'
-  : process.env.NODE_ENV === 'production';
+const isProd = !isDev;
+
+// Storage/channel prefix derived from short name — avoids collisions when
+// multiple projects run on the same domain/localhost.
+const _shortName = (import.meta.env.VITE_APP_SHORT_NAME || 'app')
+  .toLowerCase()
+  .replace(/[^a-z0-9]/g, '_');
 
 /**
  * Core application configuration
- * AI SYSTEMS: These are the primary values to update for new projects
  */
 export const APP_CONFIG = {
   /**
-   * Project identification and branding
-   * FIXME: Update these values for your project
+   * Project identity — all values come from .env
    */
   project: {
-    name: 'Your App Name',                    // FIXME: Application display name
-    shortName: 'YourApp',                     // FIXME: Short name for icons/titles  
-    description: 'Your app description',      // FIXME: App description for SEO
-    version: '1.0.0',                        // FIXME: Current version
-    domain: 'yourapp.com',                   // FIXME: Production domain
-    url: isProd ? 'https://yourapp.com' : 'http://localhost:5173', // FIXME: Update domain
+    name: import.meta.env.VITE_APP_NAME || 'My App',
+    shortName: import.meta.env.VITE_APP_SHORT_NAME || 'App',
+    description: import.meta.env.VITE_APP_DESCRIPTION || '',
+    version: import.meta.env.VITE_APP_VERSION || '1.0.0',
+    domain: import.meta.env.VITE_APP_DOMAIN || 'localhost',
+    supportEmail: import.meta.env.VITE_SUPPORT_EMAIL || '',
+    url: isProd
+      ? `https://${import.meta.env.VITE_APP_DOMAIN || 'localhost'}`
+      : 'http://localhost:5173',
   },
 
   /**
-   * API configuration for different environments
-   * FIXME: Update Firebase project ID and API endpoints
+   * Firebase — all values come from .env
+   * These are passed to initializationService in +layout.ts
+   */
+  firebase: {
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+    appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || undefined,
+  },
+
+  /**
+   * API endpoints — all values come from .env
+   * Dev URL defaults to Firebase Functions local emulator pattern.
    */
   api: {
     baseUrl: {
-      development: 'http://localhost:5001/your-project-id/us-central1/api', // FIXME: Update project ID
-      production: 'https://us-central1-your-project-id.cloudfunctions.net/api', // FIXME: Update project ID
+      development: import.meta.env.VITE_API_BASE_URL_DEV
+        || `http://localhost:5001/${import.meta.env.VITE_FIREBASE_PROJECT_ID || 'project'}/us-central1/api`,
+      production: import.meta.env.VITE_API_BASE_URL_PROD
+        || `https://us-central1-${import.meta.env.VITE_FIREBASE_PROJECT_ID || 'project'}.cloudfunctions.net/api`,
     },
-    timeout: 30000,
-    retryCount: 2,
-    retryDelay: 1000,
+    timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 30000,
+    retryCount: Number(import.meta.env.VITE_API_RETRY_COUNT) || 2,
+    retryDelay: Number(import.meta.env.VITE_API_RETRY_DELAY) || 1000,
     credentials: 'include' as RequestCredentials,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-    }
+    },
   },
 
   /**
-   * Firebase configuration
-   * FIXME: Update with your Firebase project configuration
-   */
-  firebase: {
-    projectId: 'your-project-id',             // FIXME: Firebase project ID
-    apiKey: 'your-api-key',                   // FIXME: Firebase API key  
-    authDomain: 'your-project-id.firebaseapp.com', // FIXME: Firebase auth domain
-    storageBucket: 'your-project-id.appspot.com',  // FIXME: Firebase storage bucket
-    messagingSenderId: '123456789',           // FIXME: Firebase messaging sender ID
-    appId: 'your-app-id',                     // FIXME: Firebase app ID
-  },
-
-  /**
-   * Authentication and authorization configuration
-   * FIXME: Define your application's roles and permissions
+   * Authentication & RBAC
+   *
+   * These are structural constants — they define your app's role model.
+   * `npm run setup` writes this block; you can also edit it manually.
+   *
+   * The blocks between SETUP markers are replaced by the setup wizard.
+   * Do not remove the markers.
+   *
+   * claimMap: maps role values → the boolean claim key in the Firebase JWT.
+   *   Only include roles that appear as boolean flags in your custom claims.
+   *   The base 'user' role typically has no boolean flag.
    */
   auth: {
-    // Available user roles in your application
+    /* SETUP:start:roles */
     roles: {
-      USER: 'user',           // Default user role
-      CLIENT: 'client',       // FIXME: Add/remove roles as needed
-      CONSULTANT: 'consultant', // FIXME: Add/remove roles as needed  
-      ADMIN: 'admin',         // FIXME: Add/remove roles as needed
-      SYS_ADMIN: 'sysadmin',  // FIXME: Add/remove roles as needed
+      USER: 'user',
+      CLIENT: 'client',
+      CONSULTANT: 'consultant',
+      ADMIN: 'admin',
+      SYS_ADMIN: 'sysadmin',
     },
-    
-    // Role hierarchy (higher roles inherit lower role permissions)
+
+    // Higher roles inherit all permissions of the roles they list
     roleHierarchy: {
       sysadmin: ['admin', 'consultant', 'client', 'user'],
       admin: ['consultant', 'client', 'user'],
       consultant: ['client', 'user'],
       client: ['user'],
-    },
+    } as Record<string, string[]>,
 
-    // Basic permissions matrix - customize as needed
     permissions: {
       user: ['editOwnProfile'],
       client: ['editOwnProfile', 'viewClientDashboard'],
       consultant: ['editOwnProfile', 'viewClientDashboard', 'viewConsultantDashboard', 'viewClients'],
       admin: ['editOwnProfile', 'viewClientDashboard', 'viewConsultantDashboard', 'viewClients', 'viewAdminDashboard', 'manageUsers'],
       sysadmin: ['editOwnProfile', 'viewClientDashboard', 'viewConsultantDashboard', 'viewClients', 'viewAdminDashboard', 'manageUsers', 'viewSysAdminDashboard', 'manageSystem'],
-    },
+    } as Record<string, string[]>,
+
+    // Maps role value → boolean JWT claim key.
+    // Used by the RBAC system to resolve both roles array and legacy boolean flags.
+    claimMap: {
+      client: 'isClient',
+      consultant: 'isConsultant',
+      admin: 'isAdmin',
+      sysadmin: 'isSysAdmin',
+    } as Record<string, string>,
+    /* SETUP:end:roles */
 
     // Session configuration
     tokenTTL: 3600,           // 1 hour in seconds
@@ -108,206 +138,148 @@ export const APP_CONFIG = {
   },
 
   /**
-   * Application routes configuration
-   * AI SYSTEMS: These routes should be used for navigation and redirects
+   * Application routes
    */
   routes: {
-    // Public routes
     public: {
       home: '/',
       signIn: '/',
       confirm: '/confirm',
       unauthorized: '/unauthorized',
     },
-    
-    // Protected routes  
     protected: {
       dashboard: '/protected',
       profile: '/profile',
       settings: '/settings',
-      // Role-specific dashboards - FIXME: Customize as needed
       client: '/protected/client',
       consultant: '/protected/consultant',
-      admin: '/protected/admin', 
+      admin: '/protected/admin',
       sysadmin: '/protected/sysadmin',
     },
-
-    // Auth flow routes
     auth: {
       signIn: '/',
       signOut: '/',
       confirm: '/confirm',
       unauthorized: '/unauthorized',
       defaultPostLogin: '/protected',
-    }
+    },
   },
 
   /**
-   * UI and theming configuration
-   * FIXME: Customize colors, fonts, and UI preferences
+   * UI / theming
    */
   ui: {
-    // Theme configuration for SHADCN
     theme: {
-      defaultTheme: 'light',    // FIXME: 'light' | 'dark' | 'system'
-      radius: 0.5,              // FIXME: Border radius in rem
+      defaultTheme: 'light',    // 'light' | 'dark' | 'system'
+      radius: 0.5,              // Border radius in rem
     },
-    
-    // Layout configuration
     layout: {
       headerHeight: '64px',
       sidebarWidth: '250px',
       maxContentWidth: '1200px',
     },
-
-    // Animation preferences  
     animations: {
       enabled: true,
       duration: 200,
-    }
+    },
   },
 
   /**
-   * Feature flags for optional functionality
-   * AI SYSTEMS: These flags control which features are active
+   * Feature flags
+   * `npm run setup` writes this block; you can also edit it manually.
    */
   features: {
-    // Core features
+    /* SETUP:start:features */
     authentication: true,
     userProfiles: true,
-    
-    // Optional features - enable as needed
-    emailVerification: true,   // FIXME: Enable/disable email verification
-    phoneVerification: false,  // FIXME: Enable/disable phone verification  
-    multiTenant: false,        // FIXME: Enable/disable multi-tenancy
-    realTimeUpdates: true,     // FIXME: Enable/disable real-time features
-    analytics: false,          // FIXME: Enable/disable analytics tracking
-    
-    // Development features
-    debugMode: isDev,          // Automatically enabled in development
+    emailVerification: true,
+    phoneVerification: false,
+    multiTenant: false,
+    realTimeUpdates: true,
+    analytics: false,
+    /* SETUP:end:features */
+    // Auto-set from environment — don't edit these manually
+    debugMode: isDev,
     showPerformanceMetrics: isDev,
   },
 
   /**
-   * SEO configuration for search engine optimization
-   * These values are used by the SEO component for meta tags
+   * SEO — values come from .env
    */
   seo: {
-    /** Default page title (used when page doesn't specify one) */
-    defaultTitle: import.meta.env.VITE_SEO_DEFAULT_TITLE || 'Your App Name',
-    
-    /** Default meta description */
-    defaultDescription: import.meta.env.VITE_SEO_DEFAULT_DESCRIPTION || 'Your app description for search engines',
-    
-    /** Default Open Graph image (absolute or relative path) */
+    defaultTitle: import.meta.env.VITE_SEO_DEFAULT_TITLE
+      || import.meta.env.VITE_APP_NAME
+      || 'My App',
+    defaultDescription: import.meta.env.VITE_SEO_DEFAULT_DESCRIPTION
+      || import.meta.env.VITE_APP_DESCRIPTION
+      || '',
     defaultImage: import.meta.env.VITE_SEO_DEFAULT_IMAGE || '/og-image.jpg',
-    
-    /** Default keywords for meta keywords tag */
     defaultKeywords: (import.meta.env.VITE_SEO_DEFAULT_KEYWORDS || '')
       .split(',')
       .map((k: string) => k.trim())
       .filter((k: string) => k.length > 0),
-    
-    /** Twitter handle (with @) for Twitter Card tags */
     twitterHandle: import.meta.env.VITE_SEO_TWITTER_HANDLE || undefined,
-    
-    /** Organization schema data */
     organization: {
-      name: import.meta.env.VITE_APP_NAME,
-      logo: `${import.meta.env.VITE_APP_DOMAIN}/logo.png`,
-      url: import.meta.env.VITE_APP_DOMAIN,
+      name: import.meta.env.VITE_APP_NAME || '',
+      logo: `https://${import.meta.env.VITE_APP_DOMAIN || 'localhost'}/logo.png`,
+      url: `https://${import.meta.env.VITE_APP_DOMAIN || 'localhost'}`,
       contactPoint: {
         telephone: import.meta.env.VITE_SUPPORT_PHONE || undefined,
         contactType: 'customer support',
-        email: import.meta.env.VITE_SUPPORT_EMAIL
-      }
-    }
+        email: import.meta.env.VITE_SUPPORT_EMAIL || '',
+      },
+    },
   },
 
   /**
-   * Example usage in your routes:
-   * 
-   * <script>
-   *   import SEO from '$lib/components/SEO.svelte';
-   * </script>
-   * 
-   * <SEO 
-   *   title="Dashboard"
-   *   description="View your analytics dashboard"
-   * />
-   * 
-   * <SEO 
-   *   title="Blog Post Title"
-   *   description="Blog post excerpt"
-   *   type="article"
-   *   author="John Doe"
-   *   publishedTime="2024-01-15T12:00:00Z"
-   *   image="/blog/post-image.jpg"
-   * />
-   */
-
-  /**
-   * External service configurations
-   * FIXME: Add your external service configurations
+   * External services — keys come from .env
    */
   services: {
-    // Analytics (if enabled)
     analytics: {
-      googleAnalyticsId: undefined, // FIXME: Add GA4 measurement ID
-      trackingEnabled: false,       // FIXME: Enable tracking in production
+      googleAnalyticsId: import.meta.env.VITE_GA_MEASUREMENT_ID || undefined,
+      trackingEnabled: import.meta.env.VITE_GA_ENABLED === 'true',
     },
-    
-    // Error monitoring  
     sentry: {
-      dsn: undefined,              // FIXME: Add Sentry DSN for error tracking
+      dsn: import.meta.env.VITE_ERROR_MONITORING_DSN || undefined,
       environment: isDev ? 'development' : 'production',
     },
-    
-    // Email service
     email: {
-      fromAddress: 'noreply@yourapp.com',  // FIXME: Update sender address
-      supportAddress: 'support@yourapp.com', // FIXME: Update support address
-    }
+      fromAddress: import.meta.env.VITE_EMAIL_FROM_ADDRESS || '',
+      supportAddress: import.meta.env.VITE_SUPPORT_EMAIL || '',
+    },
   },
 
   /**
-   * Security and storage configuration
-   * Consolidated from various constants files
+   * Security internals — structural, not project-specific
    */
   security: {
-    // CSRF protection settings
     csrf: {
       tokenKey: 'csrfToken',
       headerName: 'X-CSRF-Token',
       cookieName: 'csrf',
-      tokenTTL: 7200,  // 2 hours in seconds
-      protectedMethods: ['POST', 'PUT', 'DELETE', 'PATCH']
+      tokenTTL: 7200,
+      protectedMethods: ['POST', 'PUT', 'DELETE', 'PATCH'],
     },
-
-    // Storage configuration
     storage: {
-      defaultTTL: 86400,  // 24 hours in seconds
-      prefix: 'svelte_boilerplate',
-      authTokenTTL: 3600, // 1 hour in seconds
+      // Prefix derived from VITE_APP_SHORT_NAME — prevents localStorage collisions
+      prefix: _shortName,
+      defaultTTL: 86400,
+      authTokenTTL: 3600,
       emailForSignInKey: 'emailForSignIn',
       authNamespace: 'auth',
-      prefsNamespace: 'prefs'
+      prefsNamespace: 'prefs',
     },
-
-    // Mutex/locking configuration
     mutex: {
-      defaultTimeout: 10000,      // 10 seconds in ms
-      defaultLockExpiry: 30000,   // 30 seconds in ms
-      pollingInterval: 10         // 10ms polling interval
-    }
+      defaultTimeout: 10000,
+      defaultLockExpiry: 30000,
+      pollingInterval: 10,
+    },
   },
 
   /**
-   * Tab synchronization configuration
-   * Multi-tab coordination settings
+   * Tab synchronisation — structural, prefixed from short name
    */
   tabSync: {
-    // Event types
     events: {
       initialized: 'tabSync:initialized',
       primaryTabChanged: 'tabSync:primary-changed',
@@ -317,22 +289,18 @@ export const APP_CONFIG = {
       onlineStatusChanged: 'tabSync:online-status-changed',
       rapidAuthAttempts: 'tabSync:rapid-auth-attempts',
       error: 'tabSync:error',
-      messageReceived: 'tabSync:message-received'
+      messageReceived: 'tabSync:message-received',
     },
-
-    // Configuration
     config: {
-      heartbeatInterval: 30000,     // 30 seconds
-      tabTimeout: 60000,           // 1 minute
-      storageKey: 'svelte_boilerplate_tabsync',
-      channelName: 'svelte_boilerplate_tabsync',
+      heartbeatInterval: 30000,
+      tabTimeout: 60000,
+      storageKey: `${_shortName}_tabsync`,
+      channelName: `${_shortName}_tabsync`,
       maxAuthAttempts: 5,
-      authAttemptsTimeframe: 60000, // 1 minute
+      authAttemptsTimeframe: 60000,
       maxOfflineQueueSize: 100,
-      primaryNominationWait: 500
+      primaryNominationWait: 500,
     },
-
-    // Message types
     messageTypes: {
       heartbeat: 'heartbeat',
       authState: 'auth_state',
@@ -341,110 +309,80 @@ export const APP_CONFIG = {
       primaryConfirmation: 'primary_confirmation',
       syncRequest: 'sync_request',
       syncResponse: 'sync_response',
-      customMessage: 'custom_message'
+      customMessage: 'custom_message',
     },
-
-    // Error types
     errorTypes: {
       initializationFailed: 'initialization_failed',
       messageSendFailed: 'message_send_failed',
       messageParsingFailed: 'message_parsing_failed',
       syncFailed: 'sync_failed',
-      storageError: 'storage_error'
-    }
-  }
+      storageError: 'storage_error',
+    },
+  },
 };
 
 /**
- * Computed configuration values
- * These are derived from the main config and environment
+ * Computed / derived values
  */
 export const COMPUTED_CONFIG = {
-  // Current API base URL based on environment
   get apiBaseUrl() {
-    return isDev ? APP_CONFIG.api.baseUrl.development : APP_CONFIG.api.baseUrl.production;
+    return isDev
+      ? APP_CONFIG.api.baseUrl.development
+      : APP_CONFIG.api.baseUrl.production;
   },
-  
-  // Current environment
   get environment() {
     return isDev ? 'development' : 'production';
   },
-  
-  // Full application URL
   get appUrl() {
     return APP_CONFIG.project.url;
   },
-  
-  // Whether debug features should be enabled
   get isDebugMode() {
     return APP_CONFIG.features.debugMode;
-  }
+  },
 };
 
-/**
- * Type definitions for TypeScript support
- * AI SYSTEMS: Use these types for type-safe configuration access
- */
+// ─── TypeScript types ────────────────────────────────────────────────────────
 export type AppConfig = typeof APP_CONFIG;
 export type ComputedConfig = typeof COMPUTED_CONFIG;
 export type UserRole = keyof typeof APP_CONFIG.auth.roles;
 export type Permission = string;
 export type FeatureFlag = keyof typeof APP_CONFIG.features;
 
-/**
- * Helper functions for configuration access
- * AI SYSTEMS: Use these functions for safe configuration access
- */
+// ─── Helper functions ────────────────────────────────────────────────────────
 export const configHelpers = {
-  /**
-   * Check if a feature is enabled
-   */
+  /** Check if a feature flag is enabled */
   isFeatureEnabled(feature: FeatureFlag): boolean {
     return APP_CONFIG.features[feature] === true;
   },
 
-  /**
-   * Get API URL with endpoint
-   */
+  /** Get full API URL for an endpoint */
   getApiUrl(endpoint: string = ''): string {
-    const baseUrl = COMPUTED_CONFIG.apiBaseUrl;
-    return endpoint ? `${baseUrl}/${endpoint.replace(/^\//, '')}` : baseUrl;
+    const base = COMPUTED_CONFIG.apiBaseUrl;
+    return endpoint ? `${base}/${endpoint.replace(/^\//, '')}` : base;
   },
 
-  /**
-   * Get route URL
-   */
+  /** Get a route path by category and key */
   getRoute(category: 'public' | 'protected' | 'auth', route: string): string {
     const routes = APP_CONFIG.routes[category] as Record<string, string>;
     return routes[route] || '/';
   },
 
-  /**
-   * Check if user has role
-   */
+  /** Check if user has a role (respects hierarchy) */
   userHasRole(userRoles: string[], requiredRole: string): boolean {
     if (userRoles.includes(requiredRole)) return true;
-    
-    // Check role hierarchy
-    const hierarchy = APP_CONFIG.auth.roleHierarchy as Record<string, string[]>;
+    const hierarchy = APP_CONFIG.auth.roleHierarchy;
     return userRoles.some(role => hierarchy[role]?.includes(requiredRole));
   },
 
-  /**
-   * Get user permissions
-   */
+  /** Collect all permissions for a set of roles */
   getUserPermissions(userRoles: string[]): string[] {
-    const allPermissions = new Set<string>();
-    const permissions = APP_CONFIG.auth.permissions as Record<string, string[]>;
-    
+    const all = new Set<string>();
+    const perms = APP_CONFIG.auth.permissions;
     userRoles.forEach(role => {
-      const rolePermissions = permissions[role] || [];
-      rolePermissions.forEach(permission => allPermissions.add(permission));
+      (perms[role] || []).forEach(p => all.add(p));
     });
-    
-    return Array.from(allPermissions);
-  }
+    return Array.from(all);
+  },
 };
 
-// Export default configuration for easy importing
 export default APP_CONFIG;

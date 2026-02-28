@@ -13,6 +13,7 @@ import { initializationService } from '$lib/services/initialization';
 import { authService } from '$lib/services/auth';
 import { AUTH_ROUTES } from '$lib/constants/auth.constants';
 import { redirect } from '@sveltejs/kit';
+import { APP_CONFIG } from '$lib/config/app.config';
 
 // For protected routes
 import { authStore } from '$lib/stores/auth.store';
@@ -20,17 +21,6 @@ import { get } from 'svelte/store';
 import { initializationStore } from '$lib/stores/initialization.store';
 import { goto } from '$app/navigation';
 import type { LayoutLoad } from './$types';
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
-};
 
 // Universal layout loader
 export const load: LayoutLoad = async ({ url, params }) => {
@@ -41,9 +31,9 @@ export const load: LayoutLoad = async ({ url, params }) => {
   try {
     // Only initialize on the client
     if (browser) {
-      // Initialize Firebase and Auth service
+      // Initialize Firebase and Auth service using APP_CONFIG.firebase as single source
       await initializationService.initialize({
-        firebaseConfig,
+        firebaseConfig: APP_CONFIG.firebase,
         useEmulators: import.meta.env.DEV && import.meta.env.VITE_USE_EMULATORS === 'true'
       });
       

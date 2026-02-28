@@ -22,8 +22,8 @@ A production-ready SvelteKit 5 foundation purpose-built for **agentic, AI-assist
 
 | Skill | Read When You Need To… |
 |---|---|
-| `xbg_bpsk_setup` | Bootstrap a new project, configure `.env`, run the setup wizard, validate, deploy |
-| `xbg_bpsk_config` | Understand `app.config.ts`, add roles/routes/features, change Firebase config |
+| `xbg_bpsk_setup` | Bootstrap a new project, run the 8-step wizard, handle mono-repo tidy-up, deploy |
+| `xbg_bpsk_config` | Understand `app.config.ts`, the two-part config model, add roles/claims/features |
 | `xbg_bpsk_stores` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
 | `xbg_bpsk_services` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
 | `xbg_bpsk_utils` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
@@ -76,9 +76,9 @@ src/
 │   ├── protected/                 ← Auth-gated routes
 │   ├── confirm/                   ← Email-link confirmation page
 │   └── unauthorized/              ← 403 page
-__scripts__/                       ← CLI: setup.cjs, validate-setup.cjs, generators
+__scripts__/                       ← CLI: setup.cjs (8-step wizard), validate-setup.cjs, generators
 __tests__/                         ← Vitest test suite
-mcp/frontend/                      ← Legacy MCP docs (now superseded by these skills)
+mcp/frontend/                      ← Legacy MCP docs (superseded by .claude/skills/)
 ```
 
 ---
@@ -86,7 +86,12 @@ mcp/frontend/                      ← Legacy MCP docs (now superseded by these 
 ## Core Architectural Rules
 
 ### 1. Single Configuration File
-All project-specific values live in **`src/lib/config/app.config.ts`**. Search for `FIXME` to find every customisation point when starting a new project.
+All project-specific values flow through **`src/lib/config/app.config.ts`**.
+- **Secrets / IDs** (Firebase, API URLs, app name) come from `.env` via `import.meta.env`
+- **Structural config** (roles, permissions, feature flags) live in `app.config.ts` in `SETUP:start/end` marked blocks
+- Run `npm run setup` to write both; run `npm run validate` to verify
+
+There are no `FIXME` placeholders — the wizard eliminates them.
 
 ### 2. Atomic Components Only
 Use the 30 SHADCN atomic components from `$lib/components/ui`. Do **not** build opinionated page-level composed components into the library — compose them in routes instead.

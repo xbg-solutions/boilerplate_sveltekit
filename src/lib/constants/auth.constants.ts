@@ -99,51 +99,28 @@ export const CREATE_AUTH_USER_ON_FIRST_SIGNIN = {
 // ROLE CONFIGURATION CONSTANTS
 // =========================================
 
-/**
- * @deprecated This section is being migrated to central configuration.
- * New code should use APP_CONFIG.auth from '@/lib/config/app.config.ts' instead.
- * 
- * Legacy role constants - maintained for backwards compatibility
- */
-
+// Re-exports from central config — use these constants throughout the app
+// rather than importing APP_CONFIG directly in every file.
 import { APP_CONFIG } from '../config/app.config';
 
-/**
- * @deprecated Use APP_CONFIG.auth.roles instead
- * Standard application roles from central config
- */
+/** Standard application roles. Prefer APP_CONFIG.auth.roles for new code. */
 export const ROLES = APP_CONFIG.auth.roles;
 
 /**
- * @deprecated This boolean mapping system is being simplified
- * Maps role names to their corresponding boolean claim attributes
- * This allows the RBAC system to work with either roles array or boolean flags
+ * Maps role values → boolean JWT claim keys.
+ * Single source of truth is APP_CONFIG.auth.claimMap (set by `npm run setup`).
  */
-export const CLAIM_BOOLEAN_MAP: Record<string, string> = {
-  [ROLES.CLIENT]: 'isClient',
-  [ROLES.CONSULTANT]: 'isConsultant', 
-  [ROLES.ADMIN]: 'isAdmin',
-  [ROLES.SYS_ADMIN]: 'isSysAdmin',
-};
+export const CLAIM_BOOLEAN_MAP: Record<string, string> = APP_CONFIG.auth.claimMap;
 
-/**
- * @deprecated This boolean mapping system is being simplified
- * Inverse mapping from boolean claim attributes to role names
- */
+/** Inverse map: boolean claim key → role value. Derived from CLAIM_BOOLEAN_MAP. */
 export const BOOLEAN_CLAIM_ROLE_MAP: Record<string, string> = Object.entries(CLAIM_BOOLEAN_MAP)
   .reduce((acc, [role, boolAttr]) => {
     acc[boolAttr] = role;
     return acc;
   }, {} as Record<string, string>);
 
-/**
- * @deprecated Use APP_CONFIG.auth.permissions instead
- * Role-based permissions matrix from central config
- */
+/** Role-based permissions matrix. Prefer APP_CONFIG.auth.permissions for new code. */
 export const ROLE_PERMISSIONS = APP_CONFIG.auth.permissions;
 
-/**
- * @deprecated Use APP_CONFIG.auth.roleHierarchy instead  
- * Role hierarchy from central config
- */
+/** Role hierarchy. Prefer APP_CONFIG.auth.roleHierarchy for new code. */
 export const ROLE_HIERARCHY = APP_CONFIG.auth.roleHierarchy;
