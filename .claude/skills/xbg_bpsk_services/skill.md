@@ -245,7 +245,7 @@ initializationService.initialize()
 
 ## `loggerService` — Structured Logging
 
-Context-aware, environment-sensitive logging. Logs are suppressed in production unless `?verboseLogging=1` is in the URL.
+Context-aware, environment-sensitive logging. Logs are suppressed in production. URL-based toggles (`?verboseLogging=1`, `?devLogsOff=1`) only work in development builds.
 
 ### Basic Usage
 
@@ -280,9 +280,9 @@ loggerService.endTimer(timerId, { count: users.length });
 // Logs: "fetchUsers completed in 142.50ms"
 ```
 
-### Enable Verbose Logging in Production
+### Enable Verbose Logging in Development
 
-Append `?verboseLogging=1` to any URL to enable info/warn logs in production.
+Append `?verboseLogging=1` to any URL in development to enable info/warn logs. This parameter is ignored in production builds for security.
 
 ---
 

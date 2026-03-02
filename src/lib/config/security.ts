@@ -53,6 +53,26 @@ export interface RateLimitConfig {
 }
 
 /**
+ * Builds the allowed domains list from environment configuration.
+ * Falls back to 'localhost' in development.
+ */
+function buildAllowedDomains(): string[] {
+  const domains: string[] = [
+    'localhost',
+    '*.firebase.googleapis.com',
+    '*.googleapis.com'
+  ];
+
+  const appDomain = import.meta.env.VITE_APP_DOMAIN;
+  if (appDomain && appDomain !== 'localhost') {
+    domains.push(appDomain);
+    domains.push(`www.${appDomain}`);
+  }
+
+  return domains;
+}
+
+/**
  * Production security configuration
  */
 export const productionSecurityConfig: SecurityConfig = {
@@ -60,7 +80,6 @@ export const productionSecurityConfig: SecurityConfig = {
     defaultSrc: ["'self'"],
     scriptSrc: [
       "'self'",
-      "'unsafe-eval'", // Required for Svelte in dev mode, remove in production
       "https://*.googleapis.com",
       "https://*.firebase.googleapis.com",
       "https://*.gstatic.com"
@@ -126,13 +145,7 @@ export const productionSecurityConfig: SecurityConfig = {
     ],
     maxStringLength: 10000,
     maxArrayLength: 1000,
-    allowedDomains: [
-      'localhost',
-      'yourapp.com',
-      'www.yourapp.com',
-      '*.firebase.googleapis.com',
-      '*.googleapis.com'
-    ]
+    allowedDomains: buildAllowedDomains()
   },
 
   rateLimit: {

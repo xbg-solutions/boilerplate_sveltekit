@@ -23,9 +23,10 @@ The service supports four log levels:
 Logging is automatically configured based on:
 
 1. **Environment**: Enabled by default in development mode
-2. **URL Parameters**:
-   - `?verboseLogging=1` - Force enable logging in production
+2. **URL Parameters** (development builds only):
+   - `?verboseLogging=1` - Force enable verbose logging
    - `?devLogsOff=1` - Disable logging in development
+   - These parameters are ignored in production builds for security
 
 ## Key Methods
 

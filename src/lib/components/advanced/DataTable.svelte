@@ -21,6 +21,8 @@
     render?: (value: any, row: T) => string;
     component?: any;
     hidden?: boolean;
+    /** When true, render() output is injected as raw HTML (opt-in). Default: false (escaped). */
+    allowHtml?: boolean;
   }
 
   export interface DataTableOptions {
@@ -57,6 +59,7 @@
 
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
+  import { escapeHtml } from '$lib/utils/sanitizer';
   import { writable, derived, type Writable } from 'svelte/store';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
@@ -345,16 +348,18 @@
 
   function renderCellContent(column: Column, row: any) {
     const value = row[column.key];
-    
+
     if (column.render) {
-      return column.render(value, row);
+      const rendered = column.render(value, row);
+      // Only skip escaping when the column explicitly opts in to raw HTML
+      return column.allowHtml ? rendered : escapeHtml(rendered);
     }
-    
+
     if (column.component) {
       return null; // Will render component separately
     }
-    
-    return value?.toString() || '';
+
+    return escapeHtml(value?.toString() || '');
   }
 
   function getCellAlignment(column: Column): string {
