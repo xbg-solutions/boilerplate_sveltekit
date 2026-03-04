@@ -30,8 +30,8 @@ export default {
     csp: {
       mode: 'hash', // Using hash mode to avoid dynamic nonces
       directives: {
-        'script-src': ['self', 'unsafe-inline', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
-        'script-src-elem': ['self', 'unsafe-inline', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
+        'script-src': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
+        'script-src-elem': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
         'connect-src': ['self', 'https://securetoken.googleapis.com', 'https://identitytoolkit.googleapis.com', 'https://*.firebaseapp.com', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
         'frame-src': ['self', 'https://www.google.com', 'https://*.google.com', 'https://*.firebaseapp.com'],
         'img-src': ['self', 'data:', 'https://www.gstatic.com', 'https://*.gstatic.com', 'https://www.google.com', 'https://*.google.com']

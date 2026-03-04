@@ -394,7 +394,7 @@
               {/if}
             </div>
             
-            {#if error && error.stack}
+            {#if import.meta.env.DEV && error && error.stack}
               <details class="mt-3">
                 <summary class="cursor-pointer text-gray-600 hover:text-gray-800 text-sm">
                   Stack Trace

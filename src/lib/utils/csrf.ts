@@ -13,12 +13,13 @@
 
 import { loggerService } from '../services/logging/logging.service';
 import { secureStorage } from './secure-storage';
-import { 
-  ApplicationError, 
-  ApiError, 
-  handleError, 
-  normalizeError, 
-  tryCatch 
+import { escapeHtml } from './sanitizer';
+import {
+  ApplicationError,
+  ApiError,
+  handleError,
+  normalizeError,
+  tryCatch
 } from './error-handler';
 import { 
   CSRF_TOKEN_KEY, 
@@ -51,10 +52,16 @@ function generateToken(): string {
     crypto.getRandomValues(array);
     return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
   } else {
-    // When running on server (SSR), use a placeholder approach
-    // Note: In a real server environment, use a cryptographically secure method
-    const randomString = Math.random().toString(36).substring(2);
-    return `${randomString}${Date.now().toString(36)}`;
+    // SSR / Node.js — use crypto.randomBytes for secure tokens
+    try {
+      const nodeCrypto = globalThis.crypto;
+      const array = new Uint8Array(32);
+      nodeCrypto.getRandomValues(array);
+      return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    } catch {
+      // Static build context — return a placeholder that will be replaced at runtime
+      return 'ssr-placeholder-token';
+    }
   }
 }
 
@@ -347,8 +354,8 @@ function createCsrfProtection() {
       // Get the current token - this should use the mocked token in tests
       const token = await getCsrfToken();
       
-      // Create the HTML input field with the token
-      return `<input type="hidden" name="${CSRF_HEADER_NAME}" value="${token}">`;
+      // Create the HTML input field with the token (escape to prevent attribute injection)
+      return `<input type="hidden" name="${escapeHtml(CSRF_HEADER_NAME)}" value="${escapeHtml(token)}">`;
     } catch (error) {
       csrfLogger.error('Failed to create CSRF form field', error instanceof Error ? error : new Error(String(error)));
       return '';

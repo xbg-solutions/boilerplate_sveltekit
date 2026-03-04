@@ -10,7 +10,7 @@ Secure storage utility for safely storing and retrieving data with multiple stor
 
 - Multiple storage mechanisms with fallbacks
 - Automatic data expiration (TTL)
-- Optional encryption for sensitive data
+- Optional AES-GCM encryption for sensitive data (via Web Crypto API)
 - Browser/SSR environment detection
 - Namespace support for data partitioning
 - Safe methods that never throw
@@ -129,12 +129,13 @@ secureStorage.setItem('auth_token', token, {
 });
 ```
 
-### Store with Encryption
+### Store with AES-GCM Encryption
 ```typescript
-secureStorage.setItem('sensitive_data', data, {
+// Use the async API for encrypted storage (AES-GCM via Web Crypto API)
+await secureStorage.setItemAsync('sensitive_data', data, {
   encryption: {
     enabled: true,
-    key: encryptionKey
+    key: 'user-passphrase'  // Used to derive AES-256 key via PBKDF2
   },
   mechanism: 'localStorage'
 });

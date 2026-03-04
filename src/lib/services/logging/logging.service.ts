@@ -36,9 +36,11 @@ function createLoggerService(): ILoggerService {
 
     const isDev = import.meta.env.DEV;
     const urlParams = new URLSearchParams(window.location.search);
-    const hasVerboseLogging = urlParams.get('verboseLogging') === '1';
-    const hasDevLogsOff = urlParams.get('devLogsOff') === '1';
-    
+    // Only honour URL-based logging toggles in dev builds to prevent
+    // production users from enabling verbose logging via query params.
+    const hasVerboseLogging = isDev && urlParams.get('verboseLogging') === '1';
+    const hasDevLogsOff = isDev && urlParams.get('devLogsOff') === '1';
+
     const enabled = (isDev && !hasDevLogsOff) || hasVerboseLogging;
     
     loggerStore.update(state => ({

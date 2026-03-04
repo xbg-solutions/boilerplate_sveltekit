@@ -14,7 +14,7 @@ export type StorageMechanism = 'localStorage' | 'sessionStorage' | 'cookie' | 'm
 export type StorageEncryption = {
   /** Whether encryption is enabled */
   enabled: boolean;
-  /** Optional encryption key */
+  /** Passphrase used to derive the AES-GCM encryption key via PBKDF2 */
   key?: string;
 };
 

@@ -13,7 +13,7 @@ import { initializationService } from '$lib/services/initialization';
 import { authService } from '$lib/services/auth';
 import { AUTH_ROUTES } from '$lib/constants/auth.constants';
 import { redirect } from '@sveltejs/kit';
-import { APP_CONFIG } from '$lib/config/app.config';
+import { APP_CONFIG, configHelpers } from '$lib/config/app.config';
 
 // For protected routes
 import { authStore } from '$lib/stores/auth.store';
@@ -84,19 +84,28 @@ export const load: LayoutLoad = async ({ url, params }) => {
       
       // Extract user roles from claims
       const userRoles = authState?.claims?.roles || [];
-      
-      // Simple role-based access check based on URL pattern
-      const requiresAdmin = pathname.includes('/admin');
-      const requiresClient = pathname.includes('/client');
-      const requiresConsultant = pathname.includes('/consultant');
-      
-      // Check if user has the required role
-      const hasRequiredRole = (
-        (requiresAdmin && Array.isArray(userRoles) && userRoles.includes('isAdmin')) || 
-        (requiresClient && Array.isArray(userRoles) && userRoles.includes('isClient')) || 
-        (requiresConsultant && Array.isArray(userRoles) && userRoles.includes('isConsultant')) || 
-        (!requiresAdmin && !requiresClient && !requiresConsultant)
-      );
+
+      // Determine required role from URL pattern using configured role values.
+      // Role values come from APP_CONFIG.auth.roles (set by `npm run setup`).
+      const roles = APP_CONFIG.auth.roles;
+      const routeRoleMap: Record<string, string> = {
+        '/admin': roles.ADMIN,
+        '/client': roles.CLIENT,
+        '/consultant': roles.CONSULTANT,
+        '/sysadmin': roles.SYS_ADMIN,
+      };
+
+      // Find the first matching route segment
+      const requiredRole = Object.entries(routeRoleMap).find(
+        ([segment]) => pathname.includes(segment)
+      )?.[1];
+
+      // Check if user has the required role (respects hierarchy)
+      const hasRequiredRole = !requiredRole
+        || configHelpers.userHasRole(
+             Array.isArray(userRoles) ? userRoles : [],
+             requiredRole
+           );
       
       // If user doesn't have the required role, redirect to dashboard
       if (!hasRequiredRole) {

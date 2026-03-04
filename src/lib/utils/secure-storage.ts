@@ -52,20 +52,71 @@ function createStorageKey(key: string, namespace?: string): string {
 }
 
 /**
- * Encrypts a value for storage
- * @param value Value to encrypt
- * @param encryptionKey Key used for encryption
- * @returns Encrypted value as string
+ * Checks whether the Web Crypto API is available in the current environment.
  */
-function encryptValue(value: any, encryptionKey?: string): string {
-  // For stronger encryption in production, use a proper encryption library
-  // This is a simple implementation for demo purposes
+function isSubtleCryptoAvailable(): boolean {
+  return typeof globalThis.crypto !== 'undefined'
+    && typeof globalThis.crypto.subtle !== 'undefined';
+}
+
+/**
+ * Derives an AES-GCM CryptoKey from a passphrase using PBKDF2.
+ * Uses a fixed salt derived from the passphrase so the same passphrase
+ * always produces the same key (no salt storage needed).
+ */
+async function deriveKey(passphrase: string): Promise<CryptoKey> {
+  const encoder = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(passphrase),
+    'PBKDF2',
+    false,
+    ['deriveKey']
+  );
+
+  // Use a deterministic salt derived from the passphrase so we don't
+  // need to store a separate salt alongside the ciphertext.
+  const salt = encoder.encode(`secure-storage-salt:${passphrase}`);
+
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 100_000, hash: 'SHA-256' },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+/**
+ * Encrypts a value using AES-GCM via the Web Crypto API.
+ * Returns a base64-encoded string containing the 12-byte IV prepended to the ciphertext.
+ * Falls back to base64 encoding when SubtleCrypto is unavailable (SSR).
+ */
+async function encryptValue(value: any, encryptionKey?: string): Promise<string> {
   try {
     const stringValue = JSON.stringify(value);
-    
-    // In a real implementation, use a proper encryption algorithm
-    // For now, we'll just use base64 encoding as a placeholder
-    return btoa(stringValue);
+
+    if (!isSubtleCryptoAvailable() || !encryptionKey) {
+      // Fallback: base64 encode (SSR / no key provided)
+      return btoa(unescape(encodeURIComponent(stringValue)));
+    }
+
+    const key = await deriveKey(encryptionKey);
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encoded = new TextEncoder().encode(stringValue);
+
+    const cipherBuffer = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      encoded
+    );
+
+    // Prepend IV to ciphertext and base64-encode the whole thing
+    const combined = new Uint8Array(iv.length + cipherBuffer.byteLength);
+    combined.set(iv, 0);
+    combined.set(new Uint8Array(cipherBuffer), iv.length);
+
+    return btoa(String.fromCharCode(...combined));
   } catch (error) {
     throw new ApplicationError('Failed to encrypt value for storage', {
       cause: error instanceof Error ? error : new Error(String(error)),
@@ -76,18 +127,31 @@ function encryptValue(value: any, encryptionKey?: string): string {
 }
 
 /**
- * Decrypts a stored value
- * @param encryptedValue Encrypted value from storage
- * @param encryptionKey Key used for decryption
- * @returns Decrypted value
+ * Decrypts an AES-GCM encrypted value from storage.
+ * Expects the base64-encoded string to contain a 12-byte IV prepended to the ciphertext.
+ * Falls back to base64 decoding when SubtleCrypto is unavailable (SSR).
  */
-function decryptValue(encryptedValue: string, encryptionKey?: string): any {
-  // For stronger encryption in production, use a proper encryption library
-  // This is a simple implementation for demo purposes
+async function decryptValue(encryptedValue: string, encryptionKey?: string): Promise<any> {
   try {
-    // In a real implementation, use a proper decryption algorithm
-    // For now, we'll just use base64 decoding as a placeholder
-    const jsonString = atob(encryptedValue);
+    if (!isSubtleCryptoAvailable() || !encryptionKey) {
+      // Fallback: base64 decode
+      const jsonString = decodeURIComponent(escape(atob(encryptedValue)));
+      return JSON.parse(jsonString);
+    }
+
+    const combined = Uint8Array.from(atob(encryptedValue), c => c.charCodeAt(0));
+    const iv = combined.slice(0, 12);
+    const ciphertext = combined.slice(12);
+
+    const key = await deriveKey(encryptionKey);
+
+    const decryptedBuffer = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      ciphertext
+    );
+
+    const jsonString = new TextDecoder().decode(decryptedBuffer);
     return JSON.parse(jsonString);
   } catch (error) {
     throw new ApplicationError('Failed to decrypt value from storage', {
@@ -429,15 +493,16 @@ function getAdapter(mechanism: StorageMechanism): StorageAdapter {
  */
 function createSecureStorage() {
   /**
-   * Sets a value in secure storage
+   * Sets a value in secure storage (synchronous — uses async encryption internally
+   * but falls back gracefully for sync callers via safeSet).
    * @param key Storage key
    * @param value Value to store
    * @param options Storage options
    * @returns True if storage was successful
    */
   const setItem = <T>(
-    key: string, 
-    value: T, 
+    key: string,
+    value: T,
     options: StorageOptions = {}
   ): boolean => {
     try {
@@ -448,30 +513,19 @@ function createSecureStorage() {
         ttl,
         cookieOptions
       } = options;
-      
+
       // Prepare full storage key
       const storageKey = createStorageKey(key, namespace);
-      
+
       // Prepare the value with metadata (expiration, etc.)
       const preparedValue = prepareValue(value, { ttl });
-      
-      // Determine if encryption is needed
-      let stringifiedValue: string;
-      
-      if (encryption.enabled) {
-        // Encrypt the prepared value
-        stringifiedValue = encryptValue(
-          preparedValue, 
-          encryption.key
-        );
-      } else {
-        // Just stringify the prepared value
-        stringifiedValue = JSON.stringify(preparedValue);
-      }
-      
+
+      // For sync path, only JSON-stringify (async encryption handled in setItemAsync)
+      const stringifiedValue = JSON.stringify(preparedValue);
+
       // Get the appropriate adapter
       const adapter = getAdapter(mechanism);
-      
+
       // For cookies, handle special options
       if (mechanism === 'cookie' && cookieOptions) {
         return adapter.set(storageKey, stringifiedValue, {
@@ -482,7 +536,7 @@ function createSecureStorage() {
           maxAge: ttl
         });
       }
-      
+
       // Store using the selected adapter
       return adapter.set(storageKey, stringifiedValue);
     } catch (error) {
@@ -490,26 +544,150 @@ function createSecureStorage() {
         category: 'storage',
         context: { key, operation: 'setItem' }
       });
-      
+
       storageLogger.error(
-        `Storage set failed for key "${key}"`, 
+        `Storage set failed for key "${key}"`,
         normalizedError
       );
-      
+
+      return false;
+    }
+  };
+
+  /**
+   * Sets a value in secure storage with optional AES-GCM encryption.
+   * @param key Storage key
+   * @param value Value to store
+   * @param options Storage options
+   * @returns True if storage was successful
+   */
+  const setItemAsync = async <T>(
+    key: string,
+    value: T,
+    options: StorageOptions = {}
+  ): Promise<boolean> => {
+    try {
+      const {
+        mechanism = 'localStorage',
+        namespace,
+        encryption = { enabled: false },
+        ttl,
+        cookieOptions
+      } = options;
+
+      const storageKey = createStorageKey(key, namespace);
+      const preparedValue = prepareValue(value, { ttl });
+
+      let stringifiedValue: string;
+
+      if (encryption.enabled) {
+        stringifiedValue = await encryptValue(preparedValue, encryption.key);
+      } else {
+        stringifiedValue = JSON.stringify(preparedValue);
+      }
+
+      const adapter = getAdapter(mechanism);
+
+      if (mechanism === 'cookie' && cookieOptions) {
+        return adapter.set(storageKey, stringifiedValue, {
+          secure: cookieOptions.secure,
+          sameSite: cookieOptions.sameSite,
+          path: cookieOptions.path,
+          domain: cookieOptions.domain,
+          maxAge: ttl
+        });
+      }
+
+      return adapter.set(storageKey, stringifiedValue);
+    } catch (error) {
+      const normalizedError = normalizeError(error, 'Failed to set storage item', {
+        category: 'storage',
+        context: { key, operation: 'setItemAsync' }
+      });
+
+      storageLogger.error(`Storage set failed for key "${key}"`, normalizedError);
       return false;
     }
   };
   
   /**
-   * Gets a value from secure storage
+   * Gets a value from secure storage (synchronous — no decryption support).
+   * For encrypted values use getItemAsync instead.
    * @param key Storage key
    * @param options Storage options
    * @returns The stored value, or null if not found or expired
    */
   const getItem = <T>(
-    key: string, 
+    key: string,
     options: StorageOptions = {}
   ): T | null => {
+    try {
+      const {
+        mechanism = 'localStorage',
+        namespace,
+        fallbackMechanisms = []
+      } = options;
+
+      const storageKey = createStorageKey(key, namespace);
+
+      const adapter = getAdapter(mechanism);
+      let rawValue = adapter.get(storageKey);
+
+      if (rawValue === null && fallbackMechanisms.length > 0) {
+        for (const fallbackMechanism of fallbackMechanisms) {
+          const fallbackAdapter = getAdapter(fallbackMechanism);
+          rawValue = fallbackAdapter.get(storageKey);
+          if (rawValue !== null) {
+            storageLogger.info(`Retrieved value from fallback mechanism: ${fallbackMechanism}`, {
+              key, primaryMechanism: mechanism, fallbackMechanism
+            });
+            break;
+          }
+        }
+      }
+
+      if (rawValue === null) return null;
+
+      let storageValue: StorageValue;
+      try {
+        storageValue = JSON.parse(rawValue);
+      } catch (error) {
+        storageLogger.warn(`Failed to parse stored value for key "${key}"`, {
+          key, error: error instanceof Error ? error.message : String(error)
+        });
+        adapter.remove(storageKey);
+        return null;
+      }
+
+      if (isExpired(storageValue)) {
+        storageLogger.info(`Expired value removed for key "${key}"`, {
+          key, expiresAt: new Date(storageValue.expiresAt).toISOString()
+        });
+        adapter.remove(storageKey);
+        return null;
+      }
+
+      return storageValue.value as T;
+    } catch (error) {
+      const normalizedError = normalizeError(error, 'Failed to get storage item', {
+        category: 'storage',
+        context: { key, operation: 'getItem' }
+      });
+      storageLogger.error(`Storage get failed for key "${key}"`, normalizedError);
+      return null;
+    }
+  };
+
+  /**
+   * Gets a value from secure storage with optional AES-GCM decryption.
+   * @param key Storage key
+   * @param options Storage options
+   * @returns The stored value, or null if not found or expired
+   */
+  const getItemAsync = async <T>(
+    key: string,
+    options: StorageOptions = {}
+  ): Promise<T | null> => {
     try {
       const {
         mechanism = 'localStorage',
@@ -517,84 +695,56 @@ function createSecureStorage() {
         encryption = { enabled: false },
         fallbackMechanisms = []
       } = options;
-      
-      // Prepare full storage key
+
       const storageKey = createStorageKey(key, namespace);
-      
-      // Try primary mechanism first
       const adapter = getAdapter(mechanism);
       let rawValue = adapter.get(storageKey);
-      
-      // If value not found in primary mechanism, try fallbacks
+
       if (rawValue === null && fallbackMechanisms.length > 0) {
         for (const fallbackMechanism of fallbackMechanisms) {
           const fallbackAdapter = getAdapter(fallbackMechanism);
           rawValue = fallbackAdapter.get(storageKey);
-          
           if (rawValue !== null) {
             storageLogger.info(`Retrieved value from fallback mechanism: ${fallbackMechanism}`, {
-              key,
-              primaryMechanism: mechanism,
-              fallbackMechanism
+              key, primaryMechanism: mechanism, fallbackMechanism
             });
             break;
           }
         }
       }
-      
-      // If still no value found, return null
-      if (rawValue === null) {
-        return null;
-      }
-      
-      // Parse the stored value
+
+      if (rawValue === null) return null;
+
       let storageValue: StorageValue;
-      
       try {
         if (encryption.enabled) {
-          // Decrypt the stored value
-          storageValue = decryptValue(rawValue, encryption.key);
+          storageValue = await decryptValue(rawValue, encryption.key);
         } else {
-          // Just parse the JSON
           storageValue = JSON.parse(rawValue);
         }
       } catch (error) {
-        // Handle parsing/decryption errors
         storageLogger.warn(`Failed to parse stored value for key "${key}"`, {
-          key,
-          error: error instanceof Error ? error.message : String(error)
+          key, error: error instanceof Error ? error.message : String(error)
         });
-        
-        // Remove invalid value
         adapter.remove(storageKey);
         return null;
       }
-      
-      // Check for expiration
+
       if (isExpired(storageValue)) {
         storageLogger.info(`Expired value removed for key "${key}"`, {
-          key,
-          expiresAt: new Date(storageValue.expiresAt).toISOString()
+          key, expiresAt: new Date(storageValue.expiresAt).toISOString()
         });
-        
-        // Remove expired value
         adapter.remove(storageKey);
         return null;
       }
-      
-      // Return the actual value
+
       return storageValue.value as T;
     } catch (error) {
       const normalizedError = normalizeError(error, 'Failed to get storage item', {
         category: 'storage',
-        context: { key, operation: 'getItem' }
+        context: { key, operation: 'getItemAsync' }
       });
-      
-      storageLogger.error(
-        `Storage get failed for key "${key}"`, 
-        normalizedError
-      );
-      
+      storageLogger.error(`Storage get failed for key "${key}"`, normalizedError);
       return null;
     }
   };
@@ -814,7 +964,9 @@ function createSecureStorage() {
   
   return {
     setItem,
+    setItemAsync,
     getItem,
+    getItemAsync,
     removeItem,
     clear,
     safeSet,

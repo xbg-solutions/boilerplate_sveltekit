@@ -19,7 +19,7 @@ Pure helper functions that don't own state. Import what you need; there is no in
 | `utils/tokens.ts` | `extractClaims` | JWT claim extraction |
 | `utils/browser.ts` | `browser` | SSR-safe browser detection |
 | `utils/csrf.ts` | CSRF helpers | CSRF token management |
-| `utils/secure-storage.ts` | `secureStorage` | Encrypted client storage |
+| `utils/secure-storage.ts` | `secureStorage` (`setItem`/`getItem` sync, `setItemAsync`/`getItemAsync` for AES-GCM) | Encrypted client storage (AES-GCM via Web Crypto API) |
 | `utils/sanitizer.ts` | `sanitize*` | Input sanitization |
 | `utils/seo.ts` | SEO helpers | Meta tag generation |
 | `utils/sse.ts` | SSE helpers | Server-Sent Events |
@@ -482,19 +482,27 @@ const { valid, errors } = validateFileUpload(file, getSecurityConfig().validatio
 
 ## `secureStorage` — Encrypted Client Storage
 
-For sensitive data that shouldn't be stored in plain `localStorage`:
+For sensitive data that shouldn't be stored in plain `localStorage`. Uses AES-GCM encryption via the Web Crypto API when encryption is enabled.
 
 ```typescript
 import { secureStorage } from '$lib/utils/secure-storage';
 
-// Store encrypted
-secureStorage.set('auth-prefs', { rememberMe: true }, { ttl: 86400 });
+// Sync API (no encryption — plain JSON storage with TTL)
+secureStorage.setItem('auth-prefs', { rememberMe: true }, { ttl: 86400 });
+const prefs = secureStorage.getItem<{ rememberMe: boolean }>('auth-prefs');
 
-// Retrieve and decrypt
-const prefs = secureStorage.get<{ rememberMe: boolean }>('auth-prefs');
+// Async API with AES-GCM encryption (use for sensitive data)
+await secureStorage.setItemAsync('sensitive-data', payload, {
+  encryption: { enabled: true, key: 'user-passphrase' },
+  mechanism: 'localStorage',
+  ttl: 3600
+});
+const data = await secureStorage.getItemAsync<MyType>('sensitive-data', {
+  encryption: { enabled: true, key: 'user-passphrase' }
+});
 
-// Remove
-secureStorage.remove('auth-prefs');
+// Remove / clear
+secureStorage.removeItem('auth-prefs');
 secureStorage.clear(); // Remove all
 ```
 
