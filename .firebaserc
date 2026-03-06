@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "xbgsolutions"
+    "default": "your-project-id"
   },
   "targets": {
-    "xbgsolutions": {
+    "your-project-id": {
       "hosting": {
-        "target_name": [
-          "api-bot"
+        "your-hosting-target": [
+          "your-hosting-target"
         ]
       }
     }
