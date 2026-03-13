@@ -12,6 +12,7 @@ These skills document the internal architecture, patterns, and conventions of th
 |---|---|---|
 | `xbg_bpsk_overview` | `xbg_bpsk_overview/` | Orienting yourself in the project, understanding architecture, finding the right sub-skill |
 | `xbg_bpsk_setup` | `xbg_bpsk_setup/` | Bootstrapping a new project, running CLI setup, mono-repo configuration, deployment |
+| `xbg_bpsk_packages` | `xbg_bpsk_packages/` | npm distribution (`@xbg/*` packages), dependency graph, import path mapping (`$lib/` → `@xbg/*`), installing utilities, scaffolded vs packaged, test suite structure |
 | `xbg_bpsk_config` | `xbg_bpsk_config/` | Working with `app.config.ts`, env vars, roles/RBAC, feature flags |
 | `xbg_bpsk_stores` | `xbg_bpsk_stores/` | Using or extending Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
 | `xbg_bpsk_services` | `xbg_bpsk_services/` | Calling services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
@@ -67,7 +68,13 @@ When working on a task, consult skills in this order:
 | Topic | Primary Skill | Also Check |
 |---|---|---|
 | Project architecture / orientation | `xbg_bpsk_overview` | — |
-| New project setup / CLI | `xbg_bpsk_setup` | — |
+| New project setup / CLI | `xbg_bpsk_setup` | `xbg_bpsk_packages` (for utility selection) |
+| npm packages / `@xbg/*` imports | `xbg_bpsk_packages` | `xbg_bpsk_setup` (for CLI install flow) |
+| Dependency graph / package boundaries | `xbg_bpsk_packages` | — |
+| Import path mapping (`$lib/` → `@xbg/*`) | `xbg_bpsk_packages` | — |
+| Installing a new utility | `xbg_bpsk_packages` | `xbg_bpsk_setup` (for CLI sync) |
+| Test suite / test utils / mocks | `xbg_bpsk_packages` | — |
+| Scaffolded vs packaged code | `xbg_bpsk_packages` | — |
 | `app.config.ts` / env vars / RBAC | `xbg_bpsk_config` | — |
 | Svelte stores | `xbg_bpsk_stores` | `svelte5_sveltekit` (for runes patterns) |
 | Services (auth, API, toast, etc.) | `xbg_bpsk_services` | `firebase` (for Firebase Auth details) |

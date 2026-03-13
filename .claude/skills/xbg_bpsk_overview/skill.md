@@ -68,6 +68,7 @@ See `docs/distribution-architecture.md` for the full dependency graph.
 | Skill | Read When You Need To... |
 |---|---|
 | `xbg_bpsk_setup` | Bootstrap a new project, run the CLI setup, handle mono-repo tidy-up, deploy |
+| `xbg_bpsk_packages` | Understand npm distribution (`@xbg/*` packages), install utilities, import path mapping, dependency graph, test suite structure |
 | `xbg_bpsk_config` | Understand `app.config.ts`, the two-part config model, add roles/claims/features |
 | `xbg_bpsk_stores` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
 | `xbg_bpsk_services` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
