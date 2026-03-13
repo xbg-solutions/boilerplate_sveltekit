@@ -186,15 +186,9 @@ lib-cov
 .yarn/install-state.gz
 
 # === AI and Development Tools ===
-# Claude AI — ignore local session state but track committed skills
-# Note: .claude/* (not .claude/) so subdirs can be negated individually
+# Claude AI — ignore local session state but track skills
 .claude/*
 !.claude/skills
-.claude/skills/*
-!.claude/skills/skill.md
-!.claude/skills/*/
-.claude/skills/*/*
-!.claude/skills/*/skill.md
 .cursor/
 
 # GitHub Copilot
