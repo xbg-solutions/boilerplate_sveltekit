@@ -27,6 +27,7 @@ A production-ready SvelteKit 5 foundation purpose-built for **agentic, AI-assist
 | `xbg_bpsk_stores` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
 | `xbg_bpsk_services` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
 | `xbg_bpsk_utils` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
+| `xbg_bpsk_components` | Use atomic UI components or pre-built page blocks (auth, dashboard, sidebar, etc.) |
 
 ---
 
@@ -40,7 +41,16 @@ src/
 │   │   ├── routes.config.ts       ← Route metadata + RouteHelper class
 │   │   └── security.ts            ← CSP, headers, validation rules
 │   ├── components/
-│   │   ├── ui/                    ← 30+ SHADCN atomic components (Button, Card, Dialog…)
+│   │   ├── ui/                    ← 40+ SHADCN atomic components (Button, Card, Dialog…)
+│   │   ├── blocks/                ← Pre-built page blocks (auth, dashboard, sidebar…)
+│   │   │   ├── auth/              ← LoginBlock01–05, SignupBlock01–05, OtpBlock01–05
+│   │   │   ├── dashboard/         ← DashboardBlock01–07, ChartsBlock01
+│   │   │   ├── sidebar/           ← SidebarLayout01–05
+│   │   │   ├── forms/             ← SettingsBlock
+│   │   │   ├── tasks/             ← TasksBlock
+│   │   │   ├── music/             ← MusicBlock
+│   │   │   ├── playground/        ← PlaygroundBlock01–02
+│   │   │   └── calendar/          ← CalendarBlock01–03
 │   │   ├── layout/                ← AppInitializer, AuthGuard, HeaderNav, ClientOnly…
 │   │   ├── auth/                  ← EmailLinkAuth, PhoneAuth
 │   │   └── animations/            ← FadeTransition, PageTransition…
@@ -93,8 +103,8 @@ All project-specific values flow through **`src/lib/config/app.config.ts`**.
 
 There are no `FIXME` placeholders — the wizard eliminates them.
 
-### 2. Atomic Components Only
-Use the 30 SHADCN atomic components from `$lib/components/ui`. Do **not** build opinionated page-level composed components into the library — compose them in routes instead.
+### 2. Atomic Components + Optional Blocks
+Use the 40+ SHADCN atomic components from `$lib/components/ui`. Pre-built page-level **blocks** are available in `$lib/components/blocks` (or `$blocks`) for common patterns like auth pages, dashboards, and settings. Blocks compose atomic components — pick a block variant and customize via props/slots, or compose your own from atomic components.
 
 ### 3. Singleton Services
 Every service is a module-level singleton export. Import and use directly; never instantiate yourself.
@@ -141,9 +151,13 @@ Any route under `/protected/**` requires authentication. The root layout (`+layo
 ## Import Conventions
 
 ```typescript
-// Components — always from the barrel
+// Atomic components — from the barrel
 import { Button, Card, CardContent, Input } from '$lib/components/ui';
 import { AuthGuard, ClientOnly, HeaderNav } from '$lib/components/layout';
+
+// Pre-built blocks — optional imports
+import { LoginBlock01, DashboardBlock02 } from '$lib/components/blocks';
+import { SidebarLayout01 } from '$blocks/sidebar';
 
 // Config
 import { APP_CONFIG, COMPUTED_CONFIG, configHelpers } from '$lib/config/app.config';

@@ -7,7 +7,6 @@
   import { subscribe } from '$lib/services/events';
   import { TAB_SYNC_EVENTS } from '$lib/constants/tab-sync.constants';
   import { AUTH_EVENTS } from '$lib/constants/auth.constants';
-  import { PageHeader } from '$lib/components/layout';
   import { PhoneAuth, EmailLinkAuth } from '$lib/components/auth';
   import { authService } from '$lib/services/auth';
   import { goto } from '$app/navigation';

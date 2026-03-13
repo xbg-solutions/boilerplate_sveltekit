@@ -14,7 +14,7 @@
   import { subscribe } from '$lib/services/events';
   import { AUTH_EVENTS } from '$lib/constants/auth.constants';
   import { loadingStore } from '$lib/stores/loading.store';
-  import { ClientOnly, HeaderNav, PageTransition } from '$lib/components/layout';
+  import { PageTransition } from '$lib/components/layout';
   
   // Immediately disable SvelteKit's navigation progress bar and hide all browser-level loading indicators
   if (browser) {
@@ -232,19 +232,23 @@
   }
 </script>
 
-<ClientOnly>
+{#if mounted}
   <div class="app-container tailwind-reset min-h-screen flex flex-col">
     <!-- Responsive Header -->
-    <header class="border-b border-gray-200 bg-white w-full shadow-sm">
+    <header class="border-b border-border bg-background w-full shadow-sm">
       <div class="container mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
-        <h1 class="text-xl md:text-2xl font-bold" style="color: var(--accent)">
+        <h1 class="text-xl md:text-2xl font-bold text-primary">
           <a href="/" class="hover:opacity-90 transition-opacity">SvelteKit Boilerplate</a>
         </h1>
-        
-        <HeaderNav 
-          isAuthenticated={isAuthenticated} 
-          claims={claims}
-        />
+
+        <nav class="flex items-center gap-4">
+          {#if isAuthenticated}
+            <a href="/protected" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+            <button on:click={handleLogout} class="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign Out</button>
+          {:else}
+            <a href="/" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</a>
+          {/if}
+        </nav>
       </div>
     </header>
 
@@ -295,4 +299,4 @@
     <!-- Page transition loading overlay -->
     <PageTransition />
   </div>
-</ClientOnly>
+{/if}

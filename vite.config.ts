@@ -26,6 +26,7 @@ export default defineConfig({
       $services: resolve('./src/lib/services'),
       $constants: resolve('./src/lib/constants'),
       $types: resolve('./src/lib/types'),
+      $blocks: resolve('./src/lib/components/blocks'),
     }
   },
   

@@ -37,6 +37,23 @@ export { default as Separator } from './Separator.svelte';
 export { default as Skeleton } from './Skeleton.svelte';
 export { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from './dropdown-menu';
 
+// New SHADCN Block Components
+export { NavItem } from './nav';
+export { MenuItem } from './menu';
+export { SidebarItem } from './sidebar-item';
+export { StatisticCard } from './statistic-card';
+export { UserItem } from './user-item';
+export { NotificationBadge } from './notification-badge';
+export { TextEditor } from './text-editor';
+export { Uploader } from './uploader';
+export { SettingsCard } from './settings-card';
+export { Legend } from './legend';
+export { Message } from './message';
+export { OtpInput } from './otp-input';
+export { Calendar } from './calendar';
+
+// Icons
+export { DynamicIcon, BrandIcon } from './icon';
 
 // Utility exports
 export { cn } from '../../utils/cn';
