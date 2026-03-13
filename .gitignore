@@ -191,6 +191,7 @@ lib-cov
 .claude/*
 !.claude/skills
 .claude/skills/*
+!.claude/skills/skill.md
 !.claude/skills/*/
 .claude/skills/*/*
 !.claude/skills/*/skill.md

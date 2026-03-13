@@ -63,6 +63,8 @@ See `docs/distribution-architecture.md` for the full dependency graph.
 
 ## Sub-Skills (Read When Relevant)
 
+### Project-Specific Skills
+
 | Skill | Read When You Need To... |
 |---|---|
 | `xbg_bpsk_setup` | Bootstrap a new project, run the CLI setup, handle mono-repo tidy-up, deploy |
@@ -70,6 +72,16 @@ See `docs/distribution-architecture.md` for the full dependency graph.
 | `xbg_bpsk_stores` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
 | `xbg_bpsk_services` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
 | `xbg_bpsk_utils` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
+
+### Library & Framework Skills
+
+| Skill | Read When You Need To... |
+|---|---|
+| `firebase` | Work with Firebase Auth, Firestore, Cloud Functions, hosting, emulators, deployment, or AI Logic |
+| `shadcn_svelte` | Add or customize shadcn-svelte components, implement forms with Superforms/Formsnap, set up dark mode, or theme with Tailwind v4 |
+| `svelte5_sveltekit` | Use Svelte 5 runes, SvelteKit routing/data flow, Tailwind CSS v4 integration, or troubleshoot SSR/hydration issues |
+
+See `.claude/skills/skill.md` for the full skill index with source priority ordering and topic-to-skill mapping.
 
 ---
 
