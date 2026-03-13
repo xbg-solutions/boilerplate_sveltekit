@@ -224,9 +224,15 @@ export function validateFileUpload(file: File, rules: ValidationRules): {
     errors.push(`File type ${file.type} is not allowed`);
   }
 
-  // Check file name for security issues
+  // Check file name for path traversal and dangerous characters
   if (file.name.includes('../') || file.name.includes('..\\')) {
-    errors.push('File name contains invalid characters');
+    errors.push('File name contains invalid path traversal characters');
+  }
+  if (/[\x00-\x1f]/.test(file.name)) {
+    errors.push('File name contains invalid control characters');
+  }
+  if (/[<>:"|?*]/.test(file.name)) {
+    errors.push('File name contains reserved characters');
   }
 
   return {

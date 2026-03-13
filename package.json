@@ -3,6 +3,19 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "files": [
+    "src",
+    "static",
+    "build.js",
+    "svelte.config.js",
+    "vite.config.ts",
+    "tailwind.config.cjs",
+    "postcss.config.cjs",
+    "tsconfig.json",
+    "tsconfig.app.json",
+    ".env.example",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite dev",
     "build:vite": "vite build",

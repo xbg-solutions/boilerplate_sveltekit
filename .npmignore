@@ -1,0 +1,65 @@
+# === Tests ===
+__tests__/
+coverage/
+.coverage/
+.nyc_output/
+*.lcov
+junit.xml
+test-results/
+.vitest/
+vitest.*.config.ts
+vitest.*.setup.ts
+
+# === Development Scripts ===
+__scripts__/
+
+# === Development Configuration ===
+.eslintrc.cjs
+.prettierrc
+.editorconfig
+tsconfig.node.json
+
+# === Documentation (dev-only) ===
+docs/
+
+# === AI / Editor Tools ===
+.claude/
+.cursor/
+.vscode/
+.idea/
+
+# === CI/CD ===
+.github/
+
+# === Environment ===
+.env
+.env.*
+!.env.example
+
+# === Firebase (dev/deploy only) ===
+firebase.json
+.firebaserc
+.firebase/
+firebase-debug.log
+firestore-debug.log
+service-account*.json
+firebase-adminsdk*.json
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Build Artifacts ===
+build/
+dist/
+.svelte-kit/
+
+# === Misc ===
+*.log
+*.tmp
+*.bak
+*.backup
+performance-audit.json
+lighthouse-*.json
+performance-*.json
+bundle-analyzer-report.html
