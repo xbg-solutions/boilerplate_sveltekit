@@ -14,7 +14,19 @@
   
   // Get return URL and other params from data or URL
   export let data: { returnUrl?: string } = {};
-  $: returnUrl = data?.returnUrl || '/';
+
+  /**
+   * Validate that a redirect URL is a safe relative path.
+   * Prevents open redirect attacks via crafted returnUrl parameters.
+   */
+  function safeRedirectUrl(url: string | undefined): string {
+    if (!url) return '/';
+    // Must start with '/' and must not contain protocol-relative URLs or external redirects
+    if (!url.startsWith('/') || url.startsWith('//') || url.includes('://')) return '/';
+    return url;
+  }
+
+  $: returnUrl = safeRedirectUrl(data?.returnUrl);
   
   // Check for reload or logout parameters (used for forced logout/clean state)
   $: reloadParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('reload') : null;
