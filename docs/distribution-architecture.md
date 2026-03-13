@@ -185,4 +185,4 @@ import { apiService } from '@xbg/utils-api-client';
 6. **Code generators stay project-local** — generated components, routes, and services live in the project and import from packages
 7. **Test utilities are a separate dev package** — keeps production bundle clean, avoids shipping vitest/testing-library
 8. **Dependencies auto-resolve** — installing a utility automatically pulls in its @xbg dependencies via npm
-9. **MCP docs are excluded** — project uses `.claude/` skill files instead
+9. **MCP docs removed** — project uses `.claude/` skill files for AI agent context instead

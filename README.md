@@ -2,7 +2,7 @@
 
 An experiment by [XBG Solutions](https://xbg.solutions) aided by [Claude Code](https://www.claude.com/product/claude-code).
 
-**Production-ready SvelteKit foundation optimized for AI-assisted design-to-code workflows.**
+**Production-ready SvelteKit foundation distributed as npm packages, optimized for AI-assisted design-to-code workflows.**
 
 Build and launch MVPs in **days, not months** using modern AI-assisted development patterns.
 
@@ -12,34 +12,173 @@ Build and launch MVPs in **days, not months** using modern AI-assisted developme
 
 ---
 
-## 🎯 What Makes This Different
+## What Makes This Different
 
 This boilerplate is specifically designed for:
 - **Agentic Development**: Constrained, opinionated architecture that railroads AI agents into one-shot success
 - **AI-Assisted Development**: Consistent patterns and comprehensive documentation optimized for AI code generation
-- **Rapid MVP Development**: 3-minute interactive setup wizard and 30+ ready-to-use atomic components
-- **Design-to-Code Pipeline**: Optimized for Figma → AI → Svelte workflows with SHADCN components
+- **npm Package Distribution**: Install what you need via `@xbg/*` packages -- updates propagate via `npm update`
+- **Rapid MVP Development**: Interactive CLI setup and 30+ ready-to-use atomic components
+- **Design-to-Code Pipeline**: Optimized for Figma -> AI -> Svelte workflows with SHADCN components
 - **Production Readiness**: 677 passing tests, accessibility compliance, and deployment infrastructure
 - **Backend Integration**: Works standalone or pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) for full-stack MVPs
-- **Developer Experience**: Type-safe, well-documented, and following modern best practices
 
 ### The Agentic Development Workflow
 
 ```
-1. Requirements Input       →  2. Agent Development    →  3. Deploy
+1. Requirements Input       ->  2. Agent Development    ->  3. Deploy
    (MoSCoW + Figma/Designs)     (Constrained patterns)      (Production-ready)
-   ↓                            ↓                           ↓
-   • User journeys              • Update config             • 677 tests pass
-   • Figma designs              • Build with SHADCN         • Accessibility ✓
-   • API specs/Postman          • Connect backend           • Type-safe ✓
-   • Feature requirements       • Generate tests            • Deploy!
+   |                             |                           |
+   - User journeys              - Update config             - 677 tests pass
+   - Figma designs              - Build with SHADCN         - Accessibility check
+   - API specs/Postman          - Connect backend           - Type-safe check
+   - Feature requirements       - Generate tests            - Deploy!
 ```
 
 **Designed for one-shot success**: Opinionated constraints guide AI agents to production-ready code without human intervention.
 
 ---
 
-## ✨ Key Features
+## Distribution Architecture
+
+This boilerplate is distributed as **npm packages** rather than a repo you clone. Updates propagate via standard `npm update` and semver protects against breaking changes.
+
+### Part 1: npm Packages (runtime dependencies)
+
+| Package | Description |
+|---|---|
+| `@xbg/frontend-core` | Base framework -- config types, core stores, error handling, logging, layout components |
+| `@xbg/test-utils-frontend` | Test utilities (devDependency) -- Firebase mocks, store mocks, async helpers |
+| `@xbg/utils-firebase-auth` | Auth service, token service, auth stores, auth guard |
+| `@xbg/utils-api-client` | Typed HTTP client, request/response handlers, response caching |
+| `@xbg/utils-secure-storage` | Encrypted client-side storage (AES-GCM) |
+| `@xbg/utils-csrf` | CSRF token generation/validation |
+| `@xbg/utils-sanitizer` | Input sanitization, XSS prevention |
+| `@xbg/utils-rbac` | Role hierarchy, permission checking |
+| `@xbg/utils-tab-sync` | Cross-tab synchronization |
+| `@xbg/utils-event-bus` | Event bus + pub/sub |
+| `@xbg/utils-recaptcha` | reCAPTCHA v3 integration |
+| `@xbg/utils-seo` | Meta tags, structured data, OpenGraph |
+| `@xbg/utils-sse` | Server-sent events client |
+| `@xbg/utils-performance` | Performance metrics, monitoring |
+| `@xbg/utils-file-upload` | File handling with Firebase Storage |
+| `@xbg/utils-mutex` | Mutual exclusion for concurrent operations |
+| `@xbg/utils-state-manager` | Global state persistence |
+
+Install only what you need. Dependencies auto-resolve -- installing `@xbg/utils-firebase-auth` automatically pulls in `@xbg/utils-csrf` and `@xbg/utils-secure-storage`.
+
+### Part 2: CLI Scaffolding Tool (project structure)
+
+The CLI handles everything that isn't a runtime import -- project structure, config files, UI components, templates, wiring code.
+
+```bash
+# Create a new project
+npx @xbg/create-frontend
+
+# Update an existing project
+npx @xbg/create-frontend --sync
+
+# Generators
+npx @xbg/create-frontend generate component <Name>
+npx @xbg/create-frontend generate route <path>
+npx @xbg/create-frontend generate service <Name>
+
+# Validation
+npx @xbg/create-frontend validate
+```
+
+See [distribution-architecture.md](docs/distribution-architecture.md) for the full package map and dependency graph.
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18+ ([Download](https://nodejs.org/))
+- Firebase account ([Create free](https://firebase.google.com/))
+
+### New Project Setup
+
+```bash
+# Create a new project with the CLI
+npx @xbg/create-frontend my-app
+cd my-app
+```
+
+The CLI runs an interactive setup:
+
+| Step | What it configures |
+|------|--------------------|
+| 1 | Project identity (name, short name, domain, support email) |
+| 2 | Firebase configuration (updates `firebase.json` + `.firebaserc`) |
+| 3 | API base URLs (dev + prod) |
+| 4 | Utility selection -- choose which `@xbg/utils-*` packages to install |
+| 5 | RBAC -- roles, hierarchy, permissions, JWT claim map (if `utils-rbac` selected) |
+| 6 | Feature flags (phone auth, analytics, real-time, etc.) |
+| 7 | Generates project skeleton, installs packages, writes config |
+
+```bash
+# Validate configuration
+npx @xbg/create-frontend validate
+
+# Start developing
+npm run dev
+```
+
+Visit `http://localhost:5173` -- ready to build.
+
+### Manual Configuration
+
+```bash
+cp .env.example .env
+# Fill in all VITE_* values
+```
+
+Then edit `src/lib/config/app.config.ts` -- find the `SETUP:start:roles` and
+`SETUP:start:features` marker blocks and update roles, permissions, and feature flags.
+
+All secrets and IDs live in `.env`. Role definitions and feature flags are structural
+TypeScript in `app.config.ts`. Neither file contains placeholder strings after setup.
+
+---
+
+## What the CLI Scaffolds (project-local, not packaged)
+
+These files are generated into the project and owned by the project. They are not imported from packages.
+
+- **shadcn-svelte UI components** -- Copied into `src/lib/components/ui/` per shadcn philosophy (own and customize)
+- **`app.config.ts`** -- Generated by the setup wizard, uses `defineConfig()` types from `@xbg/frontend-core`
+- **Project skeleton** -- Routes (`+layout.svelte`, `+layout.ts`, `+page.svelte`, `+error.svelte`), `app.html`, `app.css`
+- **Build and tool config** -- `svelte.config.js`, `vite.config.ts`, `tailwind.config.cjs`, `postcss.config.cjs`, `tsconfig.json`
+- **`.env` file** -- From interactive prompts
+- **Generated code** -- Components, routes, and services created via generators
+- **Auth components** -- `PhoneAuth`, `EmailLinkAuth` (project-local, customizable)
+
+---
+
+## What Changes in Project Code
+
+Instead of relative imports from copied boilerplate files:
+
+```typescript
+// Old (clone-based)
+import { AppError } from '../../utils/error-handler';
+import { loadingStore } from '../../stores/loading.store';
+import { apiService } from '../../services/api/api.service';
+```
+
+Projects import from packages:
+
+```typescript
+// New (npm packages)
+import { AppError, loadingStore } from '@xbg/frontend-core';
+import { apiService } from '@xbg/utils-api-client';
+```
+
+---
+
+## Key Features
 
 ### Core Stack
 - **SvelteKit 5**: Latest version with modern runes and enhanced SSR
@@ -51,17 +190,16 @@ This boilerplate is specifically designed for:
 
 ### Agentic & AI-Optimized Architecture
 - **Constrained by Design**: Opinionated architecture that railroads agents into best practices
-- **Interactive Setup Wizard**: 3-minute configuration with automatic validation
 - **Single Configuration File**: Edit one file (`src/lib/config/app.config.ts`) to customize everything
 - **Atomic Components Only**: 30 SHADCN components for composition (no opinionated page layouts)
-- **Consistent Import Patterns**: Standardized imports from `$lib/components/ui` and `$lib/config/app.config`
-- **Agent-Specific Documentation**: [Agentic Development Guide](mcp/frontend/guides/agentic-development.md) for AI systems
+- **Consistent Import Patterns**: Standardized imports from `@xbg/*` packages and `$lib/components/ui`
+- **AI-Optimized Skills**: `.claude/skills/` documentation for AI agent context
 - **Decision Trees**: Built-in guardrails eliminate ambiguity for one-shot success
 - **Predictable Structure**: SHADCN component patterns for reliable code generation
 - **Backend Integration**: Accepts Postman collections or direct API access (mono-repo)
 
 ### Production Features
-- **677 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte (see [Testing Guide](mcp/frontend/guides/testing.md))
+- **677 Passing Tests**: Comprehensive behavioral testing with @testing-library/svelte
 - **Accessibility Compliance**: WCAG Level AA with all build warnings resolved
 - **Performance Optimized**: Bundle analysis, code splitting, and performance monitoring
 - **Security First**: CSRF protection, input sanitization, secure authentication, AES-GCM encrypted storage, CSP headers, role-based access control with hierarchy
@@ -69,65 +207,7 @@ This boilerplate is specifically designed for:
 
 ---
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 18+ ([Download](https://nodejs.org/))
-- Firebase account ([Create free](https://firebase.google.com/))
-- Git
-
-### Setup (~5 Minutes)
-
-```bash
-# 1. Clone and install
-git clone https://github.com/xbg-solutions/boilerplate_frontend.git my-app
-cd my-app
-npm install
-
-# 2. Run the interactive setup wizard
-npm run setup
-```
-
-The wizard runs 8 steps in a single session:
-
-| Step | What it configures |
-|------|--------------------|
-| 0 | Context detection (standalone vs mono-repo with `functions/`) |
-| 1 | App name, short name, domain, support email |
-| 2 | Firebase — updates `firebase.json` + `.firebaserc` automatically |
-| 3 | API base URLs (dev + prod) |
-| 4 | RBAC — roles, hierarchy, permissions, JWT claim map |
-| 5 | Custom JWT attributes (tenantId, orgId, etc.) |
-| 6 | Feature flags (phone auth, analytics, real-time, etc.) |
-| 7 | Writes `.env`, updates `app.config.ts`, validates |
-
-```bash
-# 3. Validate (optional but recommended)
-npm run validate
-
-# 4. Start developing
-npm run dev
-```
-
-Visit `http://localhost:5173` — ready to build.
-
-### Alternative: Manual Configuration
-
-```bash
-cp .env.example .env
-# Fill in all VITE_* values
-```
-
-Then edit `src/lib/config/app.config.ts` — find the `SETUP:start:roles` and
-`SETUP:start:features` marker blocks and update roles, permissions, and feature flags.
-
-All secrets and IDs live in `.env`. Role definitions and feature flags are structural
-TypeScript in `app.config.ts`. Neither file contains placeholder strings after setup.
-
----
-
-## 💡 Core Philosophy: Constrained for Agentic Success
+## Core Philosophy: Constrained for Agentic Success
 
 ### Atomic Components, Not Opinionated Pages
 
@@ -140,9 +220,9 @@ TypeScript in `app.config.ts`. Neither file contains placeholder strings after s
 - **Deployment pipelines**: CI/CD, multiple hosting options
 
 **What We DON'T Provide:**
-- ❌ Pre-built dashboards, user profiles, admin panels
-- ❌ Opinionated page structures or layouts
-- ❌ Complex composed components
+- No pre-built dashboards, user profiles, admin panels
+- No opinionated page structures or layouts
+- No complex composed components
 
 **Why This Constraint?**
 
@@ -167,7 +247,7 @@ By limiting choices, we:
   import { Card, CardHeader, CardTitle, CardContent } from '$lib/components/ui/card';
   import { Button } from '$lib/components/ui/button';
   import { Badge } from '$lib/components/ui/badge';
-  
+
   export let stats: DashboardStats;
 </script>
 
@@ -189,17 +269,17 @@ By limiting choices, we:
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 src/
 ├── lib/
 │   ├── config/
-│   │   └── app.config.ts          # 🎯 Single source of truth - edit this file
+│   │   └── app.config.ts          # Single source of truth - edit this file
 │   ├── components/
 │   │   ├── animations/            # Advanced transition components
-│   │   ├── ui/                    # 30+ SHADCN components (atomic)
-│   │   ├── auth/                  # Authentication components
+│   │   ├── ui/                    # 30+ SHADCN components (atomic, scaffolded)
+│   │   ├── auth/                  # Authentication components (scaffolded)
 │   │   └── layout/                # Layout and navigation
 │   ├── services/                  # Business logic and API integration
 │   ├── stores/                    # Svelte stores for state management
@@ -209,20 +289,14 @@ src/
 ├── routes/                        # SvelteKit routes
 └── app.html                       # HTML template
 
-__scripts__/                       # CLI tools and generators
-├── setup.cjs                      # ⭐ Interactive setup wizard
-├── validate-setup.cjs             # ⭐ Configuration validation
-├── generate-component.js          # Component scaffolding
-├── generate-route.js              # Route generation
-└── generate-service.js            # Service creation
-
-__tests__/                         # 677 behavioral tests ✅
-mcp/frontend/                      # MCP Knowledge Base (comprehensive documentation)
+__tests__/                         # 677 behavioral tests
+.claude/skills/                    # AI-optimized documentation (6 skills)
+docs/                              # Architecture and distribution docs
 ```
 
 ---
 
-## 🎨 UI Components
+## UI Components
 
 30+ production-ready SHADCN components with full TypeScript support:
 
@@ -263,7 +337,7 @@ See `/demo` route for live examples of all components.
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 Built-in Firebase authentication with multiple methods:
 
@@ -299,65 +373,23 @@ export const load = routeHandler.createLoadFunction({
 
 ---
 
-## 🤖 AI-Assisted Development
-
-### Component & Route Generation
-
-```bash
-# Generate new component
-npm run generate:component UserProfile --type=feature --with-test
-
-# Generate route with authentication
-npm run generate:route dashboard --auth --roles=user,admin --with-load
-
-# Generate service
-npm run generate:service analytics
-```
-
-### Figma → Svelte Workflow (Future Enhancement)
-
-1. **Design in Figma** using SHADCN component library
-   - Start from sketches or design references
-   - Use AI (Claude API) to generate initial designs
-   - UX team refines spacing, colors, interactions
-
-2. **Export via Figma MCP** (when integrated)
-   ```bash
-   npm run export-svelte -- \
-     --figma-url "https://figma.com/file/abc123" \
-     --output "./src/routes/dashboard"
-   ```
-
-3. **Generated Output**
-   - `+page.svelte` with your design
-   - Custom composed components
-   - Uses your 30 base SHADCN components
-   - Type-safe with TypeScript
-
-4. **Connect to API**
-   - Add load functions for data fetching
-   - Integrate with backend via API documentation
-   - Use route generators for consistent patterns
-
----
-
-## 🧪 Testing Philosophy
+## Testing Philosophy
 
 **"Test WHAT, Not HOW"** - Behavioral testing principles:
 
 ```typescript
-// ✅ Good - Test behavior
+// Good - Test behavior
 test('user can log in with valid credentials', async () => {
   render(LoginPage);
-  
+
   await userEvent.type(screen.getByLabelText('Email'), 'user@example.com');
   await userEvent.type(screen.getByLabelText('Password'), 'password123');
   await userEvent.click(screen.getByRole('button', { name: 'Sign In' }));
-  
+
   expect(screen.getByText('Welcome back!')).toBeInTheDocument();
 });
 
-// ❌ Bad - Test implementation
+// Bad - Test implementation
 test('signIn calls firebase.auth().signInWithEmailAndPassword', async () => {
   const spy = vi.spyOn(firebase.auth(), 'signInWithEmailAndPassword');
   await authService.signIn();
@@ -369,66 +401,35 @@ test('signIn calls firebase.auth().signInWithEmailAndPassword', async () => {
 
 ```bash
 npm test                    # Run all 677 tests
-npm run test:coverage       # Run with coverage report  
-npm run test:watch          # Watch mode
-npm run test:a11y           # Accessibility tests
-npm run test:components     # Component tests only
+npm run test:coverage       # Run with coverage report
+npm run test:unit           # Unit tests only
 npm run test:integration    # Integration tests
 ```
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
-### Interactive Setup (Recommended)
+### Two-Part Configuration Model
 
-```bash
-npm run setup
-```
-
-The wizard will guide you through configuration and automatically:
-- Generate your `.env` file
-- Update `app.config.ts` with your values
-- Validate Firebase configuration
-- Test your setup
-
-### Validation
-
-```bash
-npm run validate        # Full validation (includes build and tests)
-npm run validate:quick  # Quick validation (skips slow checks)
-```
-
-The validator checks:
-- ✅ Environment variables configured
-- ✅ Firebase setup valid
-- ✅ Dependencies installed
-- ✅ Build succeeds
-- ✅ Tests passing
-- ⚠️ Warns about placeholder values
-
-### Configuration Model
-
-Two files, two responsibilities:
-
-**`.env`** — secrets and IDs (written by the wizard, never committed):
+**`.env`** -- secrets and IDs (written by the CLI, never committed):
 ```bash
 VITE_APP_NAME="Acme Dashboard"
-VITE_APP_SHORT_NAME="acme"          # → drives localStorage prefix
+VITE_APP_SHORT_NAME="acme"          # drives localStorage prefix
 VITE_FIREBASE_PROJECT_ID="acme-prod"
 VITE_FIREBASE_API_KEY="AIza..."
 VITE_API_BASE_URL_DEV="http://localhost:5001/acme-prod/us-central1/api"
 VITE_API_BASE_URL_PROD="https://us-central1-acme-prod.cloudfunctions.net/api"
 ```
 
-**`src/lib/config/app.config.ts`** — structural config (wizard edits the marked blocks):
+**`src/lib/config/app.config.ts`** -- structural config (CLI edits the marked blocks):
 ```typescript
 auth: {
   /* SETUP:start:roles */
   roles: { USER: 'user', ADMIN: 'admin', ... },
   roleHierarchy: { admin: ['user'], ... },
   permissions: { user: ['editOwnProfile'], admin: [...], ... },
-  claimMap: { admin: 'isAdmin', ... },  // role → JWT boolean claim key
+  claimMap: { admin: 'isAdmin', ... },  // role -> JWT boolean claim key
   /* SETUP:end:roles */
 },
 features: {
@@ -440,73 +441,55 @@ features: {
 },
 ```
 
-`APP_CONFIG` is the single object imported everywhere — no duplicate config objects.
+`APP_CONFIG` is the single object imported everywhere -- no duplicate config objects.
+
+### Validation
+
+```bash
+npx @xbg/create-frontend validate
+```
+
+The validator checks:
+- Environment variables configured
+- Firebase setup valid
+- Dependencies installed
+- Build succeeds
+- Tests passing
+- Warns about placeholder values
 
 ---
 
-## 🔗 Mono-Repo Usage
+## Mono-Repo Usage
 
-This boilerplate is designed to work both standalone and as the `frontend/` half of a
+This boilerplate works both standalone and as the `frontend/` half of a
 mono-repo paired with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend).
 
 ```
 my-project/
-├── .claude/           ← moved here from frontend/ (see setup wizard)
-├── __docs__/          ← moved here from frontend/
-├── firebase.json      ← root Firebase config (Hosting + Functions)
-├── .firebaserc        ← root project + target aliases
+├── .claude/           <- moved here from frontend/ (see CLI setup)
+├── firebase.json      <- root Firebase config (Hosting + Functions)
+├── .firebaserc        <- root project + target aliases
 ├── firestore.rules
 ├── storage.rules
 ├── cors.json
-├── frontend/          ← this boilerplate
+├── frontend/          <- this boilerplate
 │   ├── src/
 │   ├── package.json
 │   └── ...
-└── functions/         ← boilerplate_backend
+└── functions/         <- boilerplate_backend
     ├── src/
     └── package.json
 ```
 
-When the wizard detects a mono-repo (sibling `functions/` directory or parent `firebase.json`),
-it generates `__scripts__/monorepo-setup.sh` — a script that moves shared files (`.claude/`,
-`__docs__/`, `.gitignore`) to the project root so the first commit stays clean.
-
-See `xbg_bpsk_setup` skill for the full mono-repo workflow.
-
 ---
 
-## 📊 Performance & Analytics
-
-Built-in performance monitoring:
-
-```typescript
-import { performanceMonitor } from '$lib/utils/performance';
-
-// Automatic Web Vitals tracking
-performanceMonitor.recordMetric('api-response-time', 150);
-
-// Bundle analysis
-npm run analyze             # Generate bundle analysis report
-
-// Performance audit
-npm run perf:audit          # Lighthouse audit
-```
-
----
-
-## 🚀 Deployment
+## Deployment
 
 ### Firebase Hosting (Recommended)
 
 ```bash
 npm run build
 firebase deploy --only hosting
-```
-
-Or use the deploy script:
-
-```bash
-npm run deploy
 ```
 
 ### Other Platforms
@@ -529,35 +512,22 @@ docker build -t my-app .
 docker run -p 3000:3000 my-app
 ```
 
-See [deployment-guide.md](mcp/frontend/guides/deployment.md) for comprehensive deployment documentation.
-
 ---
 
-## 🔧 Development Tools
+## Development Tools
 
 ```bash
 # Code quality
 npm run lint              # ESLint
 npm run typecheck         # TypeScript check
-npm run format            # Prettier formatting
 
 # Testing
 npm test                  # All tests
 npm run test:coverage     # Coverage report
-npm run test:watch        # Watch mode
+npm run test:unit         # Unit tests only
 
 # Performance
 npm run analyze           # Bundle analysis
-npm run perf:audit        # Performance audit
-
-# Setup & Validation
-npm run setup             # Interactive setup wizard ⭐
-npm run validate          # Validate configuration ⭐
-
-# Generators
-npm run generate:component <name>  # Generate component
-npm run generate:route <path>      # Generate route
-npm run generate:service <name>    # Generate service
 
 # Build
 npm run build             # Production build
@@ -566,32 +536,18 @@ npm run preview           # Preview build
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### For Developers
-- **[Getting Started](mcp/frontend/overview/getting-started.md)**: Comprehensive setup and first feature guide ⭐ NEW
-- **[Quick Start Guide](mcp/frontend/overview/quick-start.md)**: Get started in 15 minutes
-- **[Testing Guide](mcp/frontend/guides/testing.md)**: Testing philosophy and 677-test suite details ⭐ NEW
-- **[Configuration Guide](mcp/frontend/guides/configuration.md)**: Detailed configuration options
-- **[API Documentation](mcp/frontend/api/api-documentation.md)**: Complete service API reference
-- **[Component Interfaces](mcp/frontend/api/component-interfaces.md)**: TypeScript interfaces for all components
-- **[Deployment Guide](mcp/frontend/guides/deployment.md)**: CI/CD and hosting setup
-- **[Patterns Guide](mcp/frontend/guides/patterns.md)**: Development patterns and best practices
+- **[Distribution Architecture](docs/distribution-architecture.md)**: npm package map and dependency graph
+- **[Test README](__tests__/README.md)**: Testing philosophy and architecture
 
 ### For AI Agents
-- **[Agentic Development Guide](mcp/frontend/guides/agentic-development.md)**: Complete agent workflow patterns ⭐ NEW
-- **[MCP Knowledge Base](mcp/frontend/README.md)**: Query via Model Context Protocol ⭐ NEW
-- **Consistent Imports**: All components from `$lib/components/ui`, config from `$lib/config/app.config`
+- **`.claude/skills/`**: 6 comprehensive AI-optimized skills covering overview, setup, config, services, utils, and stores
+- **Consistent Imports**: All packages from `@xbg/*`, components from `$lib/components/ui`, config from `$lib/config/app.config`
 - **Decision Trees**: Built-in guardrails for routing, components, imports, and testing
 - **Type Exports**: All interfaces exported for AI code generation
 - **Predictable Structure**: Follow established patterns for reliable generation
-
-### MCP Integration
-- **MCP Server**: Access comprehensive documentation via Model Context Protocol
-- **Configuration**: `https://xbg.solutions/mcp/config.json`
-- **Tools Available**: Query services, utilities, stores, components, and guides
-- **78 Documentation Files**: Complete knowledge base for AI coding tools and agentic developers
-- **Categories**: Services (14), Utilities (21), Stores (17), Components (81+)
 
 ### Backend Integration
 - **[boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)**: Companion backend boilerplate
@@ -600,122 +556,45 @@ npm run preview           # Preview build
 
 ---
 
-## 🎯 AI Integration Patterns
+## Project Status
 
-### Using the MCP Knowledge Base
-
-AI agents can query the comprehensive documentation via Model Context Protocol:
-
-```typescript
-// Example: Query service documentation
-const authDocs = await mcpClient.callTool('get_service_docs', {
-  service: 'auth'
-});
-
-// Example: Query utility documentation
-const errorHandlerDocs = await mcpClient.callTool('get_utility_docs', {
-  utility: 'error-handler'
-});
-
-// Example: Search across documentation
-const results = await mcpClient.callTool('search_documentation', {
-  query: 'authentication',
-  category: 'all'
-});
-```
-
-**Available MCP Tools:**
-- `get_project_overview` - High-level project overview
-- `get_sveltekit_architecture` - Complete architecture documentation
-- `get_service_docs` - Service-specific documentation (14 services)
-- `get_utility_docs` - Utility-specific documentation (21 utilities)
-- `get_store_docs` - Store-specific documentation (17 stores)
-- `get_component_docs` - Component category documentation (81+ components)
-- `get_api_reference` - API reference and TypeScript interfaces
-- `search_documentation` - Search across all documentation
-
-**MCP Configuration URL:** `https://xbg.solutions/mcp/config.json`
-
-### Quick Customization via Setup Wizard
-
-```bash
-npm run setup
-# Answer 6 questions, wizard handles the rest
-```
-
-### Finding Customization Points
-
-```bash
-# Find all customization points
-grep -r "FIXME:" src/lib/config/
-
-# Common patterns for AI systems
-import { APP_CONFIG } from '$lib/config/app.config';
-import { Button, Card } from '$lib/components/ui';
-import { authService } from '$lib/services/auth';
-```
-
-### Component Generation Pattern
-
-```svelte
-<!-- AI-friendly component pattern -->
-<script lang="ts">
-  import { Button, Card, CardContent, CardHeader } from '$lib/components/ui';
-  
-  export let title: string;
-  export let onSave: () => void;
-</script>
-
-<Card>
-  <CardHeader>{title}</CardHeader>
-  <CardContent>
-    <slot />
-    <Button on:click={onSave}>Save</Button>
-  </CardContent>
-</Card>
-```
+- **677 Tests Passing**: Comprehensive behavioral test coverage
+- **100% TypeScript**: Strict mode with full type safety
+- **WCAG Level AA**: Accessibility compliance verified
+- **Production Ready**: Deployment infrastructure complete
+- **30+ Components**: Complete SHADCN atomic design system
+- **npm Distribution**: Installable packages with semver updates
+- **Agentic Workflows**: Built-in guardrails for AI agent development
+- **Backend Compatible**: Pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend)
 
 ---
 
-## 📊 Project Status
-
-- **677 Tests Passing**: Comprehensive behavioral test coverage ✅
-- **100% TypeScript**: Strict mode with full type safety ✅
-- **WCAG Level AA**: Accessibility compliance verified ✅
-- **Production Ready**: Deployment infrastructure complete ✅
-- **30+ Components**: Complete SHADCN atomic design system ✅
-- **3-Minute Setup**: Interactive wizard for rapid onboarding ✅
-- **Agentic Workflows**: Built-in guardrails for AI agent development ✅
-- **Backend Compatible**: Pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) ✅
-
----
-
-## 🤝 Contributing
+## Contributing
 
 1. Follow existing patterns and conventions
 2. Add tests for new functionality (behavioral testing principles)
 3. Update documentation for any new features
 4. Ensure accessibility compliance
-5. Run full test suite before submitting (`npm run validate`)
+5. Run full test suite before submitting
 
 ---
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🆘 Support
+## Support
 
 - **Issues**: Report bugs and request features via [GitHub Issues](https://github.com/xbg-solutions/boilerplate_frontend/issues)
 - **Discussions**: Community support via [GitHub Discussions](https://github.com/xbg-solutions/boilerplate_frontend/discussions)
-- **Documentation**: Comprehensive docs in `mcp/frontend/` (MCP Knowledge Base)
+- **Documentation**: AI skills in `.claude/skills/`, architecture docs in `docs/`
 - **Website**: [https://xbg.solutions](https://xbg.solutions)
 
 ---
 
-**Built with ❤️ by [XBG Solutions](https://xbg.solutions) for rapid MVP development and AI-assisted coding**
+**Built with care by [XBG Solutions](https://xbg.solutions) for rapid MVP development and AI-assisted coding**
 
 If this project helps you, please consider buying us a beer or two!
 https://xbg.solutions/donations
