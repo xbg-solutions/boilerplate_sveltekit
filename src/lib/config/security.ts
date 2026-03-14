@@ -287,16 +287,24 @@ export function sanitizeHtml(html: string): string {
 }
 
 /**
- * Generate secure random string
+ * Generate secure random string with full cryptographic entropy
+ * Uses base64url encoding for maximum entropy and URL safety
  */
 export function generateSecureToken(length: number = 32): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  // Generate random bytes
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
-  
-  return Array.from(array)
-    .map(byte => chars[byte % chars.length])
-    .join('');
+
+  // Convert to base64url (URL-safe base64 without padding)
+  const base64 = btoa(String.fromCharCode(...array));
+
+  // Make URL-safe by replacing + with - and / with _
+  const base64url = base64
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+
+  return base64url;
 }
 
 /**

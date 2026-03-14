@@ -10,13 +10,7 @@ These skills document the internal architecture, patterns, and conventions of th
 
 | Skill | Directory | Use When... |
 |---|---|---|
-| `xbg_bpsk_overview` | `xbg_bpsk_overview/` | Orienting yourself in the project, understanding architecture, finding the right sub-skill |
-| `xbg_bpsk_setup` | `xbg_bpsk_setup/` | Bootstrapping a new project, running CLI setup, mono-repo configuration, deployment |
-| `xbg_bpsk_packages` | `xbg_bpsk_packages/` | npm distribution (`@xbg/*` packages), dependency graph, import path mapping (`$lib/` → `@xbg/*`), installing utilities, scaffolded vs packaged, test suite structure |
-| `xbg_bpsk_config` | `xbg_bpsk_config/` | Working with `app.config.ts`, env vars, roles/RBAC, feature flags |
-| `xbg_bpsk_stores` | `xbg_bpsk_stores/` | Using or extending Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
-| `xbg_bpsk_services` | `xbg_bpsk_services/` | Calling services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
-| `xbg_bpsk_utils` | `xbg_bpsk_utils/` | Using utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
+| `xbg_boilerplate_sveltekit` | `xbg_boilerplate_sveltekit/` | Working with this SvelteKit boilerplate — architecture, setup, config, stores, services, utilities, components, packages, security. See the skill's sub-topics for detailed guidance. |
 
 ---
 
@@ -59,7 +53,7 @@ These skills synthesize guidance from community and official skill repositories 
 
 When working on a task, consult skills in this order:
 
-1. **Project-specific first** — Check `xbg_bpsk_*` skills for boilerplate conventions and patterns. These override external guidance when there's a conflict.
+1. **Project-specific first** — Check `xbg_boilerplate_sveltekit` skill for boilerplate conventions and patterns. These override external guidance when there's a conflict.
 2. **Library skills second** — Check `firebase`, `shadcn_svelte`, or `svelte5_sveltekit` for technology-specific guidance.
 3. **External sources last** — If a skill references external repos with priority ordering, consult sources in the listed priority order.
 
@@ -67,22 +61,24 @@ When working on a task, consult skills in this order:
 
 | Topic | Primary Skill | Also Check |
 |---|---|---|
-| Project architecture / orientation | `xbg_bpsk_overview` | — |
-| New project setup / CLI | `xbg_bpsk_setup` | `xbg_bpsk_packages` (for utility selection) |
-| npm packages / `@xbg/*` imports | `xbg_bpsk_packages` | `xbg_bpsk_setup` (for CLI install flow) |
-| Dependency graph / package boundaries | `xbg_bpsk_packages` | — |
-| Import path mapping (`$lib/` → `@xbg/*`) | `xbg_bpsk_packages` | — |
-| Installing a new utility | `xbg_bpsk_packages` | `xbg_bpsk_setup` (for CLI sync) |
-| Test suite / test utils / mocks | `xbg_bpsk_packages` | — |
-| Scaffolded vs packaged code | `xbg_bpsk_packages` | — |
-| `app.config.ts` / env vars / RBAC | `xbg_bpsk_config` | — |
-| Svelte stores | `xbg_bpsk_stores` | `svelte5_sveltekit` (for runes patterns) |
-| Services (auth, API, toast, etc.) | `xbg_bpsk_services` | `firebase` (for Firebase Auth details) |
-| Utilities (cn, guards, errors) | `xbg_bpsk_utils` | — |
-| Firebase Auth / Firestore / Functions | `firebase` | `xbg_bpsk_services` (for boilerplate wrappers) |
-| Firebase deployment / emulators | `firebase` | `xbg_bpsk_setup` (for project-specific deploy) |
-| UI components / shadcn | `shadcn_svelte` | `xbg_bpsk_overview` (for barrel import convention) |
-| Svelte 5 runes / reactivity | `svelte5_sveltekit` | `xbg_bpsk_stores` (for store patterns) |
-| SvelteKit routing / load functions | `svelte5_sveltekit` | `xbg_bpsk_utils` (for route guards) |
+| Project architecture / orientation | `xbg_boilerplate_sveltekit` | — |
+| New project setup / CLI | `xbg_boilerplate_sveltekit` | — |
+| npm packages / `@xbg/*` imports | `xbg_boilerplate_sveltekit` | — |
+| Dependency graph / package boundaries | `xbg_boilerplate_sveltekit` | — |
+| Import path mapping (`$lib/` → `@xbg/*`) | `xbg_boilerplate_sveltekit` | — |
+| Installing a new utility | `xbg_boilerplate_sveltekit` | — |
+| Test suite / test utils / mocks | `xbg_boilerplate_sveltekit` | — |
+| Scaffolded vs packaged code | `xbg_boilerplate_sveltekit` | — |
+| `app.config.ts` / env vars / RBAC | `xbg_boilerplate_sveltekit` | — |
+| Svelte stores | `xbg_boilerplate_sveltekit` | `svelte5_sveltekit` (for runes patterns) |
+| Services (auth, API, toast, etc.) | `xbg_boilerplate_sveltekit` | `firebase` (for Firebase Auth details) |
+| Utilities (cn, guards, errors) | `xbg_boilerplate_sveltekit` | — |
+| UI components / blocks | `xbg_boilerplate_sveltekit` | `shadcn_svelte` (for component docs) |
+| Security (CSP, CSRF, App Check, rules) | `xbg_boilerplate_sveltekit` | `firebase` (for Firebase-specific security) |
+| Firebase Auth / Firestore / Functions | `firebase` | `xbg_boilerplate_sveltekit` (for boilerplate wrappers) |
+| Firebase deployment / emulators | `firebase` | `xbg_boilerplate_sveltekit` (for project-specific deploy) |
+| UI components / shadcn | `shadcn_svelte` | `xbg_boilerplate_sveltekit` (for barrel import convention) |
+| Svelte 5 runes / reactivity | `svelte5_sveltekit` | `xbg_boilerplate_sveltekit` (for store patterns) |
+| SvelteKit routing / load functions | `svelte5_sveltekit` | `xbg_boilerplate_sveltekit` (for route guards) |
 | Tailwind CSS / styling | `svelte5_sveltekit` | `shadcn_svelte` (for theming) |
 | Forms / form actions | `svelte5_sveltekit` | `shadcn_svelte` (for form components) |

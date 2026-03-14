@@ -36,7 +36,7 @@ export default defineConfig({
     minify: 'terser',
     reportCompressedSize: true,
     chunkSizeWarningLimit: 1000,
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV === 'development',
     // Chunk splitting for better caching
     rollupOptions: {
       output: {

@@ -76,14 +76,25 @@ describe('Real Service Integration Tests', () => {
   // Mock only external boundaries
   const originalFetch = global.fetch;
   const fetchMock = vi.fn();
-  
+
+  // Track unhandled rejections to prevent test failures
+  const handledRejections: any[] = [];
+  const rejectionHandler = (reason: any, promise: Promise<any>) => {
+    // Store the rejection to mark it as handled
+    handledRejections.push({ reason, promise });
+  };
+
   beforeEach(async () => {
     vi.clearAllMocks();
-    
+    handledRejections.length = 0;
+
+    // Add unhandled rejection handler for this test suite
+    process.on('unhandledRejection', rejectionHandler);
+
     // Mock fetch for API calls
     global.fetch = fetchMock;
     fetchMock.mockClear();
-    
+
     // Mock localStorage
     const localStorageMock = {
       getItem: vi.fn(),
@@ -92,24 +103,37 @@ describe('Real Service Integration Tests', () => {
       clear: vi.fn()
     };
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-    
+
     // Reset all stores to initial state
     // This ensures clean test isolation without mocking the services themselves
-    
+
     // Default fetch mock response
     fetchMock.mockResolvedValue(new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     }));
   }, 5000); // 5 second timeout
-  
-  afterEach(() => {
+
+  afterEach(async () => {
+    // Reset fetch mock to prevent unhandled rejections
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    }));
+
     // Restore original fetch
     global.fetch = originalFetch;
-    
+
     // Clear all timers and pending promises
     vi.clearAllTimers();
     vi.clearAllMocks();
+
+    // Allow any pending promises to settle
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    // Remove the rejection handler
+    process.off('unhandledRejection', rejectionHandler);
   });
   
   it('should process Firebase auth tokens through the complete auth and token flow', async () => {

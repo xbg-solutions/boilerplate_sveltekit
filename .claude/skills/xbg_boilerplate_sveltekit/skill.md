@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Overview
+# XBG Boilerplate SvelteKit
 
-**Skill: `xbg_bpsk_overview`**
+**Skill: `xbg_boilerplate_sveltekit`**
 
 This is the master reference for the XBG Solutions SvelteKit 5 boilerplate (`boilerplate_sveltekit`). Use it to orient yourself before building features, fixing bugs, or extending the project. Deeper coverage lives in the sub-skills listed below.
 
@@ -20,14 +20,16 @@ A production-ready SvelteKit 5 foundation purpose-built for **agentic, AI-assist
 
 ## Sub-Skills (Read When Relevant)
 
-| Skill | Read When You Need To… |
-|---|---|
-| `xbg_bpsk_setup` | Bootstrap a new project, run the 8-step wizard, handle mono-repo tidy-up, deploy |
-| `xbg_bpsk_config` | Understand `app.config.ts`, the two-part config model, add roles/claims/features |
-| `xbg_bpsk_stores` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
-| `xbg_bpsk_services` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
-| `xbg_bpsk_utils` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
-| `xbg_bpsk_components` | Use atomic UI components or pre-built page blocks (auth, dashboard, sidebar, etc.) |
+| Skill | Directory | Read When You Need To… |
+|---|---|---|
+| `setup` | `setup/` | Bootstrap a new project, run the 8-step wizard, handle mono-repo tidy-up, deploy |
+| `config` | `config/` | Understand `app.config.ts`, the two-part config model, add roles/claims/features |
+| `stores` | `stores/` | Use or extend Svelte stores (`authStore`, `loadingStore`, `toastStore`, etc.) |
+| `services` | `services/` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
+| `utils` | `utils/` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
+| `components` | `components/` | Use atomic UI components or pre-built page blocks (auth, dashboard, sidebar, etc.) |
+| `packages` | `packages/` | npm distribution (`@xbg/*` packages), dependency graph, import path mapping, test suite structure |
+| `security_hardening` | `security_hardening/` | Security hardening, CSP/headers, Firebase security rules, App Check, rate limiting, CSRF protection |
 
 ---
 

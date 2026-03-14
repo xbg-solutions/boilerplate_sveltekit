@@ -8,12 +8,12 @@
  */
 
 import { initializeApp, type FirebaseApp, getApps, type FirebaseOptions } from 'firebase/app';
-import { 
-  getAuth, 
-  type Auth, 
-  connectAuthEmulator, 
-  onAuthStateChanged, 
-  type User, 
+import {
+  getAuth,
+  type Auth,
+  connectAuthEmulator,
+  onAuthStateChanged,
+  type User,
   signOut,
   type AuthError as FirebaseAuthError,
   setPersistence,
@@ -26,12 +26,13 @@ import {
   reauthenticateWithCredential
 } from 'firebase/auth';
 import { loggerService } from '../services/logging/logging.service';
-import { 
-  AppError, 
-  handleError, 
-  normalizeError, 
-  withErrorHandling 
+import {
+  AppError,
+  handleError,
+  normalizeError,
+  withErrorHandling
 } from './error-handler';
+import { initializeFirebaseAppCheck } from './app-check';
 import type { ErrorOptions } from '../types/error.types';
 import type { FirebaseState } from '../types/firebase.types';
 
@@ -195,9 +196,20 @@ export async function initializeFirebase(): Promise<FirebaseState> {
       const emulatorHost = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST;
       const emulatorPort = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_PORT || '9099';
       const emulatorUrl = `http://${emulatorHost}:${emulatorPort}`;
-      
+
       firebaseLogger.info(`Connecting to Auth emulator at ${emulatorUrl}`);
       connectAuthEmulator(auth, emulatorUrl);
+    }
+
+    // Initialize App Check for bot protection
+    // This is non-blocking - if it fails, the app will continue to work
+    try {
+      await initializeFirebaseAppCheck(app);
+    } catch (appCheckError) {
+      // Already logged in app-check.ts, just log warning here
+      firebaseLogger.warn('App Check initialization failed, continuing without it', {
+        error: appCheckError instanceof Error ? appCheckError.message : String(appCheckError)
+      });
     }
 
     // Update state

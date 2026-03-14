@@ -1,0 +1,258 @@
+rules_version = '2';
+
+/**
+ * Cloud Firestore Security Rules
+ *
+ * Implements secure data access patterns with user-based authorization.
+ * These rules ensure users can only access data they're authorized to see
+ * and enforce data validation at the database level.
+ *
+ * Key Principles:
+ * - Defense in depth: Never trust client-side validation alone
+ * - Principle of least privilege: Users only get access they need
+ * - Data validation: Enforce schema and business rules
+ * - Audit trails: Track who modified what and when
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // HELPER FUNCTIONS
+    // =========================================================================
+
+    /**
+     * Authentication checks
+     */
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    /**
+     * Role-based access control
+     * Customize these based on your app.config.ts role definitions
+     */
+    function hasRole(role) {
+      return isAuthenticated() &&
+             request.auth.token.role == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    function isModerator() {
+      return hasRole('moderator') || isAdmin();
+    }
+
+    function hasAnyRole(roles) {
+      return isAuthenticated() &&
+             request.auth.token.role in roles;
+    }
+
+    /**
+     * Account-based access
+     */
+    function hasAccountAccess(accountId) {
+      return isAuthenticated() &&
+             request.auth.token.accountId == accountId;
+    }
+
+    /**
+     * Data validation helpers
+     */
+    function isValidString(value, minLen, maxLen) {
+      return value is string &&
+             value.size() >= minLen &&
+             value.size() <= maxLen;
+    }
+
+    function isValidEmail(email) {
+      return email is string &&
+             email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    }
+
+    function hasRequiredFields(data, fields) {
+      return fields.hasAll(data.keys());
+    }
+
+    /**
+     * Timestamp validation
+     */
+    function isValidTimestamp(timestamp) {
+      return timestamp is timestamp;
+    }
+
+    function isRecentTimestamp(timestamp) {
+      return isValidTimestamp(timestamp) &&
+             timestamp > request.time - duration.value(5, 'm'); // Within last 5 minutes
+    }
+
+    // =========================================================================
+    // USER PROFILES
+    // =========================================================================
+
+    match /users/{userId} {
+      // Users can read their own profile, admins can read all
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+
+      // Users can create their own profile on first sign-in
+      allow create: if isAuthenticated() &&
+                       isOwner(userId) &&
+                       hasRequiredFields(request.resource.data, ['email', 'createdAt', 'role']) &&
+                       isValidEmail(request.resource.data.email) &&
+                       isRecentTimestamp(request.resource.data.createdAt) &&
+                       request.resource.data.role == 'user'; // Default role only
+
+      // Users can update their own profile (restricted fields)
+      allow update: if isAuthenticated() &&
+                       isOwner(userId) &&
+                       // Can't change these protected fields
+                       request.resource.data.role == resource.data.role &&
+                       request.resource.data.createdAt == resource.data.createdAt &&
+                       request.resource.data.email == resource.data.email &&
+                       // Update timestamp
+                       isRecentTimestamp(request.resource.data.updatedAt);
+
+      // Only admins can delete users
+      allow delete: if isAdmin();
+
+      // User settings subcollection
+      match /settings/{settingId} {
+        allow read, write: if isAuthenticated() && isOwner(userId);
+      }
+
+      // User activity logs (write-only for user, read for admins)
+      match /activityLogs/{logId} {
+        allow read: if isAdmin();
+        allow create: if isAuthenticated() && isOwner(userId);
+        allow update, delete: if false; // Logs are immutable
+      }
+    }
+
+    // =========================================================================
+    // ACCOUNTS (Multi-user organizations)
+    // =========================================================================
+
+    match /accounts/{accountId} {
+      // Members and admins can read account data
+      allow read: if isAuthenticated() &&
+                     (hasAccountAccess(accountId) || isAdmin());
+
+      // Only admins can create accounts
+      allow create: if isAdmin() &&
+                       hasRequiredFields(request.resource.data, ['name', 'createdAt', 'ownerId']) &&
+                       isRecentTimestamp(request.resource.data.createdAt);
+
+      // Account owners and admins can update
+      allow update: if isAuthenticated() &&
+                       (resource.data.ownerId == request.auth.uid || isAdmin()) &&
+                       // Protected fields can't be changed
+                       request.resource.data.createdAt == resource.data.createdAt;
+
+      // Only admins can delete accounts
+      allow delete: if isAdmin();
+
+      // Account members subcollection
+      match /members/{memberId} {
+        allow read: if isAuthenticated() && hasAccountAccess(accountId);
+        allow write: if isAuthenticated() &&
+                        (resource.data.ownerId == request.auth.uid || isAdmin());
+      }
+    }
+
+    // =========================================================================
+    // FILE METADATA
+    // =========================================================================
+
+    match /fileMetadata/{fileId} {
+      // Users can read their own file metadata
+      allow read: if isAuthenticated() &&
+                     (resource.data.uploadedBy == request.auth.uid || isAdmin());
+
+      // Users can create file metadata when uploading
+      allow create: if isAuthenticated() &&
+                       request.resource.data.uploadedBy == request.auth.uid &&
+                       hasRequiredFields(request.resource.data,
+                         ['fileName', 'contentType', 'size', 'storagePath', 'uploadedBy', 'uploadedAt']) &&
+                       isRecentTimestamp(request.resource.data.uploadedAt) &&
+                       request.resource.data.size <= 50 * 1024 * 1024; // 50MB
+
+      // Users can update their own file metadata (status, processing info)
+      allow update: if isAuthenticated() &&
+                       resource.data.uploadedBy == request.auth.uid &&
+                       // Can't change these fields
+                       request.resource.data.uploadedBy == resource.data.uploadedBy &&
+                       request.resource.data.uploadedAt == resource.data.uploadedAt;
+
+      // Users can delete their own file metadata
+      allow delete: if isAuthenticated() &&
+                       (resource.data.uploadedBy == request.auth.uid || isAdmin());
+    }
+
+    // =========================================================================
+    // PROJECTS/ENGAGEMENTS
+    // =========================================================================
+
+    match /projects/{projectId} {
+      // Project members can read
+      allow read: if isAuthenticated() &&
+                     (request.auth.uid in resource.data.members || isAdmin());
+
+      // Authenticated users can create projects
+      allow create: if isAuthenticated() &&
+                       hasRequiredFields(request.resource.data,
+                         ['name', 'createdBy', 'createdAt', 'members']) &&
+                       request.resource.data.createdBy == request.auth.uid &&
+                       request.auth.uid in request.resource.data.members &&
+                       isRecentTimestamp(request.resource.data.createdAt);
+
+      // Project owners can update
+      allow update: if isAuthenticated() &&
+                       (resource.data.createdBy == request.auth.uid || isAdmin());
+
+      // Only admins or project owners can delete
+      allow delete: if isAuthenticated() &&
+                       (resource.data.createdBy == request.auth.uid || isAdmin());
+    }
+
+    // =========================================================================
+    // ANALYTICS & METRICS (Optional)
+    // =========================================================================
+
+    match /analytics/{metricId} {
+      // Only admins can read analytics
+      allow read: if isAdmin();
+
+      // System can write analytics (via admin SDK on backend)
+      allow write: if false; // Only backend with admin SDK
+    }
+
+    // =========================================================================
+    // SYSTEM COLLECTIONS (Admin only)
+    // =========================================================================
+
+    match /systemConfig/{configId} {
+      allow read: if isAdmin();
+      allow write: if false; // Only via admin SDK
+    }
+
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated(); // Anyone can log
+      allow update, delete: if false; // Logs are immutable
+    }
+
+    // =========================================================================
+    // DENY ALL OTHER PATHS
+    // =========================================================================
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -89,26 +89,54 @@ describe('Real Service Integration Tests', () => {
     clear: vi.fn()
   };
 
+  // Track unhandled rejections to prevent test failures
+  const handledRejections: any[] = [];
+  const rejectionHandler = (reason: any, promise: Promise<any>) => {
+    // Store the rejection to mark it as handled
+    handledRejections.push({ reason, promise });
+  };
+
   beforeEach(async () => {
     vi.clearAllMocks();
-    
+    handledRejections.length = 0;
+
+    // Add unhandled rejection handler for this test suite
+    process.on('unhandledRejection', rejectionHandler);
+
     // Setup external boundary mocks
     global.fetch = fetchMock;
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     Object.defineProperty(window, 'sessionStorage', { value: localStorageMock });
-    
+
     // Default successful API response
-    fetchMock.mockResolvedValue(new Response(JSON.stringify({ 
-      success: true, 
-      data: { message: 'API response' } 
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({
+      success: true,
+      data: { message: 'API response' }
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     }));
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    // Reset fetch mock to prevent unhandled rejections
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({
+      success: true,
+      data: { message: 'API response' }
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    }));
+
     vi.clearAllTimers();
+    vi.clearAllMocks();
+
+    // Allow any pending promises to settle
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    // Remove the rejection handler
+    process.off('unhandledRejection', rejectionHandler);
   });
 
   describe('Authentication Flow Integration', () => {

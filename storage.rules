@@ -1,0 +1,157 @@
+rules_version = '2';
+
+/**
+ * Firebase Storage Security Rules
+ *
+ * Implements secure file access patterns with user-based segregation.
+ * These rules ensure users can only access their own files and enforce
+ * file size and type restrictions at the storage level.
+ *
+ * Path structure: uploads/{resourceType}/{resourceId}/{fileName}
+ * - resourceType: The type of resource (e.g., 'users', 'accounts', 'projects')
+ * - resourceId: The ID of the resource (typically the user's UID)
+ * - fileName: The uploaded file name (timestamped and sanitized)
+ */
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the resource
+    function isOwner(resourceId) {
+      return request.auth.uid == resourceId;
+    }
+
+    // Helper function to check file size (50MB limit)
+    function isValidSize() {
+      return request.resource.size <= 50 * 1024 * 1024;
+    }
+
+    // Helper function to check if file type is allowed
+    function isAllowedFileType() {
+      return request.resource.contentType.matches('image/.*') ||
+             request.resource.contentType == 'application/pdf' ||
+             request.resource.contentType == 'application/msword' ||
+             request.resource.contentType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+             request.resource.contentType == 'application/vnd.ms-excel' ||
+             request.resource.contentType == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+             request.resource.contentType == 'application/vnd.ms-powerpoint' ||
+             request.resource.contentType == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ||
+             request.resource.contentType == 'text/plain' ||
+             request.resource.contentType == 'text/csv';
+    }
+
+    // Helper function to check if user has admin role
+    function isAdmin() {
+      return isAuthenticated() &&
+             request.auth.token.admin == true;
+    }
+
+    // Helper function to validate metadata
+    function hasValidMetadata() {
+      return request.resource.metadata.originalName != null &&
+             request.resource.metadata.resourceType != null &&
+             request.resource.metadata.resourceId != null &&
+             request.resource.metadata.uploadedAt != null;
+    }
+
+    /**
+     * User uploads directory
+     * Users can read/write their own files
+     * Admins can read all files
+     */
+    match /uploads/users/{userId}/{fileName} {
+      // Users can read their own files, admins can read all
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+
+      // Users can write their own files with validation
+      allow write: if isAuthenticated() &&
+                      isOwner(userId) &&
+                      isValidSize() &&
+                      isAllowedFileType() &&
+                      hasValidMetadata();
+
+      // Users can delete their own files, admins can delete any
+      allow delete: if isAuthenticated() && (isOwner(userId) || isAdmin());
+    }
+
+    /**
+     * Account uploads directory
+     * More flexible access control for multi-user accounts
+     */
+    match /uploads/accounts/{accountId}/{fileName} {
+      // Allow read if user has access to the account (custom claim: accountId)
+      allow read: if isAuthenticated() &&
+                     (request.auth.token.accountId == accountId || isAdmin());
+
+      // Allow write if user has access to the account
+      allow write: if isAuthenticated() &&
+                      request.auth.token.accountId == accountId &&
+                      isValidSize() &&
+                      isAllowedFileType() &&
+                      hasValidMetadata();
+
+      // Allow delete if user has access to the account or is admin
+      allow delete: if isAuthenticated() &&
+                       (request.auth.token.accountId == accountId || isAdmin());
+    }
+
+    /**
+     * Project/Engagement uploads directory
+     * Access controlled by project membership
+     */
+    match /uploads/projects/{projectId}/{fileName} {
+      // Allow read if user is a project member (custom claim: projects array)
+      allow read: if isAuthenticated() &&
+                     (projectId in request.auth.token.projects || isAdmin());
+
+      // Allow write if user is a project member
+      allow write: if isAuthenticated() &&
+                      projectId in request.auth.token.projects &&
+                      isValidSize() &&
+                      isAllowedFileType() &&
+                      hasValidMetadata();
+
+      // Allow delete if user is a project member or admin
+      allow delete: if isAuthenticated() &&
+                       (projectId in request.auth.token.projects || isAdmin());
+    }
+
+    /**
+     * Generic resource uploads
+     * Fallback for other resource types
+     */
+    match /uploads/{resourceType}/{resourceId}/{fileName} {
+      // Default: users can only access their own resources
+      allow read: if isAuthenticated() && (isOwner(resourceId) || isAdmin());
+
+      allow write: if isAuthenticated() &&
+                      isOwner(resourceId) &&
+                      isValidSize() &&
+                      isAllowedFileType() &&
+                      hasValidMetadata();
+
+      allow delete: if isAuthenticated() && (isOwner(resourceId) || isAdmin());
+    }
+
+    /**
+     * Public assets directory (if needed)
+     * Read-only for all users, write-only for admins
+     */
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    /**
+     * Deny all other paths by default
+     */
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
