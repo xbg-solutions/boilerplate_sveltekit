@@ -36,6 +36,14 @@ These skills synthesize guidance from community and official skill repositories 
 
 **Source:** [antstanley/shadcn-svelte-skill](https://github.com/antstanley/shadcn-svelte-skill) — 59 component docs, installation, theming, Tailwind v4 migration
 
+### Frontend Design (Impeccable)
+
+| Skill | Directory | Use When... |
+|---|---|---|
+| `impeccable` | `impeccable/` | Designing/refining UI/UX, making typography/color/layout decisions, avoiding design anti-patterns, creating visually cohesive interfaces |
+
+**Source:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable) — Design language with curated patterns and anti-patterns for impeccable frontend design (17 commands, typography, color, layout, motion guidance)
+
 ### Svelte 5 & SvelteKit
 
 | Skill | Directory | Use When... |
@@ -73,12 +81,13 @@ When working on a task, consult skills in this order:
 | Svelte stores | `xbg_boilerplate_sveltekit` | `svelte5_sveltekit` (for runes patterns) |
 | Services (auth, API, toast, etc.) | `xbg_boilerplate_sveltekit` | `firebase` (for Firebase Auth details) |
 | Utilities (cn, guards, errors) | `xbg_boilerplate_sveltekit` | — |
-| UI components / blocks | `xbg_boilerplate_sveltekit` | `shadcn_svelte` (for component docs) |
+| UI components / blocks | `xbg_boilerplate_sveltekit` | `shadcn_svelte` (for component docs), `impeccable` (for design guidance) |
 | Security (CSP, CSRF, App Check, rules) | `xbg_boilerplate_sveltekit` | `firebase` (for Firebase-specific security) |
 | Firebase Auth / Firestore / Functions | `firebase` | `xbg_boilerplate_sveltekit` (for boilerplate wrappers) |
 | Firebase deployment / emulators | `firebase` | `xbg_boilerplate_sveltekit` (for project-specific deploy) |
-| UI components / shadcn | `shadcn_svelte` | `xbg_boilerplate_sveltekit` (for barrel import convention) |
+| UI components / shadcn | `shadcn_svelte` | `xbg_boilerplate_sveltekit` (for barrel import convention), `impeccable` (for design patterns) |
 | Svelte 5 runes / reactivity | `svelte5_sveltekit` | `xbg_boilerplate_sveltekit` (for store patterns) |
 | SvelteKit routing / load functions | `svelte5_sveltekit` | `xbg_boilerplate_sveltekit` (for route guards) |
-| Tailwind CSS / styling | `svelte5_sveltekit` | `shadcn_svelte` (for theming) |
+| Tailwind CSS / styling | `svelte5_sveltekit` | `shadcn_svelte` (for theming), `impeccable` (for color/typography) |
 | Forms / form actions | `svelte5_sveltekit` | `shadcn_svelte` (for form components) |
+| Design / UI refinement | `impeccable` | `shadcn_svelte` (for component implementation) |
