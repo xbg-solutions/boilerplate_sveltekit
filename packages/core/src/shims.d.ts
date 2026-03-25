@@ -18,3 +18,15 @@ declare module '$app/environment' {
   export const dev: boolean;
   export const version: string;
 }
+
+// SvelteKit App namespace augmentation
+declare namespace App {
+  /**
+   * Error interface for SvelteKit error responses
+   */
+  interface Error {
+    message: string;
+    status: number;
+    redirect?: string;
+  }
+}

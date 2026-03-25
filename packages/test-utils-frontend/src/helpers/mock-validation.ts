@@ -41,7 +41,7 @@ export function validateFirebaseMocks() {
  */
 export async function resetFirebaseMocks() {
   try {
-    const { safeGetCurrentUser, getFirebaseAuth, subscribeToAuthChanges } = await import('$lib/utils/firebase');
+    const { safeGetCurrentUser, getFirebaseAuth, subscribeToAuthChanges } = await import('@xbg.solutions/frontend-core');
     
     // Reset all mocks to ensure clean state
     vi.mocked(safeGetCurrentUser).mockReset();
@@ -49,9 +49,9 @@ export async function resetFirebaseMocks() {
     vi.mocked(subscribeToAuthChanges).mockReset();
     
     // Reconfigure with standard values
-    vi.mocked(safeGetCurrentUser).mockResolvedValue({ success: false, data: null });
-    vi.mocked(getFirebaseAuth).mockResolvedValue({ currentUser: null });
-    vi.mocked(subscribeToAuthChanges).mockResolvedValue(vi.fn());
+    vi.mocked(safeGetCurrentUser).mockResolvedValue({ success: false, data: null } as any);
+    vi.mocked(getFirebaseAuth).mockResolvedValue({ currentUser: null } as any);
+    vi.mocked(subscribeToAuthChanges).mockResolvedValue(vi.fn() as any);
     
     return true;
   } catch (error) {
