@@ -3,7 +3,7 @@
   OTP verification with "Try another method" link.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

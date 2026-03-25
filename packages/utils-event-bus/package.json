@@ -1,0 +1,27 @@
+{
+  "name": "@xbg.solutions/utils-event-bus",
+  "version": "1.0.0",
+  "description": "XBG Event Bus - Pub/sub event system and stores",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@xbg.solutions/frontend-core": "^1.0.0",
+    "@xbg.solutions/utils-mutex": "^1.0.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  }
+}

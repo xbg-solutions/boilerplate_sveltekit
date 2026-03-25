@@ -52,8 +52,5 @@ export { Message } from './message';
 export { OtpInput } from './otp-input';
 export { Calendar } from './calendar';
 
-// Icons
-export { DynamicIcon, BrandIcon } from './icon';
-
 // Utility exports
-export { cn } from '../../utils/cn';
+export { cn } from '@xbg.solutions/frontend-core';

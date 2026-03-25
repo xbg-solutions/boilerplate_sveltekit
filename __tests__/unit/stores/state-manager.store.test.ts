@@ -7,8 +7,8 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { stateManagerStore, type StateManagerState } from '$lib/stores/state-manager.store';
-import { PersistenceStrategy } from '$lib/types/state-manager.types';
+import { stateManagerStore, type StateManagerState } from '@xbg.solutions/utils-state-manager';
+import { PersistenceStrategy } from '@xbg.solutions/utils-state-manager';
 
 describe('State Manager Store', () => {
   // Reset store before each test

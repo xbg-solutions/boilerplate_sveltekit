@@ -3,7 +3,7 @@
   Create account form with terms checkbox.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

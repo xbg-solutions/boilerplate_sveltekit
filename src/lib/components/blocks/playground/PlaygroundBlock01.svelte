@@ -3,7 +3,7 @@
   Simple AI playground with model selector, textarea, and parameter panel.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Input,

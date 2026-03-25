@@ -7,8 +7,8 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { loggerStore } from '$lib/stores/logging.store';
-import type { LoggerState, TimerInfo } from '$lib/types/logging.types';
+import { loggerStore } from '@xbg.solutions/frontend-core';
+import type { LoggerState, TimerInfo } from '@xbg.solutions/frontend-core';
 
 describe('Logger Store', () => {
   // Reset store before each test

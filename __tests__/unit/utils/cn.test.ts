@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { cn } from '$lib/utils/cn';
+import { cn } from '@xbg.solutions/frontend-core';
 
 describe('cn utility function', () => {
   describe('Basic Functionality', () => {

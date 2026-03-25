@@ -3,7 +3,7 @@
   Login form with "OR CONTINUE WITH" divider between password and social login.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

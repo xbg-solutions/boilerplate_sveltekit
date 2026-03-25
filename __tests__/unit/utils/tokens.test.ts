@@ -14,9 +14,9 @@ import {
   isTokenValid,
   haveTokensChanged,
   TokenError
-} from '$lib/utils/tokens';
-import type { DecodedToken } from '$lib/types/token.types';
-import type { FirebaseUserClaims } from '$lib/types/firebase.types';
+} from '@xbg.solutions/utils-firebase-auth';
+import type { DecodedToken } from '@xbg.solutions/frontend-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
 
 // Mock the logging service
 vi.mock('../services/logging/logging.service', () => ({

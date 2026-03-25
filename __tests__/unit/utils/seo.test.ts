@@ -56,7 +56,7 @@ import {
   generateRobotsTxt,
   seoUtils,
   type SEOData 
-} from '$lib/utils/seo';
+} from '@xbg.solutions/utils-seo';
 
 // Performance mock setup (moved from global setup)
 const mockPerformance = {

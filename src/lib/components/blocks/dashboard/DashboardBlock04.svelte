@@ -4,7 +4,7 @@
   Features a wider detail panel alongside orders and inline stats.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

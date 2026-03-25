@@ -23,7 +23,7 @@
     Copy,
     Check
   } from 'lucide-svelte';
-  import { toast } from '$lib/services/toast';
+  import { toastService as toast } from '@xbg.solutions/frontend-core';
   
   // Error data from SvelteKit
   $: error = $page.error;

@@ -3,7 +3,7 @@
   Login form with divider and inline footer text.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

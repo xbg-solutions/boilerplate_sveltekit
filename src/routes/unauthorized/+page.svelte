@@ -8,8 +8,8 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { Card, Button, Alert, AlertDescription } from '$lib/components/ui';
-  import { authService } from '$lib/services/auth';
-  import { AUTH_ROUTES } from '$lib/constants/auth.constants';
+  import { authService } from '@xbg.solutions/utils-firebase-auth';
+  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
   
   // Get authentication state
   const isAuthenticated = authService.isAuthenticated();

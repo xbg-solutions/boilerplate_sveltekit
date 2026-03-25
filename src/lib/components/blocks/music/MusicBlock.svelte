@@ -3,7 +3,7 @@
   Music/media app layout with menu bar, sidebar, and album grid.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Tabs,

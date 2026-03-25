@@ -1,0 +1,1 @@
+{"version":3,"file":"routes.constants.d.ts","sourceRoot":"","sources":["routes.constants.ts"],"names":[],"mappings":"AAAA;;;;;;;;;GASG;AAMH;;;GAGG;AACH,eAAO,MAAM,MAAM;;;;;;;;;;;CAWlB,CAAC;AAKF,MAAM,MAAM,aAAa,GAAG,KAAK,GAAG,KAAK,GAAG,KAAK,CAAC;AAElD,MAAM,WAAW,gBAAgB;IAC/B,QAAQ,EAAE,aAAa,CAAC;IACxB,MAAM,EAAE,MAAM,EAAE,CAAC;CAClB"}

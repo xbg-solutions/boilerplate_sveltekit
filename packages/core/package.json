@@ -1,0 +1,22 @@
+{
+  "name": "@xbg.solutions/frontend-core",
+  "version": "1.0.0",
+  "description": "XBG Frontend Core - Base framework, types, stores, error handling, logging",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "files": ["lib"],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0",
+    "@sveltejs/kit": "^2.0.0"
+  }
+}

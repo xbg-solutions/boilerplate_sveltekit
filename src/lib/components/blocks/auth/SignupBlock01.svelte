@@ -3,7 +3,7 @@
   Full create account form with name, email, password, confirm password, and Google signup.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

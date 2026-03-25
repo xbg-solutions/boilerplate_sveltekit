@@ -7,10 +7,10 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { authStore } from '$lib/stores/auth.store';
+import { authStore } from '@xbg.solutions/utils-firebase-auth';
 import type { User } from 'firebase/auth';
-import type { FirebaseUserClaims } from '$lib/types/firebase.types';
-import type { AppError } from '$lib/utils/error-handler';
+import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
+import type { AppError } from '@xbg.solutions/frontend-core';
 
 describe('Auth Store', () => {
   // Mock data

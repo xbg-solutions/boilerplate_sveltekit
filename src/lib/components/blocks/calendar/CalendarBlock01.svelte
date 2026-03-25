@@ -3,7 +3,7 @@
   Dual month calendar view with navigation and date selection.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
 
   let className: string = '';

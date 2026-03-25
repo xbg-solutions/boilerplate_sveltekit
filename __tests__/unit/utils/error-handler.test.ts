@@ -7,7 +7,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Create a manual import of the error handler module
 // Import directly from the file, so we can test without mocking
-import * as ErrorHandler from '$lib/utils/error-handler';
+import * as ErrorHandler from '@xbg.solutions/frontend-core';
 const {
   AppError,
   ApiError,

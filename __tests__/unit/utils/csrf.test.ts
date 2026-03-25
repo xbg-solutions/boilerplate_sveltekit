@@ -4,14 +4,14 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { csrfProtection } from '$lib/utils/csrf';
-import { secureStorage } from '$lib/utils/secure-storage';
+import { csrfProtection } from '@xbg.solutions/utils-csrf';
+import { secureStorage } from '@xbg.solutions/utils-secure-storage';
 import { 
   CSRF_TOKEN_KEY, 
   CSRF_HEADER_NAME, 
   CSRF_PROTECTED_METHODS,
   AUTH_NAMESPACE 
-} from '$lib/constants/csrf.constants';
+} from '@xbg.solutions/utils-csrf';
 
 // Mock the secure storage module
 vi.mock('$lib/utils/secure-storage', () => {

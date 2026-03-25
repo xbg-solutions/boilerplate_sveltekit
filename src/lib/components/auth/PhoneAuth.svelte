@@ -5,7 +5,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { goto } from '$app/navigation';
-  import { AUTH_ROUTES } from '$lib/constants/auth.constants';
+  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
   
   // Component props
   export let languageCode: string | undefined = undefined;

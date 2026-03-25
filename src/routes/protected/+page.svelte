@@ -9,13 +9,13 @@
 -->
 <script lang="ts">
   import { Card, Alert, AlertDescription } from '$lib/components/ui';
-  import { authStore } from '$lib/stores/auth.store';
-  import { loggerService } from '$lib/services/logging/logging.service';
+  import { authStore } from '@xbg.solutions/utils-firebase-auth';
+  import { loggerService } from '@xbg.solutions/frontend-core';
   import { onMount, onDestroy } from 'svelte';
-  import { tokenService } from '$lib/services/token/token.service';
-  import { rbacUtil } from '$lib/utils/rbac';
-  import { subscribe } from '$lib/services/events';
-  import { TAB_SYNC_EVENTS } from '$lib/constants/tab-sync.constants';
+  import { tokenService } from '@xbg.solutions/utils-firebase-auth';
+  import { rbacUtil } from '@xbg.solutions/utils-rbac';
+  import { subscribe } from '@xbg.solutions/frontend-core';
+  import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
   
   // Get user from the auth store
   $: user = $authStore.user;

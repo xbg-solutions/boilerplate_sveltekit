@@ -4,7 +4,7 @@
   and a right detail panel for viewing individual order info.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

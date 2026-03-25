@@ -3,7 +3,7 @@
   Split-screen auth layout with dark branded panel on left and form slot on right.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Input,

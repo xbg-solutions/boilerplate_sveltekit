@@ -17,13 +17,13 @@ Everything needed to bootstrap, configure, validate, and run a project built on 
 
 ```bash
 # Create a new project with the CLI
-npx @xbg/create-frontend my-app
+npx @xbg.solutions/create-frontend my-app
 cd my-app
 
 # The CLI runs interactive setup -- covers everything in one go
 
 # Validate
-npx @xbg/create-frontend validate
+npx @xbg.solutions/create-frontend validate
 
 npm run dev             # http://localhost:5173
 ```
@@ -39,7 +39,7 @@ The CLI runs an interactive setup that covers:
 | 1 | **Project identity** -- name, shortName, description, domain, support email |
 | 2 | **Firebase** -- project ID, API key, auth domain, etc.; updates `firebase.json` + `.firebaserc` |
 | 3 | **API / Backend** -- dev + prod base URLs (pre-fills Firebase Functions pattern) |
-| 4 | **Utility selection** -- interactive checklist of `@xbg/utils-*` packages to install |
+| 4 | **Utility selection** -- interactive checklist of `@xbg.solutions/utils-*` packages to install |
 | 5 | **RBAC** -- define roles, hierarchy, permissions, JWT boolean claim map (if `utils-rbac` selected) |
 | 6 | **Feature flags** -- phone auth, analytics, real-time updates, etc. |
 | 7 | **Generate & validate** -- writes `.env`, `.env.example`, generates `app.config.ts`, installs packages |
@@ -211,11 +211,11 @@ The CLI detects the mono-repo context and can generate a migration script to mov
 
 ```bash
 # Check for package updates and new utilities
-npx @xbg/create-frontend --sync
+npx @xbg.solutions/create-frontend --sync
 ```
 
 Sync mode:
-- Checks for updates across installed `@xbg/*` packages
+- Checks for updates across installed `@xbg.solutions/*` packages
 - Merges updated config/scaffold files
 - Offers newly available utilities not yet installed
 - Updates scaffolded files (config templates, build config) if boilerplate has changed
@@ -240,12 +240,12 @@ npm run test:integration # Integration tests
 npm run test:coverage    # Coverage report
 
 # Generators
-npx @xbg/create-frontend generate component UserProfile
-npx @xbg/create-frontend generate route dashboard --auth --roles=user,admin
-npx @xbg/create-frontend generate service analytics
+npx @xbg.solutions/create-frontend generate component UserProfile
+npx @xbg.solutions/create-frontend generate route dashboard --auth --roles=user,admin
+npx @xbg.solutions/create-frontend generate service analytics
 
 # Validation
-npx @xbg/create-frontend validate
+npx @xbg.solutions/create-frontend validate
 
 # Performance
 npm run analyze          # Bundle analysis
@@ -284,7 +284,7 @@ docker run -p 3000:3000 my-app
 | Mistake | Symptom | Fix |
 |---|---|---|
 | Missing `VITE_` prefix | `undefined` at runtime | Add `VITE_` prefix |
-| Firebase config mismatch | Auth fails silently | `npx @xbg/create-frontend validate` |
+| Firebase config mismatch | Auth fails silently | `npx @xbg.solutions/create-frontend validate` |
 | `VITE_APP_SHORT_NAME` not set | Generic storage prefix (`app_*`) | Set in `.env` or re-run CLI setup |
 | Stores accessed before init | Empty/stale state | Wait for `initializationStore.isInitialized` |
 | `goto()` in `+layout.ts` load | Navigation loops | Use `redirect()` from `@sveltejs/kit` |

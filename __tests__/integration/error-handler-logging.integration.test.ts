@@ -13,8 +13,8 @@ import {
   handleError,
   createErrorResponse,
   withErrorHandling
-} from '$lib/utils/error-handler';
-import { loggerService } from '$lib/services/logging/logging.service';
+} from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/frontend-core';
 
 // This test uses the actual logging service, not a complete mock
 // to test real integration between components

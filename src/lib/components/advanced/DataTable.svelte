@@ -59,7 +59,7 @@
 
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-  import { escapeHtml } from '$lib/utils/sanitizer';
+  import { escapeHtml } from '@xbg.solutions/utils-sanitizer';
   import { writable, derived, type Writable } from 'svelte/store';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';

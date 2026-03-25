@@ -3,7 +3,7 @@
   AI playground with separate Input and Instructions textareas plus parameter panel.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Input,

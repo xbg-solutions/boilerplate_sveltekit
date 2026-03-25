@@ -17,7 +17,7 @@ Build and launch MVPs in **days, not months** using modern AI-assisted developme
 This boilerplate is specifically designed for:
 - **Agentic Development**: Constrained, opinionated architecture that railroads AI agents into one-shot success
 - **AI-Assisted Development**: Consistent patterns and comprehensive documentation optimized for AI code generation
-- **npm Package Distribution**: Install what you need via `@xbg/*` packages -- updates propagate via `npm update`
+- **npm Package Distribution**: Install what you need via `@xbg.solutions/*` packages -- updates propagate via `npm update`
 - **Rapid MVP Development**: Interactive CLI setup and 30+ ready-to-use atomic components
 - **Design-to-Code Pipeline**: Optimized for Figma -> AI -> Svelte workflows with SHADCN components
 - **Production Readiness**: 677 passing tests, accessibility compliance, and deployment infrastructure
@@ -47,25 +47,25 @@ This boilerplate is distributed as **npm packages** rather than a repo you clone
 
 | Package | Description |
 |---|---|
-| `@xbg/frontend-core` | Base framework -- config types, core stores, error handling, logging, layout components |
-| `@xbg/test-utils-frontend` | Test utilities (devDependency) -- Firebase mocks, store mocks, async helpers |
-| `@xbg/utils-firebase-auth` | Auth service, token service, auth stores, auth guard |
-| `@xbg/utils-api-client` | Typed HTTP client, request/response handlers, response caching |
-| `@xbg/utils-secure-storage` | Encrypted client-side storage (AES-GCM) |
-| `@xbg/utils-csrf` | CSRF token generation/validation |
-| `@xbg/utils-sanitizer` | Input sanitization, XSS prevention |
-| `@xbg/utils-rbac` | Role hierarchy, permission checking |
-| `@xbg/utils-tab-sync` | Cross-tab synchronization |
-| `@xbg/utils-event-bus` | Event bus + pub/sub |
-| `@xbg/utils-recaptcha` | reCAPTCHA v3 integration |
-| `@xbg/utils-seo` | Meta tags, structured data, OpenGraph |
-| `@xbg/utils-sse` | Server-sent events client |
-| `@xbg/utils-performance` | Performance metrics, monitoring |
-| `@xbg/utils-file-upload` | File handling with Firebase Storage |
-| `@xbg/utils-mutex` | Mutual exclusion for concurrent operations |
-| `@xbg/utils-state-manager` | Global state persistence |
+| `@xbg.solutions/frontend-core` | Base framework -- config types, core stores, error handling, logging, layout components |
+| `@xbg.solutions/test-utils-frontend` | Test utilities (devDependency) -- Firebase mocks, store mocks, async helpers |
+| `@xbg.solutions/utils-firebase-auth` | Auth service, token service, auth stores, auth guard |
+| `@xbg.solutions/utils-api-client` | Typed HTTP client, request/response handlers, response caching |
+| `@xbg.solutions/utils-secure-storage` | Encrypted client-side storage (AES-GCM) |
+| `@xbg.solutions/utils-csrf` | CSRF token generation/validation |
+| `@xbg.solutions/utils-sanitizer` | Input sanitization, XSS prevention |
+| `@xbg.solutions/utils-rbac` | Role hierarchy, permission checking |
+| `@xbg.solutions/utils-tab-sync` | Cross-tab synchronization |
+| `@xbg.solutions/utils-recaptcha` | reCAPTCHA v3 integration |
+| `@xbg.solutions/utils-seo` | Meta tags, structured data, OpenGraph |
+| `@xbg.solutions/utils-sse` | Server-sent events client |
+| `@xbg.solutions/utils-performance` | Performance metrics, monitoring |
+| `@xbg.solutions/utils-file-upload` | File handling with Firebase Storage |
+| `@xbg.solutions/utils-state-manager` | Global state persistence |
 
-Install only what you need. Dependencies auto-resolve -- installing `@xbg/utils-firebase-auth` automatically pulls in `@xbg/utils-csrf` and `@xbg/utils-secure-storage`.
+> **Note:** Event bus, mutex, and pub/sub are included in `frontend-core` -- no separate package needed.
+
+Install only what you need. Dependencies auto-resolve -- installing `@xbg.solutions/utils-firebase-auth` automatically pulls in `@xbg.solutions/utils-csrf` and `@xbg.solutions/utils-secure-storage`.
 
 ### Part 2: CLI Scaffolding Tool (project structure)
 
@@ -73,18 +73,18 @@ The CLI handles everything that isn't a runtime import -- project structure, con
 
 ```bash
 # Create a new project
-npx @xbg/create-frontend
+npx @xbg.solutions/create-frontend
 
 # Update an existing project
-npx @xbg/create-frontend --sync
+npx @xbg.solutions/create-frontend --sync
 
 # Generators
-npx @xbg/create-frontend generate component <Name>
-npx @xbg/create-frontend generate route <path>
-npx @xbg/create-frontend generate service <Name>
+npx @xbg.solutions/create-frontend generate component <Name>
+npx @xbg.solutions/create-frontend generate route <path>
+npx @xbg.solutions/create-frontend generate service <Name>
 
 # Validation
-npx @xbg/create-frontend validate
+npx @xbg.solutions/create-frontend validate
 ```
 
 See [distribution-architecture.md](docs/distribution-architecture.md) for the full package map and dependency graph.
@@ -102,7 +102,7 @@ See [distribution-architecture.md](docs/distribution-architecture.md) for the fu
 
 ```bash
 # Create a new project with the CLI
-npx @xbg/create-frontend my-app
+npx @xbg.solutions/create-frontend my-app
 cd my-app
 ```
 
@@ -113,14 +113,14 @@ The CLI runs an interactive setup:
 | 1 | Project identity (name, short name, domain, support email) |
 | 2 | Firebase configuration (updates `firebase.json` + `.firebaserc`) |
 | 3 | API base URLs (dev + prod) |
-| 4 | Utility selection -- choose which `@xbg/utils-*` packages to install |
+| 4 | Utility selection -- choose which `@xbg.solutions/utils-*` packages to install |
 | 5 | RBAC -- roles, hierarchy, permissions, JWT claim map (if `utils-rbac` selected) |
 | 6 | Feature flags (phone auth, analytics, real-time, etc.) |
 | 7 | Generates project skeleton, installs packages, writes config |
 
 ```bash
 # Validate configuration
-npx @xbg/create-frontend validate
+npx @xbg.solutions/create-frontend validate
 
 # Start developing
 npm run dev
@@ -148,7 +148,7 @@ TypeScript in `app.config.ts`. Neither file contains placeholder strings after s
 These files are generated into the project and owned by the project. They are not imported from packages.
 
 - **shadcn-svelte UI components** -- Copied into `src/lib/components/ui/` per shadcn philosophy (own and customize)
-- **`app.config.ts`** -- Generated by the setup wizard, uses `defineConfig()` types from `@xbg/frontend-core`
+- **`app.config.ts`** -- Generated by the setup wizard, uses `defineConfig()` types from `@xbg.solutions/frontend-core`
 - **Project skeleton** -- Routes (`+layout.svelte`, `+layout.ts`, `+page.svelte`, `+error.svelte`), `app.html`, `app.css`
 - **Build and tool config** -- `svelte.config.js`, `vite.config.ts`, `tailwind.config.cjs`, `postcss.config.cjs`, `tsconfig.json`
 - **`.env` file** -- From interactive prompts
@@ -172,8 +172,8 @@ Projects import from packages:
 
 ```typescript
 // New (npm packages)
-import { AppError, loadingStore } from '@xbg/frontend-core';
-import { apiService } from '@xbg/utils-api-client';
+import { AppError, loadingStore } from '@xbg.solutions/frontend-core';
+import { apiService } from '@xbg.solutions/utils-api-client';
 ```
 
 ---
@@ -192,7 +192,7 @@ import { apiService } from '@xbg/utils-api-client';
 - **Constrained by Design**: Opinionated architecture that railroads agents into best practices
 - **Single Configuration File**: Edit one file (`src/lib/config/app.config.ts`) to customize everything
 - **Atomic Components Only**: 30 SHADCN components for composition (no opinionated page layouts)
-- **Consistent Import Patterns**: Standardized imports from `@xbg/*` packages and `$lib/components/ui`
+- **Consistent Import Patterns**: Standardized imports from `@xbg.solutions/*` packages and `$lib/components/ui`
 - **AI-Optimized Skills**: `.claude/skills/` documentation for AI agent context
 - **Decision Trees**: Built-in guardrails eliminate ambiguity for one-shot success
 - **Predictable Structure**: SHADCN component patterns for reliable code generation
@@ -446,7 +446,7 @@ features: {
 ### Validation
 
 ```bash
-npx @xbg/create-frontend validate
+npx @xbg.solutions/create-frontend validate
 ```
 
 The validator checks:
@@ -544,7 +544,7 @@ npm run preview           # Preview build
 
 ### For AI Agents
 - **`.claude/skills/`**: 6 comprehensive AI-optimized skills covering overview, setup, config, services, utils, and stores
-- **Consistent Imports**: All packages from `@xbg/*`, components from `$lib/components/ui`, config from `$lib/config/app.config`
+- **Consistent Imports**: All packages from `@xbg.solutions/*`, components from `$lib/components/ui`, config from `$lib/config/app.config`
 - **Decision Trees**: Built-in guardrails for routing, components, imports, and testing
 - **Type Exports**: All interfaces exported for AI code generation
 - **Predictable Structure**: Follow established patterns for reliable generation

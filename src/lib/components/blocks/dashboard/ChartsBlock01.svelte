@@ -5,7 +5,7 @@
   and colored accent areas for data visualization.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Card,
     CardHeader,

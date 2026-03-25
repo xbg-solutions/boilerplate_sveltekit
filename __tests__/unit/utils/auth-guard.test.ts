@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AUTH_ROUTES } from '$lib/constants/auth.constants';
+import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
 
 // Mock the dependencies that auth-guard uses, not auth-guard itself
 vi.mock('$lib/services/auth', () => ({
@@ -18,8 +18,8 @@ vi.mock('$lib/services/auth', () => ({
 }));
 
 // Import the REAL auth-guard functions to test them
-import { guardRoute, guardRouteServer, redirectToUnauthorized, redirectToSignIn } from '$lib/utils/auth-guard';
-import { authService } from '$lib/services/auth';
+import { guardRoute, guardRouteServer, redirectToUnauthorized, redirectToSignIn } from '@xbg.solutions/utils-firebase-auth';
+import { authService } from '@xbg.solutions/utils-firebase-auth';
 
 describe('Auth Guard', () => {
   beforeEach(() => {
