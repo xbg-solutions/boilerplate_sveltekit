@@ -28,7 +28,7 @@ A production-ready SvelteKit 5 foundation purpose-built for **agentic, AI-assist
 | `services` | `services/` | Call services (`authService`, `apiService`, `toastService`, `initializationService`, etc.) |
 | `utils` | `utils/` | Use utility functions (`cn`, `routeHandler`, `authGuard`, `rbacUtil`, `errorHandler`, etc.) |
 | `components` | `components/` | Use atomic UI components or pre-built page blocks (auth, dashboard, sidebar, etc.) |
-| `packages` | `packages/` | npm distribution (`@xbg/*` packages), dependency graph, import path mapping, test suite structure |
+| `packages` | `packages/` | npm distribution (`@xbg.solutions/*` packages), dependency graph, import path mapping, test suite structure |
 | `security_hardening` | `security_hardening/` | Security hardening, CSP/headers, Firebase security rules, App Check, rate limiting, CSRF protection |
 
 ---

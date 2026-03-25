@@ -4,7 +4,7 @@
   Features top navigation, 4 stat cards, and a 2-column layout below.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

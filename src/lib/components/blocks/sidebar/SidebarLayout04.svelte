@@ -3,7 +3,7 @@
   Sidebar with tree-style nested/expandable items.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { DynamicIcon } from '$lib/components/ui/icon';
 
   let className: string = '';

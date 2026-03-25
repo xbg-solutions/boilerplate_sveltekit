@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createSSEConnection, streamSSE } from '$lib/utils/sse';
+import { createSSEConnection, streamSSE } from '@xbg.solutions/utils-sse';
 
 // Mock logging service
 vi.mock('$lib/services/logging/logging.service', () => ({

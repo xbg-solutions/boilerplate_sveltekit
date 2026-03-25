@@ -16,7 +16,7 @@ import {
   urlParamSanitizer,
   createSanitizer,
   safeSanitize
-} from '$lib/utils/sanitizer';
+} from '@xbg.solutions/utils-sanitizer';
 
 // Mock the logger service
 vi.mock('../services/logging/logging.service', () => ({

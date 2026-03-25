@@ -3,7 +3,7 @@
   Split layout signup form with image on the left and form on the right.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

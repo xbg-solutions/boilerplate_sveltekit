@@ -3,7 +3,7 @@
   Icon-only sidebar that expands on hover to show labels.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
 

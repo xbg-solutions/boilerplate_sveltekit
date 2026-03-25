@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { FirebaseError, processFirebaseError, isFirebaseInitialized, getFirebaseState } from '$lib/utils/firebase';
+import { FirebaseError, processFirebaseError, isFirebaseInitialized, getFirebaseState } from '@xbg.solutions/frontend-core';
 
 describe('Firebase Utility', () => {
   beforeEach(() => {

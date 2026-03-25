@@ -3,7 +3,7 @@
   Full sidebar with collapsible groups and user avatar at bottom.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { Button, Avatar } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
   import Separator from '$lib/components/ui/Separator.svelte';

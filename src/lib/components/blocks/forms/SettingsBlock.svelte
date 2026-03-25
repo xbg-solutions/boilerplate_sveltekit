@@ -4,7 +4,7 @@
   Vertical tab list on the left, form content on the right.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

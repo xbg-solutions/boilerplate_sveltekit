@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 // Test real logging service
-import { loggerService } from '$lib/services/logging/logging.service';
+import { loggerService } from '@xbg.solutions/frontend-core';
 
 describe('LoggerService', () => {
   beforeEach(() => {

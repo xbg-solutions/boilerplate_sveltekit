@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 // Test real phone auth functions
-import { sendPhoneCode, verifyPhoneCode } from '$lib/services/auth/phone-auth';
+import { sendPhoneCode, verifyPhoneCode } from '@xbg.solutions/utils-firebase-auth';
 
 describe('Phone Authentication', () => {
   beforeEach(() => {

@@ -1,0 +1,23 @@
+{
+  "name": "@xbg.solutions/utils-sse",
+  "version": "1.0.0",
+  "description": "XBG SSE - Server-sent events client",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@xbg.solutions/frontend-core": "^1.0.0"
+  }
+}

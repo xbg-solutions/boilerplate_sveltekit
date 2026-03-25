@@ -4,11 +4,11 @@
 -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { subscribe } from '$lib/services/events';
-  import { TAB_SYNC_EVENTS } from '$lib/constants/tab-sync.constants';
-  import { AUTH_EVENTS } from '$lib/constants/auth.constants';
+  import { subscribe } from '@xbg.solutions/frontend-core';
+  import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
+  import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
   import { PhoneAuth, EmailLinkAuth } from '$lib/components/auth';
-  import { authService } from '$lib/services/auth';
+  import { authService } from '@xbg.solutions/utils-firebase-auth';
   import { goto } from '$app/navigation';
   
   // Get return URL and other params from data or URL

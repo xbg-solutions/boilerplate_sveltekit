@@ -4,7 +4,7 @@
   Features inline stat badges and a clean table layout.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

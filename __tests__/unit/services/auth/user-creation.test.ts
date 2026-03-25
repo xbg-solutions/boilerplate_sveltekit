@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { ensureUserExists } from '$lib/stores/user-creation';
-import { CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '$lib/constants/auth.constants';
+import { ensureUserExists } from '@xbg.solutions/utils-firebase-auth';
+import { CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/frontend-core';
 
 // Mock imports
 vi.mock('../../services/logging/logging.service', () => ({

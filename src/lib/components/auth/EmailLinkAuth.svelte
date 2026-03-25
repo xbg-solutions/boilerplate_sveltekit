@@ -9,7 +9,7 @@
    */
   
   import { createEventDispatcher } from 'svelte';
-  import { safeSendEmailLink } from '$lib/services/auth';
+  import { safeSendEmailLink } from '@xbg.solutions/utils-firebase-auth';
   import { Button } from '$lib/components/ui';
   
   // Event dispatcher for component events

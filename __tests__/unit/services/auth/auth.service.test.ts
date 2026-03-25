@@ -187,7 +187,7 @@ vi.mock('$app/navigation', () => ({
 }));
 
 // Import auth service after mocks are set up
-// import { authService } from '$lib/services/auth/auth.service';
+// import { authService } from '@xbg.solutions/utils-firebase-auth';
 
 describe('Auth Service', () => {
   let authService: any;

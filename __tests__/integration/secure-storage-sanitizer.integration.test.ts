@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { secureStorage } from '$lib/utils/secure-storage';
-import { sanitize, strictSanitizer } from '$lib/utils/sanitizer';
-import { STORAGE_PREFIX } from '$lib/constants/secure-storage.constants';
+import { secureStorage } from '@xbg.solutions/utils-secure-storage';
+import { sanitize, strictSanitizer } from '@xbg.solutions/utils-sanitizer';
+import { STORAGE_PREFIX } from '@xbg.solutions/utils-secure-storage';
 
 describe('Secure Storage and Sanitizer Integration', () => {
   // Mock storage data

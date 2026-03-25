@@ -3,7 +3,7 @@
   Date range picker with dual month view and range highlighting.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
 
   let className: string = '';

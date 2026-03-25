@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mutexService, MutexError } from '$lib/utils/mutex';
+import { mutexService, MutexError } from '@xbg.solutions/frontend-core';
 
 describe('Mutex and Logging Integration', () => {
   // Original console methods

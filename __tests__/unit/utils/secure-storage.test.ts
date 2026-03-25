@@ -4,13 +4,13 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { secureStorage } from '$lib/utils/secure-storage';
+import { secureStorage } from '@xbg.solutions/utils-secure-storage';
 import { 
   STORAGE_PREFIX, 
   AUTH_NAMESPACE, 
   PREFS_NAMESPACE,
   STORAGE_DEFAULT_TTL 
-} from '$lib/constants/secure-storage.constants';
+} from '@xbg.solutions/utils-secure-storage';
 
 describe('Secure Storage Utility', () => {
   // Original console methods

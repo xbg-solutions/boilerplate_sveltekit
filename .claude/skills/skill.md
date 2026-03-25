@@ -71,9 +71,9 @@ When working on a task, consult skills in this order:
 |---|---|---|
 | Project architecture / orientation | `xbg_boilerplate_sveltekit` | — |
 | New project setup / CLI | `xbg_boilerplate_sveltekit` | — |
-| npm packages / `@xbg/*` imports | `xbg_boilerplate_sveltekit` | — |
+| npm packages / `@xbg.solutions/*` imports | `xbg_boilerplate_sveltekit` | — |
 | Dependency graph / package boundaries | `xbg_boilerplate_sveltekit` | — |
-| Import path mapping (`$lib/` → `@xbg/*`) | `xbg_boilerplate_sveltekit` | — |
+| Import path mapping (`$lib/` → `@xbg.solutions/*`) | `xbg_boilerplate_sveltekit` | — |
 | Installing a new utility | `xbg_boilerplate_sveltekit` | — |
 | Test suite / test utils / mocks | `xbg_boilerplate_sveltekit` | — |
 | Scaffolded vs packaged code | `xbg_boilerplate_sveltekit` | — |

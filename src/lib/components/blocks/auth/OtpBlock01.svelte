@@ -3,7 +3,7 @@
   OTP verification with 6 individual digit inputs and email display.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
     Card,

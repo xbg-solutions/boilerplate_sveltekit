@@ -3,7 +3,7 @@
   Dashboard sidebar with main nav + footer actions (settings, help).
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { DynamicIcon } from '$lib/components/ui/icon';
   import Separator from '$lib/components/ui/Separator.svelte';
 

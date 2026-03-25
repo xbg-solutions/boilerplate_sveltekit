@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/test-utils-frontend",
+    "packages/utils-*",
+    "packages/create-frontend"
+  ],
   "files": [
     "src",
     "static",
@@ -46,6 +52,8 @@
     "generate:component": "node __scripts__/generate-component.js",
     "generate:route": "node __scripts__/generate-route.js",
     "generate:service": "node __scripts__/generate-service.js",
+    "build:packages": "npm run build --workspaces --if-present",
+    "clean:packages": "npm run clean --workspaces --if-present",
     "postinstall": "echo '\n✅ Dependencies installed!\n🚀 Run npm run setup to configure your project\n'"
   },
   "devDependencies": {

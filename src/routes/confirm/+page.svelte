@@ -6,13 +6,13 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { Card, Alert, AlertDescription, Button, Label, Input } from '$lib/components/ui';
-  import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '$lib/services/auth';
-  import { AUTH_ROUTES } from '$lib/constants/auth.constants'; 
-  import { safeForceSync } from '$lib/services/tab-sync';
-  import { AUTH_EVENTS } from '$lib/constants/auth.constants';
-  import { publish } from '$lib/services/events';
-  import { tabSyncStore } from '$lib/stores/tab-sync.store';
-  import type { EmailLinkVerifyOptions } from '$lib/types/auth.types';
+  import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '@xbg.solutions/utils-firebase-auth';
+  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core'; 
+  import { safeForceSync } from '@xbg.solutions/utils-tab-sync';
+  import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
+  import { publish } from '@xbg.solutions/frontend-core';
+  import { tabSyncStore } from '@xbg.solutions/utils-tab-sync';
+  import type { EmailLinkVerifyOptions } from '@xbg.solutions/frontend-core';
   
   // Get data from page load function
   export let data: { 

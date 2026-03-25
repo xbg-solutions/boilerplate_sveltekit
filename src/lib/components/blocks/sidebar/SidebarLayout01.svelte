@@ -3,7 +3,7 @@
   Documentation sidebar with grouped nav links, search, and breadcrumb.
 -->
 <script lang="ts">
-  import { cn } from '$lib/utils/cn';
+  import { cn } from '@xbg.solutions/frontend-core';
   import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '$lib/components/ui';
 
   let className: string = '';
