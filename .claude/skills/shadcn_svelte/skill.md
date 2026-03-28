@@ -1,40 +1,27 @@
-# shadcn-svelte Component Library
-
-**Skill: `shadcn_svelte`**
-
-Expert guidance for shadcn-svelte, a Svelte 5 port of shadcn/ui. Beautifully designed, accessible components built with Bits UI and Tailwind CSS.
-
-**Source:** [antstanley/shadcn-svelte-skill](https://github.com/antstanley/shadcn-svelte-skill) — Covers 59 components, installation, theming, dark mode, forms, data tables, migration guides, and custom registries.
-
+---
+name: shadcn-svelte
+description: Expert guidance for shadcn-svelte, a Svelte 5 port of shadcn/ui. Use this skill when working with shadcn-svelte components, installing UI components via CLI, implementing forms with Superforms/Formsnap, adding dark mode with mode-watcher, creating data tables with TanStack Table, theming with Tailwind CSS v4 and OKLCH colors, or building custom component registries. Triggers on mentions of shadcn-svelte, Bits UI components, or SvelteKit UI component libraries.
 ---
 
-## When to Use This Skill
+# shadcn-svelte
 
-- Adding new shadcn-svelte components to the project
-- Implementing forms with Superforms + Formsnap
-- Setting up dark mode with mode-watcher
-- Creating data tables with TanStack Table
-- Theming with Tailwind CSS v4 and OKLCH colors
-- Migrating from Svelte 4 or Tailwind v3
-- Building custom component registries
-
----
+A Svelte 5 / SvelteKit port of shadcn/ui - beautifully designed, accessible components built with Bits UI and Tailwind CSS.
 
 ## Quick Start
 
-### Adding Components
+### Installation
 
 ```bash
-# Initialize (already done in this boilerplate)
+# SvelteKit
 pnpm dlx shadcn-svelte@latest init
 
-# Add individual components
+# Add components
 pnpm dlx shadcn-svelte@latest add button card dialog
 ```
 
 ### Basic Usage
 
-Components use namespace imports for compound components and named imports for simple ones:
+Components use namespace imports:
 
 ```svelte
 <script lang="ts">
@@ -54,47 +41,26 @@ Components use namespace imports for compound components and named imports for s
 </Card.Root>
 ```
 
----
+## Key Patterns
 
-## Import Patterns
-
-### This Boilerplate's Convention
-
-This project uses barrel imports from `$lib/components/ui`. All components use Svelte 5 runes syntax (`$props()`, `{@render}`, `$derived()`, etc.):
-
-```typescript
-// Preferred in this project — barrel import
-import { Button, Card, CardContent, Input } from '$lib/components/ui';
-```
-
-### Standard shadcn-svelte Convention
-
-When adding new components or working outside the barrel:
+### Component Import Pattern
 
 ```svelte
 <!-- Compound components (most components) -->
-<script lang="ts">
-  import * as Dialog from "$lib/components/ui/dialog/index.js";
-  import * as Select from "$lib/components/ui/select/index.js";
-  import * as Table from "$lib/components/ui/table/index.js";
-</script>
+import * as Dialog from "$lib/components/ui/dialog/index.js";
 
-<!-- Single/simple components -->
-<script lang="ts">
-  import { Button } from "$lib/components/ui/button/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import { Badge } from "$lib/components/ui/badge/index.js";
-</script>
+<!-- Single components -->
+import { Button } from "$lib/components/ui/button/index.js";
+import { Input } from "$lib/components/ui/input/index.js";
 ```
 
----
+### Form Implementation
 
-## Form Implementation (Superforms + Formsnap)
+Use Superforms + Formsnap for forms:
 
 ```svelte
 <script lang="ts">
   import * as Form from "$lib/components/ui/form/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
   import { superForm } from "sveltekit-superforms";
 
   let { data } = $props();
@@ -110,15 +76,10 @@ When adding new components or working outside the barrel:
     </Form.Control>
     <Form.FieldErrors />
   </Form.Field>
-  <Button type="submit">Submit</Button>
 </form>
 ```
 
----
-
-## Dark Mode
-
-### Setup
+### Dark Mode
 
 ```svelte
 <!-- +layout.svelte -->
@@ -130,74 +91,33 @@ When adding new components or working outside the barrel:
 {@render children()}
 ```
 
-### Toggle
+Toggle with `toggleMode()`, `setMode("dark")`, or `resetMode()` from mode-watcher.
 
-```typescript
-import { toggleMode, setMode, resetMode } from "mode-watcher";
+## Reference Documentation
 
-toggleMode();        // Toggle light/dark
-setMode("dark");     // Force dark
-setMode("light");    // Force light
-resetMode();         // Reset to system preference
-```
+Detailed documentation is organized in `references/`:
 
----
-
-## Available Components (59)
-
-**Layout:** Card, Dialog, Drawer, Sheet, Collapsible, Resizable, Scroll Area, Separator, Sidebar, Tabs, Aspect Ratio
-
-**Forms:** Button, Input, Textarea, Checkbox, Radio Group, Select, Native Select, Switch, Slider, Toggle, Toggle Group, Input OTP, Input Group, Button Group, Field, Form, Label, Combobox
-
-**Data Display:** Table, Data Table, Badge, Avatar, Calendar, Range Calendar, Date Picker, Hover Card, Tooltip, Progress, Skeleton, Spinner, Chart, Carousel, Pagination, Typography, Empty, Item, Kbd
-
-**Navigation:** Breadcrumb, Command, Context Menu, Dropdown Menu, Menubar, Navigation Menu, Popover
-
-**Feedback:** Alert, Alert Dialog, Sonner (toast)
+- **Overview**: `about.md`, `cli.md`, `components-json.md`, `theming.md`
+- **Installation**: `installation/sveltekit.md`, `installation/astro.md`, `installation/vite.md`
+- **Components**: `components/[name].md` - 59 component guides
+- **Dark Mode**: `dark-mode/svelte.md`, `dark-mode/astro.md`
+- **Migration**: `migration/svelte-5.md`, `migration/tailwind-v4.md`
+- **Registry**: `registry/getting-started.md` - custom registry creation
 
 ### Finding Component Documentation
 
-For any component, the source skill has detailed docs at `references/components/[name].md`:
+For any component, read `references/components/[component-name].md`:
 - Button → `references/components/button.md`
 - Dialog → `references/components/dialog.md`
 - Data Table → `references/components/data-table.md`
-- Form → `references/components/form.md`
 
----
+## Common Tasks
 
-## Theming
-
-shadcn-svelte uses Tailwind CSS v4 with OKLCH color system. Theme customization is done via CSS variables.
-
-For detailed theming guidance, consult the source skill's `references/theming.md`.
-
----
-
-## Common Tasks Reference
-
-| Task | How |
-|---|---|
+| Task | Reference |
+|------|-----------|
 | Add a component | `pnpm dlx shadcn-svelte@latest add [name]` |
-| Form validation | Superforms + Formsnap pattern (see above) |
-| Data tables | TanStack Table + shadcn Table components |
-| Theming/colors | CSS variables with OKLCH in Tailwind v4 |
-| Dark mode | mode-watcher (see above) |
-| Custom registry | See source skill `references/registry/getting-started.md` |
-
----
-
-## Migration Notes
-
-### Svelte 5 Migration
-
-- Slots replaced by snippets: `{#snippet children()}...{/snippet}`
-- `$:` reactive declarations replaced by `$derived()` and `$effect()`
-- Props via `$props()` instead of `export let`
-
-### Tailwind v4 Migration
-
-- New OKLCH color system
-- CSS-first configuration
-- Updated dark mode handling
-
-For detailed migration guidance, consult the source skill's `references/migration/svelte-5.md` and `references/migration/tailwind-v4.md`.
+| Form validation | `references/components/form.md` |
+| Data tables | `references/components/data-table.md` |
+| Theming/colors | `references/theming.md` |
+| Dark mode | `references/dark-mode/svelte.md` |
+| Custom registry | `references/registry/getting-started.md` |

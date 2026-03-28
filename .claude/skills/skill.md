@@ -42,7 +42,7 @@ These skills synthesize guidance from community and official skill repositories 
 |---|---|---|
 | `impeccable` | `impeccable/` | Designing/refining UI/UX, making typography/color/layout decisions, avoiding design anti-patterns, creating visually cohesive interfaces |
 
-**Source:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable) — Design language with curated patterns and anti-patterns for impeccable frontend design (17 commands, typography, color, layout, motion guidance)
+**Source:** [pbakaus/impeccable](https://github.com/pbakaus/impeccable) v1.6.0 — Design language with curated patterns and anti-patterns for impeccable frontend design (20 user-invocable commands + core frontend-design skill with 7 reference docs)
 
 ### Svelte 5 & SvelteKit
 
