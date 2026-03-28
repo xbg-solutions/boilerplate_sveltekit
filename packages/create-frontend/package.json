@@ -1,31 +1,20 @@
 {
   "name": "@xbg.solutions/create-frontend",
-  "version": "1.0.0",
-  "description": "CLI tool to scaffold and sync XBG frontend projects",
-  "main": "lib/cli.js",
+  "version": "1.0.1",
+  "description": "Setup wizard and generators for XBG frontend projects",
   "type": "module",
-  "bin": {
-    "create-xbg-frontend": "bin/create-frontend.js"
-  },
-  "files": ["lib", "bin"],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rm -rf lib",
-    "prepublishOnly": "npm run build"
+    "clean": "rm -rf lib"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^11.1.0",
-    "fs-extra": "^11.2.0",
-    "inquirer": "^8.2.6"
+    "chalk": "^4.1.2"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.0",
     "typescript": "^5.8.2"
   }

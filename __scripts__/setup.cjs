@@ -806,8 +806,206 @@ function displaySummary(cfg) {
   console.log(`${C.bold}${C.blue}Happy coding! 🚀${C.reset}`);
 }
 
+// ─── Non-interactive config file support ─────────────────────────────────────
+
+function getConfigArg() {
+  const idx = process.argv.indexOf('--config');
+  if (idx === -1 || idx + 1 >= process.argv.length) return null;
+  return process.argv[idx + 1];
+}
+
+function loadConfigFile(configPath) {
+  if (!fs.existsSync(configPath)) {
+    log.err(`Config file not found: ${configPath}`);
+    process.exit(1);
+  }
+  try {
+    return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  } catch (err) {
+    log.err(`Failed to parse config file: ${err.message}`);
+    process.exit(1);
+  }
+}
+
+function validateConfig(config) {
+  const errors = [];
+
+  // app (all required)
+  if (!config.app)               errors.push('Missing "app" section');
+  if (!config.app?.name)         errors.push('Missing app.name');
+  if (!config.app?.shortName)    errors.push('Missing app.shortName');
+  if (!config.app?.description)  errors.push('Missing app.description');
+  if (!config.app?.domain)       errors.push('Missing app.domain');
+  if (!config.app?.supportEmail) errors.push('Missing app.supportEmail');
+
+  // firebase (all required except measurementId and region)
+  if (!config.firebase)                    errors.push('Missing "firebase" section');
+  if (!config.firebase?.projectId)         errors.push('Missing firebase.projectId');
+  if (!config.firebase?.apiKey)            errors.push('Missing firebase.apiKey');
+  if (!config.firebase?.authDomain)        errors.push('Missing firebase.authDomain');
+  if (!config.firebase?.storageBucket)     errors.push('Missing firebase.storageBucket');
+  if (!config.firebase?.messagingSenderId) errors.push('Missing firebase.messagingSenderId');
+  if (!config.firebase?.appId)             errors.push('Missing firebase.appId');
+
+  // api
+  if (!config.api)        errors.push('Missing "api" section');
+  if (!config.api?.devUrl) errors.push('Missing api.devUrl');
+  if (!config.api?.prodUrl) errors.push('Missing api.prodUrl');
+
+  // rbac
+  if (!config.rbac) errors.push('Missing "rbac" section');
+  if (config.rbac && !config.rbac.useDefaults && !Array.isArray(config.rbac.roles)) {
+    errors.push('rbac must have either useDefaults: true or a roles array');
+  }
+
+  // features
+  if (!config.features) errors.push('Missing "features" section');
+  const featureKeys = ['emailVerification', 'phoneVerification', 'multiTenant', 'realTimeUpdates', 'analytics'];
+  for (const key of featureKeys) {
+    if (config.features && typeof config.features[key] !== 'boolean') {
+      errors.push(`features.${key} must be a boolean`);
+    }
+  }
+
+  if (errors.length > 0) {
+    log.err('Config file validation failed:');
+    errors.forEach(e => log.err(`  • ${e}`));
+    process.exit(1);
+  }
+}
+
+function buildCfgFromConfig(config, ctx) {
+  const app = {
+    name:         config.app.name,
+    shortName:    config.app.shortName,
+    description:  config.app.description,
+    domain:       config.app.domain,
+    supportEmail: config.app.supportEmail,
+  };
+
+  const firebase = {
+    projectId:         config.firebase.projectId,
+    apiKey:            config.firebase.apiKey,
+    authDomain:        config.firebase.authDomain,
+    storageBucket:     config.firebase.storageBucket,
+    messagingSenderId: config.firebase.messagingSenderId,
+    appId:             config.firebase.appId,
+    measurementId:     config.firebase.measurementId || '',
+  };
+
+  const api = {
+    devUrl:  config.api.devUrl,
+    prodUrl: config.api.prodUrl,
+  };
+
+  let rbac;
+  if (config.rbac.useDefaults) {
+    rbac = defaultRoles();
+  } else {
+    rbac = {
+      roles: config.rbac.roles,
+      roleHierarchy: {},
+      permissions:   {},
+      claimMap:      {},
+    };
+    for (const role of config.rbac.roles) {
+      if (role.claimKey)   rbac.claimMap[role.value] = role.claimKey;
+      if (role.inherits)   rbac.roleHierarchy[role.value] = role.inherits;
+      if (role.permissions) rbac.permissions[role.value] = role.permissions;
+    }
+  }
+
+  const features = {
+    authentication:    true,
+    userProfiles:      true,
+    emailVerification: config.features.emailVerification,
+    phoneVerification: config.features.phoneVerification,
+    multiTenant:       config.features.multiTenant,
+    realTimeUpdates:   config.features.realTimeUpdates,
+    analytics:         config.features.analytics,
+  };
+
+  const analytics = config.features.analytics
+    ? { gaId: config.features.gaId || '' }
+    : null;
+
+  const customAttrs = config.customAttributes || [];
+
+  return { ctx, app, firebase, api, rbac, features, analytics, customAttrs };
+}
+
+function updateFirebaseJsonNonInteractive(app, firebase, region) {
+  const fbJson = readFirebaseJson();
+  if (!fbJson) {
+    log.warn('firebase.json not found — skipping update.');
+    return;
+  }
+
+  const targetAlias = app.shortName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+
+  if (fbJson.hosting) {
+    fbJson.hosting.target = targetAlias;
+  }
+
+  if (fbJson.hosting?.frameworksBackend) {
+    fbJson.hosting.frameworksBackend.region = region;
+  }
+
+  writeFirebaseJson(fbJson);
+  log.ok(`firebase.json updated (target: ${targetAlias}, region: ${region}).`);
+
+  app._targetAlias = targetAlias;
+  app._region      = region;
+}
+
+function updateFirebaseRcNonInteractive(app, firebase) {
+  const targetAlias = app._targetAlias || app.shortName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  const projectId   = firebase.projectId;
+
+  let rc = readFirebaseRc() || { projects: {}, targets: {}, etags: {} };
+
+  rc.projects = rc.projects || {};
+  rc.projects.default = projectId;
+
+  rc.targets = rc.targets || {};
+  rc.targets[projectId] = rc.targets[projectId] || {};
+  rc.targets[projectId].hosting = rc.targets[projectId].hosting || {};
+  if (!rc.targets[projectId].hosting[targetAlias]) {
+    rc.targets[projectId].hosting[targetAlias] = [targetAlias];
+  }
+
+  writeFirebaseRc(rc);
+  log.ok(`.firebaserc updated (project: ${projectId}, target alias: ${targetAlias}).`);
+}
+
 // ─── Main ────────────────────────────────────────────────────────────────────
 async function main() {
+  const configPath = getConfigArg();
+
+  if (configPath) {
+    // ── Non-interactive mode ──────────────────────────────────────────────────
+    log.title('XBG SvelteKit Boilerplate — Non-Interactive Setup');
+    log.info(`Reading config from: ${configPath}`);
+    console.log();
+
+    const config = loadConfigFile(configPath);
+    validateConfig(config);
+
+    const ctx = detectContext();
+    const cfg = buildCfgFromConfig(config, ctx);
+
+    // Update firebase.json and .firebaserc (these are separate from stepGenerate)
+    const region = config.firebase.region || 'us-central1';
+    updateFirebaseJsonNonInteractive(cfg.app, cfg.firebase, region);
+    updateFirebaseRcNonInteractive(cfg.app, cfg.firebase);
+
+    await stepGenerate(cfg);
+    await stepValidate(cfg);
+    displaySummary(cfg);
+    return;
+  }
+
+  // ── Interactive mode (original) ──────────────────────────────────────────────
   console.clear();
   console.log(`${C.bold}${C.blue}╔══════════════════════════════════════════════╗${C.reset}`);
   console.log(`${C.bold}${C.blue}║  XBG SvelteKit Boilerplate — Setup Wizard   ║${C.reset}`);

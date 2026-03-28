@@ -75,14 +75,16 @@ Each utility is its own package. Projects install only what they need. The CLI p
 
 > **Note:** Event bus, mutex, and pub/sub are included in `frontend-core` (not separate packages) to avoid circular dependencies.
 
-### @xbg.solutions/create-frontend (CLI tool, not a runtime dependency)
+### @xbg.solutions/create-frontend (workspace package — local scripts)
 
-Invoked via `npx`, never installed as a project dependency.
+Contains the setup wizard and generator scripts. Run via npm scripts, not `npx`.
 
-- **Init mode**: `npx @xbg.solutions/create-frontend` — Interactive project setup with utility selection
-- **Sync mode**: `npx @xbg.solutions/create-frontend --sync` — Check for updates, offer new utilities
-- **Generators**: `npx @xbg.solutions/create-frontend generate component|route|service <Name>`
-- **Validation**: `npx @xbg.solutions/create-frontend validate`
+> **Note:** The `npx @xbg.solutions/create-frontend` CLI is planned but not yet implemented. Use the local scripts below.
+
+- **Interactive setup**: `npm run setup` — 8-step wizard that writes `.env`, `app.config.ts`, Firebase config
+- **Non-interactive setup**: `node __scripts__/setup.cjs --config setup-config.json` — Agent/CI mode
+- **Generators**: `npm run generate:component -- <Name>`, `npm run generate:route -- <path>`, `npm run generate:service -- <Name>`
+- **Validation**: `npm run validate`
 
 ---
 
@@ -231,13 +233,9 @@ These live in `node_modules/@xbg.solutions/` and update via `npm update`:
 
 ## Installing a New Utility
 
-### Via CLI (recommended)
+### Direct install
 
 ```bash
-# Check available utilities not yet installed
-npx @xbg.solutions/create-frontend --sync
-
-# Or directly install
 npm install @xbg.solutions/utils-seo
 ```
 
@@ -245,7 +243,7 @@ npm install @xbg.solutions/utils-seo
 
 1. The package is added to `package.json` dependencies
 2. npm auto-resolves transitive `@xbg.solutions/*` dependencies
-3. The CLI sync can scaffold any needed config sections into `app.config.ts`
+3. Re-run `npm run setup` if you need to update `app.config.ts` role/feature blocks
 4. Import from the package in your code:
 
 ```typescript
