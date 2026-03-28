@@ -1,0 +1,33 @@
+{
+  "app": {
+    "name": "Test App",
+    "shortName": "testapp",
+    "description": "A test application",
+    "domain": "test.example.com",
+    "supportEmail": "support@test.example.com"
+  },
+  "firebase": {
+    "projectId": "test-project-123",
+    "apiKey": "AIzaSyTest123456789",
+    "authDomain": "test-project-123.firebaseapp.com",
+    "storageBucket": "test-project-123.appspot.com",
+    "messagingSenderId": "123456789012",
+    "appId": "1:123456789012:web:abc123def456",
+    "region": "us-central1"
+  },
+  "api": {
+    "hasCustomBackend": true,
+    "devUrl": "http://localhost:5001/test-project-123/us-central1/api",
+    "prodUrl": "https://us-central1-test-project-123.cloudfunctions.net/api"
+  },
+  "rbac": {
+    "useDefaults": true
+  },
+  "features": {
+    "emailVerification": true,
+    "phoneVerification": false,
+    "multiTenant": false,
+    "realTimeUpdates": true,
+    "analytics": false
+  }
+}

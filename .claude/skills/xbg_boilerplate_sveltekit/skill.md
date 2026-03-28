@@ -88,7 +88,7 @@ src/
 │   ├── protected/                 ← Auth-gated routes
 │   ├── confirm/                   ← Email-link confirmation page
 │   └── unauthorized/              ← 403 page
-__scripts__/                       ← CLI: setup.cjs (8-step wizard), validate-setup.cjs, generators
+__scripts__/                       ← setup.cjs (8-step wizard, supports --config), validate-setup.cjs, generators
 __tests__/                         ← Vitest test suite
 mcp/frontend/                      ← Legacy MCP docs (superseded by .claude/skills/)
 ```
@@ -101,7 +101,7 @@ mcp/frontend/                      ← Legacy MCP docs (superseded by .claude/sk
 All project-specific values flow through **`src/lib/config/app.config.ts`**.
 - **Secrets / IDs** (Firebase, API URLs, app name) come from `.env` via `import.meta.env`
 - **Structural config** (roles, permissions, feature flags) live in `app.config.ts` in `SETUP:start/end` marked blocks
-- Run `npm run setup` to write both; run `npm run validate` to verify
+- Run `npm run setup` (interactive) or `node __scripts__/setup.cjs --config <path>` (non-interactive) to write both; run `npm run validate` to verify
 
 There are no `FIXME` placeholders — the wizard eliminates them.
 
@@ -145,7 +145,12 @@ import { browser } from '$app/environment';
 if (browser) { /* safe DOM/localStorage access */ }
 ```
 
-### 6. Protected Routes Convention
+### 6. Svelte Syntax Convention
+This boilerplate uses **Svelte 4 component syntax** running on Svelte 5. All 40+ existing components follow `export let` props, `$$restProps`, `<slot />`, `on:click` event forwarding, and `$:` reactive declarations. Follow the existing patterns when adding or modifying components.
+
+The `svelte5_sveltekit` skill in this repo documents Svelte 5 runes (`$props()`, `$state()`, `$effect()`) for reference — these describe the runtime, not the coding convention for this project. Do not mix runes-based code into existing Svelte 4-style components.
+
+### 7. Protected Routes Convention
 Any route under `/protected/**` requires authentication. The root layout (`+layout.svelte`) enforces this visually. For route-level load function guards use `routeHandler` or `guardRoute`.
 
 ---

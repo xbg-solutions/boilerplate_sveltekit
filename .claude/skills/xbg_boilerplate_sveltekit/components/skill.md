@@ -87,6 +87,19 @@ Every atomic component follows:
 </div>
 ```
 
+### Generating New Components
+
+```bash
+npm run generate:component -- MyComponent                                      # UI component (default)
+npm run generate:component -- MyComponent --type=feature                       # Feature component
+npm run generate:component -- MyComponent --type=page                          # Page component
+npm run generate:component -- MyComponent --path=src/lib/components/blocks     # Custom path
+npm run generate:component -- MyComponent --with-test                          # Include test file
+npm run generate:component -- MyComponent --with-test --with-docs              # Test + docs
+```
+
+Generators produce starting-point templates following the boilerplate's conventions (`tailwind-variants`, `cn()`, `export let` props, `$$restProps`, `<slot />`). Customise the generated code to match your design spec -- generators are scaffolding, not final implementations.
+
 ---
 
 ## Block Inventory

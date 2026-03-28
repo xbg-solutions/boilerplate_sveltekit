@@ -49,9 +49,9 @@
     "validate": "node __scripts__/validate-setup.cjs",
     "validate:quick": "node __scripts__/validate-setup.cjs --quick",
     "manage-auth": "node __scripts__/manage-auth-users.cjs",
-    "generate:component": "node __scripts__/generate-component.js",
-    "generate:route": "node __scripts__/generate-route.js",
-    "generate:service": "node __scripts__/generate-service.js",
+    "generate:component": "node __scripts__/generate-component.cjs",
+    "generate:route": "node __scripts__/generate-route.cjs",
+    "generate:service": "node __scripts__/generate-service.cjs",
     "build:packages": "npm run build --workspaces --if-present",
     "clean:packages": "npm run clean --workspaces --if-present",
     "postinstall": "echo '\n✅ Dependencies installed!\n🚀 Run npm run setup to configure your project\n'"

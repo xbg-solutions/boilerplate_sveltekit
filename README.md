@@ -67,25 +67,27 @@ This boilerplate is distributed as **npm packages** rather than a repo you clone
 
 Install only what you need. Dependencies auto-resolve -- installing `@xbg.solutions/utils-firebase-auth` automatically pulls in `@xbg.solutions/utils-csrf` and `@xbg.solutions/utils-secure-storage`.
 
-### Part 2: CLI Scaffolding Tool (project structure)
+### Part 2: Local Scripts (project structure & configuration)
 
-The CLI handles everything that isn't a runtime import -- project structure, config files, UI components, templates, wiring code.
+Setup wizard and generators handle everything that isn't a runtime import -- project structure, config files, UI components, templates, wiring code.
 
 ```bash
-# Create a new project
-npx @xbg.solutions/create-frontend
+# Setup (interactive)
+npm run setup
 
-# Update an existing project
-npx @xbg.solutions/create-frontend --sync
+# Setup (non-interactive, for agents/CI)
+node __scripts__/setup.cjs --config setup-config.json
 
 # Generators
-npx @xbg.solutions/create-frontend generate component <Name>
-npx @xbg.solutions/create-frontend generate route <path>
-npx @xbg.solutions/create-frontend generate service <Name>
+npm run generate:component -- <Name>
+npm run generate:route -- <path>
+npm run generate:service -- <Name>
 
 # Validation
-npx @xbg.solutions/create-frontend validate
+npm run validate
 ```
+
+> **Note:** A distributable `npx @xbg.solutions/create-frontend` CLI is planned. For now, use the local scripts above.
 
 See [distribution-architecture.md](docs/distribution-architecture.md) for the full package map and dependency graph.
 
@@ -101,32 +103,40 @@ See [distribution-architecture.md](docs/distribution-architecture.md) for the fu
 ### New Project Setup
 
 ```bash
-# Create a new project with the CLI
-npx @xbg.solutions/create-frontend my-app
+git clone <repo-url> my-app
 cd my-app
+npm install
+npm run setup          # Interactive 8-step wizard
 ```
 
-The CLI runs an interactive setup:
+The setup wizard covers:
 
 | Step | What it configures |
 |------|--------------------|
 | 1 | Project identity (name, short name, domain, support email) |
 | 2 | Firebase configuration (updates `firebase.json` + `.firebaserc`) |
 | 3 | API base URLs (dev + prod) |
-| 4 | Utility selection -- choose which `@xbg.solutions/utils-*` packages to install |
-| 5 | RBAC -- roles, hierarchy, permissions, JWT claim map (if `utils-rbac` selected) |
-| 6 | Feature flags (phone auth, analytics, real-time, etc.) |
-| 7 | Generates project skeleton, installs packages, writes config |
+| 4 | RBAC -- roles, hierarchy, permissions, JWT claim map |
+| 5 | Feature flags (phone auth, analytics, real-time, etc.) |
+| 6 | Generates `.env`, `.env.example`, updates `app.config.ts` |
 
 ```bash
 # Validate configuration
-npx @xbg.solutions/create-frontend validate
+npm run validate
 
 # Start developing
 npm run dev
 ```
 
 Visit `http://localhost:5173` -- ready to build.
+
+### Non-Interactive Setup (agents / CI)
+
+```bash
+node __scripts__/setup.cjs --config setup-config.json
+```
+
+See the [setup skill](.claude/skills/xbg_boilerplate_sveltekit/setup/skill.md) for the full JSON config schema.
 
 ### Manual Configuration
 
@@ -446,7 +456,7 @@ features: {
 ### Validation
 
 ```bash
-npx @xbg.solutions/create-frontend validate
+npm run validate
 ```
 
 The validator checks:

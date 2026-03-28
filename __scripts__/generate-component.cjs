@@ -79,43 +79,44 @@ if (!fs.existsSync(componentDir)) {
 
 // Generate component template based on type
 function generateComponentTemplate() {
+  const camelName = componentName.charAt(0).toLowerCase() + componentName.slice(1);
   const templates = {
     ui: `<script lang="ts">
+  import { tv, type VariantProps } from 'tailwind-variants';
   import { cn } from '$lib/utils/cn';
-  import type { ComponentProps } from 'svelte';
-  
-  type $$Props = ComponentProps<'div'> & {
-    variant?: 'default' | 'primary' | 'secondary';
-    size?: 'sm' | 'md' | 'lg';
-  };
-  
-  let className: $$Props['class'] = undefined;
+
+  const ${camelName}Variants = tv({
+    base: 'rounded-lg border transition-colors',
+    variants: {
+      variant: {
+        default: 'bg-background text-foreground border-border',
+        primary: 'bg-primary text-primary-foreground',
+        secondary: 'bg-secondary text-secondary-foreground',
+      },
+      size: {
+        sm: 'p-2 text-sm',
+        md: 'p-4 text-base',
+        lg: 'p-6 text-lg',
+      }
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'md'
+    }
+  });
+
+  type Variant = VariantProps<typeof ${camelName}Variants>['variant'];
+  type Size = VariantProps<typeof ${camelName}Variants>['size'];
+
+  let className: string = '';
+  export let variant: Variant = 'default';
+  export let size: Size = 'md';
   export { className as class };
-  export let variant: $$Props['variant'] = 'default';
-  export let size: $$Props['size'] = 'md';
-  
-  const variants = {
-    default: 'bg-white border-gray-200',
-    primary: 'bg-blue-500 text-white',
-    secondary: 'bg-gray-100 text-gray-900',
-  };
-  
-  const sizes = {
-    sm: 'p-2 text-sm',
-    md: 'p-4 text-base',
-    lg: 'p-6 text-lg',
-  };
+
+  $: classes = cn(${camelName}Variants({ variant, size }), className);
 </script>
 
-<div 
-  class={cn(
-    'rounded-lg border transition-colors',
-    variants[variant],
-    sizes[size],
-    className
-  )}
-  {...$$restProps}
->
+<div class={classes} {...$$restProps}>
   <slot />
 </div>`,
 
@@ -250,101 +251,96 @@ function generateComponentTemplate() {
 
     feature: `<script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
-  import { writable, derived } from 'svelte/store';
   import { apiService } from '$lib/services/api';
-  import { toast } from '$lib/services/toast';
-  import { handleError } from '$lib/utils/error-handler';
+  import { toastService } from '$lib/services/toast';
+  import { normalizeError } from '$lib/utils/error-handler';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '$lib/components/ui/card';
-  
+
   // Props
   export let data: any = null;
   export let readonly: boolean = false;
-  
+
   // Events
   const dispatch = createEventDispatcher<{
     save: { data: any };
     delete: { id: string };
     cancel: void;
   }>();
+
+  // State
+  let loading = false;
+  let error: string | null = null;
+  let formData = data ? { ...data } : {};
   
-  // State management
-  const loading = writable(false);
-  const error = writable<string | null>(null);
-  const formData = writable(data || {});
-  
-  // Derived state
-  const hasChanges = derived(
-    formData,
-    ($formData) => JSON.stringify($formData) !== JSON.stringify(data)
-  );
-  
+  $: hasChanges = JSON.stringify(formData) !== JSON.stringify(data);
+
   onMount(() => {
     if (data?.id) {
       loadData();
     }
   });
-  
+
   async function loadData() {
     if (!data?.id) return;
-    
-    loading.set(true);
-    error.set(null);
-    
+
+    loading = true;
+    error = null;
+
     try {
       const response = await apiService.get(\`/api/items/\${data.id}\`);
-      formData.set(response.data);
+      formData = response.data;
     } catch (err) {
-      error.set(handleError(err, 'Failed to load data'));
+      error = normalizeError(err).message;
     } finally {
-      loading.set(false);
+      loading = false;
     }
   }
-  
+
   async function handleSave() {
     if (readonly) return;
-    
-    loading.set(true);
-    error.set(null);
-    
+
+    loading = true;
+    error = null;
+
     try {
-      const response = data?.id 
-        ? await apiService.put(\`/api/items/\${data.id}\`, $formData)
-        : await apiService.post('/api/items', $formData);
-      
+      const response = data?.id
+        ? await apiService.put(\`/api/items/\${data.id}\`, formData)
+        : await apiService.post('/api/items', formData);
+
       dispatch('save', { data: response.data });
-      toast.success(\`\${componentName} saved successfully\`);
+      toastService.success(\`${componentName} saved successfully\`);
     } catch (err) {
-      error.set(handleError(err, \`Failed to save \${componentName.toLowerCase()}\`));
+      error = normalizeError(err).message;
     } finally {
-      loading.set(false);
+      loading = false;
     }
   }
-  
+
   async function handleDelete() {
     if (readonly || !data?.id) return;
-    
+
     if (!confirm('Are you sure you want to delete this item?')) return;
-    
-    loading.set(true);
-    error.set(null);
-    
+
+    loading = true;
+    error = null;
+
     try {
       await apiService.delete(\`/api/items/\${data.id}\`);
       dispatch('delete', { id: data.id });
-      toast.success(\`\${componentName} deleted successfully\`);
+      toastService.success(\`${componentName} deleted successfully\`);
     } catch (err) {
-      error.set(handleError(err, \`Failed to delete \${componentName.toLowerCase()}\`));
+      error = normalizeError(err).message;
     } finally {
-      loading.set(false);
+      loading = false;
     }
   }
-  
+
   function handleCancel() {
-    if ($hasChanges && !confirm('You have unsaved changes. Are you sure you want to cancel?')) {
+    if (hasChanges && !confirm('You have unsaved changes. Are you sure you want to cancel?')) {
       return;
     }
-    formData.set(data || {});
+    formData = data ? { ...data } : {};
     dispatch('cancel');
   }
 </script>
@@ -353,36 +349,36 @@ function generateComponentTemplate() {
   <CardHeader>
     <CardTitle>{data?.id ? 'Edit' : 'Create'} ${componentName}</CardTitle>
   </CardHeader>
-  
+
   <CardContent>
-    {#if $error}
+    {#if error}
       <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
-        <p class="text-red-600 text-sm">{$error}</p>
+        <p class="text-red-600 text-sm">{error}</p>
       </div>
     {/if}
-    
+
     <!-- Form fields go here -->
     <div class="space-y-4">
       <p class="text-gray-500">Add your form fields here</p>
     </div>
   </CardContent>
-  
+
   {#if !readonly}
     <CardFooter class="flex justify-between">
       <div>
         {#if data?.id}
-          <Button variant="destructive" on:click={handleDelete} disabled={$loading}>
+          <Button variant="destructive" on:click={handleDelete} disabled={loading}>
             Delete
           </Button>
         {/if}
       </div>
-      
+
       <div class="flex space-x-2">
-        <Button variant="outline" on:click={handleCancel} disabled={$loading}>
+        <Button variant="outline" on:click={handleCancel} disabled={loading}>
           Cancel
         </Button>
-        <Button on:click={handleSave} disabled={$loading || !$hasChanges}>
-          {$loading ? 'Saving...' : 'Save'}
+        <Button on:click={handleSave} disabled={loading || !hasChanges}>
+          {loading ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </CardFooter>

@@ -15,24 +15,37 @@ Everything needed to bootstrap, configure, validate, and run a project built on 
 
 ## Quick Start (New Project)
 
+### Interactive setup (human developer)
+
 ```bash
-# Create a new project with the CLI
-npx @xbg.solutions/create-frontend my-app
+git clone <repo-url> my-app
 cd my-app
-
-# The CLI runs interactive setup -- covers everything in one go
-
-# Validate
-npx @xbg.solutions/create-frontend validate
-
-npm run dev             # http://localhost:5173
+npm install
+npm run setup          # Interactive 8-step wizard
+npm run validate
+npm run dev            # http://localhost:5173
 ```
+
+### Non-interactive setup (agent / CI)
+
+```bash
+git clone <repo-url> my-app
+cd my-app
+npm install
+node __scripts__/setup.cjs --config path/to/setup-config.json
+npm run validate
+npm run dev
+```
+
+See [Setup Config Schema](#setup-config-schema-for-non-interactive-mode) below for the JSON format.
+
+> **Note:** The `@xbg.solutions/create-frontend` npm CLI is planned but not yet implemented. Use the local scripts directly.
 
 ---
 
-## What the CLI Setup Does
+## What the Setup Wizard Does
 
-The CLI runs an interactive setup that covers:
+The setup wizard (interactive or config-file mode) covers:
 
 | Step | What it covers |
 |------|----------------|
@@ -42,7 +55,76 @@ The CLI runs an interactive setup that covers:
 | 4 | **Utility selection** -- interactive checklist of `@xbg.solutions/utils-*` packages to install |
 | 5 | **RBAC** -- define roles, hierarchy, permissions, JWT boolean claim map (if `utils-rbac` selected) |
 | 6 | **Feature flags** -- phone auth, analytics, real-time updates, etc. |
-| 7 | **Generate & validate** -- writes `.env`, `.env.example`, generates `app.config.ts`, installs packages |
+| 7 | **Generate & validate** -- writes `.env`, `.env.example`, generates `app.config.ts` |
+
+---
+
+## Setup Config Schema (for non-interactive mode)
+
+When running `node __scripts__/setup.cjs --config <path>`, the JSON file must follow this schema:
+
+```json
+{
+  "app": {
+    "name": "Acme Dashboard",
+    "shortName": "acme",
+    "description": "Project management platform",
+    "domain": "acme.com",
+    "supportEmail": "support@acme.com"
+  },
+  "firebase": {
+    "projectId": "acme-prod",
+    "apiKey": "AIza...",
+    "authDomain": "acme-prod.firebaseapp.com",
+    "storageBucket": "acme-prod.appspot.com",
+    "messagingSenderId": "123456789",
+    "appId": "1:123456789:web:abc123",
+    "measurementId": "G-XXXXXXXXXX",
+    "region": "us-central1"
+  },
+  "api": {
+    "hasCustomBackend": true,
+    "devUrl": "http://localhost:5001/acme-prod/us-central1/api",
+    "prodUrl": "https://us-central1-acme-prod.cloudfunctions.net/api"
+  },
+  "rbac": {
+    "useDefaults": true
+  },
+  "features": {
+    "emailVerification": true,
+    "phoneVerification": false,
+    "multiTenant": false,
+    "realTimeUpdates": true,
+    "analytics": false
+  }
+}
+```
+
+**Required fields:** All `app.*`, all `firebase.*` (except `measurementId` and `region`), `api.devUrl`, `api.prodUrl`, all `features.*` booleans.
+
+**Custom RBAC:** When `rbac.useDefaults` is `false`, provide a `roles` array:
+
+```json
+{
+  "rbac": {
+    "useDefaults": false,
+    "roles": [
+      { "key": "USER", "value": "user", "claimKey": "", "inherits": [], "permissions": ["editOwnProfile"] },
+      { "key": "ADMIN", "value": "admin", "claimKey": "isAdmin", "inherits": ["user"], "permissions": ["editOwnProfile", "manageUsers"] }
+    ]
+  }
+}
+```
+
+**Optional:** `customAttributes` array for extra JWT claims:
+
+```json
+{
+  "customAttributes": [
+    { "claimKey": "tenantId", "description": "Tenant identifier for multi-tenant isolation" }
+  ]
+}
+```
 
 ---
 
@@ -60,7 +142,7 @@ VITE_GA_MEASUREMENT_ID                     routes.*
 ...                                        ui.*, security.*, tabSync.*
 ```
 
-**The CLI writes both.** After setup neither file contains placeholder strings.
+**The wizard writes both.** After setup neither file contains placeholder strings.
 
 ---
 
@@ -102,7 +184,7 @@ VITE_RECAPTCHA_SITE_KEY="..."           # only if phoneVerification=true
 
 ## After Setup -- `app.config.ts` Structural Sections
 
-The CLI writes the RBAC and features blocks. To edit manually, find the `SETUP:start/end` markers:
+The setup wizard writes the RBAC and features blocks. To edit manually, find the `SETUP:start/end` markers:
 
 ```typescript
 // src/lib/config/app.config.ts
@@ -130,7 +212,7 @@ features: {
 },
 ```
 
-Re-running the CLI setup replaces only these marked blocks.
+Re-running the setup wizard replaces only these marked blocks.
 
 ---
 
@@ -197,7 +279,7 @@ my-project/
     └── package.json
 ```
 
-The CLI detects the mono-repo context and can generate a migration script to move shared files to the project root.
+The setup wizard detects the mono-repo context and generates a migration script to move shared files to the project root.
 
 **What stays in `frontend/`**: `package.json`, `src/`, `vite.config.ts`, `svelte.config.js`,
 `tailwind.config.js`, `tsconfig.json`, `__tests__/`, build output.
@@ -209,16 +291,15 @@ The CLI detects the mono-repo context and can generate a migration script to mov
 
 ## Updating an Existing Project
 
+To re-run the setup wizard (e.g., after changing roles or features):
+
 ```bash
-# Check for package updates and new utilities
-npx @xbg.solutions/create-frontend --sync
+npm run setup                    # Interactive mode
+# OR
+node __scripts__/setup.cjs --config updated-config.json  # Non-interactive
 ```
 
-Sync mode:
-- Checks for updates across installed `@xbg.solutions/*` packages
-- Merges updated config/scaffold files
-- Offers newly available utilities not yet installed
-- Updates scaffolded files (config templates, build config) if boilerplate has changed
+The wizard only replaces `SETUP:start/end` marked blocks in `app.config.ts`. Manual edits outside those markers are preserved.
 
 ---
 
@@ -240,12 +321,13 @@ npm run test:integration # Integration tests
 npm run test:coverage    # Coverage report
 
 # Generators
-npx @xbg.solutions/create-frontend generate component UserProfile
-npx @xbg.solutions/create-frontend generate route dashboard --auth --roles=user,admin
-npx @xbg.solutions/create-frontend generate service analytics
+npm run generate:component -- UserProfile
+npm run generate:component -- UserProfile --type=feature --with-test
+npm run generate:route -- dashboard --auth --roles=user,admin
+npm run generate:service -- AnalyticsService --type=api --with-test
 
 # Validation
-npx @xbg.solutions/create-frontend validate
+npm run validate
 
 # Performance
 npm run analyze          # Bundle analysis
@@ -284,9 +366,9 @@ docker run -p 3000:3000 my-app
 | Mistake | Symptom | Fix |
 |---|---|---|
 | Missing `VITE_` prefix | `undefined` at runtime | Add `VITE_` prefix |
-| Firebase config mismatch | Auth fails silently | `npx @xbg.solutions/create-frontend validate` |
-| `VITE_APP_SHORT_NAME` not set | Generic storage prefix (`app_*`) | Set in `.env` or re-run CLI setup |
+| Firebase config mismatch | Auth fails silently | `npm run validate` |
+| `VITE_APP_SHORT_NAME` not set | Generic storage prefix (`app_*`) | Set in `.env` or re-run setup wizard |
 | Stores accessed before init | Empty/stale state | Wait for `initializationStore.isInitialized` |
 | `goto()` in `+layout.ts` load | Navigation loops | Use `redirect()` from `@sveltejs/kit` |
 | SSR browser API access | Hydration errors | Wrap in `browser` check or `ClientOnly` |
-| `.claude/` left in `frontend/` (mono-repo) | Agent context missing at root | Run the mono-repo migration script |
+| `.claude/` left in `frontend/` (mono-repo) | Agent context missing at root | Run `bash __scripts__/monorepo-setup.sh` |
