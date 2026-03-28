@@ -3,16 +3,15 @@
   Login Page with Consistent Design System Integration
 -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
   import { subscribe } from '@xbg.solutions/frontend-core';
   import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
   import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
   import { PhoneAuth, EmailLinkAuth } from '$lib/components/auth';
   import { authService } from '@xbg.solutions/utils-firebase-auth';
   import { goto } from '$app/navigation';
-  
+
   // Get return URL and other params from data or URL
-  export let data: { returnUrl?: string } = {};
+  let { data = {} }: { data?: { returnUrl?: string } } = $props();
 
   /**
    * Validate that a redirect URL is a safe relative path.
@@ -25,23 +24,20 @@
     return url;
   }
 
-  $: returnUrl = safeRedirectUrl(data?.returnUrl);
-  
+  let returnUrl = $derived(safeRedirectUrl(data?.returnUrl));
+
   // Check for reload or logout parameters (used for forced logout/clean state)
-  $: reloadParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('reload') : null;
-  $: logoutParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('logout') : null;
-  
+  let reloadParam = $derived(typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('reload') : null);
+  let logoutParam = $derived(typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('logout') : null);
+
   // Track event subscriptions for cleanup
   // Define a union type that can be both a function and null
   type Unsubscriber = (() => void) | null;
-  let messageSubscription: Unsubscriber = null;
-  let authStateSubscription: Unsubscriber = null;
-  let tabSyncSubscription: Unsubscriber = null;
   let storageListener: ((e: StorageEvent) => void) | null = null;
-  
+
   // Active tab tracking
-  let activeTab = 0;
-  
+  let activeTab = $state(0);
+
   // Function to redirect if authenticated
   async function checkAuthAndRedirect() {
     console.log('Checking authentication state...');
@@ -51,7 +47,7 @@
       window.location.href = returnUrl; // Use hard navigation for more reliable auth state
       return;
     }
-    
+
     // If we got a remote login event but local state shows not authenticated,
     // force a reload to get latest state from Firebase
     try {
@@ -60,11 +56,11 @@
       const { getFirebaseAuth } = await import('$lib/utils/firebase');
       const auth = await getFirebaseAuth();
       const authUser = auth.currentUser;
-      
+
       if (authUser) {
         console.log('Firebase user found, refreshing token and redirecting');
         await authUser.getIdToken(true); // Force token refresh
-        
+
         // Update auth store directly
         const { authStore } = await import('$lib/stores/auth.store');
         authStore.update(state => ({
@@ -72,11 +68,11 @@
           isAuthenticated: true,
           lastAuthenticated: Date.now()
         }));
-        
+
         window.location.href = returnUrl; // Use hard navigation for more reliable auth state
       } else {
         console.log('No Firebase user found after refresh');
-        
+
         // Double-check with Firebase onAuthStateChanged to be certain
         auth.onAuthStateChanged((user: any) => {
           if (user) {
@@ -89,18 +85,23 @@
       console.error('Error during auth check:', err);
     }
   }
-  
-  onMount(() => {    
+
+  // Handle mounting and subscriptions with $effect
+  $effect(() => {
+    let messageSubscription: Unsubscriber = null;
+    let authStateSubscription: Unsubscriber = null;
+    let tabSyncSubscription: Unsubscriber = null;
+
     try {
       const hasStoredEmail = localStorage.getItem('emailForSignIn');
-      
+
       if (reloadParam || logoutParam) {
-        localStorage.removeItem('firebase:authUser:' + import.meta.env.VITE_FIREBASE_API_KEY); 
+        localStorage.removeItem('firebase:authUser:' + import.meta.env.VITE_FIREBASE_API_KEY);
         localStorage.removeItem('emailForSignIn');
         localStorage.removeItem('emailForSignIn_expiresAt');
         sessionStorage.removeItem('emailForSignIn');
       }
-      
+
       // Subscribe to auth state changes
       authStateSubscription = subscribe(AUTH_EVENTS.STATE_CHANGED, (payload) => {
         console.log('Auth state changed on login page:', payload);
@@ -108,13 +109,13 @@
           checkAuthAndRedirect();
         }
       });
-      
+
       // Also subscribe to specific login success events
       messageSubscription = subscribe(AUTH_EVENTS.LOGIN_SUCCESS, (payload) => {
         console.log('Login success event on login page:', payload);
         checkAuthAndRedirect();
       });
-      
+
       // Subscribe to tab sync auth events
       tabSyncSubscription = subscribe(TAB_SYNC_EVENTS.AUTH_STATE_SYNCED, (payload) => {
         console.log('Tab sync auth state event received:', payload);
@@ -125,31 +126,31 @@
           window.location.reload();
         }
       });
-      
+
       // Initial check in case already authenticated
       checkAuthAndRedirect();
     } catch (e) {
       console.error('Error in login page mount:', e);
     }
-  });
-  
-  onDestroy(() => {
-    // Type assertion to tell TypeScript that subscriptions are functions
-    if (messageSubscription && typeof messageSubscription === 'function') {
-      (messageSubscription as () => void)();
-    }
-    
-    if (authStateSubscription && typeof authStateSubscription === 'function') {
-      (authStateSubscription as () => void)();
-    }
-    
-    if (tabSyncSubscription && typeof tabSyncSubscription === 'function') {
-      (tabSyncSubscription as () => void)();
-    }
-    
-    if (storageListener) {
-      window.removeEventListener('storage', storageListener);
-    }
+
+    // Cleanup function
+    return () => {
+      if (messageSubscription && typeof messageSubscription === 'function') {
+        (messageSubscription as () => void)();
+      }
+
+      if (authStateSubscription && typeof authStateSubscription === 'function') {
+        (authStateSubscription as () => void)();
+      }
+
+      if (tabSyncSubscription && typeof tabSyncSubscription === 'function') {
+        (tabSyncSubscription as () => void)();
+      }
+
+      if (storageListener) {
+        window.removeEventListener('storage', storageListener);
+      }
+    };
   });
 
   // Helper type and functions for Firebase reCAPTCHA
@@ -158,7 +159,7 @@
       (window as any)[propertyName] = (window as any)[propertyName] || defaultValue;
     }
   }
-  
+
   // Initialize window properties for Firebase reCAPTCHA
   safeSetWindowProperty('recaptchaVerifier');
   safeSetWindowProperty('confirmationResult');
@@ -176,17 +177,17 @@
         <!-- Email Tab -->
         <button
           class="flex-1 py-2 sm:py-3 px-2 sm:px-4 text-center transition-colors font-medium border-r border-primary-dark {activeTab === 0 ? 'bg-primary-light border-b-2 border-b-accent -mb-px' : 'bg-primary-mid text-gray-700 hover:bg-primary-light/70'}"
-          on:click={() => (activeTab = 0)}
+          onclick={() => (activeTab = 0)}
         >
           <div class="flex items-center justify-center">
             <span class="text-xs sm:text-sm md:text-base">Email Link</span>
           </div>
         </button>
-        
+
         <!-- Phone Tab -->
         <button
           class="flex-1 py-2 sm:py-3 px-2 sm:px-4 text-center transition-colors font-medium {activeTab === 1 ? 'bg-primary-light border-b-2 border-b-accent -mb-px' : 'bg-primary-mid text-gray-700 hover:bg-primary-light/70'}"
-          on:click={() => (activeTab = 1)}
+          onclick={() => (activeTab = 1)}
         >
           <div class="flex items-center justify-center">
             <span class="text-xs sm:text-sm md:text-base">Phone Number</span>

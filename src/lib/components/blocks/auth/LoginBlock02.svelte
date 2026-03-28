@@ -18,16 +18,22 @@
   } from '$lib/components/ui';
   import { BrandIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onSubmit = undefined,
+    onGoogleLogin = undefined,
+    onForgotPassword = undefined,
+    onSignUp = undefined
+  }: {
+    class?: string;
+    onSubmit?: ((email: string, password: string) => void) | undefined;
+    onGoogleLogin?: (() => void) | undefined;
+    onForgotPassword?: (() => void) | undefined;
+    onSignUp?: (() => void) | undefined;
+  } = $props();
 
-  export let onSubmit: ((email: string, password: string) => void) | undefined = undefined;
-  export let onGoogleLogin: (() => void) | undefined = undefined;
-  export let onForgotPassword: (() => void) | undefined = undefined;
-  export let onSignUp: (() => void) | undefined = undefined;
-
-  let email = '';
-  let password = '';
+  let email = $state('');
+  let password = $state('');
 
   function handleSubmit() {
     onSubmit?.(email, password);
@@ -41,7 +47,7 @@
       <CardDescription>Enter your email below to login to your account</CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label htmlFor="login02-email">Email</Label>
           <Input
@@ -56,7 +62,7 @@
             <button
               type="button"
               class="text-sm text-muted-foreground underline-offset-4 hover:underline"
-              on:click={onForgotPassword}
+              onclick={onForgotPassword}
             >
               Forgot your password?
             </button>
@@ -76,7 +82,7 @@
         </span>
       </div>
 
-      <Button variant="outline" class="w-full" on:click={onGoogleLogin}>
+      <Button variant="outline" class="w-full" onclick={onGoogleLogin}>
         <BrandIcon name="google" size={16} colored class="mr-2" />
         Login with Google
       </Button>
@@ -87,7 +93,7 @@
         <button
           type="button"
           class="text-primary underline-offset-4 hover:underline"
-          on:click={onSignUp}
+          onclick={onSignUp}
         >
           Sign up
         </button>

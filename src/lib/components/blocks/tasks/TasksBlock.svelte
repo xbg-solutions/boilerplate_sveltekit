@@ -3,7 +3,6 @@
   Task list table with filtering, pagination, and status/priority badges.
 -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
@@ -24,35 +23,39 @@
     DropdownMenuTrigger
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  export let tasks: Array<{
-    id: string;
-    title: string;
-    type: string;
-    status: string;
-    priority: string;
-  }> = [];
-
-  export let title: string = 'Welcome back!';
-  export let description: string = "Here's a list of your tasks for this month!";
-
-  const dispatch = createEventDispatcher<{
-    filter: { search: string; status: string; priority: string };
-    sort: { column: string; direction: 'asc' | 'desc' };
-    pageChange: { page: number };
-  }>();
+  let {
+    class: className = '',
+    tasks = [],
+    title = 'Welcome back!',
+    description = "Here's a list of your tasks for this month!",
+    onfilter,
+    onsort,
+    onpageChange
+  }: {
+    class?: string;
+    tasks?: Array<{
+      id: string;
+      title: string;
+      type: string;
+      status: string;
+      priority: string;
+    }>;
+    title?: string;
+    description?: string;
+    onfilter?: (data: { search: string; status: string; priority: string }) => void;
+    onsort?: (data: { column: string; direction: 'asc' | 'desc' }) => void;
+    onpageChange?: (data: { page: number }) => void;
+  } = $props();
 
   // Filter state
-  let searchQuery = '';
-  let statusFilter = '';
-  let priorityFilter = '';
+  let searchQuery = $state('');
+  let statusFilter = $state('');
+  let priorityFilter = $state('');
 
   // Pagination state
-  let currentPage = 1;
-  let rowsPerPage = 10;
-  let selectedRows: Set<string> = new Set();
+  let currentPage = $state(1);
+  let rowsPerPage = $state(10);
+  let selectedRows: Set<string> = $state(new Set());
 
   // Status options
   const statusOptions = [
@@ -72,15 +75,15 @@
   ];
 
   // Computed
-  $: filteredTasks = tasks.filter(task => {
+  let filteredTasks = $derived(tasks.filter(task => {
     const matchesSearch = !searchQuery || task.title.toLowerCase().includes(searchQuery.toLowerCase()) || task.id.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = !statusFilter || task.status === statusFilter;
     const matchesPriority = !priorityFilter || task.priority === priorityFilter;
     return matchesSearch && matchesStatus && matchesPriority;
-  });
+  }));
 
-  $: totalPages = Math.max(1, Math.ceil(filteredTasks.length / rowsPerPage));
-  $: paginatedTasks = filteredTasks.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  let totalPages = $derived(Math.max(1, Math.ceil(filteredTasks.length / rowsPerPage)));
+  let paginatedTasks = $derived(filteredTasks.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage));
 
   function toggleRowSelection(id: string) {
     if (selectedRows.has(id)) {
@@ -88,7 +91,7 @@
     } else {
       selectedRows.add(id);
     }
-    selectedRows = selectedRows;
+    selectedRows = new Set(selectedRows);
   }
 
   function getStatusColor(status: string): string {
@@ -113,13 +116,13 @@
 
   function handleFilter() {
     currentPage = 1;
-    dispatch('filter', { search: searchQuery, status: statusFilter, priority: priorityFilter });
+    onfilter?.({ search: searchQuery, status: statusFilter, priority: priorityFilter });
   }
 
   function goToPage(page: number) {
     if (page >= 1 && page <= totalPages) {
       currentPage = page;
-      dispatch('pageChange', { page });
+      onpageChange?.({ page });
     }
   }
 </script>
@@ -141,19 +144,19 @@
       placeholder="Filter tasks..."
       bind:value={searchQuery}
       class="max-w-sm"
-      on:input={handleFilter}
+      oninput={handleFilter}
     />
     <Select
       options={statusOptions}
       bind:value={statusFilter}
       placeholder="Status"
-      on:change={handleFilter}
+      onchange={handleFilter}
     />
     <Select
       options={priorityOptions}
       bind:value={priorityFilter}
       placeholder="Priority"
-      on:change={handleFilter}
+      onchange={handleFilter}
     />
     <div class="ml-auto flex items-center gap-1">
       <!-- Lucide: LayoutList -->
@@ -189,7 +192,7 @@
             <TableCell>
               <Checkbox
                 checked={selectedRows.has(task.id)}
-                on:change={() => toggleRowSelection(task.id)}
+                onchange={() => toggleRowSelection(task.id)}
               />
             </TableCell>
             <TableCell class="font-mono text-xs text-muted-foreground">
@@ -254,7 +257,7 @@
             { value: '50', label: '50' }
           ]}
           value={String(rowsPerPage)}
-          on:change={(e) => { rowsPerPage = Number(e.detail.value); currentPage = 1; }}
+          onchange={(e: any) => { rowsPerPage = Number(e.target?.value ?? e.detail?.value ?? rowsPerPage); currentPage = 1; }}
         />
       </div>
       <span class="text-sm text-muted-foreground">
@@ -265,7 +268,7 @@
           variant="outline"
           size="sm"
           disabled={currentPage <= 1}
-          on:click={() => goToPage(currentPage - 1)}
+          onclick={() => goToPage(currentPage - 1)}
         >
           Previous
         </Button>
@@ -273,7 +276,7 @@
           variant="outline"
           size="sm"
           disabled={currentPage >= totalPages}
-          on:click={() => goToPage(currentPage + 1)}
+          onclick={() => goToPage(currentPage + 1)}
         >
           Next
         </Button>

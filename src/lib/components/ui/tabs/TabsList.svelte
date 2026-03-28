@@ -1,29 +1,36 @@
 <!--
   src/lib/components/ui/tabs/TabsList.svelte
   SHADCN-Svelte Tabs List Component
-  
+
   AI SYSTEMS: Use this component as the container for tab triggers.
 -->
 <script lang="ts">
   import { getContext } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  import type { Writable } from 'svelte/store';
+  import type { Snippet } from 'svelte';
 
-  let className: string = '';
-  export { className as class };
-
-  // Get tabs context
-  const tabsContext = getContext('tabs') as Writable<{
+  interface TabsContext {
     value: string;
     orientation: 'horizontal' | 'vertical';
     setValue: (value: string) => void;
-  }>;
+  }
+
+  interface Props {
+    class?: string;
+    children?: Snippet;
+    [key: string]: unknown;
+  }
+
+  let { class: className = '', children, ...rest }: Props = $props();
+
+  // Get tabs context
+  const tabsContext = getContext('tabs') as TabsContext;
 
   if (!tabsContext) {
     throw new Error('TabsList must be used within a Tabs component');
   }
 
-  $: ({ orientation } = $tabsContext);
+  let orientation = $derived(tabsContext.orientation);
 
   // Handle keyboard navigation
   function handleKeydown(event: KeyboardEvent) {
@@ -62,8 +69,8 @@
     if (nextTrigger) {
       nextTrigger.focus();
       const tabValue = nextTrigger.getAttribute('data-value');
-      if (tabValue && $tabsContext.setValue) {
-        $tabsContext.setValue(tabValue);
+      if (tabValue && tabsContext.setValue) {
+        tabsContext.setValue(tabValue);
       }
     }
   }
@@ -79,7 +86,8 @@
   role="tablist"
   data-orientation={orientation}
   tabindex="0"
-  on:keydown={handleKeydown}
+  onkeydown={handleKeydown}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </div>

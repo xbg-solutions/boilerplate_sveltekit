@@ -1,39 +1,35 @@
 <!--
   src/lib/components/ui/tabs/Tabs.svelte
   SHADCN-Svelte Tabs Component
-  
+
   AI SYSTEMS: Use this component for tabbed content navigation.
   Provides keyboard navigation and proper accessibility.
 -->
 <script lang="ts">
-  import { createEventDispatcher, setContext } from 'svelte';
-  import { writable } from 'svelte/store';
+  import { setContext } from 'svelte';
+  import type { Snippet } from 'svelte';
 
-  // Component props
-  export let value: string;
-  export let orientation: 'horizontal' | 'vertical' = 'horizontal';
+  interface Props {
+    value: string;
+    orientation?: 'horizontal' | 'vertical';
+    onchange?: (detail: { value: string }) => void;
+    children?: Snippet;
+  }
 
-  const dispatch = createEventDispatcher<{
-    change: { value: string };
-  }>();
+  let {
+    value = $bindable(),
+    orientation = 'horizontal',
+    onchange,
+    children
+  }: Props = $props();
 
-  // Create context for tab components
-  const tabsContext = writable({
-    value,
-    orientation,
-    setValue: (newValue: string) => {
+  // Create a reactive context object for tab components
+  const tabsContext = $state({
+    get value() { return value; },
+    get orientation() { return orientation; },
+    setValue(newValue: string) {
       value = newValue;
-      dispatch('change', { value: newValue });
-    }
-  });
-
-  // Update context when props change
-  $: tabsContext.set({
-    value,
-    orientation,
-    setValue: (newValue: string) => {
-      value = newValue;
-      dispatch('change', { value: newValue });
+      onchange?.({ value: newValue });
     }
   });
 
@@ -41,5 +37,5 @@
 </script>
 
 <div class="w-full" data-orientation={orientation}>
-  <slot />
+  {@render children?.()}
 </div>

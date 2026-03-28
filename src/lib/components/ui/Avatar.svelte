@@ -1,7 +1,7 @@
 <!--
   src/lib/components/ui/Avatar.svelte
   SHADCN-Svelte Avatar Component
-  
+
   AI SYSTEMS: Use this component for user profile pictures and avatars.
   Supports fallback text and proper image loading states.
 -->
@@ -28,17 +28,23 @@
   type AvatarSize = VariantProps<typeof avatarVariants>['size'];
 
   // Component props
-  export let src: string | undefined = undefined;
-  export let alt: string = '';
-  export let fallback: string = '';
-  export let size: AvatarSize = 'md';
-
-  let className: string = '';
-  export { className as class };
+  let {
+    src = undefined,
+    alt = '',
+    fallback = '',
+    size = 'md',
+    class: className = '',
+  }: {
+    src?: string | undefined;
+    alt?: string;
+    fallback?: string;
+    size?: AvatarSize;
+    class?: string;
+  } = $props();
 
   // Image loading state
-  let imageLoaded = false;
-  let imageError = false;
+  let imageLoaded = $state(false);
+  let imageError = $state(false);
 
   // Handle image load
   function handleImageLoad() {
@@ -55,17 +61,17 @@
   // Generate fallback text from full name
   function generateFallback(text: string): string {
     if (!text) return '';
-    
+
     const words = text.trim().split(/\s+/);
     if (words.length === 1) {
       return words[0].charAt(0).toUpperCase();
     }
-    
+
     return (words[0].charAt(0) + words[words.length - 1].charAt(0)).toUpperCase();
   }
 
-  $: displayFallback = generateFallback(fallback || alt);
-  $: showImage = src && imageLoaded && !imageError;
+  let displayFallback = $derived(generateFallback(fallback || alt));
+  let showImage = $derived(src && imageLoaded && !imageError);
 </script>
 
 <span class={cn(avatarVariants({ size }), className)}>
@@ -75,8 +81,8 @@
       {src}
       {alt}
       class="aspect-square h-full w-full object-cover"
-      on:load={handleImageLoad}
-      on:error={handleImageError}
+      onload={handleImageLoad}
+      onerror={handleImageError}
     />
   {:else}
     <!-- Avatar Fallback -->
@@ -94,7 +100,7 @@
     {src}
     {alt}
     class="sr-only"
-    on:load={handleImageLoad}
-    on:error={handleImageError}
+    onload={handleImageLoad}
+    onerror={handleImageError}
   />
 {/if}

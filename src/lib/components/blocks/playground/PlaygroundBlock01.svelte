@@ -17,21 +17,24 @@
   } from '$lib/components/ui';
   import Separator from '$lib/components/ui/Separator.svelte';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    models = [
+      { value: 'gpt-4', label: 'GPT-4' },
+      { value: 'gpt-3.5', label: 'GPT-3.5 Turbo' },
+      { value: 'claude-3', label: 'Claude 3' }
+    ]
+  }: {
+    class?: string;
+    models?: Array<{ value: string; label: string }>;
+  } = $props();
 
-  export let models: Array<{ value: string; label: string }> = [
-    { value: 'gpt-4', label: 'GPT-4' },
-    { value: 'gpt-3.5', label: 'GPT-3.5 Turbo' },
-    { value: 'claude-3', label: 'Claude 3' }
-  ];
-
-  let selectedModel = models[0]?.value ?? '';
-  let prompt = '';
-  let temperature = 0.7;
-  let maxLength = 256;
-  let topP = 0.9;
-  let activeTab = 'complete';
+  let selectedModel = $state(models[0]?.value ?? '');
+  let prompt = $state('');
+  let temperature = $state(0.7);
+  let maxLength = $state(256);
+  let topP = $state(0.9);
+  let activeTab = $state('complete');
 </script>
 
 <div class={cn('flex h-screen flex-col', className)}>

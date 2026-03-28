@@ -43,7 +43,7 @@ src/
 │   │   ├── routes.config.ts       ← Route metadata + RouteHelper class
 │   │   └── security.ts            ← CSP, headers, validation rules
 │   ├── components/
-│   │   ├── ui/                    ← 40+ SHADCN atomic components (Button, Card, Dialog…)
+│   │   ├── ui/                    ← 60+ SHADCN atomic components (Button, Card, Dialog…)
 │   │   ├── blocks/                ← Pre-built page blocks (auth, dashboard, sidebar…)
 │   │   │   ├── auth/              ← LoginBlock01–05, SignupBlock01–05, OtpBlock01–05
 │   │   │   ├── dashboard/         ← DashboardBlock01–07, ChartsBlock01
@@ -106,7 +106,7 @@ All project-specific values flow through **`src/lib/config/app.config.ts`**.
 There are no `FIXME` placeholders — the wizard eliminates them.
 
 ### 2. Atomic Components + Optional Blocks
-Use the 40+ SHADCN atomic components from `$lib/components/ui`. Pre-built page-level **blocks** are available in `$lib/components/blocks` (or `$blocks`) for common patterns like auth pages, dashboards, and settings. Blocks compose atomic components — pick a block variant and customize via props/slots, or compose your own from atomic components.
+Use the 60+ SHADCN atomic components from `$lib/components/ui`. Pre-built page-level **blocks** are available in `$lib/components/blocks` (or `$blocks`) for common patterns like auth pages, dashboards, and settings. Blocks compose atomic components — pick a block variant and customize via props/snippets, or compose your own from atomic components.
 
 ### 3. Singleton Services
 Every service is a module-level singleton export. Import and use directly; never instantiate yourself.
@@ -134,7 +134,7 @@ publish('my:event', { data: 'value' }, 'MyComponent');
 const unsub = subscribe('my:event', (event) => {
   console.log(event.payload);
 });
-// Call unsub() in onDestroy
+// Call unsub() in $effect cleanup: $effect(() => { return () => unsub(); })
 ```
 
 ### 5. SSR Safety
@@ -145,10 +145,22 @@ import { browser } from '$app/environment';
 if (browser) { /* safe DOM/localStorage access */ }
 ```
 
-### 6. Svelte Syntax Convention
-This boilerplate uses **Svelte 4 component syntax** running on Svelte 5. All 40+ existing components follow `export let` props, `$$restProps`, `<slot />`, `on:click` event forwarding, and `$:` reactive declarations. Follow the existing patterns when adding or modifying components.
+### 6. Svelte 5 Runes Syntax Convention
+This boilerplate uses **Svelte 5 runes syntax** throughout. All 130+ components follow these patterns:
 
-The `svelte5_sveltekit` skill in this repo documents Svelte 5 runes (`$props()`, `$state()`, `$effect()`) for reference — these describe the runtime, not the coding convention for this project. Do not mix runes-based code into existing Svelte 4-style components.
+- **Props**: `let { prop, children, ...rest } = $props()` (not `export let`)
+- **Derived values**: `let x = $derived(expr)` (not `$: x = expr`)
+- **Side effects**: `$effect(() => { ... })` (not `$: { ... }` or `onMount`/`onDestroy`)
+- **Local state**: `let x = $state(value)` for reactive reassignable variables
+- **Bindable props**: `let { value = $bindable() } = $props()` for two-way binding
+- **Content projection**: `{@render children?.()}` with `Snippet` type (not `<slot />`)
+- **Named snippets**: `{@render header?.()}` (not `<slot name="header" />`)
+- **Event handlers**: `onclick={handler}` (not `on:click={handler}`)
+- **Callback props**: `onSubmit?.()` (not `createEventDispatcher`)
+- **Rest props**: `{...rest}` from `$props()` destructuring (not `$$restProps`)
+- **Class prop**: `let { class: className = '' } = $props()` (not `export { className as class }`)
+
+The `svelte5_sveltekit` skill provides full Svelte 5 runes reference. Follow these patterns when adding or modifying components.
 
 ### 7. Protected Routes Convention
 Any route under `/protected/**` requires authentication. The root layout (`+layout.svelte`) enforces this visually. For route-level load function guards use `routeHandler` or `guardRoute`.
@@ -243,3 +255,6 @@ npm run test:coverage     # With coverage
 | Modifying `authStore` directly from a component | Call `authService` methods instead |
 | Hardcoding role strings | Use `APP_CONFIG.auth.roles.ADMIN` etc. |
 | Using `goto()` inside a `load` function | Use `redirect()` from `@sveltejs/kit` |
+| Using Svelte 4 syntax (`export let`, `<slot />`, `on:click`) | Use Svelte 5 runes (`$props()`, `{@render}`, `onclick`) |
+| Using `createEventDispatcher` | Use callback props (e.g., `onSubmit`) |
+| Using `onMount`/`onDestroy` lifecycle | Use `$effect()` with cleanup return |

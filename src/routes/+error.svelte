@@ -10,12 +10,12 @@
   import { Button } from '$lib/components/ui/button';
   import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
-  import { 
-    AlertTriangle, 
-    Home, 
-    ArrowLeft, 
-    RefreshCw, 
-    Lock, 
+  import {
+    AlertTriangle,
+    Home,
+    ArrowLeft,
+    RefreshCw,
+    Lock,
     Search,
     Wifi,
     Server,
@@ -24,20 +24,20 @@
     Check
   } from 'lucide-svelte';
   import { toastService as toast } from '@xbg.solutions/frontend-core';
-  
+
   // Error data from SvelteKit
-  $: error = $page.error;
-  $: status = $page.status;
-  $: errorMessage = error?.message || 'An unexpected error occurred';
-  
+  let error = $derived($page.error);
+  let status = $derived($page.status);
+  let errorMessage = $derived(error?.message || 'An unexpected error occurred');
+
   // Error type categorization
-  $: errorType = getErrorType(status);
-  $: errorConfig = getErrorConfig(errorType, status);
-  
+  let errorType = $derived(getErrorType(status));
+  let errorConfig = $derived(getErrorConfig(errorType, status));
+
   // State
-  let showDetails = false;
-  let copied = false;
-  let retryCount = 0;
+  let showDetails = $state(false);
+  let copied = $state(false);
+  let retryCount = $state(0);
   const maxRetries = 3;
   
   interface ErrorConfig {
@@ -309,9 +309,12 @@
   <Card class="max-w-2xl w-full">
     <CardHeader class="text-center">
       <!-- Error Icon -->
-      <div class="w-20 h-20 {getColorClasses(errorConfig.color)} rounded-full flex items-center justify-center mx-auto mb-4">
-        <svelte:component this={errorConfig.icon} class="w-10 h-10" />
-      </div>
+      {#if errorConfig.icon}
+        {@const Icon = errorConfig.icon}
+        <div class="w-20 h-20 {getColorClasses(errorConfig.color)} rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon class="w-10 h-10" />
+        </div>
+      {/if}
       
       <!-- Error Title and Status -->
       <div class="flex items-center justify-center gap-2 mb-2">
@@ -362,7 +365,7 @@
         <Button 
           variant="outline" 
           size="sm" 
-          on:click={toggleDetails}
+          onclick={toggleDetails}
           class="w-full"
         >
           <Bug class="w-4 h-4 mr-2" />
@@ -373,7 +376,7 @@
           <div class="bg-gray-100 border rounded-lg p-4">
             <div class="flex justify-between items-center mb-2">
               <span class="font-medium text-gray-700">Error Information</span>
-              <Button variant="ghost" size="sm" on:click={copyErrorDetails}>
+              <Button variant="ghost" size="sm" onclick={copyErrorDetails}>
                 {#if copied}
                   <Check class="w-4 h-4" />
                 {:else}
@@ -412,7 +415,7 @@
     <!-- Action Buttons -->
     <CardFooter class="flex flex-col sm:flex-row gap-3">
       {#if errorConfig.showRetry && retryCount < maxRetries}
-        <Button on:click={retry} class="flex-1">
+        <Button onclick={retry} class="flex-1">
           <RefreshCw class="w-4 h-4 mr-2" />
           Try Again
         </Button>
@@ -420,14 +423,14 @@
       
       <div class="flex gap-2 flex-1">
         {#if errorConfig.showBack}
-          <Button variant="outline" on:click={goBack} class="flex-1">
+          <Button variant="outline" onclick={goBack} class="flex-1">
             <ArrowLeft class="w-4 h-4 mr-2" />
             Go Back
           </Button>
         {/if}
         
         {#if errorConfig.showHome}
-          <Button variant="outline" on:click={goHome} class="flex-1">
+          <Button variant="outline" onclick={goHome} class="flex-1">
             <Home class="w-4 h-4 mr-2" />
             Home
           </Button>

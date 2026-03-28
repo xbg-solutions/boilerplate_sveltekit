@@ -18,7 +18,7 @@ This boilerplate is specifically designed for:
 - **Agentic Development**: Constrained, opinionated architecture that railroads AI agents into one-shot success
 - **AI-Assisted Development**: Consistent patterns and comprehensive documentation optimized for AI code generation
 - **npm Package Distribution**: Install what you need via `@xbg.solutions/*` packages -- updates propagate via `npm update`
-- **Rapid MVP Development**: Interactive CLI setup and 30+ ready-to-use atomic components
+- **Rapid MVP Development**: Interactive CLI setup and 60+ ready-to-use atomic components
 - **Design-to-Code Pipeline**: Optimized for Figma -> AI -> Svelte workflows with SHADCN components
 - **Production Readiness**: 677 passing tests, accessibility compliance, and deployment infrastructure
 - **Backend Integration**: Works standalone or pairs with [boilerplate_backend](https://github.com/xbg-solutions/boilerplate_backend) for full-stack MVPs
@@ -191,10 +191,10 @@ import { apiService } from '@xbg.solutions/utils-api-client';
 ## Key Features
 
 ### Core Stack
-- **SvelteKit 5**: Latest version with modern runes and enhanced SSR
+- **SvelteKit 5**: Latest version with Svelte 5 runes syntax throughout (`$props()`, `$state()`, `$derived()`, `$effect()`, `{@render}`)
 - **TypeScript**: Strict mode enabled with comprehensive type definitions
 - **Tailwind CSS**: Utility-first styling with custom design tokens
-- **SHADCN-Svelte**: 30+ accessible, customizable UI components
+- **SHADCN-Svelte**: 60+ accessible, customizable UI components using Svelte 5 snippets
 - **Firebase**: Authentication, hosting, and backend integration
 - **Vitest**: Modern testing framework with 677 passing tests
 

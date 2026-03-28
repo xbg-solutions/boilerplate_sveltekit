@@ -3,34 +3,43 @@
   OTP code entry with auto-focus behavior.
 
   Usage:
-  <OtpInput bind:value length={6} on:complete={handleComplete} />
+  <OtpInput bind:value length={6} onComplete={handleComplete} />
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
-  import { createEventDispatcher, onMount, tick } from 'svelte';
 
-  export let length: number = 6;
-  export let value: string = '';
+  let {
+    length = 6,
+    value = $bindable(''),
+    class: className = '',
+    onComplete,
+    onfocus,
+    onblur,
+    ...rest
+  }: {
+    length?: number;
+    value?: string;
+    class?: string;
+    onComplete?: (value: string) => void;
+    onfocus?: (e: FocusEvent) => void;
+    onblur?: (e: FocusEvent) => void;
+    [key: string]: unknown;
+  } = $props();
 
-  let className: string = '';
-  export { className as class };
-
-  const dispatch = createEventDispatcher<{ complete: string }>();
-
-  let inputs: HTMLInputElement[] = [];
-  let digits: string[] = [];
+  let inputs: HTMLInputElement[] = $state([]);
+  let digits: string[] = $state([]);
 
   // Initialize digits from value
-  $: {
+  $effect(() => {
     digits = value.split('').slice(0, length);
     while (digits.length < length) digits.push('');
-  }
+  });
 
   // Sync value from digits
   function updateValue() {
     value = digits.join('');
     if (value.length === length && !digits.includes('')) {
-      dispatch('complete', value);
+      onComplete?.(value);
     }
   }
 
@@ -80,7 +89,7 @@
   }
 </script>
 
-<div class={cn('flex items-center gap-2', className)} {...$$restProps}>
+<div class={cn('flex items-center gap-2', className)} {...rest}>
   {#each Array(length) as _, i}
     <input
       bind:this={inputs[i]}
@@ -89,11 +98,11 @@
       maxlength="1"
       value={digits[i] || ''}
       class="h-10 w-10 rounded-md border border-input bg-background text-center text-sm font-medium shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      on:input={(e) => handleInput(i, e)}
-      on:keydown={(e) => handleKeyDown(i, e)}
-      on:paste={handlePaste}
-      on:focus
-      on:blur
+      oninput={(e) => handleInput(i, e)}
+      onkeydown={(e) => handleKeyDown(i, e)}
+      onpaste={handlePaste}
+      {onfocus}
+      {onblur}
     />
   {/each}
 </div>

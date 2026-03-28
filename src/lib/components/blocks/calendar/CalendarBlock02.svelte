@@ -6,12 +6,17 @@
   import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  export let selectedDate: Date | null = null;
-  export let month: number = selectedDate ? selectedDate.getMonth() : new Date().getMonth();
-  export let year: number = selectedDate ? selectedDate.getFullYear() : new Date().getFullYear();
+  let {
+    class: className = '',
+    selectedDate = null,
+    month = selectedDate ? selectedDate.getMonth() : new Date().getMonth(),
+    year = selectedDate ? selectedDate.getFullYear() : new Date().getFullYear()
+  }: {
+    class?: string;
+    selectedDate?: Date | null;
+    month?: number;
+    year?: number;
+  } = $props();
 
   const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const MONTHS = [
@@ -82,18 +87,18 @@
     }
   }
 
-  $: calendarDays = getCalendarDays(year, month);
+  let calendarDays = $derived(getCalendarDays(year, month));
 </script>
 
 <div class={cn('inline-flex flex-col rounded-md border p-4', className)}>
   <!-- Header -->
   <div class="mb-4 flex items-center justify-between">
-    <Button variant="ghost" size="sm" on:click={prevMonth}>
+    <Button variant="ghost" size="sm" onclick={prevMonth}>
       <!-- Lucide: ChevronLeft -->
       &lt;
     </Button>
     <h3 class="text-sm font-medium">{MONTHS[month]} {year}</h3>
-    <Button variant="ghost" size="sm" on:click={nextMonth}>
+    <Button variant="ghost" size="sm" onclick={nextMonth}>
       <!-- Lucide: ChevronRight -->
       &gt;
     </Button>
@@ -118,7 +123,7 @@
           current && isToday(day) && !isSelected(day) && 'border border-primary text-primary',
           current && isSelected(day) && 'bg-primary text-primary-foreground hover:bg-primary'
         )}
-        on:click={() => current && selectDay(day)}
+        onclick={() => current && selectDay(day)}
         disabled={!current}
       >
         {day}

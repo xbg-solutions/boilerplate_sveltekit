@@ -2,34 +2,41 @@
   Dropdown Menu Root Component
 -->
 <script lang="ts">
-  import { createEventDispatcher, setContext } from 'svelte';
+  import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
-  
-  export let open = false;
-  
-  const dispatch = createEventDispatcher<{
-    openChange: boolean;
-  }>();
-  
+  import type { Snippet } from 'svelte';
+
+  let {
+    open = $bindable(false),
+    onOpenChange,
+    children,
+  }: {
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    children?: Snippet;
+  } = $props();
+
   const isOpen = writable(open);
-  
+
   setContext('dropdown', {
     isOpen,
     toggle: () => {
       open = !open;
       isOpen.set(open);
-      dispatch('openChange', open);
+      onOpenChange?.(open);
     },
     close: () => {
       open = false;
       isOpen.set(false);
-      dispatch('openChange', false);
+      onOpenChange?.(false);
     }
   });
-  
-  $: isOpen.set(open);
+
+  $effect(() => {
+    isOpen.set(open);
+  });
 </script>
 
 <div class="relative inline-block text-left">
-  <slot />
+  {@render children?.()}
 </div>

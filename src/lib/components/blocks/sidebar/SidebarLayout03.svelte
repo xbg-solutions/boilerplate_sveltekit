@@ -3,30 +3,35 @@
   Full sidebar with collapsible groups and user avatar at bottom.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import { Button, Avatar } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
   import Separator from '$lib/components/ui/Separator.svelte';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    groups = [],
+    user = undefined,
+    children
+  }: {
+    class?: string;
+    groups?: Array<{
+      title: string;
+      items: Array<{ label: string; href: string; icon?: string; active?: boolean }>;
+    }>;
+    user?: {
+      name: string;
+      email: string;
+      avatar?: string;
+    };
+    children?: Snippet;
+  } = $props();
 
-  export let groups: Array<{
-    title: string;
-    items: Array<{ label: string; href: string; icon?: string; active?: boolean }>;
-  }> = [];
-
-  export let user: {
-    name: string;
-    email: string;
-    avatar?: string;
-  } | undefined = undefined;
-
-  let collapsedGroups: Record<string, boolean> = {};
+  let collapsedGroups: Record<string, boolean> = $state({});
 
   function toggleGroup(title: string) {
     collapsedGroups[title] = !collapsedGroups[title];
-    collapsedGroups = collapsedGroups;
   }
 </script>
 
@@ -47,7 +52,7 @@
           <button
             type="button"
             class="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground"
-            on:click={() => toggleGroup(group.title)}
+            onclick={() => toggleGroup(group.title)}
           >
             {group.title}
             <!-- Lucide: ChevronDown / ChevronRight -->
@@ -98,6 +103,6 @@
 
   <!-- Main Content -->
   <main class="flex-1 overflow-y-auto">
-    <slot />
+    {@render children?.()}
   </main>
 </div>

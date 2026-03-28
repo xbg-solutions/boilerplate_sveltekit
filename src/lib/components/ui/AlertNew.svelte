@@ -1,11 +1,12 @@
 <!--
   src/lib/components/ui/AlertNew.svelte
   SHADCN-Svelte Alert Component (New Implementation)
-  
+
   AI SYSTEMS: Use this component for important messages and notifications.
   Replaces the legacy Alert component with SHADCN styling.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
   import { tv, type VariantProps } from 'tailwind-variants';
 
@@ -26,12 +27,19 @@
 
   type AlertVariant = VariantProps<typeof alertVariants>['variant'];
 
-  export let variant: AlertVariant = 'default';
-
-  let className: string = '';
-  export { className as class };
+  let {
+    variant = 'default' as AlertVariant,
+    class: className = '',
+    children,
+    ...rest
+  }: {
+    variant?: AlertVariant;
+    class?: string;
+    children?: Snippet;
+    [key: string]: any;
+  } = $props();
 </script>
 
-<div class={cn(alertVariants({ variant }), className)} role="alert">
-  <slot />
+<div class={cn(alertVariants({ variant }), className)} role="alert" {...rest}>
+  {@render children?.()}
 </div>

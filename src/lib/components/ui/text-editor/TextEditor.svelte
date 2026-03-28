@@ -1,18 +1,18 @@
 <!--
   src/lib/components/ui/text-editor/TextEditor.svelte
-  Rich text area with toolbar slot.
+  Rich text area with toolbar snippet.
 
   Usage:
   <TextEditor bind:value state="default" placeholder="Write something...">
-    <svelte:fragment slot="toolbar">
+    {#snippet toolbar()}
       <Button variant="ghost" size="icon"><BoldIcon /></Button>
-    </svelte:fragment>
+    {/snippet}
   </TextEditor>
 -->
 <script lang="ts">
   import { tv, type VariantProps } from 'tailwind-variants';
   import { cn } from '$lib/utils/cn';
-  import { createEventDispatcher } from 'svelte';
+  import type { Snippet } from 'svelte';
 
   const textEditorVariants = tv({
     base: 'rounded-lg border bg-card text-card-foreground shadow-sm',
@@ -30,33 +30,48 @@
 
   type State = VariantProps<typeof textEditorVariants>['state'];
 
-  export let value: string = '';
-  export let state: State = 'default';
-  export let placeholder: string = '';
-
-  let className: string = '';
-  export { className as class };
-
-  const dispatch = createEventDispatcher();
+  let {
+    value = $bindable(''),
+    state = 'default' as State,
+    placeholder = '',
+    class: className = '',
+    toolbar,
+    oninput,
+    onfocus,
+    onblur,
+    ...rest
+  }: {
+    value?: string;
+    state?: State;
+    placeholder?: string;
+    class?: string;
+    toolbar?: Snippet;
+    oninput?: (detail: { value: string }) => void;
+    onfocus?: (e: FocusEvent) => void;
+    onblur?: (e: FocusEvent) => void;
+    [key: string]: unknown;
+  } = $props();
 
   function handleInput(e: Event) {
     const target = e.target as HTMLTextAreaElement;
     value = target.value;
-    dispatch('input', { value });
+    oninput?.({ value });
   }
 </script>
 
-<div class={cn(textEditorVariants({ state }), className)} {...$$restProps}>
+<div class={cn(textEditorVariants({ state }), className)} {...rest}>
   <div class="flex items-center gap-1 border-b px-3 py-2">
-    <slot name="toolbar" />
+    {#if toolbar}
+      {@render toolbar()}
+    {/if}
   </div>
   <textarea
     class="w-full min-h-[120px] resize-y bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed"
     {placeholder}
     {value}
     disabled={state === 'disabled'}
-    on:input={handleInput}
-    on:focus
-    on:blur
+    oninput={handleInput}
+    {onfocus}
+    {onblur}
   />
 </div>

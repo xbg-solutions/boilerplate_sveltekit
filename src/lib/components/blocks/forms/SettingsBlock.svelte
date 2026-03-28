@@ -26,33 +26,36 @@
   } from '$lib/components/ui';
   import Separator from '$lib/components/ui/Separator.svelte';
 
-  let className: string = '';
-  export { className as class };
-
-  export let activeTab: string = 'profile';
+  let {
+    class: className = '',
+    activeTab = 'profile'
+  }: {
+    class?: string;
+    activeTab?: string;
+  } = $props();
 
   // Profile form state
-  let profileName = '';
-  let profileEmail = '';
-  let profileBio = '';
-  let profileUrl1 = '';
-  let profileUrl2 = '';
+  let profileName = $state('');
+  let profileEmail = $state('');
+  let profileBio = $state('');
+  let profileUrl1 = $state('');
+  let profileUrl2 = $state('');
 
   // Account form state
-  let accountLanguage = 'en';
-  let accountTimezone = 'utc';
+  let accountLanguage = $state('en');
+  let accountTimezone = $state('utc');
 
   // Appearance state
-  let selectedTheme = 'light';
+  let selectedTheme = $state('light');
 
   // Notifications state
-  let emailNotifications = true;
-  let pushNotifications = false;
-  let marketingEmails = false;
-  let securityEmails = true;
+  let emailNotifications = $state(true);
+  let pushNotifications = $state(false);
+  let marketingEmails = $state(false);
+  let securityEmails = $state(true);
 
   // Display state
-  let displayMode = 'comfortable';
+  let displayMode = $state('comfortable');
 
   const tabs = [
     { value: 'profile', label: 'Profile' },
@@ -211,7 +214,7 @@
                         ? 'border-primary'
                         : 'border-transparent'
                     )}
-                    on:click={() => (selectedTheme = theme.value)}
+                    onclick={() => (selectedTheme = theme.value)}
                   >
                     <!-- Theme preview placeholder -->
                     <div class={cn(
@@ -298,7 +301,7 @@
                 <Label>Display Mode</Label>
                 <p class="text-xs text-muted-foreground">Set the display density for the interface.</p>
               </div>
-              <RadioGroup name="display-mode" value={displayMode} on:change={(e) => displayMode = e.detail.value}>
+              <RadioGroup name="display-mode" value={displayMode} onchange={({ value }: { value: string }) => displayMode = value}>
                 <label class="flex items-center gap-3">
                   <RadioGroupItem value="comfortable" />
                   <div>

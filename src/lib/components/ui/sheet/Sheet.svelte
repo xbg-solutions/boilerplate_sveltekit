@@ -1,12 +1,12 @@
 <!--
   src/lib/components/ui/sheet/Sheet.svelte
   SHADCN-Svelte Sheet Component
-  
+
   AI SYSTEMS: Use this component for slide-out panels and drawers.
   Supports different positions and proper accessibility.
 -->
 <script lang="ts">
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import type { Snippet } from 'svelte';
   import { X } from 'lucide-svelte';
   import { cn } from '$lib/utils/cn';
   import { tv, type VariantProps } from 'tailwind-variants';
@@ -29,31 +29,42 @@
   type SheetSide = VariantProps<typeof sheetVariants>['side'];
 
   // Component props
-  export let open: boolean = false;
-  export let side: SheetSide = 'right';
-  export let closeOnEscape: boolean = true;
-  export let closeOnClickOutside: boolean = true;
-  export let preventScroll: boolean = true;
+  let {
+    open = $bindable(false),
+    side = 'right' as SheetSide,
+    closeOnEscape = true,
+    closeOnClickOutside = true,
+    preventScroll = true,
+    onOpenChange,
+    onClose,
+    children,
+  }: {
+    open?: boolean;
+    side?: SheetSide;
+    closeOnEscape?: boolean;
+    closeOnClickOutside?: boolean;
+    preventScroll?: boolean;
+    onOpenChange?: (detail: { open: boolean }) => void;
+    onClose?: () => void;
+    children?: Snippet;
+  } = $props();
 
   let sheetElement: HTMLDivElement;
   let contentElement: HTMLDivElement;
-  let previousActiveElement: Element | null = null;
-
-  const dispatch = createEventDispatcher<{
-    'open-change': { open: boolean };
-    close: void;
-  }>();
+  let previousActiveElement: Element | null = $state(null);
 
   // Handle open state changes
-  $: if (open) {
-    openSheet();
-  } else {
-    closeSheet();
-  }
+  $effect(() => {
+    if (open) {
+      openSheet();
+    } else {
+      closeSheet();
+    }
+  });
 
   function openSheet() {
     previousActiveElement = document.activeElement;
-    
+
     if (preventScroll) {
       document.body.style.overflow = 'hidden';
     }
@@ -96,14 +107,17 @@
   // Close sheet
   function handleClose() {
     open = false;
-    dispatch('open-change', { open: false });
-    dispatch('close');
+    onOpenChange?.({ open: false });
+    onClose?.();
   }
 
-  onDestroy(() => {
-    if (preventScroll && open) {
-      document.body.style.overflow = '';
-    }
+  // Cleanup on destroy
+  $effect(() => {
+    return () => {
+      if (preventScroll && open) {
+        document.body.style.overflow = '';
+      }
+    };
   });
 </script>
 
@@ -113,8 +127,8 @@
     bind:this={sheetElement}
     class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
     data-state={open ? 'open' : 'closed'}
-    on:click={handleBackdropClick}
-    on:keydown={handleKeydown}
+    onclick={handleBackdropClick}
+    onkeydown={handleKeydown}
     role="dialog"
     aria-modal="true"
     tabindex="-1"
@@ -126,13 +140,13 @@
       data-state={open ? 'open' : 'closed'}
       tabindex="-1"
     >
-      <slot />
-      
+      {@render children?.()}
+
       <!-- Close button -->
       <button
         type="button"
         class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
-        on:click={handleClose}
+        onclick={handleClose}
       >
         <X class="h-4 w-4" />
         <span class="sr-only">Close</span>

@@ -1,14 +1,24 @@
 <!--
   Alert Component
-  
+
   A versatile alert component for displaying important messages.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  
-  export let variant: 'default' | 'destructive' | 'success' | 'warning' = 'default';
-  export let className = '';
-  
+
+  let {
+    variant = 'default',
+    class: className = '',
+    children,
+    ...rest
+  }: {
+    variant?: 'default' | 'destructive' | 'success' | 'warning';
+    class?: string;
+    children?: Snippet;
+    [key: string]: any;
+  } = $props();
+
   const variants = {
     default: 'bg-blue-50 border-blue-200 text-blue-700',
     destructive: 'bg-red-50 border-red-200 text-red-700',
@@ -17,13 +27,14 @@
   };
 </script>
 
-<div 
+<div
   class={cn(
     'relative w-full rounded-lg border p-4 text-sm',
     variants[variant],
     className
   )}
   role="alert"
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </div>

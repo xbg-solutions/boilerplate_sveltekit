@@ -6,14 +6,17 @@
   import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  export let selectedDate: Date | null = null;
+  let {
+    class: className = '',
+    selectedDate = null
+  }: {
+    class?: string;
+    selectedDate?: Date | null;
+  } = $props();
 
   // Internal state: first month displayed
-  let viewYear = selectedDate ? selectedDate.getFullYear() : new Date().getFullYear();
-  let viewMonth = selectedDate ? selectedDate.getMonth() : new Date().getMonth();
+  let viewYear = $state(selectedDate ? selectedDate.getFullYear() : new Date().getFullYear());
+  let viewMonth = $state(selectedDate ? selectedDate.getMonth() : new Date().getMonth());
 
   const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const MONTHS = [
@@ -85,24 +88,24 @@
   }
 
   // Second month
-  $: secondMonth = viewMonth === 11 ? 0 : viewMonth + 1;
-  $: secondYear = viewMonth === 11 ? viewYear + 1 : viewYear;
+  let secondMonth = $derived(viewMonth === 11 ? 0 : viewMonth + 1);
+  let secondYear = $derived(viewMonth === 11 ? viewYear + 1 : viewYear);
 
-  $: leftDays = getCalendarDays(viewYear, viewMonth);
-  $: rightDays = getCalendarDays(secondYear, secondMonth);
+  let leftDays = $derived(getCalendarDays(viewYear, viewMonth));
+  let rightDays = $derived(getCalendarDays(secondYear, secondMonth));
 </script>
 
 <div class={cn('inline-flex flex-col', className)}>
   <!-- Navigation -->
   <div class="mb-4 flex items-center justify-between">
-    <Button variant="outline" size="sm" on:click={prevMonth}>
+    <Button variant="outline" size="sm" onclick={prevMonth}>
       <!-- Lucide: ChevronLeft -->
       &lt;
     </Button>
     <span class="text-sm font-medium">
       {MONTHS[viewMonth]} {viewYear} - {MONTHS[secondMonth]} {secondYear}
     </span>
-    <Button variant="outline" size="sm" on:click={nextMonth}>
+    <Button variant="outline" size="sm" onclick={nextMonth}>
       <!-- Lucide: ChevronRight -->
       &gt;
     </Button>
@@ -127,7 +130,7 @@
               current && 'hover:bg-muted',
               current && isSelected(viewYear, viewMonth, day) && 'bg-primary text-primary-foreground hover:bg-primary'
             )}
-            on:click={() => current && selectDay(viewYear, viewMonth, day)}
+            onclick={() => current && selectDay(viewYear, viewMonth, day)}
             disabled={!current}
           >
             {day}
@@ -154,7 +157,7 @@
               current && 'hover:bg-muted',
               current && isSelected(secondYear, secondMonth, day) && 'bg-primary text-primary-foreground hover:bg-primary'
             )}
-            on:click={() => current && selectDay(secondYear, secondMonth, day)}
+            onclick={() => current && selectDay(secondYear, secondMonth, day)}
             disabled={!current}
           >
             {day}

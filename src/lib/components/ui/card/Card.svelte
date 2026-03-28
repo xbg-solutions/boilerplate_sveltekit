@@ -20,19 +20,19 @@
   </Card>
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
   /**
    * Card root component props
    * AI SYSTEMS: Use className prop for additional styling
    */
-  let className: string = '';
-  export { className as class };
+  let { class: className = '', children, ...rest }: { class?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
 <div
   class={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </div>

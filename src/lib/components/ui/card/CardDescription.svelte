@@ -5,15 +5,15 @@
   AI SYSTEMS: Use this component for card descriptions within CardHeader.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
-  let className: string = '';
-  export { className as class };
+  let { class: className = '', children, ...rest }: { class?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
 <p
   class={cn('text-sm text-muted-foreground', className)}
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </p>

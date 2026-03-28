@@ -4,10 +4,9 @@
 -->
 <script lang="ts">
   import { page } from '$app/stores';
-  import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
   import '../app.css';
-  
+
   // Import stores and services
   import { authStore } from '@xbg.solutions/utils-firebase-auth';
   import { initializationStore } from '@xbg.solutions/frontend-core';
@@ -15,7 +14,7 @@
   import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
   import { loadingStore } from '@xbg.solutions/frontend-core';
   import { PageTransition } from '$lib/components/layout';
-  
+
   // Immediately disable SvelteKit's navigation progress bar and hide all browser-level loading indicators
   if (browser) {
     // Disable SvelteKit's navigation progress indicator programmatically
@@ -27,12 +26,12 @@
     } catch (e) {
       console.warn('Error removing SvelteKit navigation indicator:', e);
     }
-    
+
     // Hide native browser progress indicators via comprehensive CSS
     const style = document.createElement('style');
     style.textContent = `
       /* Hide all browser and SvelteKit loading indicators */
-      html:before, html:after, 
+      html:before, html:after,
       body:before, body:after,
       #sveltekit-navigation-progress,
       #nprogress,
@@ -49,25 +48,25 @@
         pointer-events: none !important;
         z-index: -9999 !important;
       }
-      
+
       /* Hide transition/progress bars at the top of viewport */
       html:before, body:before, :root:before {
         display: none !important;
         content: none !important;
       }
-      
+
       /* Hide Chrome's loading bar */
       #nprogress .bar {
         display: none !important;
         opacity: 0 !important;
       }
-      
+
       /* Remove loading animation */
       #nprogress .spinner {
         display: none !important;
         opacity: 0 !important;
       }
-      
+
       /* SvelteKit specific fixes */
       :root {
         --sk-loader-size: 0 !important;
@@ -75,7 +74,7 @@
       }
     `;
     document.head.appendChild(style);
-    
+
     // Intercept and block any dynamic addition of progress bars
     if (typeof MutationObserver !== 'undefined') {
       new MutationObserver((mutations) => {
@@ -86,7 +85,7 @@
                 // Cast to Element to access DOM properties safely
                 const element = node as Element;
                 // Remove loading indicators
-                if (element.id === 'sveltekit-navigation-progress' || 
+                if (element.id === 'sveltekit-navigation-progress' ||
                     element.id === 'nprogress' ||
                     (node.nodeType === 1 && element.tagName === 'PROGRESS') ||
                     (element.getAttribute && element.getAttribute('role') === 'progressbar')) {
@@ -100,60 +99,64 @@
             });
           }
         });
-      }).observe(document.documentElement, { 
-        childList: true, 
-        subtree: true 
+      }).observe(document.documentElement, {
+        childList: true,
+        subtree: true
       });
     }
   }
-  
+
   // Type imports
   import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
   import type { User } from 'firebase/auth';
+  import type { Snippet } from 'svelte';
+
+  // Props
+  let { children }: { children?: Snippet } = $props();
 
   // State variables
-  let mounted = false;
-  let isLoading = true;
-  let isInitialized = false;
-  let isAuthenticated = false;
-  let user: User | null = null;
-  let claims: FirebaseUserClaims | null = null;
-  
+  let mounted = $state(false);
+  let isLoading = $state(true);
+  let isInitialized = $state(false);
+  let isAuthenticated = $state(false);
+  let user: User | null = $state(null);
+  let claims: FirebaseUserClaims | null = $state(null);
+
   // Handle mounting and subscriptions
-  onMount(() => {
+  $effect(() => {
     // Set mounted flag first (this is important!)
     mounted = true;
-    
+
     // Only run in browser context
     if (!browser) return;
-    
+
     // Set up auth subscriptions
     const unsubAuth = authStore.subscribe((state) => {
       if (!state) return;
-      
+
       isLoading = state?.isLoading || state?.isInitializing || false;
       isAuthenticated = state?.isAuthenticated || false;
       user = state.user || null;
       claims = state.claims || null;
     });
-    
+
     // Subscribe to initialization state
     const unsubInit = initializationStore.subscribe((state) => {
       if (!state) return;
-      
+
       isInitialized = state?.isInitialized || false;
     });
-    
+
     // Subscribe to events for additional safety
     const unsubAuthEvents = subscribe(AUTH_EVENTS.STATE_CHANGED, (event) => {
       if (!event?.payload) return;
     });
-    
+
     // Mark loading in store - use different load key based on auth state
     const layoutKey = isAuthenticated ? 'protected' : 'public';
     loadingStore.startLoading('layout', layoutKey);
-    
-    // Return cleanup function
+
+    // Cleanup function
     return () => {
       if (typeof unsubAuth === 'function') unsubAuth();
       if (typeof unsubInit === 'function') unsubInit();
@@ -161,20 +164,20 @@
       loadingStore.endLoading('layout', isAuthenticated ? 'protected' : 'public');
     };
   });
-  
+
   // Define different route types
-  $: currentPath = $page.url.pathname;
-  
+  let currentPath = $derived($page.url.pathname);
+
   // Handle logout
   function handleLogout(event: Event): void {
     console.log('Logout button clicked, initiating signout');
-    
+
     // Prevent default behavior
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
-    
+
     // Try using a direct call to auth service first
     try {
       // Direct call to signout from Firebase - less overhead
@@ -186,7 +189,7 @@
             // Clear stored data first
             localStorage.removeItem('firebase:authUser:' + import.meta.env.VITE_FIREBASE_API_KEY);
             localStorage.removeItem('emailForSignIn');
-            
+
             // Clear auth state immediately
             authStore.update(state => ({
               ...state,
@@ -195,7 +198,7 @@
               claims: null,
               authMethod: null
             }));
-            
+
             console.log('Proceeding with Firebase signout');
             auth.signOut()
               .then(() => {
@@ -244,7 +247,7 @@
         <nav class="flex items-center gap-4">
           {#if isAuthenticated}
             <a href="/protected" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
-            <button on:click={handleLogout} class="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign Out</button>
+            <button onclick={handleLogout} class="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign Out</button>
           {:else}
             <a href="/" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</a>
           {/if}
@@ -272,14 +275,14 @@
             <p class="mt-1 md:mt-2 text-sm md:text-base text-gray-600 text-center">Please log in to access this area</p>
           </div>
         {:else if !isLoading}
-          <slot />
+          {@render children?.()}
         {/if}
       </main>
     {:else}
       <!-- Other Content -->
       <main class="flex-grow">
         {#if !isLoading}
-          <slot />
+          {@render children?.()}
         {/if}
       </main>
     {/if}

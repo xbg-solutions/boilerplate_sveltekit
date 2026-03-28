@@ -3,23 +3,34 @@
   File upload drop zone with drag and drop support.
 
   Usage:
-  <Uploader accept="image/*" multiple on:change={handleFiles} />
+  <Uploader accept="image/*" multiple onchange={handleFiles} />
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
-  import { createEventDispatcher } from 'svelte';
+  import type { Snippet } from 'svelte';
 
-  export let accept: string = '';
-  export let multiple: boolean = false;
-  export let disabled: boolean = false;
+  let {
+    accept = '',
+    multiple = false,
+    disabled = false,
+    class: className = '',
+    icon,
+    children,
+    onchange,
+    ...rest
+  }: {
+    accept?: string;
+    multiple?: boolean;
+    disabled?: boolean;
+    class?: string;
+    icon?: Snippet;
+    children?: Snippet;
+    onchange?: (files: FileList) => void;
+    [key: string]: unknown;
+  } = $props();
 
-  let className: string = '';
-  export { className as class };
-
-  let dragging = false;
-  let fileInput: HTMLInputElement;
-
-  const dispatch = createEventDispatcher<{ change: FileList }>();
+  let dragging = $state(false);
+  let fileInput: HTMLInputElement | undefined = $state(undefined);
 
   function handleDragOver(e: DragEvent) {
     e.preventDefault();
@@ -34,18 +45,18 @@
     e.preventDefault();
     dragging = false;
     if (disabled || !e.dataTransfer?.files.length) return;
-    dispatch('change', e.dataTransfer.files);
+    onchange?.(e.dataTransfer.files);
   }
 
   function handleInputChange(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files?.length) {
-      dispatch('change', target.files);
+      onchange?.(target.files);
     }
   }
 
   function openFilePicker() {
-    if (!disabled) fileInput.click();
+    if (!disabled) fileInput?.click();
   }
 </script>
 
@@ -57,23 +68,27 @@
     disabled && 'opacity-50 pointer-events-none cursor-not-allowed',
     className
   )}
-  on:dragover={handleDragOver}
-  on:dragleave={handleDragLeave}
-  on:drop={handleDrop}
-  on:click={openFilePicker}
+  ondragover={handleDragOver}
+  ondragleave={handleDragLeave}
+  ondrop={handleDrop}
+  onclick={openFilePicker}
   {disabled}
-  {...$$restProps}
+  {...rest}
 >
-  <slot name="icon">
+  {#if icon}
+    {@render icon()}
+  {:else}
     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
     </svg>
-  </slot>
-  <slot>
+  {/if}
+  {#if children}
+    {@render children()}
+  {:else}
     <span class="text-sm text-muted-foreground">
       Upload a file or drag and drop
     </span>
-  </slot>
+  {/if}
 </button>
 
 <input
@@ -83,5 +98,5 @@
   {accept}
   {multiple}
   {disabled}
-  on:change={handleInputChange}
+  onchange={handleInputChange}
 />

@@ -1,52 +1,75 @@
 <!--
   ContentLayout.svelte
   Content-focused layout template with optional breadcrumbs and sidebar
-  
+
   Usage:
-  <ContentLayout title="Article Title" showBreadcrumbs={true}>
-    <div slot="sidebar">
-      <!-- Optional sidebar content -->
-    </div>
-    <div slot="actions">
-      <!-- Header action buttons -->
-    </div>
-    <!-- Main content -->
+  <ContentLayout title="Article Title" showBreadcrumbs={true}
+    sidebar={sidebarSnippet}
+    actions={actionsSnippet}
+  >
+    Main content here
   </ContentLayout>
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { page } from '$app/stores';
   import { Card, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Separator, Badge } from '$lib/components/ui';
   import { Calendar, Clock, Tag, Share2, Bookmark } from 'lucide-svelte';
-  
+
   // Component props
-  export let title: string = '';
-  export let subtitle: string = '';
-  export let showBreadcrumbs: boolean = false;
-  export let breadcrumbs: Array<{ label: string; href?: string }> = [];
-  export let showSidebar: boolean = false;
-  export let sidebarPosition: 'left' | 'right' = 'right';
-  export let maxWidth: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '6xl' | 'full' = '4xl';
-  export let showMeta: boolean = false;
-  export let publishDate: string = '';
-  export let readTime: string = '';
-  export let tags: string[] = [];
-  export let author: {
-    name: string;
-    avatar?: string;
-    bio?: string;
-  } | null = null;
-  
+  let {
+    title = '',
+    subtitle = '',
+    showBreadcrumbs = false,
+    breadcrumbs = [],
+    showSidebar = false,
+    sidebarPosition = 'right',
+    maxWidth = '4xl',
+    showMeta = false,
+    publishDate = '',
+    readTime = '',
+    tags = [],
+    author = null,
+    actions,
+    sidebar,
+    footer,
+    children
+  }: {
+    title?: string;
+    subtitle?: string;
+    showBreadcrumbs?: boolean;
+    breadcrumbs?: Array<{ label: string; href?: string }>;
+    showSidebar?: boolean;
+    sidebarPosition?: 'left' | 'right';
+    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '6xl' | 'full';
+    showMeta?: boolean;
+    publishDate?: string;
+    readTime?: string;
+    tags?: string[];
+    author?: {
+      name: string;
+      avatar?: string;
+      bio?: string;
+    } | null;
+    actions?: Snippet;
+    sidebar?: Snippet;
+    footer?: Snippet;
+    children?: Snippet;
+  } = $props();
+
   // Computed classes
-  $: maxWidthClass = getMaxWidthClass(maxWidth);
-  $: gridClass = showSidebar ? 'grid grid-cols-1 lg:grid-cols-4 gap-8' : '';
-  $: contentClass = showSidebar ? 'lg:col-span-3' : '';
-  $: sidebarClass = showSidebar && sidebarPosition === 'left' ? 'lg:order-first' : '';
-  
+  let maxWidthClass = $derived(getMaxWidthClass(maxWidth));
+  let gridClass = $derived(showSidebar ? 'grid grid-cols-1 lg:grid-cols-4 gap-8' : '');
+  let contentClass = $derived(showSidebar ? 'lg:col-span-3' : '');
+  let sidebarClass = $derived(showSidebar && sidebarPosition === 'left' ? 'lg:order-first' : '');
+
   // Auto-generate breadcrumbs from route if not provided
-  $: if (showBreadcrumbs && breadcrumbs.length === 0) {
-    breadcrumbs = generateBreadcrumbs($page.url.pathname);
-  }
-  
+  $effect(() => {
+    if (showBreadcrumbs && breadcrumbs.length === 0) {
+      breadcrumbs = generateBreadcrumbs($page.url.pathname);
+    }
+  });
+
   function getMaxWidthClass(size: typeof maxWidth): string {
     switch (size) {
       case 'sm': return 'max-w-sm';
@@ -60,11 +83,11 @@
       default: return 'max-w-4xl';
     }
   }
-  
+
   function generateBreadcrumbs(pathname: string): Array<{ label: string; href?: string }> {
     const segments = pathname.split('/').filter(Boolean);
     const breadcrumbs = [{ label: 'Home', href: '/' }];
-    
+
     let path = '';
     for (let i = 0; i < segments.length; i++) {
       path += '/' + segments[i];
@@ -74,10 +97,10 @@
         href: isLast ? undefined : path
       });
     }
-    
+
     return breadcrumbs;
   }
-  
+
   function formatDate(dateString: string): string {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -118,9 +141,9 @@
         </Breadcrumb>
       </nav>
     {/if}
-    
+
     <!-- Header -->
-    {#if title || subtitle || $$slots.actions}
+    {#if title || subtitle || actions}
       <header class="mb-8">
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div class="flex-1">
@@ -135,14 +158,14 @@
               </p>
             {/if}
           </div>
-          
-          {#if $$slots.actions}
+
+          {#if actions}
             <div class="flex-shrink-0">
-              <slot name="actions" />
+              {@render actions()}
             </div>
           {/if}
         </div>
-        
+
         <!-- Meta information -->
         {#if showMeta && (author || publishDate || readTime || tags.length > 0)}
           <div class="mt-6 pt-6 border-t border-gray-200">
@@ -164,21 +187,21 @@
                   </div>
                 </div>
               {/if}
-              
+
               {#if publishDate}
                 <div class="flex items-center space-x-1">
                   <Calendar class="h-4 w-4" />
                   <span>{formatDate(publishDate)}</span>
                 </div>
               {/if}
-              
+
               {#if readTime}
                 <div class="flex items-center space-x-1">
                   <Clock class="h-4 w-4" />
                   <span>{readTime}</span>
                 </div>
               {/if}
-              
+
               {#if tags.length > 0}
                 <div class="flex items-center space-x-2">
                   <Tag class="h-4 w-4" />
@@ -194,15 +217,17 @@
         {/if}
       </header>
     {/if}
-    
+
     <!-- Main content area -->
     <div class={gridClass}>
       <!-- Sidebar (left side if position is left) -->
       {#if showSidebar && sidebarPosition === 'left'}
         <aside class="space-y-6 {sidebarClass}">
-          <slot name="sidebar">
+          {#if sidebar}
+            {@render sidebar()}
+          {:else}
             <!-- Default sidebar content -->
-            <Card className="p-6">
+            <Card class="p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div class="space-y-3">
                 <button class="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
@@ -215,25 +240,27 @@
                 </button>
               </div>
             </Card>
-          </slot>
+          {/if}
         </aside>
       {/if}
-      
+
       <!-- Main content -->
       <main class={contentClass}>
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
           <article class="prose prose-lg max-w-none p-8">
-            <slot />
+            {@render children?.()}
           </article>
         </div>
       </main>
-      
+
       <!-- Sidebar (right side if position is right) -->
       {#if showSidebar && sidebarPosition === 'right'}
         <aside class="space-y-6">
-          <slot name="sidebar">
+          {#if sidebar}
+            {@render sidebar()}
+          {:else}
             <!-- Default sidebar content -->
-            <Card className="p-6">
+            <Card class="p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Table of Contents</h3>
               <nav class="space-y-2 text-sm">
                 <a href="#section-1" class="block text-gray-600 hover:text-gray-900">Section 1</a>
@@ -241,8 +268,8 @@
                 <a href="#section-3" class="block text-gray-600 hover:text-gray-900">Section 3</a>
               </nav>
             </Card>
-            
-            <Card className="p-6">
+
+            <Card class="p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div class="space-y-3">
                 <button class="flex items-center space-x-2 w-full text-left text-gray-600 hover:text-gray-900">
@@ -255,15 +282,15 @@
                 </button>
               </div>
             </Card>
-          </slot>
+          {/if}
         </aside>
       {/if}
     </div>
-    
+
     <!-- Footer content -->
-    {#if $$slots.footer}
+    {#if footer}
       <footer class="mt-12 pt-8 border-t border-gray-200">
-        <slot name="footer" />
+        {@render footer()}
       </footer>
     {/if}
   </div>
@@ -275,7 +302,7 @@
     color: theme('colors.gray.700');
     line-height: 1.75;
   }
-  
+
   .prose h1,
   .prose h2,
   .prose h3,
@@ -287,46 +314,46 @@
     margin-top: 2em;
     margin-bottom: 1em;
   }
-  
+
   .prose h1 {
     font-size: 1.875rem;
     line-height: 1.25;
   }
-  
+
   .prose h2 {
     font-size: 1.5rem;
     line-height: 1.375;
   }
-  
+
   .prose h3 {
     font-size: 1.25rem;
     line-height: 1.5;
   }
-  
+
   .prose p {
     margin-top: 1.25em;
     margin-bottom: 1.25em;
   }
-  
+
   .prose img {
     border-radius: 0.5rem;
     margin: 2em auto;
   }
-  
+
   .prose blockquote {
     border-left: 4px solid theme('colors.primary.DEFAULT');
     padding-left: 1rem;
     font-style: italic;
     margin: 1.5em 0;
   }
-  
+
   .prose code {
     background-color: theme('colors.gray.100');
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     font-size: 0.875em;
   }
-  
+
   .prose pre {
     background-color: theme('colors.gray.900');
     color: theme('colors.gray.100');
@@ -335,30 +362,30 @@
     overflow-x: auto;
     margin: 1.5em 0;
   }
-  
+
   .prose pre code {
     background-color: transparent;
     padding: 0;
     color: inherit;
   }
-  
+
   .prose ul,
   .prose ol {
     margin: 1.25em 0;
     padding-left: 1.5em;
   }
-  
+
   .prose li {
     margin: 0.5em 0;
   }
-  
+
   .prose a {
     color: theme('colors.primary.DEFAULT');
     text-decoration: underline;
     text-decoration-color: theme('colors.primary.DEFAULT / 0.5');
     text-underline-offset: 2px;
   }
-  
+
   .prose a:hover {
     text-decoration-color: theme('colors.primary.DEFAULT');
   }

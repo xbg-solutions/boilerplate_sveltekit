@@ -1,53 +1,80 @@
 <!--
   src/lib/components/layout/DeferredRender.svelte
   Deferred Render Component
-  
+
   Utility component that implements staged rendering:
   1. Shows a placeholder/skeleton during initial render
   2. Can delay rendering to improve initial load performance
   3. Supports different loading states
 -->
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import type { Snippet } from 'svelte';
     import { tick } from 'svelte';
-    
+
     // Component props
-    export let delay: number = 0;             // Delay in ms before rendering (0 = no delay)
-    export let placeholder: any = null;       // Optional placeholder component or content
-    export let loading: boolean = false;      // External loading state
-    export let mounted: boolean = false;      // Optional externally managed mount state
-    export let condition: boolean = true;     // Additional condition that must be true to render
-    // Export constant instead of unused let prop
-    export const id = '';               // Optional ID for the component (for debugging)
-    export let showFallback: boolean = true;  // Whether to show fallback when not ready
-    
+    let {
+      delay = 0,
+      placeholder = null,
+      loading = false,
+      mounted = false,
+      condition = true,
+      id = '',
+      showFallback = true,
+      fallback,
+      children
+    }: {
+      delay?: number;
+      placeholder?: any;
+      loading?: boolean;
+      mounted?: boolean;
+      condition?: boolean;
+      id?: string;
+      showFallback?: boolean;
+      fallback?: Snippet;
+      children?: Snippet;
+    } = $props();
+
     // Internal state
-    let ready: boolean = false;
-    let internalMounted: boolean = false;
-    
+    let ready: boolean = $state(false);
+    let internalMounted: boolean = $state(false);
+
     // Compute overall ready state
-    $: isReady = Boolean(ready && (mounted || internalMounted) && !loading && condition);
-    
+    let isReady = $derived(Boolean(ready && (mounted || internalMounted) && !loading && condition));
+
     // Setup component lifecycle
-    onMount(async () => {
+    $effect(() => {
       internalMounted = true;
-      
-      // Apply delay if specified
-      if (delay > 0) {
-        await new Promise(resolve => setTimeout(resolve, delay));
+
+      let cancelled = false;
+
+      async function init() {
+        // Apply delay if specified
+        if (delay > 0) {
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        if (cancelled) return;
+
+        // Use tick to ensure DOM is updated
+        await tick();
+
+        if (cancelled) return;
+
+        // Mark component as ready
+        ready = true;
       }
-      
-      // Use tick to ensure DOM is updated
-      await tick();
-      
-      // Mark component as ready
-      ready = true;
+
+      init();
+
+      return () => {
+        cancelled = true;
+      };
     });
   </script>
-  
+
   {#if isReady}
     <!-- Render the actual content when ready -->
-    <slot />
+    {@render children?.()}
   {:else if showFallback}
     <!-- Render placeholder or fallback when not ready -->
     {#if placeholder}
@@ -58,14 +85,16 @@
       {/if}
     {:else}
       <!-- Default fallback -->
-      <slot name="fallback">
+      {#if fallback}
+        {@render fallback()}
+      {:else}
         <div class="deferred-placeholder" aria-hidden="true">
           <div class="deferred-pulse"></div>
         </div>
-      </slot>
+      {/if}
     {/if}
   {/if}
-  
+
   <style>
     /* Default placeholder styling */
     .deferred-placeholder {
@@ -76,7 +105,7 @@
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 4px;
     }
-    
+
     .deferred-pulse {
       width: 24px;
       height: 24px;
@@ -84,7 +113,7 @@
       background-color: rgba(0, 0, 0, 0.1);
       animation: pulse 1.5s infinite ease-in-out;
     }
-    
+
     @keyframes pulse {
       0% {
         transform: scale(0.8);

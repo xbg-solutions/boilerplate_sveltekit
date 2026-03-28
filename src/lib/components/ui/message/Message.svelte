@@ -31,19 +31,28 @@
 
   type State = VariantProps<typeof messageVariants>['state'];
 
-  export let sender: string;
-  export let subject: string;
-  export let preview: string;
-  export let time: string;
-  export let state: State = 'default';
+  let {
+    sender,
+    subject,
+    preview,
+    time,
+    state = 'default',
+    class: className = '',
+    ...rest
+  }: {
+    sender: string;
+    subject: string;
+    preview: string;
+    time: string;
+    state?: State;
+    class?: string;
+    [key: string]: unknown;
+  } = $props();
 
-  let className: string = '';
-  export { className as class };
-
-  $: classes = cn(messageVariants({ state }), className);
+  let classes = $derived(cn(messageVariants({ state }), className));
 </script>
 
-<div class={classes} {...$$restProps} on:click>
+<div class={classes} {...rest}>
   <div class="flex items-center justify-between gap-2">
     <span class="text-sm font-semibold text-foreground truncate">{sender}</span>
     <span class="text-xs text-muted-foreground flex-shrink-0">{time}</span>

@@ -5,6 +5,7 @@
   and colored accent areas for data visualization.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Card,
@@ -14,34 +15,51 @@
     CardDescription
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  /** Primary metric data */
-  export let data: {
-    steps?: { value: string; label?: string };
-    heartRate?: { value: string; unit?: string };
-    walkingDistance?: { value: string; unit?: string };
-    activeEnergy?: { value: string; unit?: string };
-    moveGoal?: { current: string; target: string };
-    exerciseGoal?: { current: string; target: string };
-    standGoal?: { current: string; target: string };
-    progressComparison?: {
-      currentYear: string;
-      previousYear: string;
-      currentValue: string;
-      previousValue: string;
+  let {
+    class: className = '',
+    data = {},
+    accentColors = {
+      primary: 'bg-orange-500',
+      secondary: 'bg-teal-500'
+    },
+    'steps-chart': stepsChart,
+    'heartrate-chart': heartrateChart,
+    'progress-chart': progressChart,
+    'walking-chart': walkingChart,
+    'rings-chart': ringsChart,
+    'energy-chart': energyChart,
+    additional
+  }: {
+    class?: string;
+    /** Primary metric data */
+    data?: {
+      steps?: { value: string; label?: string };
+      heartRate?: { value: string; unit?: string };
+      walkingDistance?: { value: string; unit?: string };
+      activeEnergy?: { value: string; unit?: string };
+      moveGoal?: { current: string; target: string };
+      exerciseGoal?: { current: string; target: string };
+      standGoal?: { current: string; target: string };
+      progressComparison?: {
+        currentYear: string;
+        previousYear: string;
+        currentValue: string;
+        previousValue: string;
+      };
     };
-  } = {};
-
-  /** Accent colors for chart areas */
-  export let accentColors: {
-    primary?: string;
-    secondary?: string;
-  } = {
-    primary: 'bg-orange-500',
-    secondary: 'bg-teal-500'
-  };
+    /** Accent colors for chart areas */
+    accentColors?: {
+      primary?: string;
+      secondary?: string;
+    };
+    'steps-chart'?: Snippet;
+    'heartrate-chart'?: Snippet;
+    'progress-chart'?: Snippet;
+    'walking-chart'?: Snippet;
+    'rings-chart'?: Snippet;
+    'energy-chart'?: Snippet;
+    additional?: Snippet;
+  } = $props();
 </script>
 
 <div class={cn('space-y-4 p-4 md:p-8', className)}>
@@ -59,8 +77,10 @@
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <!-- Steps chart slot -->
-        <slot name="steps-chart">
+        <!-- Steps chart snippet -->
+        {#if stepsChart}
+          {@render stepsChart()}
+        {:else}
           <div class={cn(
             'h-[120px] rounded-md flex items-end justify-center gap-0.5 overflow-hidden',
           )}>
@@ -71,7 +91,7 @@
               ></div>
             {/each}
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
 
@@ -87,11 +107,13 @@
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <slot name="heartrate-chart">
+        {#if heartrateChart}
+          {@render heartrateChart()}
+        {:else}
           <div class="h-[120px] rounded-md border border-dashed flex items-center justify-center text-muted-foreground text-sm">
             Heart rate chart
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
 
@@ -111,7 +133,9 @@
         {/if}
       </CardHeader>
       <CardContent>
-        <slot name="progress-chart">
+        {#if progressChart}
+          {@render progressChart()}
+        {:else}
           <div class="flex items-end gap-1 h-[120px]">
             {#if data.progressComparison}
               <!-- Simple dual-bar comparison placeholder -->
@@ -141,7 +165,7 @@
               </div>
             {/if}
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
   </div>
@@ -160,7 +184,9 @@
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <slot name="walking-chart">
+        {#if walkingChart}
+          {@render walkingChart()}
+        {:else}
           <div class={cn(
             'h-[120px] rounded-md flex items-end justify-center gap-0.5 overflow-hidden'
           )}>
@@ -171,7 +197,7 @@
               ></div>
             {/each}
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
 
@@ -181,7 +207,9 @@
         <CardDescription>Activity</CardDescription>
       </CardHeader>
       <CardContent>
-        <slot name="rings-chart">
+        {#if ringsChart}
+          {@render ringsChart()}
+        {:else}
           <!-- Simple ring placeholder using nested circles -->
           <div class="flex items-center justify-center h-[140px]">
             <div class="relative flex items-center justify-center">
@@ -206,7 +234,7 @@
               <span>Stand: {data.standGoal.current}/{data.standGoal.target}</span>
             {/if}
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
 
@@ -222,7 +250,9 @@
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <slot name="energy-chart">
+        {#if energyChart}
+          {@render energyChart()}
+        {:else}
           <div class={cn(
             'h-[120px] rounded-md flex items-end justify-center gap-0.5 overflow-hidden'
           )}>
@@ -233,13 +263,13 @@
               ></div>
             {/each}
           </div>
-        </slot>
+        {/if}
       </CardContent>
     </Card>
   </div>
 
-  <!-- Additional chart area slot -->
-  <slot name="additional">
-    <!-- Extra charts or content can be placed here -->
-  </slot>
+  <!-- Additional chart area snippet -->
+  {#if additional}
+    {@render additional()}
+  {/if}
 </div>

@@ -3,28 +3,34 @@
   Dashboard sidebar with main nav + footer actions (settings, help).
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import { DynamicIcon } from '$lib/components/ui/icon';
   import Separator from '$lib/components/ui/Separator.svelte';
 
-  let className: string = '';
-  export { className as class };
-
-  export let navItems: Array<{
-    label: string;
-    href: string;
-    icon?: string;
-    active?: boolean;
-    badge?: string;
-  }> = [];
-
-  export let footerItems: Array<{
-    label: string;
-    href: string;
-    icon?: string;
-  }> = [];
-
-  export let title: string = 'Dashboard';
+  let {
+    class: className = '',
+    navItems = [],
+    footerItems = [],
+    title = 'Dashboard',
+    children
+  }: {
+    class?: string;
+    navItems?: Array<{
+      label: string;
+      href: string;
+      icon?: string;
+      active?: boolean;
+      badge?: string;
+    }>;
+    footerItems?: Array<{
+      label: string;
+      href: string;
+      icon?: string;
+    }>;
+    title?: string;
+    children?: Snippet;
+  } = $props();
 </script>
 
 <div class={cn('flex h-screen', className)}>
@@ -92,6 +98,6 @@
 
   <!-- Main Content -->
   <main class="flex-1 overflow-y-auto">
-    <slot />
+    {@render children?.()}
   </main>
 </div>

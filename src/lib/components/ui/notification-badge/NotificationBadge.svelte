@@ -8,10 +8,15 @@
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
 
-  export let count: number;
-
-  let className: string = '';
-  export { className as class };
+  let {
+    count,
+    class: className = '',
+    ...rest
+  }: {
+    count: number;
+    class?: string;
+    [key: string]: unknown;
+  } = $props();
 </script>
 
 <span
@@ -19,7 +24,7 @@
     'inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold',
     className
   )}
-  {...$$restProps}
+  {...rest}
 >
   {count}
 </span>

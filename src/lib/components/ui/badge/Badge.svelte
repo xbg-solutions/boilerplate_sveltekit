@@ -2,11 +2,11 @@
   Badge Component
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  
-  export let variant: 'default' | 'secondary' | 'destructive' | 'outline' = 'default';
-  export let className = '';
-  
+
+  let { variant = 'default', class: className = '', children, ...rest }: { variant?: 'default' | 'secondary' | 'destructive' | 'outline'; class?: string; children?: Snippet; [key: string]: unknown } = $props();
+
   const variants = {
     default: 'bg-primary text-primary-foreground',
     secondary: 'bg-secondary text-secondary-foreground',
@@ -20,5 +20,5 @@
   variants[variant],
   className
 )}>
-  <slot />
+  {@render children?.()}
 </div>

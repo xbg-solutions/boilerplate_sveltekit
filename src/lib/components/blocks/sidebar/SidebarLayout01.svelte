@@ -3,22 +3,30 @@
   Documentation sidebar with grouped nav links, search, and breadcrumb.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    sections = [],
+    breadcrumbs = [],
+    logo = 'Docs',
+    version = 'v1.0.0',
+    children
+  }: {
+    class?: string;
+    sections?: Array<{
+      title: string;
+      links: Array<{ label: string; href: string; active?: boolean }>;
+    }>;
+    breadcrumbs?: Array<{ label: string; href?: string }>;
+    logo?: string;
+    version?: string;
+    children?: Snippet;
+  } = $props();
 
-  export let sections: Array<{
-    title: string;
-    links: Array<{ label: string; href: string; active?: boolean }>;
-  }> = [];
-
-  export let breadcrumbs: Array<{ label: string; href?: string }> = [];
-  export let logo: string = 'Docs';
-  export let version: string = 'v1.0.0';
-
-  let searchQuery = '';
+  let searchQuery = $state('');
 </script>
 
 <div class={cn('flex h-screen', className)}>
@@ -94,7 +102,7 @@
 
     <!-- Content Slot -->
     <div class="flex-1 overflow-y-auto p-6">
-      <slot />
+      {@render children?.()}
     </div>
   </main>
 </div>

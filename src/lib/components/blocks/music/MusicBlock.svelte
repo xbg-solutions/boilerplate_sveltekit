@@ -14,32 +14,35 @@
   import { DynamicIcon } from '$lib/components/ui/icon';
   import Separator from '$lib/components/ui/Separator.svelte';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    sidebarItems = {
+      discover: [],
+      library: [],
+      playlists: []
+    },
+    albums = [],
+    madeForYou = []
+  }: {
+    class?: string;
+    sidebarItems?: {
+      discover: Array<{ label: string; icon?: string; active?: boolean }>;
+      library: Array<{ label: string; icon?: string; active?: boolean }>;
+      playlists: Array<{ label: string }>;
+    };
+    albums?: Array<{
+      title: string;
+      artist: string;
+      image?: string;
+    }>;
+    madeForYou?: Array<{
+      title: string;
+      artist: string;
+      image?: string;
+    }>;
+  } = $props();
 
-  export let sidebarItems: {
-    discover: Array<{ label: string; icon?: string; active?: boolean }>;
-    library: Array<{ label: string; icon?: string; active?: boolean }>;
-    playlists: Array<{ label: string }>;
-  } = {
-    discover: [],
-    library: [],
-    playlists: []
-  };
-
-  export let albums: Array<{
-    title: string;
-    artist: string;
-    image?: string;
-  }> = [];
-
-  export let madeForYou: Array<{
-    title: string;
-    artist: string;
-    image?: string;
-  }> = [];
-
-  let activeTab = 'music';
+  let activeTab = $state('music');
 
   const menuItems = ['Music', 'File', 'Edit', 'View', 'Account'];
 </script>

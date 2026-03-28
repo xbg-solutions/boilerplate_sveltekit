@@ -10,14 +10,14 @@
   import { Card, Button, Alert, AlertDescription } from '$lib/components/ui';
   import { authService } from '@xbg.solutions/utils-firebase-auth';
   import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
-  
+
   // Get authentication state
   const isAuthenticated = authService.isAuthenticated();
   const userClaims = authService.getUserClaims();
-  
+
   // Get the path that was attempted from query parameters
-  $: attemptedPath = $page.url.searchParams.get('path') || '';
-  
+  let attemptedPath = $derived($page.url.searchParams.get('path') || '');
+
   // Handle logout
   function handleLogout() {
     authService.logout();
@@ -38,8 +38,8 @@
         </svg>
       </div>
       
-      <Alert className="mb-4 sm:mb-6 border-red-200 bg-red-50">
-        <AlertDescription className="font-medium text-sm sm:text-base text-red-800">
+      <Alert class="mb-4 sm:mb-6 border-red-200 bg-red-50">
+        <AlertDescription class="font-medium text-sm sm:text-base text-red-800">
           You don't have the required permissions
         </AlertDescription>
       </Alert>
@@ -68,7 +68,7 @@
               Go to Dashboard
             </Button>
             
-            <Button variant="destructive" on:click={handleLogout} size="sm" class="sm:text-sm md:text-base">
+            <Button variant="destructive" onclick={handleLogout} size="sm" class="sm:text-sm md:text-base">
               Logout
             </Button>
           </div>

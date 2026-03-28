@@ -3,21 +3,27 @@
   Icon-only sidebar that expands on hover to show labels.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    items = [],
+    children
+  }: {
+    class?: string;
+    items?: Array<{
+      icon: string;
+      label: string;
+      href: string;
+      active?: boolean;
+    }>;
+    children?: Snippet;
+  } = $props();
 
-  export let items: Array<{
-    icon: string;
-    label: string;
-    href: string;
-    active?: boolean;
-  }> = [];
-
-  let expanded = false;
+  let expanded = $state(false);
 </script>
 
 <div class={cn('flex h-screen', className)}>
@@ -27,8 +33,8 @@
       'flex flex-col border-r bg-background transition-all duration-200',
       expanded ? 'w-48' : 'w-16'
     )}
-    on:mouseenter={() => (expanded = true)}
-    on:mouseleave={() => (expanded = false)}
+    onmouseenter={() => (expanded = true)}
+    onmouseleave={() => (expanded = false)}
     role="navigation"
   >
     <!-- Logo -->
@@ -64,6 +70,6 @@
 
   <!-- Main Content -->
   <main class="flex-1 overflow-y-auto">
-    <slot />
+    {@render children?.()}
   </main>
 </div>

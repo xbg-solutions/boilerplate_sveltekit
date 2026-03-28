@@ -1,12 +1,11 @@
 <!--
   src/lib/components/ui/select/Select.svelte
   SHADCN-Svelte Select Component
-  
+
   AI SYSTEMS: Use this component for dropdown selections.
   Supports single selection with keyboard navigation and proper accessibility.
 -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import { ChevronDown, Check } from 'lucide-svelte';
   import { cn } from '$lib/utils/cn';
   import { tv, type VariantProps } from 'tailwind-variants';
@@ -28,36 +27,44 @@
   type SelectSize = VariantProps<typeof selectTriggerVariants>['size'];
 
   // Component props
-  export let value: string | undefined = undefined;
-  export let placeholder: string = 'Select an option...';
-  export let disabled: boolean = false;
-  export let size: SelectSize = 'md';
-  export let options: Array<{ value: string; label: string; disabled?: boolean }> = [];
-  export let name: string | undefined = undefined;
-  export let id: string | undefined = undefined;
+  let {
+    value = $bindable(undefined),
+    placeholder = 'Select an option...',
+    disabled = false,
+    size = 'md',
+    options = [],
+    name = undefined,
+    id = undefined,
+    onchange,
+  }: {
+    value?: string | undefined;
+    placeholder?: string;
+    disabled?: boolean;
+    size?: SelectSize;
+    options?: Array<{ value: string; label: string; disabled?: boolean }>;
+    name?: string | undefined;
+    id?: string | undefined;
+    onchange?: (detail: { value: string; option: { value: string; label: string } }) => void;
+  } = $props();
 
   // Local state
-  let isOpen = false;
+  let isOpen = $state(false);
   let triggerElement: HTMLButtonElement;
   let contentElement: HTMLDivElement;
-  
+
   // Generate unique ID for accessibility
   const listboxId = `select-listbox-${Math.random().toString(36).substr(2, 9)}`;
 
-  const dispatch = createEventDispatcher<{
-    change: { value: string; option: { value: string; label: string } };
-  }>();
-
   // Get selected option
-  $: selectedOption = options.find(option => option.value === value);
+  let selectedOption = $derived(options.find(option => option.value === value));
 
   // Handle option selection
   function selectOption(option: { value: string; label: string; disabled?: boolean }) {
     if (option.disabled) return;
-    
+
     value = option.value;
     isOpen = false;
-    dispatch('change', { value: option.value, option });
+    onchange?.({ value: option.value, option });
   }
 
   // Handle keyboard navigation
@@ -88,8 +95,8 @@
         event.preventDefault();
         if (isOpen) {
           // Focus last non-disabled option
-          const options = contentElement?.querySelectorAll('[role="option"]:not([data-disabled="true"])');
-          const lastOption = options?.[options.length - 1] as HTMLElement;
+          const opts = contentElement?.querySelectorAll('[role="option"]:not([data-disabled="true"])');
+          const lastOption = opts?.[opts.length - 1] as HTMLElement;
           lastOption?.focus();
         } else {
           isOpen = true;
@@ -138,7 +145,7 @@
   }
 </script>
 
-<svelte:window on:click={handleClickOutside} />
+<svelte:window onclick={handleClickOutside} />
 
 <div class="relative">
   <!-- Hidden select for form submission -->
@@ -162,8 +169,8 @@
     aria-controls={listboxId}
     aria-haspopup="listbox"
     aria-label={placeholder}
-    on:click={() => !disabled && (isOpen = !isOpen)}
-    on:keydown={handleKeydown}
+    onclick={() => !disabled && (isOpen = !isOpen)}
+    onkeydown={handleKeydown}
   >
     <span class="block truncate">
       {selectedOption?.label || placeholder}
@@ -193,8 +200,8 @@
             option.disabled && 'pointer-events-none opacity-50',
             option.value === value && 'bg-accent text-accent-foreground'
           )}
-          on:click={() => selectOption(option)}
-          on:keydown={(e) => handleOptionKeydown(e, option)}
+          onclick={() => selectOption(option)}
+          onkeydown={(e) => handleOptionKeydown(e, option)}
         >
           {#if option.value === value}
             <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">

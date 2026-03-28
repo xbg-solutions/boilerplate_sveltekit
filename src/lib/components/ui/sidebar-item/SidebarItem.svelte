@@ -4,13 +4,14 @@
 
   Usage:
   <SidebarItem href="/inbox" state="current" notificationCount={5}>
-    <svelte:fragment slot="icon"><InboxIcon /></svelte:fragment>
+    {#snippet icon()}<InboxIcon />{/snippet}
     Inbox
   </SidebarItem>
 -->
 <script lang="ts">
   import { tv, type VariantProps } from 'tailwind-variants';
   import { cn } from '$lib/utils/cn';
+  import type { Snippet } from 'svelte';
 
   const sidebarItemVariants = tv({
     base: 'flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
@@ -28,14 +29,25 @@
 
   type State = VariantProps<typeof sidebarItemVariants>['state'];
 
-  export let state: State = 'default';
-  export let notificationCount: number | undefined = undefined;
-  export let href: string | undefined = undefined;
+  let {
+    state = 'default',
+    notificationCount = undefined,
+    href = undefined,
+    class: className = '',
+    icon,
+    children,
+    ...rest
+  }: {
+    state?: State;
+    notificationCount?: number | undefined;
+    href?: string | undefined;
+    class?: string;
+    icon?: Snippet;
+    children?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 
-  let className: string = '';
-  export { className as class };
-
-  $: classes = cn(sidebarItemVariants({ state }), className);
+  let classes = $derived(cn(sidebarItemVariants({ state }), className));
 </script>
 
 {#if href}
@@ -43,14 +55,13 @@
     {href}
     class={classes}
     aria-current={state === 'current' ? 'page' : undefined}
-    {...$$restProps}
-    on:click
+    {...rest}
   >
     <span class="flex-shrink-0 w-4 h-4">
-      <slot name="icon" />
+      {@render icon?.()}
     </span>
     <span class="flex-1 truncate">
-      <slot />
+      {@render children?.()}
     </span>
     {#if notificationCount !== undefined && notificationCount > 0}
       <span class="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
@@ -62,14 +73,13 @@
   <button
     type="button"
     class={classes}
-    {...$$restProps}
-    on:click
+    {...rest}
   >
     <span class="flex-shrink-0 w-4 h-4">
-      <slot name="icon" />
+      {@render icon?.()}
     </span>
     <span class="flex-1 truncate text-left">
-      <slot />
+      {@render children?.()}
     </span>
     {#if notificationCount !== undefined && notificationCount > 0}
       <span class="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold">

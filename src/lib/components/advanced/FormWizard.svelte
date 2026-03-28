@@ -1,6 +1,6 @@
 <!--
   Advanced FormWizard Component
-  
+
   Features:
   - Multi-step form navigation
   - Validation and error handling
@@ -10,15 +10,14 @@
   - Mobile responsive
 -->
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { writable, derived, type Writable } from 'svelte/store';
+  import type { Snippet } from 'svelte';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
   import { Progress } from '$lib/components/ui/progress';
   import { Alert, AlertDescription } from '$lib/components/ui/alert';
-  import { 
-    ChevronLeft, 
+  import {
+    ChevronLeft,
     ChevronRight,
     Check,
     AlertTriangle,
@@ -60,24 +59,39 @@
   }
 
   // Props
-  export let steps: WizardStep[] = [];
-  export let initialData: any = {};
-  export let options: WizardOptions = {};
-  export let title = 'Form Wizard';
-  export let subtitle = '';
-  export let className = '';
-  export let loading = false;
-  export let readonly = false;
-
-  // Events
-  const dispatch = createEventDispatcher<{
-    step: { step: WizardStep; direction: 'next' | 'previous'; data: any };
-    complete: { data: any };
-    cancel: void;
-    save: { data: any; step: WizardStep };
-    validate: { step: WizardStep; data: any; result: ValidationResult };
-    error: { error: Error; step?: WizardStep };
-  }>();
+  let {
+    steps = [],
+    initialData = {},
+    options = {},
+    title = 'Form Wizard',
+    subtitle = '',
+    className = '',
+    loading = false,
+    readonly = false,
+    step: stepSnippet,
+    onStep,
+    onComplete,
+    onCancel,
+    onSave,
+    onValidate,
+    onError,
+  }: {
+    steps?: WizardStep[];
+    initialData?: any;
+    options?: WizardOptions;
+    title?: string;
+    subtitle?: string;
+    className?: string;
+    loading?: boolean;
+    readonly?: boolean;
+    step?: Snippet<[{ step: WizardStep; data: any }]>;
+    onStep?: (detail: { step: WizardStep; direction: 'next' | 'previous'; data: any }) => void;
+    onComplete?: (detail: { data: any }) => void;
+    onCancel?: () => void;
+    onSave?: (detail: { data: any; step: WizardStep }) => void;
+    onValidate?: (detail: { step: WizardStep; data: any; result: ValidationResult }) => void;
+    onError?: (detail: { error: Error; step?: WizardStep }) => void;
+  } = $props();
 
   // Default options
   const defaultOptions: WizardOptions = {
@@ -95,80 +109,61 @@
   };
 
   // State
-  const currentStepIndex: Writable<number> = writable(0);
-  const formData: Writable<any> = writable({ ...initialData });
-  const stepErrors: Writable<{ [stepId: string]: ValidationResult }> = writable({});
-  const completedSteps: Writable<Set<string>> = writable(new Set());
-  const visitedSteps: Writable<Set<string>> = writable(new Set());
-  const stepData: Writable<{ [stepId: string]: any }> = writable({});
-  
-  let isValidating = false;
+  let currentStepIndex = $state(0);
+  let formData = $state<any>({ ...initialData });
+  let stepErrors = $state<{ [stepId: string]: ValidationResult }>({});
+  let completedSteps = $state<Set<string>>(new Set());
+  let visitedSteps = $state<Set<string>>(new Set());
+  let stepDataMap = $state<{ [stepId: string]: any }>({});
+
+  let isValidating = $state(false);
   let autoSaveTimer: NodeJS.Timeout | null = null;
-  let hasUnsavedChanges = false;
+  let hasUnsavedChanges = $state(false);
 
   // Computed values
-  const visibleSteps = derived(
-    [formData],
-    ([$formData]) => steps.filter(step => !step.condition || step.condition($formData))
+  let visibleSteps = $derived(
+    steps.filter(step => !step.condition || step.condition(formData))
   );
 
-  const currentStep = derived(
-    [currentStepIndex, visibleSteps],
-    ([$currentStepIndex, $visibleSteps]) => $visibleSteps[$currentStepIndex]
-  );
+  let currentStep = $derived(visibleSteps[currentStepIndex]);
 
-  const progress = derived(
-    [currentStepIndex, visibleSteps],
-    ([$currentStepIndex, $visibleSteps]) => {
-      if ($visibleSteps.length === 0) return 0;
-      return (($currentStepIndex + 1) / $visibleSteps.length) * 100;
-    }
-  );
+  let progress = $derived.by(() => {
+    if (visibleSteps.length === 0) return 0;
+    return ((currentStepIndex + 1) / visibleSteps.length) * 100;
+  });
 
-  const canGoNext = derived(
-    [currentStepIndex, visibleSteps, stepErrors, currentStep],
-    ([$currentStepIndex, $visibleSteps, $stepErrors, $currentStep]) => {
-      if ($currentStepIndex >= $visibleSteps.length - 1) return false;
-      if (!$currentStep) return false;
-      
-      const errors = $stepErrors[$currentStep.id];
-      return !errors || errors.valid;
-    }
-  );
+  let canGoNext = $derived.by(() => {
+    if (currentStepIndex >= visibleSteps.length - 1) return false;
+    if (!currentStep) return false;
 
-  const canGoPrevious = derived(
-    [currentStepIndex],
-    ([$currentStepIndex]) => defaultOptions.allowBackward && $currentStepIndex > 0
-  );
+    const errors = stepErrors[currentStep.id];
+    return !errors || errors.valid;
+  });
 
-  const canComplete = derived(
-    [currentStepIndex, visibleSteps, stepErrors],
-    ([$currentStepIndex, $visibleSteps, $stepErrors]) => {
-      if ($currentStepIndex !== $visibleSteps.length - 1) return false;
-      
-      // Check all required steps are valid
-      return $visibleSteps.every(step => {
-        if (step.optional) return true;
-        const errors = $stepErrors[step.id];
-        return errors && errors.valid;
-      });
-    }
-  );
+  let canGoPrevious = $derived(defaultOptions.allowBackward && currentStepIndex > 0);
 
-  const stepStatus = derived(
-    [completedSteps, visitedSteps, stepErrors, currentStep],
-    ([$completedSteps, $visitedSteps, $stepErrors, $currentStep]) => {
-      return (step: WizardStep) => {
-        if (step.id === $currentStep?.id) return 'current';
-        if ($completedSteps.has(step.id)) return 'completed';
-        if ($visitedSteps.has(step.id)) {
-          const errors = $stepErrors[step.id];
-          return errors && !errors.valid ? 'error' : 'visited';
-        }
-        return 'pending';
-      };
-    }
-  );
+  let canComplete = $derived.by(() => {
+    if (currentStepIndex !== visibleSteps.length - 1) return false;
+
+    // Check all required steps are valid
+    return visibleSteps.every(step => {
+      if (step.optional) return true;
+      const errors = stepErrors[step.id];
+      return errors && errors.valid;
+    });
+  });
+
+  let getStepStatus = $derived.by(() => {
+    return (step: WizardStep) => {
+      if (step.id === currentStep?.id) return 'current';
+      if (completedSteps.has(step.id)) return 'completed';
+      if (visitedSteps.has(step.id)) {
+        const errors = stepErrors[step.id];
+        return errors && !errors.valid ? 'error' : 'visited';
+      }
+      return 'pending';
+    };
+  });
 
   // Functions
   async function validateStep(step: WizardStep, data: any): Promise<ValidationResult> {
@@ -179,26 +174,26 @@
     isValidating = true;
     try {
       const result = await step.validation(data);
-      
-      stepErrors.update(errors => ({
-        ...errors,
-        [step.id]: result
-      }));
 
-      dispatch('validate', { step, data, result });
+      stepErrors = {
+        ...stepErrors,
+        [step.id]: result
+      };
+
+      onValidate?.({ step, data, result });
       return result;
     } catch (error) {
-      const errorResult = { 
-        valid: false, 
+      const errorResult = {
+        valid: false,
         errors: { general: 'Validation error occurred' }
       };
-      
-      stepErrors.update(errors => ({
-        ...errors,
-        [step.id]: errorResult
-      }));
 
-      dispatch('error', { error: error as Error, step });
+      stepErrors = {
+        ...stepErrors,
+        [step.id]: errorResult
+      };
+
+      onError?.({ error: error as Error, step });
       return errorResult;
     } finally {
       isValidating = false;
@@ -206,69 +201,59 @@
   }
 
   async function goToStep(targetIndex: number, direction: 'next' | 'previous' = 'next') {
-    const $visibleSteps = get(visibleSteps);
-    const $currentStepIndex = get(currentStepIndex);
-    const $currentStep = get(currentStep);
-    const $formData = get(formData);
-
-    if (targetIndex < 0 || targetIndex >= $visibleSteps.length) return;
-    if (targetIndex === $currentStepIndex) return;
+    if (targetIndex < 0 || targetIndex >= visibleSteps.length) return;
+    if (targetIndex === currentStepIndex) return;
 
     // Validate current step before moving (if moving forward)
-    if (direction === 'next' && $currentStep) {
-      const result = await validateStep($currentStep, $formData);
-      if (!result.valid && !$currentStep.optional) {
+    if (direction === 'next' && currentStep) {
+      const result = await validateStep(currentStep, formData);
+      if (!result.valid && !currentStep.optional) {
         return;
       }
-      
+
       if (result.valid) {
-        completedSteps.update(completed => completed.add($currentStep.id));
+        completedSteps = new Set([...completedSteps, currentStep.id]);
       }
     }
 
     // Update visited steps
-    if ($currentStep) {
-      visitedSteps.update(visited => visited.add($currentStep.id));
+    if (currentStep) {
+      visitedSteps = new Set([...visitedSteps, currentStep.id]);
     }
 
     // Save current step data if enabled
-    if (defaultOptions.saveOnStep && $currentStep) {
-      dispatch('save', { data: $formData, step: $currentStep });
+    if (defaultOptions.saveOnStep && currentStep) {
+      onSave?.({ data: formData, step: currentStep });
     }
 
     // Move to target step
-    currentStepIndex.set(targetIndex);
-    
-    const newStep = $visibleSteps[targetIndex];
-    dispatch('step', { step: newStep, direction, data: $formData });
+    currentStepIndex = targetIndex;
+
+    const newStep = visibleSteps[targetIndex];
+    onStep?.({ step: newStep, direction, data: formData });
 
     // Auto-validate new step if enabled
     if (defaultOptions.validateOnChange && newStep) {
-      await validateStep(newStep, $formData);
+      await validateStep(newStep, formData);
     }
   }
 
   async function nextStep() {
-    const $currentStepIndex = get(currentStepIndex);
-    await goToStep($currentStepIndex + 1, 'next');
+    await goToStep(currentStepIndex + 1, 'next');
   }
 
   async function previousStep() {
-    const $currentStepIndex = get(currentStepIndex);
-    await goToStep($currentStepIndex - 1, 'previous');
+    await goToStep(currentStepIndex - 1, 'previous');
   }
 
   async function completeWizard() {
-    const $formData = get(formData);
-    const $visibleSteps = get(visibleSteps);
-
     // Final validation of all steps
-    for (const step of $visibleSteps) {
+    for (const step of visibleSteps) {
       if (step.optional) continue;
-      const result = await validateStep(step, $formData);
+      const result = await validateStep(step, formData);
       if (!result.valid) {
         // Jump to first invalid step
-        const stepIndex = $visibleSteps.findIndex(s => s.id === step.id);
+        const stepIndex = visibleSteps.findIndex(s => s.id === step.id);
         if (stepIndex >= 0) {
           await goToStep(stepIndex);
         }
@@ -276,18 +261,15 @@
       }
     }
 
-    dispatch('complete', { data: $formData });
+    onComplete?.({ data: formData });
     hasUnsavedChanges = false;
   }
 
   function saveProgress() {
-    const $formData = get(formData);
-    const $currentStep = get(currentStep);
-    
-    if ($currentStep) {
-      dispatch('save', { data: $formData, step: $currentStep });
+    if (currentStep) {
+      onSave?.({ data: formData, step: currentStep });
     }
-    
+
     hasUnsavedChanges = false;
   }
 
@@ -295,11 +277,11 @@
     if (hasUnsavedChanges && !confirm('You have unsaved changes. Are you sure you want to cancel?')) {
       return;
     }
-    dispatch('cancel');
+    onCancel?.();
   }
 
   function updateFormData(data: any) {
-    formData.update(current => ({ ...current, ...data }));
+    formData = { ...formData, ...data };
     hasUnsavedChanges = true;
 
     // Auto-save logic
@@ -313,15 +295,14 @@
     }
 
     // Auto-validate current step
-    const $currentStep = get(currentStep);
-    if (defaultOptions.validateOnChange && $currentStep) {
-      validateStep($currentStep, get(formData));
+    if (defaultOptions.validateOnChange && currentStep) {
+      validateStep(currentStep, formData);
     }
   }
 
   function getStepIcon(step: WizardStep, status: string) {
     if (step.icon) return step.icon;
-    
+
     switch (status) {
       case 'completed': return Check;
       case 'error': return AlertTriangle;
@@ -330,24 +311,23 @@
     }
   }
 
-  // Utility function to get store value
-  function get<T>(store: Writable<T>): T {
-    let value: T;
-    store.subscribe(v => value = v)();
-    return value!;
-  }
-
-  onMount(() => {
+  // Lifecycle
+  $effect(() => {
     // Initialize first step as visited
-    const $currentStep = get(currentStep);
-    if ($currentStep) {
-      visitedSteps.update(visited => visited.add($currentStep.id));
+    if (currentStep) {
+      visitedSteps = new Set([...visitedSteps, currentStep.id]);
     }
 
     // Auto-validate on mount if enabled
-    if (defaultOptions.validateOnChange && $currentStep) {
-      validateStep($currentStep, get(formData));
+    if (defaultOptions.validateOnChange && currentStep) {
+      validateStep(currentStep, formData);
     }
+
+    return () => {
+      if (autoSaveTimer) {
+        clearTimeout(autoSaveTimer);
+      }
+    };
   });
 </script>
 
@@ -362,20 +342,20 @@
             <p class="text-sm text-gray-600 mt-1">{subtitle}</p>
           {/if}
         </div>
-        
+
         <div class="flex items-center gap-2">
           {#if hasUnsavedChanges}
             <Badge variant="secondary">Unsaved changes</Badge>
           {/if}
-          
+
           {#if defaultOptions.autoSave}
-            <Button variant="outline" size="sm" on:click={saveProgress} disabled={loading}>
+            <Button variant="outline" size="sm" onclick={saveProgress} disabled={loading}>
               <Save class="w-4 h-4 mr-1" />
               Save
             </Button>
           {/if}
-          
-          <Button variant="ghost" size="sm" on:click={cancelWizard} disabled={loading}>
+
+          <Button variant="ghost" size="sm" onclick={cancelWizard} disabled={loading}>
             <X class="w-4 h-4" />
           </Button>
         </div>
@@ -384,10 +364,10 @@
       <!-- Progress Bar -->
       {#if defaultOptions.showProgress}
         <div class="mt-4">
-          <Progress value={$progress} class="h-2" />
+          <Progress value={progress} class="h-2" />
           <div class="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Step {$currentStepIndex + 1} of {$visibleSteps.length}</span>
-            <span>{Math.round($progress)}% complete</span>
+            <span>Step {currentStepIndex + 1} of {visibleSteps.length}</span>
+            <span>{Math.round(progress)}% complete</span>
           </div>
         </div>
       {/if}
@@ -395,15 +375,16 @@
       <!-- Step Navigation -->
       <div class="mt-6">
         <div class="flex items-center justify-between overflow-x-auto">
-          {#each $visibleSteps as step, index}
-            {@const status = $stepStatus(step)}
-            <div 
+          {#each visibleSteps as step, index}
+            {@const status = getStepStatus(step)}
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <div
               class="flex items-center cursor-pointer min-w-0"
               class:opacity-50={defaultOptions.linearNavigation && status === 'pending'}
-              on:click={() => !defaultOptions.linearNavigation || status !== 'pending' ? goToStep(index) : null}
+              onclick={() => !defaultOptions.linearNavigation || status !== 'pending' ? goToStep(index) : null}
             >
               <!-- Step Circle -->
-              <div 
+              <div
                 class="flex items-center justify-center w-8 h-8 rounded-full border-2 transition-colors"
                 class:bg-primary={status === 'current'}
                 class:text-primary-foreground={status === 'current'}
@@ -447,7 +428,7 @@
               </div>
 
               <!-- Connector Line -->
-              {#if index < $visibleSteps.length - 1}
+              {#if index < visibleSteps.length - 1}
                 <div class="flex-1 h-px bg-gray-200 mx-4"></div>
               {/if}
             </div>
@@ -459,13 +440,13 @@
     <!-- Content -->
     <CardContent class="space-y-6">
       <!-- Current Step Errors -->
-      {#if $currentStep && $stepErrors[$currentStep.id] && !$stepErrors[$currentStep.id].valid}
+      {#if currentStep && stepErrors[currentStep.id] && !stepErrors[currentStep.id].valid}
         <Alert variant="destructive">
           <AlertTriangle class="h-4 w-4" />
           <AlertDescription>
             Please fix the following errors before continuing:
             <ul class="mt-2 list-disc list-inside">
-              {#each Object.entries($stepErrors[$currentStep.id].errors || {}) as [field, message]}
+              {#each Object.entries(stepErrors[currentStep.id].errors || {}) as [field, message]}
                 <li class="text-sm">{message}</li>
               {/each}
             </ul>
@@ -474,12 +455,12 @@
       {/if}
 
       <!-- Current Step Warnings -->
-      {#if $currentStep && $stepErrors[$currentStep.id]?.warnings}
+      {#if currentStep && stepErrors[currentStep.id]?.warnings}
         <Alert>
           <AlertTriangle class="h-4 w-4" />
           <AlertDescription>
             <ul class="list-disc list-inside">
-              {#each Object.entries($stepErrors[$currentStep.id].warnings || {}) as [field, message]}
+              {#each Object.entries(stepErrors[currentStep.id].warnings || {}) as [field, message]}
                 <li class="text-sm">{message}</li>
               {/each}
             </ul>
@@ -488,19 +469,19 @@
       {/if}
 
       <!-- Step Content -->
-      {#if $currentStep}
+      {#if currentStep}
         <div class="min-h-[200px]">
-          {#if $currentStep.component}
-            <svelte:component 
-              this={$currentStep.component} 
-              data={$formData}
+          {#if currentStep.component}
+            <svelte:component
+              this={currentStep.component}
+              data={formData}
               {readonly}
               {loading}
-              on:update={(e) => updateFormData(e.detail)}
-              on:validate={(e) => validateStep($currentStep, e.detail)}
+              onUpdate={(detail: any) => updateFormData(detail)}
+              onValidate={(detail: any) => validateStep(currentStep, detail)}
             />
-          {:else}
-            <slot name="step" step={$currentStep} data={$formData} />
+          {:else if stepSnippet}
+            {@render stepSnippet({ step: currentStep, data: formData })}
           {/if}
         </div>
       {/if}
@@ -523,18 +504,18 @@
       <div class="flex items-center gap-2">
         <Button
           variant="outline"
-          disabled={!$canGoPrevious || loading}
-          on:click={previousStep}
+          disabled={!canGoPrevious || loading}
+          onclick={previousStep}
         >
           <ChevronLeft class="w-4 h-4 mr-1" />
           Previous
         </Button>
 
-        {#if $currentStep?.canSkip && defaultOptions.allowSkip}
+        {#if currentStep?.canSkip && defaultOptions.allowSkip}
           <Button
             variant="ghost"
             disabled={loading}
-            on:click={nextStep}
+            onclick={nextStep}
           >
             Skip
           </Button>
@@ -542,18 +523,18 @@
       </div>
 
       <div class="flex items-center gap-2">
-        {#if $currentStepIndex === $visibleSteps.length - 1}
+        {#if currentStepIndex === visibleSteps.length - 1}
           <Button
-            disabled={!$canComplete || loading}
-            on:click={completeWizard}
+            disabled={!canComplete || loading}
+            onclick={completeWizard}
           >
             Complete
             <Check class="w-4 h-4 ml-1" />
           </Button>
         {:else}
           <Button
-            disabled={!$canGoNext || loading}
-            on:click={nextStep}
+            disabled={!canGoNext || loading}
+            onclick={nextStep}
           >
             Next
             <ChevronRight class="w-4 h-4 ml-1" />

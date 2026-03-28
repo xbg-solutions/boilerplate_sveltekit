@@ -11,22 +11,21 @@
   import { Card, Alert, AlertDescription } from '$lib/components/ui';
   import { authStore } from '@xbg.solutions/utils-firebase-auth';
   import { loggerService } from '@xbg.solutions/frontend-core';
-  import { onMount, onDestroy } from 'svelte';
   import { tokenService } from '@xbg.solutions/utils-firebase-auth';
   import { rbacUtil } from '@xbg.solutions/utils-rbac';
   import { subscribe } from '@xbg.solutions/frontend-core';
   import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
-  
+
   // Get user from the auth store
-  $: user = $authStore.user;
-  $: authMethod = $authStore.authMethod;
-  
+  let user = $derived($authStore.user);
+  let authMethod = $derived($authStore.authMethod);
+
   // Get claims from token service
-  $: claims = tokenService.getClaims();
-  
+  let claims = $derived(tokenService.getClaims());
+
   // Create a logger
   const logger = loggerService.withContext('ProtectedPage');
-  
+
   // Initialize custom claims object that will properly handle boolean values
   type CustomClaimsType = {
     uid: string;
@@ -38,7 +37,7 @@
     isSysAdmin: boolean;
     roles: string[];
   };
-  
+
   // Default initial values
   let customClaimsInitial: CustomClaimsType = {
     uid: '',
@@ -50,41 +49,49 @@
     isSysAdmin: false,
     roles: []
   };
-  
-  // Initialize custom claims with proper structure
-  let customClaims = { ...customClaimsInitial };
-  
+
   // Update custom claims when token service claims change
-  $: if (claims) {
-    customClaims = {
-      ...customClaimsInitial,
-      uid: claims.uid || user?.uid || '',
-      email: claims.email || user?.email || '',
-      name: claims.name || '',
-      isClient: claims.isClient === true,
-      isConsultant: claims.isConsultant === true,
-      isAdmin: claims.isAdmin === true,
-      isSysAdmin: claims.isSysAdmin === true,
-      roles: Array.isArray(claims.roles) ? claims.roles : []
-    };
-    
-    logger.info('Claims updated from token service', { customClaims });
-  }
-  
+  let customClaims = $derived.by(() => {
+    if (claims) {
+      const updated = {
+        ...customClaimsInitial,
+        uid: claims.uid || user?.uid || '',
+        email: claims.email || user?.email || '',
+        name: claims.name || '',
+        isClient: claims.isClient === true,
+        isConsultant: claims.isConsultant === true,
+        isAdmin: claims.isAdmin === true,
+        isSysAdmin: claims.isSysAdmin === true,
+        roles: Array.isArray(claims.roles) ? claims.roles : []
+      };
+      return updated;
+    }
+    return { ...customClaimsInitial };
+  });
+
+  // Log claims updates as a side effect
+  $effect(() => {
+    if (claims) {
+      logger.info('Claims updated from token service', { customClaims });
+    }
+  });
+
   // Check for specific roles using the RBAC utility
-  $: isAdmin = rbacUtil.hasRole(claims, 'admin');
-  $: isSysAdmin = rbacUtil.hasRole(claims, 'sysadmin');
-  $: isClient = rbacUtil.hasRole(claims, 'client');
-  $: isConsultant = rbacUtil.hasRole(claims, 'consultant');
-  
+  let isAdmin = $derived(rbacUtil.hasRole(claims, 'admin'));
+  let isSysAdmin = $derived(rbacUtil.hasRole(claims, 'sysadmin'));
+  let isClient = $derived(rbacUtil.hasRole(claims, 'client'));
+  let isConsultant = $derived(rbacUtil.hasRole(claims, 'consultant'));
+
   // Get all permissions using RBAC utility
-  $: userPermissions = rbacUtil.getAllPermissions(claims);
-  
+  let userPermissions = $derived(rbacUtil.getAllPermissions(claims));
+
   // Track event subscriptions for cleanup
   type Unsubscriber = (() => void) | null;
-  let tabSyncSubscription: Unsubscriber = null;
-  
-  onMount(() => {
+
+  // Handle mounting and subscriptions with $effect
+  $effect(() => {
+    let tabSyncSubscription: Unsubscriber = null;
+
     try {
       // Subscribe to tab sync auth events
       tabSyncSubscription = subscribe(TAB_SYNC_EVENTS.AUTH_STATE_SYNCED, (payload) => {
@@ -97,13 +104,13 @@
     } catch (e) {
       logger.error('Error setting up event listeners:', e as Error);
     }
-  });
-  
-  onDestroy(() => {
-    // Unsubscribe from events
-    if (tabSyncSubscription && typeof tabSyncSubscription === 'function') {
-      (tabSyncSubscription as () => void)();
-    }
+
+    // Cleanup function
+    return () => {
+      if (tabSyncSubscription && typeof tabSyncSubscription === 'function') {
+        (tabSyncSubscription as () => void)();
+      }
+    };
   });
 </script>
 
@@ -123,8 +130,8 @@
   <Card class="mt-4 sm:mt-6 md:mt-8 p-4 sm:p-6 md:p-8">
     <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Your Authentication Info</h3>
     
-    <Alert className="mb-3 sm:mb-4 border-green-200 bg-green-50">
-      <AlertDescription className="font-medium text-sm sm:text-base text-green-800">
+    <Alert class="mb-3 sm:mb-4 border-green-200 bg-green-50">
+      <AlertDescription class="font-medium text-sm sm:text-base text-green-800">
         Successfully authenticated!
       </AlertDescription>
     </Alert>

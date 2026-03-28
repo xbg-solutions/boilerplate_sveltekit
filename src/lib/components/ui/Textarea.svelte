@@ -1,35 +1,51 @@
 <!--
   src/lib/components/ui/Textarea.svelte
   SHADCN-Svelte Textarea Component
-  
+
   AI SYSTEMS: Use this component for multi-line text input.
   Supports auto-resize and proper form integration.
 -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
   // Component props
-  export let value: string = '';
-  export let placeholder: string = '';
-  export let disabled: boolean = false;
-  export let readonly: boolean = false;
-  export let required: boolean = false;
-  export let name: string | undefined = undefined;
-  export let id: string | undefined = undefined;
-  export let rows: number = 3;
-  export let maxlength: number | undefined = undefined;
-  export let resize: boolean = true;
-  export let autoResize: boolean = false;
+  let {
+    value = $bindable(''),
+    placeholder = '',
+    disabled = false,
+    readonly = false,
+    required = false,
+    name = undefined as string | undefined,
+    id = undefined as string | undefined,
+    rows = 3,
+    maxlength = undefined as number | undefined,
+    resize = true,
+    autoResize = false,
+    oninput,
+    onchange,
+    onfocus,
+    onblur,
+    ...rest
+  }: {
+    value?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    required?: boolean;
+    name?: string | undefined;
+    id?: string | undefined;
+    rows?: number;
+    maxlength?: number | undefined;
+    resize?: boolean;
+    autoResize?: boolean;
+    oninput?: (e: Event & { currentTarget: HTMLTextAreaElement }) => void;
+    onchange?: (e: Event & { currentTarget: HTMLTextAreaElement }) => void;
+    onfocus?: (e: FocusEvent & { currentTarget: HTMLTextAreaElement }) => void;
+    onblur?: (e: FocusEvent & { currentTarget: HTMLTextAreaElement }) => void;
+    [key: string]: unknown;
+  } = $props();
 
   let textareaElement: HTMLTextAreaElement;
-
-  const dispatch = createEventDispatcher<{
-    input: { value: string };
-    change: { value: string };
-    focus: FocusEvent;
-    blur: FocusEvent;
-  }>();
 
   // Auto-resize functionality
   function handleAutoResize() {
@@ -40,34 +56,24 @@
   }
 
   // Handle input
-  function handleInput(event: Event) {
-    const target = event.target as HTMLTextAreaElement;
-    value = target.value;
+  function handleInput(event: Event & { currentTarget: HTMLTextAreaElement }) {
+    value = event.currentTarget.value;
     handleAutoResize();
-    dispatch('input', { value });
+    oninput?.(event);
   }
 
   // Handle change
-  function handleChange(event: Event) {
-    const target = event.target as HTMLTextAreaElement;
-    value = target.value;
-    dispatch('change', { value });
-  }
-
-  // Handle focus
-  function handleFocus(event: FocusEvent) {
-    dispatch('focus', event);
-  }
-
-  // Handle blur
-  function handleBlur(event: FocusEvent) {
-    dispatch('blur', event);
+  function handleChange(event: Event & { currentTarget: HTMLTextAreaElement }) {
+    value = event.currentTarget.value;
+    onchange?.(event);
   }
 
   // Update auto-resize when value changes externally
-  $: if (autoResize && textareaElement && value !== undefined) {
-    handleAutoResize();
-  }
+  $effect(() => {
+    if (autoResize && textareaElement && value !== undefined) {
+      handleAutoResize();
+    }
+  });
 </script>
 
 <textarea
@@ -89,9 +95,9 @@
     !resize && 'resize-none'
   )}
   style={autoResize ? 'overflow: hidden;' : ''}
-  on:input={handleInput}
-  on:change={handleChange}
-  on:focus={handleFocus}
-  on:blur={handleBlur}
-  {...$$restProps}
+  oninput={handleInput}
+  onchange={handleChange}
+  onfocus={onfocus}
+  onblur={onblur}
+  {...rest}
 ></textarea>

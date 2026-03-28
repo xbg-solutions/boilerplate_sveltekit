@@ -3,14 +3,25 @@
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
-  
-  export let type = 'text';
-  export let placeholder = '';
-  export let value = '';
-  export let disabled = false;
-  export let className = '';
-  export let size: 'sm' | 'default' | 'lg' = 'default';
-  
+
+  let {
+    type = 'text',
+    placeholder = '',
+    value = $bindable(''),
+    disabled = false,
+    class: className = '',
+    size = 'default' as 'sm' | 'default' | 'lg',
+    ...rest
+  }: {
+    type?: string;
+    placeholder?: string;
+    value?: string;
+    disabled?: boolean;
+    class?: string;
+    size?: 'sm' | 'default' | 'lg';
+    [key: string]: unknown;
+  } = $props();
+
   const sizeClasses = {
     sm: 'h-8 px-2 text-sm',
     default: 'h-10 px-3',
@@ -28,11 +39,5 @@
     sizeClasses[size],
     className
   )}
-  on:input
-  on:change
-  on:focus
-  on:blur
-  on:keydown
-  on:keypress
-  on:keyup
+  {...rest}
 />
