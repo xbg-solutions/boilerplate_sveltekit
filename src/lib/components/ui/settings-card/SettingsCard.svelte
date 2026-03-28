@@ -5,23 +5,32 @@
   Usage:
   <SettingsCard title="Profile" description="Manage your profile settings.">
     <Input label="Name" value="John" />
-    <svelte:fragment slot="footer">
-      <Button>Save changes</Button>
-    </svelte:fragment>
+    {#snippet footer()}<Button>Save changes</Button>{/snippet}
   </SettingsCard>
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
   import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from '$lib/components/ui/card';
+  import type { Snippet } from 'svelte';
 
-  export let title: string;
-  export let description: string = '';
-
-  let className: string = '';
-  export { className as class };
+  let {
+    title,
+    description = '',
+    class: className = '',
+    children,
+    footer,
+    ...rest
+  }: {
+    title: string;
+    description?: string;
+    class?: string;
+    children?: Snippet;
+    footer?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 </script>
 
-<Card class={className} {...$$restProps}>
+<Card class={className} {...rest}>
   <CardHeader>
     <CardTitle>{title}</CardTitle>
     {#if description}
@@ -29,11 +38,11 @@
     {/if}
   </CardHeader>
   <CardContent>
-    <slot />
+    {@render children?.()}
   </CardContent>
-  {#if $$slots.footer}
+  {#if footer}
     <CardFooter>
-      <slot name="footer" />
+      {@render footer?.()}
     </CardFooter>
   {/if}
 </Card>

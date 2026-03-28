@@ -2,10 +2,10 @@
   Label Component
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  
-  export let htmlFor = '';
-  export let className = '';
+
+  let { for: htmlFor = '', class: className = '', children, ...rest }: { for?: string; class?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
 <label
@@ -15,5 +15,5 @@
     className
   )}
 >
-  <slot />
+  {@render children?.()}
 </label>

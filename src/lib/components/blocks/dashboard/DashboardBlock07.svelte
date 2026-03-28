@@ -15,30 +15,35 @@
     Separator
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  /** Stat items for the top summary row */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change?: string;
-  }> = [];
-
-  /** List items (e.g. recent activity, transactions) */
-  export let items: Array<{
-    id: string;
-    title: string;
-    subtitle: string;
-    value: string;
-    avatar?: string;
-  }> = [];
-
-  export let heading: string = 'Overview';
-  export let listTitle: string = 'Recent Activity';
-  export let listDescription: string = '';
-
-  export let onItemClick: ((id: string) => void) | undefined = undefined;
+  let {
+    class: className = '',
+    stats = [],
+    items = [],
+    heading = 'Overview',
+    listTitle = 'Recent Activity',
+    listDescription = '',
+    onItemClick = undefined
+  }: {
+    class?: string;
+    /** Stat items for the top summary row */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change?: string;
+    }>;
+    /** List items (e.g. recent activity, transactions) */
+    items?: Array<{
+      id: string;
+      title: string;
+      subtitle: string;
+      value: string;
+      avatar?: string;
+    }>;
+    heading?: string;
+    listTitle?: string;
+    listDescription?: string;
+    onItemClick?: ((id: string) => void) | undefined;
+  } = $props();
 </script>
 
 <div class={cn('space-y-4 p-4 md:p-8', className)}>
@@ -75,7 +80,7 @@
         {#each items as item, i}
           <button
             class="flex w-full items-center gap-4 py-3 text-left hover:bg-muted/50 rounded-md px-2 transition-colors"
-            on:click={() => onItemClick?.(item.id)}
+            onclick={() => onItemClick?.(item.id)}
           >
             <Avatar
               src={item.avatar}

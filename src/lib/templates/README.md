@@ -34,11 +34,13 @@ A responsive dashboard layout with sidebar navigation, perfect for admin panels 
 </script>
 
 <DashboardLayout {navigation} {user} notificationCount={5}>
-  <h1 slot="header">Page Title</h1>
-  <div slot="header-actions">
+  {#snippet header()}
+    <h1>Page Title</h1>
+  {/snippet}
+  {#snippet headerActions()}
     <Button>Action</Button>
-  </div>
-  
+  {/snippet}
+
   <!-- Main page content -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Dashboard widgets -->
@@ -52,10 +54,10 @@ A responsive dashboard layout with sidebar navigation, perfect for admin panels 
 - `showNotifications`: Boolean to show/hide notification bell
 - `notificationCount`: Number of unread notifications
 
-**Slots:**
-- `default`: Main content area
+**Snippets:**
+- `children`: Main content area
 - `header`: Page title/header content
-- `header-actions`: Action buttons in the header
+- `headerActions`: Action buttons in the header
 
 ---
 
@@ -80,36 +82,38 @@ A centered form layout with optional sidebar, ideal for authentication pages, se
   let password = '';
 </script>
 
-<FormLayout 
-  title="Sign In" 
+<FormLayout
+  title="Sign In"
   description="Welcome back to your account"
   showSidebar={true}
   maxWidth="lg"
 >
-  <form slot="form" class="space-y-6">
-    <div class="space-y-2">
-      <Label htmlFor="email">Email</Label>
-      <Input id="email" type="email" bind:value={email} />
-    </div>
-    
-    <div class="space-y-2">
-      <Label htmlFor="password">Password</Label>
-      <Input id="password" type="password" bind:value={password} />
-    </div>
-    
-    <Button type="submit" className="w-full">Sign In</Button>
-  </form>
-  
-  <div slot="sidebar">
+  {#snippet form()}
+    <form class="space-y-6">
+      <div class="space-y-2">
+        <Label for="email">Email</Label>
+        <Input id="email" type="email" bind:value={email} />
+      </div>
+
+      <div class="space-y-2">
+        <Label for="password">Password</Label>
+        <Input id="password" type="password" bind:value={password} />
+      </div>
+
+      <Button type="submit" class="w-full">Sign In</Button>
+    </form>
+  {/snippet}
+
+  {#snippet sidebar()}
     <h3>Welcome back!</h3>
     <p>Access your dashboard and manage your account.</p>
-  </div>
-  
-  <div slot="form-footer">
+  {/snippet}
+
+  {#snippet formFooter()}
     <a href="/signup" class="text-primary hover:underline">
       Don't have an account? Sign up
     </a>
-  </div>
+  {/snippet}
 </FormLayout>
 ```
 
@@ -125,10 +129,10 @@ A centered form layout with optional sidebar, ideal for authentication pages, se
 - `logoAlt`: Logo alt text
 - `backgroundColor`: Background style (`white`, `gray`, `gradient`)
 
-**Slots:**
+**Snippets:**
 - `form`: Main form content
 - `sidebar`: Sidebar content (when `showSidebar={true}`)
-- `form-footer`: Content below the form
+- `formFooter`: Content below the form
 - `footer`: Content below the card
 - `loading`: Loading overlay
 
@@ -172,13 +176,13 @@ A content-focused layout for articles, documentation, and long-form content with
   {tags}
   maxWidth="4xl"
 >
-  <div slot="actions">
+  {#snippet actions()}
     <Button variant="outline" size="sm">Share</Button>
     <Button variant="outline" size="sm">Bookmark</Button>
-  </div>
-  
-  <div slot="sidebar">
-    <Card className="p-6">
+  {/snippet}
+
+  {#snippet sidebar()}
+    <Card class="p-6">
       <h3 class="font-semibold mb-4">Table of Contents</h3>
       <nav class="space-y-2">
         <a href="#introduction">Introduction</a>
@@ -186,8 +190,8 @@ A content-focused layout for articles, documentation, and long-form content with
         <a href="#components">Components</a>
       </nav>
     </Card>
-  </div>
-  
+  {/snippet}
+
   <!-- Main content -->
   <h2 id="introduction">Introduction</h2>
   <p>This article covers the essential patterns for building scalable SvelteKit applications...</p>
@@ -211,8 +215,8 @@ A content-focused layout for articles, documentation, and long-form content with
 - `tags`: Array of tag strings
 - `author`: Author object with `name`, optional `avatar` and `bio`
 
-**Slots:**
-- `default`: Main content area
+**Snippets:**
+- `children`: Main content area
 - `actions`: Header action buttons
 - `sidebar`: Sidebar content
 - `footer`: Footer content
@@ -317,21 +321,25 @@ Create template variants by extending the base templates:
 </style>
 ```
 
-### Slot Customization
+### Snippet Customization
 
-Templates are designed to be flexible through slots:
+Templates are designed to be flexible through Svelte 5 snippet props:
 
 ```svelte
 <FormLayout>
-  <form slot="form">
-    <!-- Replace entire form section -->
-  </form>
-  
-  <CustomSidebar slot="sidebar" />
-  
-  <div slot="footer">
+  {#snippet form()}
+    <form>
+      <!-- Replace entire form section -->
+    </form>
+  {/snippet}
+
+  {#snippet sidebar()}
+    <CustomSidebar />
+  {/snippet}
+
+  {#snippet footer()}
     <!-- Custom footer content -->
-  </div>
+  {/snippet}
 </FormLayout>
 ```
 
@@ -353,7 +361,7 @@ These templates are optimized for code generation from Figma designs:
 1. **Identify Layout Pattern**: Match Figma frame to template type
 2. **Extract Content**: Map text, images, and interactive elements
 3. **Configure Props**: Set template props based on design requirements
-4. **Generate Slots**: Create slot content from design sections
+4. **Generate Snippets**: Create snippet content from design sections
 5. **Apply Responsive Rules**: Use Tailwind classes for responsive behavior
 
 ## Best Practices

@@ -66,24 +66,36 @@ import { OtpInput } from '$lib/components/ui/otp-input';
 ### Component Conventions
 
 Every atomic component follows:
+- `$props()` destructuring with TypeScript types
 - `tailwind-variants` (tv) for variant styling
 - `cn()` from `$lib/utils/cn` for class merging
-- `export let` props with TypeScript types
-- `$$restProps` spread for extensibility
-- `<slot />` for content projection
-- `on:click` and other event forwarding
+- `{...rest}` spread from `$props()` for extensibility
+- `{@render children?.()}` with `Snippet` type for content projection
+- `onclick` etc. event handlers (no `on:click` directives)
+- `$derived()` for computed values
+- `$effect()` for lifecycle (replaces `onMount`/`onDestroy`)
+- `$bindable()` for two-way bindable props (e.g., `value`, `open`, `checked`)
 
 ```svelte
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
-  let className: string = '';
-  export let variant: 'default' | 'outline' = 'default';
-  export { className as class };
+  let {
+    variant = 'default',
+    class: className = '',
+    children,
+    ...rest
+  }: {
+    variant?: 'default' | 'outline';
+    class?: string;
+    children?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 </script>
 
-<div class={cn('base-styles', className)} {...$$restProps}>
-  <slot />
+<div class={cn('base-styles', className)} {...rest}>
+  {@render children?.()}
 </div>
 ```
 
@@ -98,7 +110,7 @@ npm run generate:component -- MyComponent --with-test                          #
 npm run generate:component -- MyComponent --with-test --with-docs              # Test + docs
 ```
 
-Generators produce starting-point templates following the boilerplate's conventions (`tailwind-variants`, `cn()`, `export let` props, `$$restProps`, `<slot />`). Customise the generated code to match your design spec -- generators are scaffolding, not final implementations.
+Generators produce starting-point templates. **Note:** Generated templates may still use Svelte 4 syntax — update the generated code to use Svelte 5 runes (`$props()`, `$derived()`, `{@render}`, etc.) to match the boilerplate's conventions.
 
 ---
 
@@ -133,24 +145,23 @@ import LoginBlock01 from '$lib/components/blocks/auth/LoginBlock01.svelte';
 
 ### Using Blocks
 
-Blocks accept data via props and emit events. They do NOT own business logic.
+Blocks accept data via props and callback props. They do NOT own business logic.
 
 ```svelte
 <script lang="ts">
   import { LoginBlock01 } from '$lib/components/blocks';
   import { authService } from '$lib/services/auth';
 
-  async function handleLogin(e) {
-    const { email, password } = e.detail;
-    await authService.signIn(email, password);
+  async function handleLogin(detail: { email: string; password: string }) {
+    await authService.signIn(detail.email, detail.password);
   }
 </script>
 
 <LoginBlock01
-  on:submit={handleLogin}
-  on:googleLogin={() => authService.signInWithGoogle()}
-  on:forgotPassword={() => goto('/forgot-password')}
-  on:signUp={() => goto('/signup')}
+  onSubmit={handleLogin}
+  onGoogleLogin={() => authService.signInWithGoogle()}
+  onForgotPassword={() => goto('/forgot-password')}
+  onSignUp={() => goto('/signup')}
 />
 ```
 
@@ -173,25 +184,22 @@ Choose the variant that fits your design. All variants accept the same core prop
 ### LoginBlock01–05
 ```typescript
 Props: onSubmit?, onGoogleLogin?, onForgotPassword?, onSignUp?, class?
-Events: submit, googleLogin, forgotPassword, signUp
 ```
 
 ### SignupBlock01–05
 ```typescript
 Props: onSubmit?, onGoogleSignup?, onSignIn?, class?
-Events: submit, googleSignup, signIn
 ```
 
 ### OtpBlock01–05
 ```typescript
 Props: onVerify?, onResend?, email?, class?
-Events: verify, resend
 ```
 
 ### AuthSplitScreen
 ```typescript
 Props: brandName?, brandLogo?, testimonialQuote?, testimonialAuthor?, class?
-Slot: default (for auth form on right side)
+Snippet: children (for auth form on right side)
 ```
 
 ---
@@ -201,13 +209,13 @@ Slot: default (for auth form on right side)
 ### DashboardBlock01–07
 ```typescript
 Props: stats? (array), transactions? (array), recentSales? (array), class?
-Slots: chart (for chart rendering)
+Snippets: chart (for chart rendering)
 ```
 
 ### ChartsBlock01
 ```typescript
 Props: data? (metrics object), class?
-Slots: multiple named slots for chart areas
+Snippets: multiple named snippet props for chart areas
 ```
 
 ---
@@ -218,9 +226,12 @@ Slots: multiple named slots for chart areas
 |---|---|
 | Modify atomic components inside blocks | Import and compose atomic components |
 | Hardcode data in blocks | Pass data via props |
-| Put business logic in blocks | Handle events in parent, call services |
+| Put business logic in blocks | Handle callbacks in parent, call services |
 | Import blocks for atomic needs | Use atomic components directly |
 | Create a new Button inside a block | `import { Button } from '$lib/components/ui'` |
+| Use `export let` / `<slot />` / `on:click` (Svelte 4) | Use `$props()` / `{@render}` / `onclick` (Svelte 5 runes) |
+| Use `createEventDispatcher` | Use callback props (`onSubmit`, `onChange`, etc.) |
+| Use `$$restProps` | Use `{...rest}` from `$props()` destructuring |
 
 ---
 

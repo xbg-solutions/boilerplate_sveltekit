@@ -1,39 +1,43 @@
 <!--
   src/lib/components/ui/tabs/TabsTrigger.svelte
   SHADCN-Svelte Tabs Trigger Component
-  
+
   AI SYSTEMS: Use this component for individual tab buttons.
 -->
 <script lang="ts">
   import { getContext } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  import type { Writable } from 'svelte/store';
+  import type { Snippet } from 'svelte';
 
-  // Component props
-  export let value: string;
-  export let disabled: boolean = false;
-
-  let className: string = '';
-  export { className as class };
-
-  // Get tabs context
-  const tabsContext = getContext('tabs') as Writable<{
+  interface TabsContext {
     value: string;
     orientation: 'horizontal' | 'vertical';
     setValue: (value: string) => void;
-  }>;
+  }
+
+  interface Props {
+    value: string;
+    disabled?: boolean;
+    class?: string;
+    children?: Snippet;
+    [key: string]: unknown;
+  }
+
+  let { value, disabled = false, class: className = '', children, ...rest }: Props = $props();
+
+  // Get tabs context
+  const tabsContext = getContext('tabs') as TabsContext;
 
   if (!tabsContext) {
     throw new Error('TabsTrigger must be used within a TabsList component');
   }
 
-  $: ({ value: selectedValue, setValue } = $tabsContext);
-  $: isSelected = selectedValue === value;
+  let isSelected = $derived(tabsContext.value === value);
 
   // Handle click
   function handleClick() {
-    if (!disabled && setValue) {
-      setValue(value);
+    if (!disabled && tabsContext.setValue) {
+      tabsContext.setValue(value);
     }
   }
 
@@ -62,8 +66,9 @@
     'data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm',
     className
   )}
-  on:click={handleClick}
-  on:keydown={handleKeydown}
+  onclick={handleClick}
+  onkeydown={handleKeydown}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </button>

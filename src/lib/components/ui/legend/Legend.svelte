@@ -8,13 +8,18 @@
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
 
-  export let items: Array<{ label: string; color: string }> = [];
-
-  let className: string = '';
-  export { className as class };
+  let {
+    items = [],
+    class: className = '',
+    ...rest
+  }: {
+    items?: Array<{ label: string; color: string }>;
+    class?: string;
+    [key: string]: unknown;
+  } = $props();
 </script>
 
-<div class={cn('flex flex-wrap items-center gap-4', className)} {...$$restProps}>
+<div class={cn('flex flex-wrap items-center gap-4', className)} {...rest}>
   {#each items as item}
     <div class="flex items-center gap-2">
       <span

@@ -60,7 +60,7 @@ Components use namespace imports for compound components and named imports for s
 
 ### This Boilerplate's Convention
 
-This project uses barrel imports from `$lib/components/ui`:
+This project uses barrel imports from `$lib/components/ui`. All components use Svelte 5 runes syntax (`$props()`, `{@render}`, `$derived()`, etc.):
 
 ```typescript
 // Preferred in this project — barrel import

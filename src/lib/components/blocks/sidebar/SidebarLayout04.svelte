@@ -3,11 +3,9 @@
   Sidebar with tree-style nested/expandable items.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import { DynamicIcon } from '$lib/components/ui/icon';
-
-  let className: string = '';
-  export { className as class };
 
   /**
    * Recursive tree item structure.
@@ -21,19 +19,26 @@
     children?: TreeItem[];
   }
 
-  export let items: TreeItem[] = [];
-  export let title: string = 'Explorer';
+  let {
+    class: className = '',
+    items = [],
+    title = 'Explorer',
+    _depth = 0,
+    _isNested = false,
+    children
+  }: {
+    class?: string;
+    items?: TreeItem[];
+    title?: string;
+    _depth?: number;
+    _isNested?: boolean;
+    children?: Snippet;
+  } = $props();
 
-  /** Internal: depth level for indentation (used by recursive self) */
-  export let _depth: number = 0;
-  /** Internal: flag for recursive rendering */
-  export let _isNested: boolean = false;
-
-  let expandedItems: Record<string, boolean> = {};
+  let expandedItems: Record<string, boolean> = $state({});
 
   function toggleItem(label: string) {
     expandedItems[label] = !expandedItems[label];
-    expandedItems = expandedItems;
   }
 </script>
 
@@ -50,7 +55,7 @@
               item.active ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'
             )}
             style="padding-left: {_depth * 12 + 8}px"
-            on:click={() => toggleItem(item.label)}
+            onclick={() => toggleItem(item.label)}
           >
             <!-- Lucide: ChevronRight / ChevronDown -->
             <span class="flex h-4 w-4 shrink-0 items-center justify-center text-xs">
@@ -100,7 +105,7 @@
 
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto">
-      <slot />
+      {@render children?.()}
     </main>
   </div>
 {/if}

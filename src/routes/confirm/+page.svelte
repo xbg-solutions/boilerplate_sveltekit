@@ -3,51 +3,51 @@
   Email Confirmation Page with Standardized Spinner
 -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { Card, Alert, AlertDescription, Button, Label, Input } from '$lib/components/ui';
   import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '@xbg.solutions/utils-firebase-auth';
-  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core'; 
+  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
   import { safeForceSync } from '@xbg.solutions/utils-tab-sync';
   import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
   import { publish } from '@xbg.solutions/frontend-core';
   import { tabSyncStore } from '@xbg.solutions/utils-tab-sync';
   import type { EmailLinkVerifyOptions } from '@xbg.solutions/frontend-core';
-  
+
   // Get data from page load function
-  export let data: { 
+  let { data = {} }: { data?: {
     returnUrl?: string,
     email?: string,
     hasStoredEmail?: boolean
-  } = {};
-  
+  } } = $props();
+
   // Use the returnUrl from data
-  $: returnUrl = data?.returnUrl || '/protected';
-  
+  let returnUrl = $derived(data?.returnUrl || '/protected');
+
   // Use the email from data if available
-  $: emailFromData = data?.email;
-  
+  let emailFromData = $derived(data?.email);
+
   // State variables
-  let error = '';
-  let verifying = true;
-  let verificationStarted = false;
-  let emailInput = '';
-  let showEmailForm = false;
-  
+  let error = $state('');
+  let verifying = $state(true);
+  let verificationStarted = $state(false);
+  let emailInput = $state('');
+  let showEmailForm = $state(false);
+
   // Track if we've already verified this link
-  let linkVerified = false;
+  let linkVerified = $state(false);
   
   // Verify the link on mount
-  onMount(async () => {
+  $effect(() => {
     // Prevent multiple verification attempts if component remounts
     if (verificationStarted || linkVerified) {
       console.log('Verification already started or completed, preventing duplicate attempts');
       return;
     }
-    
+
     verificationStarted = true;
     console.log('Confirm page mounted, checking for email sign-in link');
-    
+
+    (async () => {
     try {
       // Check if this is a sign-in link - now properly awaiting the async function
       const isValid = await isEmailSignInLink();
@@ -127,6 +127,7 @@
       error = 'An unexpected error occurred during authentication initialization';
       verifying = false;
     }
+    })();
   });
   
   // Function to verify the email link
@@ -391,8 +392,8 @@
         <h2 class="text-xl font-semibold mb-4">Enter your email address</h2>
         
         {#if error}
-          <Alert className="mb-4 border-red-200 bg-red-50">
-            <AlertDescription className="flex items-center text-red-800">
+          <Alert class="mb-4 border-red-200 bg-red-50">
+            <AlertDescription class="flex items-center text-red-800">
               <span class="material-symbols-rounded mr-2">error</span>
               <span class="font-medium">{error}</span>
             </AlertDescription>
@@ -406,7 +407,7 @@
           </p>
         </div>
         
-        <form on:submit|preventDefault={handleEmailSubmit}>
+        <form onsubmit={(e: Event) => { e.preventDefault(); handleEmailSubmit(); }}>
           <div class="mb-4">
             <Label for="email" class="mb-2 font-medium text-gray-700">Email Address</Label>
             <div class="relative">
@@ -436,8 +437,8 @@
           <span class="material-symbols-rounded text-red-600 text-3xl">error</span>
         </div>
         
-        <Alert className="mb-6 border-red-200 bg-red-50">
-          <AlertDescription className="flex items-center text-red-800">
+        <Alert class="mb-6 border-red-200 bg-red-50">
+          <AlertDescription class="flex items-center text-red-800">
             <span class="material-symbols-rounded mr-2">error</span>
             <span class="font-medium">{error}</span>
           </AlertDescription>

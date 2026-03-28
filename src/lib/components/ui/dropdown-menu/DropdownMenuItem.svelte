@@ -4,12 +4,22 @@
 <script lang="ts">
   import { getContext } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  
-  export let className = '';
-  export let disabled = false;
-  
+  import type { Snippet } from 'svelte';
+
+  let {
+    class: className = '',
+    disabled = false,
+    children,
+    ...rest
+  }: {
+    class?: string;
+    disabled?: boolean;
+    children?: Snippet;
+    [key: string]: any;
+  } = $props();
+
   const dropdown = getContext('dropdown') as any;
-  
+
   function handleClick() {
     if (!disabled) {
       dropdown?.close();
@@ -25,7 +35,8 @@
     className
   )}
   {disabled}
-  on:click={handleClick}
+  onclick={handleClick}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </button>

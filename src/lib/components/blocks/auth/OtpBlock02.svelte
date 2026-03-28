@@ -15,15 +15,20 @@
     Label
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onVerify = undefined,
+    onResend = undefined,
+    phone = ''
+  }: {
+    class?: string;
+    onVerify?: ((code: string) => void) | undefined;
+    onResend?: (() => void) | undefined;
+    phone?: string;
+  } = $props();
 
-  export let onVerify: ((code: string) => void) | undefined = undefined;
-  export let onResend: (() => void) | undefined = undefined;
-  export let phone: string = '';
-
-  let digits: string[] = ['', '', '', '', '', ''];
-  let inputs: HTMLInputElement[] = [];
+  let digits: string[] = $state(['', '', '', '', '', '']);
+  let inputs: HTMLInputElement[] = $state([]);
 
   function handleInput(index: number, event: Event) {
     const target = event.target as HTMLInputElement;
@@ -69,7 +74,7 @@
       </CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label>Verification code</Label>
           <div class="flex gap-2 justify-center">
@@ -81,9 +86,9 @@
                 inputmode="numeric"
                 maxlength="1"
                 class="flex h-12 w-12 items-center justify-center rounded-md border border-input bg-background text-center text-lg font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                on:input={(e) => handleInput(i, e)}
-                on:keydown={(e) => handleKeydown(i, e)}
-                on:paste={handlePaste}
+                oninput={(e) => handleInput(i, e)}
+                onkeydown={(e) => handleKeydown(i, e)}
+                onpaste={handlePaste}
               />
             {/each}
           </div>
@@ -98,7 +103,7 @@
         <button
           type="button"
           class="text-primary underline-offset-4 hover:underline"
-          on:click={onResend}
+          onclick={onResend}
         >
           Resend
         </button>

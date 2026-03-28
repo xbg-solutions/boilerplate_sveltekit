@@ -1,6 +1,6 @@
 <!--
   Advanced ImageUpload Component
-  
+
   Features:
   - Firebase Storage integration
   - Image preview and cropping
@@ -11,8 +11,6 @@
   - Validation and error handling
 -->
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { writable } from 'svelte/store';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardContent } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
@@ -20,9 +18,9 @@
   import { Alert, AlertDescription } from '$lib/components/ui/alert';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import { 
-    Upload, 
-    X, 
+  import {
+    Upload,
+    X,
     Image as ImageIcon,
     Download,
     Eye,
@@ -80,22 +78,33 @@
   }
 
   // Props
-  export let options: ImageUploadOptions = {};
-  export let cropConfig: CropConfig = {};
-  export let value: string[] = [];
-  export let disabled = false;
-  export let className = '';
-  export let placeholder = 'Click or drag images here to upload';
-
-  // Events
-  const dispatch = createEventDispatcher<{
-    upload: { files: UploadedFile[] };
-    complete: { files: UploadedFile[] };
-    error: { error: string; file?: UploadedFile };
-    remove: { file: UploadedFile };
-    preview: { file: UploadedFile };
-    crop: { file: UploadedFile; config: CropConfig };
-  }>();
+  let {
+    options = {},
+    cropConfig = {},
+    value = $bindable([]),
+    disabled = false,
+    className = '',
+    placeholder = 'Click or drag images here to upload',
+    onUpload,
+    onComplete,
+    onError,
+    onRemove,
+    onPreview,
+    onCrop,
+  }: {
+    options?: ImageUploadOptions;
+    cropConfig?: CropConfig;
+    value?: string[];
+    disabled?: boolean;
+    className?: string;
+    placeholder?: string;
+    onUpload?: (detail: { files: UploadedFile[] }) => void;
+    onComplete?: (detail: { files: UploadedFile[] }) => void;
+    onError?: (detail: { error: string; file?: UploadedFile }) => void;
+    onRemove?: (detail: { file: UploadedFile }) => void;
+    onPreview?: (detail: { file: UploadedFile }) => void;
+    onCrop?: (detail: { file: UploadedFile; config: CropConfig }) => void;
+  } = $props();
 
   // Default options
   const defaultOptions: ImageUploadOptions = {
@@ -115,13 +124,13 @@
   };
 
   // State
-  const files = writable<UploadedFile[]>([]);
+  let files = $state<UploadedFile[]>([]);
   let fileInput: HTMLInputElement;
-  let dragCounter = 0;
-  let isDragging = false;
-  let isProcessing = false;
-  let selectedFile: UploadedFile | null = null;
-  let showCropModal = false;
+  let dragCounter = $state(0);
+  let isDragging = $state(false);
+  let isProcessing = $state(false);
+  let selectedFile = $state<UploadedFile | null>(null);
+  let showCropModal = $state(false);
 
   // Functions
   function generateFileId(): string {
@@ -131,18 +140,18 @@
   function validateFile(file: File): { valid: boolean; error?: string } {
     // Check file type
     if (!defaultOptions.allowedTypes!.includes(file.type)) {
-      return { 
-        valid: false, 
-        error: `File type ${file.type} is not allowed. Allowed types: ${defaultOptions.allowedTypes!.join(', ')}` 
+      return {
+        valid: false,
+        error: `File type ${file.type} is not allowed. Allowed types: ${defaultOptions.allowedTypes!.join(', ')}`
       };
     }
 
     // Check file size
     const maxSizeBytes = defaultOptions.maxFileSize! * 1024 * 1024;
     if (file.size > maxSizeBytes) {
-      return { 
-        valid: false, 
-        error: `File size ${Math.round(file.size / 1024 / 1024)}MB exceeds maximum allowed size of ${defaultOptions.maxFileSize}MB` 
+      return {
+        valid: false,
+        error: `File size ${Math.round(file.size / 1024 / 1024)}MB exceeds maximum allowed size of ${defaultOptions.maxFileSize}MB`
       };
     }
 
@@ -176,7 +185,7 @@
       img.onload = () => {
         // Calculate new dimensions
         let { width, height } = img;
-        
+
         if (width > height) {
           if (width > maxWidth) {
             height = (height * maxWidth) / width;
@@ -194,7 +203,7 @@
 
         // Draw and compress
         ctx?.drawImage(img, 0, 0, width, height);
-        
+
         canvas.toBlob((blob) => {
           if (blob) {
             const resizedFile = new File([blob], file.name, {
@@ -217,9 +226,9 @@
     const id = generateFileId();
     const preview = await createPreview(file);
     const dimensions = await getImageDimensions(preview);
-    
+
     let processedFile = file;
-    
+
     // Resize if enabled and needed
     if (defaultOptions.enableResize && defaultOptions.thumbnailSize) {
       const { width: maxWidth, height: maxHeight } = defaultOptions.thumbnailSize;
@@ -251,9 +260,7 @@
   async function uploadFile(uploadedFile: UploadedFile): Promise<void> {
     try {
       uploadedFile.status = 'uploading';
-      files.update(currentFiles => 
-        currentFiles.map(f => f.id === uploadedFile.id ? uploadedFile : f)
-      );
+      files = files.map(f => f.id === uploadedFile.id ? uploadedFile : f);
 
       const fileName = `${uploadedFile.id}-${uploadedFile.file.name}`;
       const filePath = `${defaultOptions.uploadPath}/${fileName}`;
@@ -264,9 +271,7 @@
         filePath,
         (progress) => {
           uploadedFile.progress = progress;
-          files.update(currentFiles => 
-            currentFiles.map(f => f.id === uploadedFile.id ? { ...uploadedFile, progress } : f)
-          );
+          files = files.map(f => f.id === uploadedFile.id ? { ...uploadedFile, progress } : f);
         }
       );
 
@@ -274,24 +279,20 @@
       uploadedFile.status = 'completed';
       uploadedFile.progress = 100;
 
-      files.update(currentFiles => 
-        currentFiles.map(f => f.id === uploadedFile.id ? uploadedFile : f)
-      );
+      files = files.map(f => f.id === uploadedFile.id ? uploadedFile : f);
 
       // Update value array
       value = [...value, url];
 
       toast.success(`${uploadedFile.file.name} uploaded successfully`);
-      
+
     } catch (error) {
       uploadedFile.status = 'error';
       uploadedFile.error = error instanceof Error ? error.message : 'Upload failed';
-      
-      files.update(currentFiles => 
-        currentFiles.map(f => f.id === uploadedFile.id ? uploadedFile : f)
-      );
 
-      dispatch('error', { error: uploadedFile.error, file: uploadedFile });
+      files = files.map(f => f.id === uploadedFile.id ? uploadedFile : f);
+
+      onError?.({ error: uploadedFile.error, file: uploadedFile });
       toast.error(`Failed to upload ${uploadedFile.file.name}: ${uploadedFile.error}`);
     }
   }
@@ -299,7 +300,7 @@
   async function handleFileSelect(selectedFiles: FileList | null) {
     if (!selectedFiles || selectedFiles.length === 0) return;
 
-    const currentFileCount = $files.length;
+    const currentFileCount = files.length;
     const maxFiles = defaultOptions.maxFiles!;
 
     // Check file limit
@@ -313,7 +314,7 @@
 
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
-      
+
       // Validate file
       const validation = validateFile(file);
       if (!validation.valid) {
@@ -329,10 +330,10 @@
       }
     }
 
-    files.update(current => [...current, ...newFiles]);
+    files = [...files, ...newFiles];
     isProcessing = false;
 
-    dispatch('upload', { files: newFiles });
+    onUpload?.({ files: newFiles });
 
     // Auto-upload if enabled
     if (defaultOptions.autoUpload) {
@@ -345,15 +346,15 @@
   function removeFile(fileToRemove: UploadedFile) {
     // Revoke object URL to prevent memory leaks
     URL.revokeObjectURL(fileToRemove.preview);
-    
+
     // Remove from Firebase Storage if uploaded
     if (fileToRemove.url && fileToRemove.status === 'completed') {
       storageService.deleteFile(fileToRemove.url).catch(console.error);
       value = value.filter(url => url !== fileToRemove.url);
     }
 
-    files.update(current => current.filter(f => f.id !== fileToRemove.id));
-    dispatch('remove', { file: fileToRemove });
+    files = files.filter(f => f.id !== fileToRemove.id);
+    onRemove?.({ file: fileToRemove });
   }
 
   function openFileDialog() {
@@ -363,7 +364,7 @@
 
   function openPreview(file: UploadedFile) {
     selectedFile = file;
-    dispatch('preview', { file });
+    onPreview?.({ file });
   }
 
   function openCropModal(file: UploadedFile) {
@@ -376,7 +377,7 @@
     if (file.status !== 'error') return;
     file.status = 'pending';
     file.error = undefined;
-    files.update(current => [...current]);
+    files = [...files];
     await uploadFile(file);
   }
 
@@ -409,13 +410,13 @@
     if (!defaultOptions.dragAndDrop || disabled) return;
     e.preventDefault();
     e.stopPropagation();
-    
+
     isDragging = false;
     dragCounter = 0;
 
-    const files = e.dataTransfer?.files;
-    if (files) {
-      handleFileSelect(files);
+    const droppedFiles = e.dataTransfer?.files;
+    if (droppedFiles) {
+      handleFileSelect(droppedFiles);
     }
   }
 
@@ -454,23 +455,18 @@
     multiple={defaultOptions.maxFiles! > 1}
     accept={defaultOptions.allowedTypes!.join(',')}
     class="hidden"
-    on:change={(e) => handleFileSelect(e.currentTarget.files)}
+    onchange={(e) => handleFileSelect(e.currentTarget.files)}
     {disabled}
   />
 
   <!-- Drop Zone -->
-  <Card 
-    class="border-2 border-dashed transition-colors cursor-pointer"
-    class:border-primary={isDragging}
-    class:bg-primary/5={isDragging}
-    class:border-gray-300={!isDragging && !disabled}
-    class:border-gray-200={disabled}
-    class:cursor-not-allowed={disabled}
-    on:click={openFileDialog}
-    on:dragenter={handleDragEnter}
-    on:dragleave={handleDragLeave}
-    on:dragover={handleDragOver}
-    on:drop={handleDrop}
+  <Card
+    class="border-2 border-dashed transition-colors cursor-pointer {isDragging ? 'border-primary bg-primary/5' : ''} {!isDragging && !disabled ? 'border-gray-300' : ''} {disabled ? 'border-gray-200 cursor-not-allowed' : ''}"
+    onclick={openFileDialog}
+    ondragenter={handleDragEnter}
+    ondragleave={handleDragLeave}
+    ondragover={handleDragOver}
+    ondrop={handleDrop}
   >
     <CardContent class="flex flex-col items-center justify-center p-8 text-center">
       {#if isProcessing}
@@ -484,11 +480,11 @@
             <Camera class="w-6 h-6 text-gray-400" />
           {/if}
         </div>
-        
+
         <p class="text-sm font-medium text-gray-900 mb-2">
           {placeholder}
         </p>
-        
+
         <p class="text-xs text-gray-500">
           {#if defaultOptions.dragAndDrop}
             Drag and drop files here or click to browse
@@ -496,7 +492,7 @@
             Click to select files
           {/if}
         </p>
-        
+
         <div class="mt-2 text-xs text-gray-400">
           <p>Max {defaultOptions.maxFiles} files, {defaultOptions.maxFileSize}MB each</p>
           <p>Supported: {defaultOptions.allowedTypes!.map(t => t.split('/')[1]).join(', ')}</p>
@@ -506,30 +502,30 @@
   </Card>
 
   <!-- File List -->
-  {#if $files.length > 0}
+  {#if files.length > 0}
     <div class="mt-6 space-y-3">
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-medium text-gray-900">
-          Files ({$files.length}/{defaultOptions.maxFiles})
+          Files ({files.length}/{defaultOptions.maxFiles})
         </h3>
-        
+
         <div class="flex items-center gap-2">
           {#if !defaultOptions.autoUpload}
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               variant="outline"
-              disabled={$files.every(f => f.status !== 'pending')}
-              on:click={() => $files.filter(f => f.status === 'pending').forEach(uploadFile)}
+              disabled={files.every(f => f.status !== 'pending')}
+              onclick={() => files.filter(f => f.status === 'pending').forEach(uploadFile)}
             >
               <Upload class="w-4 h-4 mr-1" />
               Upload All
             </Button>
           {/if}
-          
-          <Button 
-            size="sm" 
+
+          <Button
+            size="sm"
             variant="outline"
-            on:click={() => $files.forEach(removeFile)}
+            onclick={() => files.forEach(removeFile)}
           >
             <X class="w-4 h-4 mr-1" />
             Clear All
@@ -537,17 +533,17 @@
         </div>
       </div>
 
-      {#each $files as file}
+      {#each files as file}
         <Card class="p-4">
           <div class="flex items-center gap-4">
             <!-- Preview -->
             {#if defaultOptions.showPreview}
-              <div 
+              <div
                 class="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer"
-                on:click={() => openPreview(file)}
+                onclick={() => openPreview(file)}
               >
-                <img 
-                  src={file.preview} 
+                <img
+                  src={file.preview}
                   alt={file.file.name}
                   class="w-full h-full object-cover"
                 />
@@ -567,7 +563,7 @@
                   {file.status}
                 </Badge>
               </div>
-              
+
               <div class="mt-1 text-xs text-gray-500">
                 {formatFileSize(file.file.size)}
                 {#if file.metadata?.width && file.metadata?.height}
@@ -594,32 +590,32 @@
             <!-- Actions -->
             <div class="flex items-center gap-1">
               {#if file.status === 'completed'}
-                <Button size="sm" variant="ghost" on:click={() => openPreview(file)}>
+                <Button size="sm" variant="ghost" onclick={() => openPreview(file)}>
                   <Eye class="w-4 h-4" />
                 </Button>
-                
+
                 {#if file.url}
-                  <Button size="sm" variant="ghost" on:click={() => window.open(file.url, '_blank')}>
+                  <Button size="sm" variant="ghost" onclick={() => window.open(file.url, '_blank')}>
                     <Download class="w-4 h-4" />
                   </Button>
                 {/if}
-                
+
                 {#if defaultOptions.enableCrop}
-                  <Button size="sm" variant="ghost" on:click={() => openCropModal(file)}>
+                  <Button size="sm" variant="ghost" onclick={() => openCropModal(file)}>
                     <Crop class="w-4 h-4" />
                   </Button>
                 {/if}
               {:else if file.status === 'error'}
-                <Button size="sm" variant="ghost" on:click={() => retryUpload(file)}>
+                <Button size="sm" variant="ghost" onclick={() => retryUpload(file)}>
                   <RotateCw class="w-4 h-4" />
                 </Button>
               {:else if !defaultOptions.autoUpload && file.status === 'pending'}
-                <Button size="sm" variant="ghost" on:click={() => uploadFile(file)}>
+                <Button size="sm" variant="ghost" onclick={() => uploadFile(file)}>
                   <Upload class="w-4 h-4" />
                 </Button>
               {/if}
 
-              <Button size="sm" variant="ghost" on:click={() => removeFile(file)}>
+              <Button size="sm" variant="ghost" onclick={() => removeFile(file)}>
                 <X class="w-4 h-4" />
               </Button>
             </div>
@@ -636,22 +632,22 @@
     <Card class="max-w-4xl max-h-[90vh] overflow-hidden">
       <CardContent class="p-0">
         <div class="relative">
-          <img 
-            src={selectedFile.preview} 
+          <img
+            src={selectedFile.preview}
             alt={selectedFile.file.name}
             class="w-full h-auto max-h-[80vh] object-contain"
           />
-          
-          <Button 
-            size="sm" 
-            variant="ghost" 
+
+          <Button
+            size="sm"
+            variant="ghost"
             class="absolute top-2 right-2 bg-white bg-opacity-75"
-            on:click={() => selectedFile = null}
+            onclick={() => selectedFile = null}
           >
             <X class="w-4 h-4" />
           </Button>
         </div>
-        
+
         <div class="p-4 border-t">
           <h3 class="font-medium">{selectedFile.file.name}</h3>
           <p class="text-sm text-gray-500 mt-1">

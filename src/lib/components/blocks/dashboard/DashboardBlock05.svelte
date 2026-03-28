@@ -22,37 +22,42 @@
     TableCell
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    stats = [],
+    rows = [],
+    columns = ['Name', 'Status', 'Amount', 'Date'],
+    title = 'Dashboard',
+    description = '',
+    onSearch = undefined,
+    onRowClick = undefined
+  }: {
+    class?: string;
+    /** Compact stat items */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change?: string;
+      trend?: 'up' | 'down' | 'neutral';
+    }>;
+    /** Table data */
+    rows?: Array<{
+      id: string;
+      name: string;
+      email: string;
+      status: string;
+      amount: string;
+      date: string;
+    }>;
+    /** Table column headers */
+    columns?: string[];
+    title?: string;
+    description?: string;
+    onSearch?: ((query: string) => void) | undefined;
+    onRowClick?: ((id: string) => void) | undefined;
+  } = $props();
 
-  /** Compact stat items */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change?: string;
-    trend?: 'up' | 'down' | 'neutral';
-  }> = [];
-
-  /** Table data */
-  export let rows: Array<{
-    id: string;
-    name: string;
-    email: string;
-    status: string;
-    amount: string;
-    date: string;
-  }> = [];
-
-  /** Table column headers */
-  export let columns: string[] = ['Name', 'Status', 'Amount', 'Date'];
-
-  export let title: string = 'Dashboard';
-  export let description: string = '';
-
-  export let onSearch: ((query: string) => void) | undefined = undefined;
-  export let onRowClick: ((id: string) => void) | undefined = undefined;
-
-  let searchQuery = '';
+  let searchQuery = $state('');
 
   function trendColor(trend?: string): string {
     if (trend === 'up') return 'text-green-600';
@@ -87,7 +92,7 @@
       placeholder="Search..."
       class="w-full md:w-[250px]"
       bind:value={searchQuery}
-      on:input={() => onSearch?.(searchQuery)}
+      oninput={() => onSearch?.(searchQuery)}
     />
   </div>
 
@@ -131,7 +136,7 @@
           {#each rows as row}
             <TableRow
               class="cursor-pointer"
-              on:click={() => onRowClick?.(row.id)}
+              onclick={() => onRowClick?.(row.id)}
             >
               <TableCell>
                 <div class="font-medium">{row.name}</div>

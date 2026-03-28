@@ -1,6 +1,6 @@
 <!--
   Advanced ChartWrapper Component
-  
+
   Features:
   - Multiple chart types (line, bar, pie, area, scatter)
   - Responsive design
@@ -11,20 +11,18 @@
   - Animation support
 -->
 <script lang="ts">
-  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { writable } from 'svelte/store';
   import { Button } from '$lib/components/ui/button';
   import { Card, CardHeader, CardTitle, CardContent } from '$lib/components/ui/card';
   import { Badge } from '$lib/components/ui/badge';
   import { Alert, AlertDescription } from '$lib/components/ui/alert';
-  import { 
+  import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
     DropdownMenuSeparator
   } from '$lib/components/ui/dropdown-menu';
-  import { 
+  import {
     Download,
     RefreshCw,
     Settings,
@@ -34,7 +32,8 @@
     LineChart,
     Scatter3D,
     AlertTriangle,
-    Maximize2
+    Maximize2,
+    X
   } from 'lucide-svelte';
 
   // Types
@@ -101,31 +100,45 @@
   }
 
   // Props
-  export let config: ChartConfig;
-  export let title = '';
-  export let subtitle = '';
-  export let loading = false;
-  export let error: string | null = null;
-  export let height = '400px';
-  export let className = '';
-  export let showControls = true;
-  export let showExport = true;
-  export let allowFullscreen = true;
-
-  // Events
-  const dispatch = createEventDispatcher<{
-    chartClick: { event: any; elements: any[] };
-    legendClick: { event: any; legendItem: any };
-    export: { format: string; data: ChartData };
-    refresh: void;
-    fullscreen: boolean;
-  }>();
+  let {
+    config,
+    title = '',
+    subtitle = '',
+    loading = false,
+    error = $bindable<string | null>(null),
+    height = '400px',
+    className = '',
+    showControls = true,
+    showExport = true,
+    allowFullscreen = true,
+    onChartClick,
+    onLegendClick,
+    onExport,
+    onRefresh,
+    onFullscreen,
+  }: {
+    config: ChartConfig;
+    title?: string;
+    subtitle?: string;
+    loading?: boolean;
+    error?: string | null;
+    height?: string;
+    className?: string;
+    showControls?: boolean;
+    showExport?: boolean;
+    allowFullscreen?: boolean;
+    onChartClick?: (detail: { event: any; elements: any[] }) => void;
+    onLegendClick?: (detail: { event: any; legendItem: any }) => void;
+    onExport?: (detail: { format: string; data: ChartData }) => void;
+    onRefresh?: () => void;
+    onFullscreen?: (isFullscreen: boolean) => void;
+  } = $props();
 
   // State
   let chartContainer: HTMLCanvasElement;
-  let chart: any = null;
-  let isFullscreen = writable(false);
-  let chartLibraryLoaded = false;
+  let chart: any = $state(null);
+  let isFullscreen = $state(false);
+  let chartLibraryLoaded = $state(false);
 
   // Default theme colors
   const themes = {
@@ -232,9 +245,9 @@
       ...data,
       datasets: data.datasets.map((dataset, index) => ({
         ...dataset,
-        backgroundColor: dataset.backgroundColor || 
-          (config.type === 'pie' || config.type === 'doughnut' 
-            ? colorPalette 
+        backgroundColor: dataset.backgroundColor ||
+          (config.type === 'pie' || config.type === 'doughnut'
+            ? colorPalette
             : colorPalette[index % colorPalette.length] + '20'),
         borderColor: dataset.borderColor || colorPalette[index % colorPalette.length],
         borderWidth: dataset.borderWidth || 2
@@ -244,7 +257,7 @@
 
   function mergeOptions(defaultOpts: ChartOptions, userOpts?: ChartOptions): ChartOptions {
     if (!userOpts) return defaultOpts;
-    
+
     return {
       ...defaultOpts,
       ...userOpts,
@@ -270,10 +283,10 @@
 
     try {
       const Chart = (window as any).Chart;
-      
+
       // Prepare data with theme
       const themedData = applyTheme(config.data, config.theme);
-      
+
       // Prepare options
       const defaultOpts = getDefaultOptions(config.type, config.theme);
       const finalOptions = mergeOptions(defaultOpts, config.options);
@@ -296,7 +309,7 @@
         options: {
           ...finalOptions,
           onClick: (event: any, elements: any[]) => {
-            dispatch('chartClick', { event, elements });
+            onChartClick?.({ event, elements });
           },
           plugins: {
             ...finalOptions.plugins,
@@ -304,7 +317,7 @@
               ...finalOptions.plugins?.legend,
               onClick: (event: any, legendItem: any) => {
                 Chart.defaults.plugins.legend.onClick.call(chart, event, legendItem, chart);
-                dispatch('legendClick', { event, legendItem });
+                onLegendClick?.({ event, legendItem });
               }
             }
           }
@@ -330,10 +343,10 @@
 
     try {
       let dataUrl: string;
-      
+
       if (format === 'png' || format === 'jpg') {
         dataUrl = chart.toBase64Image(format === 'jpg' ? 'image/jpeg' : 'image/png', 1);
-        
+
         // Create download link
         const link = document.createElement('a');
         link.download = `chart.${format}`;
@@ -347,16 +360,16 @@
         error = 'PDF export not implemented yet';
       }
 
-      dispatch('export', { format, data: config.data });
+      onExport?.({ format, data: config.data });
     } catch (err) {
       error = `Export failed: ${err}`;
     }
   }
 
   function toggleFullscreen() {
-    isFullscreen.update(current => !current);
-    dispatch('fullscreen', !$isFullscreen);
-    
+    isFullscreen = !isFullscreen;
+    onFullscreen?.(isFullscreen);
+
     // Resize chart after fullscreen toggle
     setTimeout(() => {
       if (chart) {
@@ -366,7 +379,7 @@
   }
 
   function refreshChart() {
-    dispatch('refresh');
+    onRefresh?.();
     createChart();
   }
 
@@ -387,27 +400,31 @@
     }
   }
 
-  // Lifecycle
-  onMount(async () => {
-    await loadChartLibrary();
-    if (chartLibraryLoaded) {
-      await createChart();
-    }
+  // Lifecycle - mount and destroy
+  $effect(() => {
+    (async () => {
+      await loadChartLibrary();
+      if (chartLibraryLoaded) {
+        await createChart();
+      }
+    })();
+
+    return () => {
+      if (chart) {
+        chart.destroy();
+      }
+    };
   });
 
-  onDestroy(() => {
-    if (chart) {
-      chart.destroy();
+  // Reactive updates when config changes
+  $effect(() => {
+    if (chart && config) {
+      updateChart();
     }
   });
-
-  // Reactive updates
-  $: if (chart && config) {
-    updateChart();
-  }
 </script>
 
-<div class="chart-wrapper {className}" class:fullscreen={$isFullscreen}>
+<div class="chart-wrapper {className}" class:fullscreen={isFullscreen}>
   <Card class="w-full h-full">
     {#if title || subtitle || showControls}
       <CardHeader>
@@ -440,17 +457,17 @@
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem on:click={() => exportChart('png')}>
+                    <DropdownMenuItem onclick={() => exportChart('png')}>
                       Export as PNG
                     </DropdownMenuItem>
-                    <DropdownMenuItem on:click={() => exportChart('jpg')}>
+                    <DropdownMenuItem onclick={() => exportChart('jpg')}>
                       Export as JPG
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem on:click={() => exportChart('svg')} disabled>
+                    <DropdownMenuItem onclick={() => exportChart('svg')} disabled>
                       Export as SVG
                     </DropdownMenuItem>
-                    <DropdownMenuItem on:click={() => exportChart('pdf')} disabled>
+                    <DropdownMenuItem onclick={() => exportChart('pdf')} disabled>
                       Export as PDF
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -459,13 +476,13 @@
 
               <!-- Fullscreen Toggle -->
               {#if allowFullscreen}
-                <Button variant="outline" size="sm" on:click={toggleFullscreen}>
+                <Button variant="outline" size="sm" onclick={toggleFullscreen}>
                   <Maximize2 class="w-4 h-4" />
                 </Button>
               {/if}
 
               <!-- Refresh -->
-              <Button variant="outline" size="sm" on:click={refreshChart}>
+              <Button variant="outline" size="sm" onclick={refreshChart}>
                 <RefreshCw class="w-4 h-4" />
               </Button>
             </div>
@@ -524,13 +541,13 @@
 </div>
 
 <!-- Fullscreen Overlay -->
-{#if $isFullscreen}
+{#if isFullscreen}
   <div class="fixed inset-0 bg-black bg-opacity-75 z-50 p-4 flex items-center justify-center">
     <div class="w-full h-full bg-white rounded-lg overflow-hidden">
       <div class="h-full flex flex-col">
         <div class="flex items-center justify-between p-4 border-b">
           <h2 class="text-lg font-semibold">{title || 'Chart'}</h2>
-          <Button variant="ghost" size="sm" on:click={toggleFullscreen}>
+          <Button variant="ghost" size="sm" onclick={toggleFullscreen}>
             <X class="w-4 h-4" />
           </Button>
         </div>
@@ -562,7 +579,7 @@
   .chart-container {
     position: relative;
   }
-  
+
   .chart-container canvas {
     max-width: 100%;
     height: auto;

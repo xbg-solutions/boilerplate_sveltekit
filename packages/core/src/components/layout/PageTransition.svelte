@@ -1,39 +1,38 @@
 <!--
   src/lib/components/layout/PageTransition.svelte
   Page Transition Loader
-  
+
   Shows a loading overlay during page navigation.
 -->
 <script lang="ts">
   import { afterNavigate, beforeNavigate } from '$app/navigation';
   import { browser } from '$app/environment';
-  import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
-  
+
   // Whether to show the loading overlay
-  let isNavigating = false;
-  let mounted = false;
-  
+  let isNavigating = $state(false);
+  let mounted = $state(false);
+
   // Keep track of navigation
   beforeNavigate(() => {
     if (browser && mounted) {
       isNavigating = true;
     }
   });
-  
+
   afterNavigate(() => {
     if (browser) {
       isNavigating = false;
     }
   });
-  
-  onMount(() => {
+
+  $effect(() => {
     mounted = true;
   });
 </script>
 
 {#if isNavigating}
-  <div 
+  <div
     class="fixed inset-0 bg-white/60 backdrop-blur-sm z-50 flex items-center justify-center"
     in:fade={{ duration: 200 }}
     out:fade={{ duration: 200 }}

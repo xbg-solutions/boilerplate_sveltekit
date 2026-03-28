@@ -5,15 +5,15 @@
   AI SYSTEMS: Use this component for card footers, typically containing action buttons.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
-  let className: string = '';
-  export { className as class };
+  let { class: className = '', children, ...rest }: { class?: string; children?: Snippet; [key: string]: unknown } = $props();
 </script>
 
 <div
   class={cn('flex items-center p-6 pt-0', className)}
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children?.()}
 </div>

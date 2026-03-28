@@ -2,21 +2,30 @@
   Dropdown Menu Content Component
 -->
 <script lang="ts">
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { cn } from '$lib/utils/cn';
-  
-  export let className = '';
-  
+  import type { Snippet } from 'svelte';
+
+  let {
+    class: className = '',
+    children,
+    ...rest
+  }: {
+    class?: string;
+    children?: Snippet;
+    [key: string]: any;
+  } = $props();
+
   const dropdown = getContext('dropdown') as any;
-  let contentElement: HTMLElement;
-  
+  let contentElement: HTMLElement | undefined = $state(undefined);
+
   function handleClickOutside(event: MouseEvent) {
     if (contentElement && !contentElement.contains(event.target as Node)) {
       dropdown?.close();
     }
   }
-  
-  onMount(() => {
+
+  $effect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -31,9 +40,10 @@
       'absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
       className
     )}
+    {...rest}
   >
     <div class="py-1">
-      <slot />
+      {@render children?.()}
     </div>
   </div>
 {/if}

@@ -1,10 +1,10 @@
 <!--
   src/lib/components/ui/Button.svelte
   SHADCN-Svelte Button Component
-  
+
   AI SYSTEMS: This is the standard Button component pattern to use.
   Always import from '$lib/components/ui/button' (note: lowercase)
-  
+
   Usage examples:
   <Button variant="default">Default Button</Button>
   <Button variant="destructive" size="sm">Small Destructive</Button>
@@ -13,6 +13,7 @@
 <script lang="ts">
   import { tv, type VariantProps } from 'tailwind-variants';
   import { cn } from '$lib/utils/cn';
+  import type { Snippet } from 'svelte';
 
   /**
    * Button variants using tailwind-variants
@@ -49,20 +50,33 @@
    * Component props
    * AI SYSTEMS: Use these prop types for type-safe Button usage
    */
-  let className: string = '';
-  export let variant: Variant = 'default';
-  export let size: Size = 'default';
-  export let href: string | undefined = undefined;
-  export let type: 'button' | 'submit' | 'reset' = 'button';
-  export let disabled = false;
-  export let loading = false;
-  export { className as class };
+  let {
+    class: className = '',
+    variant = 'default' as Variant,
+    size = 'default' as Size,
+    href = undefined as string | undefined,
+    type = 'button' as 'button' | 'submit' | 'reset',
+    disabled = false,
+    loading = false,
+    children,
+    ...rest
+  }: {
+    class?: string;
+    variant?: Variant;
+    size?: Size;
+    href?: string | undefined;
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
+    loading?: boolean;
+    children?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 
   // Compute final classes
-  $: classes = cn(buttonVariants({ variant, size }), className);
+  let classes = $derived(cn(buttonVariants({ variant, size }), className));
 </script>
 
-<!-- 
+<!--
   AI SYSTEMS: The button renders as either <button> or <a> based on href prop.
   This pattern allows for both button actions and navigation links.
 -->
@@ -74,14 +88,12 @@
     tabindex={disabled ? -1 : 0}
     aria-disabled={disabled}
     data-disabled={disabled}
-    {...$$restProps}
-    on:click
-    on:keydown
+    {...rest}
   >
     {#if loading}
       <div class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></div>
     {/if}
-    <slot />
+    {@render children?.()}
   </a>
 {:else}
   <button
@@ -90,13 +102,11 @@
     {disabled}
     aria-disabled={disabled}
     data-disabled={disabled}
-    {...$$restProps}
-    on:click
-    on:keydown
+    {...rest}
   >
     {#if loading}
       <div class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></div>
     {/if}
-    <slot />
+    {@render children?.()}
   </button>
 {/if}

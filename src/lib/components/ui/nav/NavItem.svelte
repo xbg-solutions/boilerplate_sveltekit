@@ -4,12 +4,13 @@
 
   Usage:
   <NavItem state="current" href="/dashboard">
-    <svelte:fragment slot="icon"><HomeIcon /></svelte:fragment>
+    {#snippet icon()}<HomeIcon />{/snippet}
   </NavItem>
 -->
 <script lang="ts">
   import { tv, type VariantProps } from 'tailwind-variants';
   import { cn } from '$lib/utils/cn';
+  import type { Snippet } from 'svelte';
 
   const navItemVariants = tv({
     base: 'inline-flex items-center justify-center h-8 w-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
@@ -28,13 +29,21 @@
 
   type State = VariantProps<typeof navItemVariants>['state'];
 
-  export let state: State = 'default';
-  export let href: string | undefined = undefined;
+  let {
+    state = 'default',
+    href = undefined,
+    class: className = '',
+    icon,
+    ...rest
+  }: {
+    state?: State;
+    href?: string | undefined;
+    class?: string;
+    icon?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 
-  let className: string = '';
-  export { className as class };
-
-  $: classes = cn(navItemVariants({ state }), className);
+  let classes = $derived(cn(navItemVariants({ state }), className));
 </script>
 
 {#if href}
@@ -42,19 +51,17 @@
     {href}
     class={classes}
     aria-current={state === 'current' ? 'page' : undefined}
-    {...$$restProps}
-    on:click
+    {...rest}
   >
-    <slot name="icon" />
+    {@render icon?.()}
   </a>
 {:else}
   <button
     type="button"
     class={classes}
     aria-current={state === 'current' ? 'page' : undefined}
-    {...$$restProps}
-    on:click
+    {...rest}
   >
-    <slot name="icon" />
+    {@render icon?.()}
   </button>
 {/if}

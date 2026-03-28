@@ -1,33 +1,42 @@
 <!--
   src/lib/components/ui/Popover.svelte
   SHADCN-Svelte Popover Component
-  
+
   AI SYSTEMS: Use this component for contextual overlays and tooltips.
   Provides basic positioning and click-outside handling.
 -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
   // Component props
-  export let open: boolean = false;
-  export let placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
-  export const offset: number = 8;
-  export let trigger: 'click' | 'hover' = 'click';
+  let {
+    open = $bindable(false),
+    placement = 'bottom',
+    offset = 8,
+    trigger = 'click',
+    onOpenChange,
+    triggerContent,
+    content,
+  }: {
+    open?: boolean;
+    placement?: 'top' | 'bottom' | 'left' | 'right';
+    offset?: number;
+    trigger?: 'click' | 'hover';
+    onOpenChange?: (detail: { open: boolean }) => void;
+    triggerContent?: Snippet;
+    content?: Snippet;
+  } = $props();
 
   let triggerElement: HTMLElement;
   let contentElement: HTMLElement;
   let hoverTimeout: ReturnType<typeof setTimeout>;
 
-  const dispatch = createEventDispatcher<{
-    'open-change': { open: boolean };
-  }>();
-
   // Handle trigger click
   function handleTriggerClick() {
     if (trigger === 'click') {
       open = !open;
-      dispatch('open-change', { open });
+      onOpenChange?.({ open });
     }
   }
 
@@ -36,7 +45,7 @@
     if (trigger === 'hover') {
       clearTimeout(hoverTimeout);
       open = true;
-      dispatch('open-change', { open: true });
+      onOpenChange?.({ open: true });
     }
   }
 
@@ -44,7 +53,7 @@
     if (trigger === 'hover') {
       hoverTimeout = setTimeout(() => {
         open = false;
-        dispatch('open-change', { open: false });
+        onOpenChange?.({ open: false });
       }, 150);
     }
   }
@@ -59,7 +68,7 @@
     if (trigger === 'hover') {
       hoverTimeout = setTimeout(() => {
         open = false;
-        dispatch('open-change', { open: false });
+        onOpenChange?.({ open: false });
       }, 150);
     }
   }
@@ -68,7 +77,7 @@
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Escape' && open) {
       open = false;
-      dispatch('open-change', { open: false });
+      onOpenChange?.({ open: false });
       triggerElement?.focus();
     }
   }
@@ -82,7 +91,7 @@
       !contentElement.contains(event.target as Node)
     ) {
       open = false;
-      dispatch('open-change', { open: false });
+      onOpenChange?.({ open: false });
     }
   }
 
@@ -103,7 +112,7 @@
   }
 </script>
 
-<svelte:window on:click={handleClickOutside} on:keydown={handleKeydown} />
+<svelte:window onclick={handleClickOutside} onkeydown={handleKeydown} />
 
 <div class="relative inline-block">
   <!-- Trigger -->
@@ -111,12 +120,12 @@
     bind:this={triggerElement}
     role="button"
     tabindex="0"
-    on:click={handleTriggerClick}
-    on:mouseenter={handleMouseEnter}
-    on:mouseleave={handleMouseLeave}
-    on:keydown={(e) => e.key === 'Enter' && handleTriggerClick()}
+    onclick={handleTriggerClick}
+    onmouseenter={handleMouseEnter}
+    onmouseleave={handleMouseLeave}
+    onkeydown={(e) => e.key === 'Enter' && handleTriggerClick()}
   >
-    <slot name="trigger" />
+    {@render triggerContent?.()}
   </div>
 
   <!-- Content -->
@@ -130,10 +139,10 @@
       )}
       data-state={open ? 'open' : 'closed'}
       role="tooltip"
-      on:mouseenter={handleContentMouseEnter}
-      on:mouseleave={handleContentMouseLeave}
+      onmouseenter={handleContentMouseEnter}
+      onmouseleave={handleContentMouseLeave}
     >
-      <slot name="content" />
+      {@render content?.()}
     </div>
   {/if}
 </div>

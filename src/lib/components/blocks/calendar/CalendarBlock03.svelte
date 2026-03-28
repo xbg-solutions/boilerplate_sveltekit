@@ -6,17 +6,21 @@
   import { cn } from '@xbg.solutions/frontend-core';
   import { Button } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    startDate = null,
+    endDate = null
+  }: {
+    class?: string;
+    startDate?: Date | null;
+    endDate?: Date | null;
+  } = $props();
 
-  export let startDate: Date | null = null;
-  export let endDate: Date | null = null;
-
-  let viewYear = startDate ? startDate.getFullYear() : new Date().getFullYear();
-  let viewMonth = startDate ? startDate.getMonth() : new Date().getMonth();
+  let viewYear = $state(startDate ? startDate.getFullYear() : new Date().getFullYear());
+  let viewMonth = $state(startDate ? startDate.getMonth() : new Date().getMonth());
 
   /** Track whether next click sets start or end */
-  let selectingEnd = false;
+  let selectingEnd = $state(false);
 
   const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   const MONTHS = [
@@ -97,22 +101,22 @@
     else { viewMonth++; }
   }
 
-  $: secondMonth = viewMonth === 11 ? 0 : viewMonth + 1;
-  $: secondYear = viewMonth === 11 ? viewYear + 1 : viewYear;
-  $: leftDays = getCalendarDays(viewYear, viewMonth);
-  $: rightDays = getCalendarDays(secondYear, secondMonth);
+  let secondMonth = $derived(viewMonth === 11 ? 0 : viewMonth + 1);
+  let secondYear = $derived(viewMonth === 11 ? viewYear + 1 : viewYear);
+  let leftDays = $derived(getCalendarDays(viewYear, viewMonth));
+  let rightDays = $derived(getCalendarDays(secondYear, secondMonth));
 </script>
 
 <div class={cn('inline-flex flex-col', className)}>
   <!-- Navigation -->
   <div class="mb-4 flex items-center justify-between">
-    <Button variant="outline" size="sm" on:click={prevMonth}>
+    <Button variant="outline" size="sm" onclick={prevMonth}>
       &lt;
     </Button>
     <span class="text-sm font-medium">
       {MONTHS[viewMonth]} {viewYear} - {MONTHS[secondMonth]} {secondYear}
     </span>
-    <Button variant="outline" size="sm" on:click={nextMonth}>
+    <Button variant="outline" size="sm" onclick={nextMonth}>
       &gt;
     </Button>
   </div>
@@ -148,7 +152,7 @@
               current && isRangeEnd(viewYear, viewMonth, day) && 'rounded-r-full bg-primary text-primary-foreground hover:bg-primary',
               current && !isRangeStart(viewYear, viewMonth, day) && !isRangeEnd(viewYear, viewMonth, day) && !isInRange(viewYear, viewMonth, day) && 'rounded-full'
             )}
-            on:click={() => current && selectDay(viewYear, viewMonth, day)}
+            onclick={() => current && selectDay(viewYear, viewMonth, day)}
             disabled={!current}
           >
             {day}
@@ -178,7 +182,7 @@
               current && isRangeEnd(secondYear, secondMonth, day) && 'rounded-r-full bg-primary text-primary-foreground hover:bg-primary',
               current && !isRangeStart(secondYear, secondMonth, day) && !isRangeEnd(secondYear, secondMonth, day) && !isInRange(secondYear, secondMonth, day) && 'rounded-full'
             )}
-            on:click={() => current && selectDay(secondYear, secondMonth, day)}
+            onclick={() => current && selectDay(secondYear, secondMonth, day)}
             disabled={!current}
           >
             {day}

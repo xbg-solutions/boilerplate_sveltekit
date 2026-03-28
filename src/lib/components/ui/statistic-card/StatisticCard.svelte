@@ -4,20 +4,31 @@
 
   Usage:
   <StatisticCard title="Total Revenue" value="$45,231.89" change="+20.1%" changeType="positive">
-    <svelte:fragment slot="icon"><DollarIcon /></svelte:fragment>
+    {#snippet icon()}<DollarIcon />{/snippet}
   </StatisticCard>
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
   import { Card, CardHeader, CardContent, CardTitle } from '$lib/components/ui/card';
+  import type { Snippet } from 'svelte';
 
-  export let title: string;
-  export let value: string;
-  export let change: string = '';
-  export let changeType: 'positive' | 'negative' | 'neutral' = 'neutral';
-
-  let className: string = '';
-  export { className as class };
+  let {
+    title,
+    value,
+    change = '',
+    changeType = 'neutral',
+    class: className = '',
+    icon,
+    ...rest
+  }: {
+    title: string;
+    value: string;
+    change?: string;
+    changeType?: 'positive' | 'negative' | 'neutral';
+    class?: string;
+    icon?: Snippet;
+    [key: string]: unknown;
+  } = $props();
 
   const changeColors = {
     positive: 'text-emerald-600',
@@ -26,10 +37,10 @@
   };
 </script>
 
-<Card class={className} {...$$restProps}>
+<Card class={className} {...rest}>
   <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
     <CardTitle class="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-    <slot name="icon" />
+    {@render icon?.()}
   </CardHeader>
   <CardContent>
     <div class="text-2xl font-bold">{value}</div>

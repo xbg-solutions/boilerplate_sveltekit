@@ -4,6 +4,7 @@
   Features workspace selector, date range, and tab navigation.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
@@ -24,48 +25,63 @@
   } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
-
-  /** Stat cards data */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change: string;
-    icon?: string;
-  }> = [];
-
-  /** Recent sales data */
-  export let recentSales: Array<{
-    name: string;
-    email: string;
-    amount: string;
-    avatar?: string;
-  }> = [];
-
-  /** Date range label displayed in header */
-  export let dateRange: string = 'Jan 20, 2024 - Feb 09, 2024';
-
-  /** Currently active tab */
-  export let activeTab: string = 'overview';
-
-  /** Workspace/team name */
-  export let workspaceName: string = 'My Workspace';
-
-  /** User info for avatar */
-  export let user: { name: string; avatar?: string } = { name: 'User' };
-
-  /** Tab options */
-  export let tabs: Array<{ value: string; label: string }> = [
-    { value: 'overview', label: 'Overview' },
-    { value: 'analytics', label: 'Analytics' },
-    { value: 'reports', label: 'Reports' },
-    { value: 'notifications', label: 'Notifications' }
-  ];
-
-  export let onTabChange: ((tab: string) => void) | undefined = undefined;
-  export let onDateRangeClick: (() => void) | undefined = undefined;
-  export let onDownload: (() => void) | undefined = undefined;
+  let {
+    class: className = '',
+    stats = [],
+    recentSales = [],
+    dateRange = 'Jan 20, 2024 - Feb 09, 2024',
+    activeTab = $bindable('overview'),
+    workspaceName = 'My Workspace',
+    user = { name: 'User' },
+    tabs = [
+      { value: 'overview', label: 'Overview' },
+      { value: 'analytics', label: 'Analytics' },
+      { value: 'reports', label: 'Reports' },
+      { value: 'notifications', label: 'Notifications' }
+    ],
+    onTabChange = undefined,
+    onDateRangeClick = undefined,
+    onDownload = undefined,
+    'workspace-menu': workspaceMenu,
+    chart,
+    analytics,
+    reports,
+    notifications
+  }: {
+    class?: string;
+    /** Stat cards data */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change: string;
+      icon?: string;
+    }>;
+    /** Recent sales data */
+    recentSales?: Array<{
+      name: string;
+      email: string;
+      amount: string;
+      avatar?: string;
+    }>;
+    /** Date range label displayed in header */
+    dateRange?: string;
+    /** Currently active tab */
+    activeTab?: string;
+    /** Workspace/team name */
+    workspaceName?: string;
+    /** User info for avatar */
+    user?: { name: string; avatar?: string };
+    /** Tab options */
+    tabs?: Array<{ value: string; label: string }>;
+    onTabChange?: ((tab: string) => void) | undefined;
+    onDateRangeClick?: (() => void) | undefined;
+    onDownload?: (() => void) | undefined;
+    'workspace-menu'?: Snippet;
+    chart?: Snippet;
+    analytics?: Snippet;
+    reports?: Snippet;
+    notifications?: Snippet;
+  } = $props();
 
   const iconMap: Record<string, string> = {
     revenue: 'dollar-sign',
@@ -82,8 +98,8 @@
     return 'circle';
   }
 
-  function handleTabChange(e: CustomEvent<{ value: string }>) {
-    activeTab = e.detail.value;
+  function handleTabChange(detail: { value: string }) {
+    activeTab = detail.value;
     onTabChange?.(activeTab);
   }
 </script>
@@ -101,9 +117,11 @@
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <slot name="workspace-menu">
+          {#if workspaceMenu}
+            {@render workspaceMenu()}
+          {:else}
             <DropdownMenuItem>{workspaceName}</DropdownMenuItem>
-          </slot>
+          {/if}
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -119,17 +137,17 @@
     <div class="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0">
       <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
       <div class="flex items-center space-x-2">
-        <Button variant="outline" on:click={() => onDateRangeClick?.()}>
+        <Button variant="outline" onclick={() => onDateRangeClick?.()}>
           <!-- Calendar icon -->
           <span class="mr-2" aria-hidden="true"><DynamicIcon name="calendar" size={16} /></span>
           {dateRange}
         </Button>
-        <Button on:click={() => onDownload?.()}>Download</Button>
+        <Button onclick={() => onDownload?.()}>Download</Button>
       </div>
     </div>
 
     <!-- Tabs -->
-    <Tabs value={activeTab} on:change={handleTabChange}>
+    <Tabs value={activeTab} onchange={handleTabChange}>
       <TabsList>
         {#each tabs as tab}
           <TabsTrigger value={tab.value}>{tab.label}</TabsTrigger>
@@ -166,11 +184,13 @@
             </CardHeader>
             <CardContent class="pl-2">
               <!-- Chart slot: insert your chart component here -->
-              <slot name="chart">
+              {#if chart}
+                {@render chart()}
+              {:else}
                 <div class="flex h-[350px] items-center justify-center rounded-md border border-dashed text-muted-foreground">
                   Chart placeholder
                 </div>
-              </slot>
+              {/if}
             </CardContent>
           </Card>
 
@@ -204,29 +224,35 @@
         </div>
       </TabsContent>
 
-      <!-- Other tab contents as slots -->
+      <!-- Other tab contents as snippet props -->
       <TabsContent value="analytics">
-        <slot name="analytics">
+        {#if analytics}
+          {@render analytics()}
+        {:else}
           <div class="flex h-[400px] items-center justify-center rounded-md border border-dashed text-muted-foreground mt-4">
             Analytics content
           </div>
-        </slot>
+        {/if}
       </TabsContent>
 
       <TabsContent value="reports">
-        <slot name="reports">
+        {#if reports}
+          {@render reports()}
+        {:else}
           <div class="flex h-[400px] items-center justify-center rounded-md border border-dashed text-muted-foreground mt-4">
             Reports content
           </div>
-        </slot>
+        {/if}
       </TabsContent>
 
       <TabsContent value="notifications">
-        <slot name="notifications">
+        {#if notifications}
+          {@render notifications()}
+        {:else}
           <div class="flex h-[400px] items-center justify-center rounded-md border border-dashed text-muted-foreground mt-4">
             Notifications content
           </div>
-        </slot>
+        {/if}
       </TabsContent>
     </Tabs>
   </main>

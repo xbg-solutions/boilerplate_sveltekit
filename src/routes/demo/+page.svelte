@@ -33,17 +33,17 @@
   import { Info, AlertTriangle, CheckCircle, X } from 'lucide-svelte';
 
   // Component state
-  let inputValue = '';
-  let textareaValue = '';
-  let selectValue = '';
-  let checkboxValue = false;
-  let radioValue = 'option1';
-  let darkMode = false;
-  let dialogOpen = false;
-  let sheetOpen = false;
-  let activeTab = 'overview';
-  let currentPage = 1;
-  let progressValue = 65;
+  let inputValue = $state('');
+  let textareaValue = $state('');
+  let selectValue = $state('');
+  let checkboxValue = $state(false);
+  let radioValue = $state('option1');
+  let darkMode = $state(false);
+  let dialogOpen = $state(false);
+  let sheetOpen = $state(false);
+  let activeTab = $state('overview');
+  let currentPage = $state(1);
+  let progressValue = $state(65);
 
   // Form options
   const selectOptions = [
@@ -87,11 +87,11 @@
       <h1 class="text-4xl font-bold">SHADCN-Svelte Demo</h1>
       <p class="text-muted-foreground">Comprehensive component library demonstration</p>
       <div class="flex justify-center gap-2">
-        <Button variant="outline" on:click={toggleDarkMode}>
+        <Button variant="outline" onclick={toggleDarkMode}>
           Toggle {darkMode ? 'Light' : 'Dark'} Mode
         </Button>
-        <Button on:click={() => dialogOpen = true}>Open Dialog</Button>
-        <Button variant="secondary" on:click={() => sheetOpen = true}>Open Sheet</Button>
+        <Button onclick={() => dialogOpen = true}>Open Dialog</Button>
+        <Button variant="secondary" onclick={() => sheetOpen = true}>Open Sheet</Button>
       </div>
     </div>
 
@@ -149,7 +149,7 @@
         <div class="space-y-2">
           <div class="flex justify-between items-center">
             <span class="text-sm font-medium">Project Progress</span>
-            <Button size="sm" variant="outline" on:click={animateProgress}>Randomize</Button>
+            <Button size="sm" variant="outline" onclick={animateProgress}>Randomize</Button>
           </div>
           <Progress value={progressValue} showLabel={true} />
         </div>
@@ -193,7 +193,7 @@
             bind:value={selectValue}
             options={selectOptions}
             placeholder="Choose an option..."
-            on:change={(e) => console.log('Selected:', e.detail.value)}
+            onchange={(value) => console.log('Selected:', value)}
           />
         </div>
 
@@ -291,7 +291,7 @@
           <Pagination
             bind:currentPage
             totalPages={10}
-            on:page-change={(e) => console.log('Page changed to:', e.detail.page)}
+            onPageChange={(page) => console.log('Page changed to:', page)}
           />
           <p class="text-sm text-muted-foreground mt-2">Current page: {currentPage}</p>
         </div>
@@ -385,10 +385,10 @@
         <div>
           <h4 class="font-medium mb-4">Popover Example</h4>
           <Popover>
-            <svelte:fragment slot="trigger">
+            {#snippet triggerContent()}
               <Button variant="outline">Open Popover</Button>
-            </svelte:fragment>
-            <svelte:fragment slot="content">
+            {/snippet}
+            {#snippet content()}
               <div class="space-y-2">
                 <h4 class="font-medium">Popover Content</h4>
                 <p class="text-sm text-muted-foreground">
@@ -396,7 +396,7 @@
                 </p>
                 <Button size="sm" class="w-full">Action Button</Button>
               </div>
-            </svelte:fragment>
+            {/snippet}
           </Popover>
         </div>
       </CardContent>
@@ -416,8 +416,8 @@
     <p class="text-sm">Dialog content goes here. You can include forms, information, or any other content.</p>
   </div>
   <DialogFooter>
-    <Button variant="outline" on:click={() => dialogOpen = false}>Cancel</Button>
-    <Button on:click={() => dialogOpen = false}>Confirm</Button>
+    <Button variant="outline" onclick={() => dialogOpen = false}>Cancel</Button>
+    <Button onclick={() => dialogOpen = false}>Confirm</Button>
   </DialogFooter>
 </Dialog>
 
@@ -433,6 +433,6 @@
       <Label htmlFor="sheet-input">Sheet Input</Label>
       <Input id="sheet-input" placeholder="Enter something..." />
     </div>
-    <Button class="w-full" on:click={() => sheetOpen = false}>Close Sheet</Button>
+    <Button class="w-full" onclick={() => sheetOpen = false}>Close Sheet</Button>
   </div>
 </Sheet>

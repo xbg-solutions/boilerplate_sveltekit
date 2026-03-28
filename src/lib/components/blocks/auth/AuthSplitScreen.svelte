@@ -3,6 +3,7 @@
   Split-screen auth layout with dark branded panel on left and form slot on right.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
@@ -12,20 +13,31 @@
   } from '$lib/components/ui';
   import { BrandIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    brandName = 'Acme Inc.',
+    brandLogo = '',
+    testimonialQuote = '',
+    testimonialAuthor = '',
+    onEmailSubmit = undefined,
+    onGithubLogin = undefined,
+    onTermsClick = undefined,
+    onPrivacyClick = undefined,
+    children = undefined
+  }: {
+    class?: string;
+    brandName?: string;
+    brandLogo?: string;
+    testimonialQuote?: string;
+    testimonialAuthor?: string;
+    onEmailSubmit?: ((email: string) => void) | undefined;
+    onGithubLogin?: (() => void) | undefined;
+    onTermsClick?: (() => void) | undefined;
+    onPrivacyClick?: (() => void) | undefined;
+    children?: Snippet;
+  } = $props();
 
-  export let brandName: string = 'Acme Inc.';
-  export let brandLogo: string = '';
-  export let testimonialQuote: string = '';
-  export let testimonialAuthor: string = '';
-
-  export let onEmailSubmit: ((email: string) => void) | undefined = undefined;
-  export let onGithubLogin: (() => void) | undefined = undefined;
-  export let onTermsClick: (() => void) | undefined = undefined;
-  export let onPrivacyClick: (() => void) | undefined = undefined;
-
-  let email = '';
+  let email = $state('');
 
   function handleEmailSubmit() {
     onEmailSubmit?.(email);
@@ -63,14 +75,16 @@
   <!-- Right panel: auth form -->
   <div class="flex items-center justify-center p-6 lg:p-8">
     <div class="w-full max-w-sm space-y-6">
-      <slot>
-        <!-- Default content if no slot is provided -->
+      {#if children}
+        {@render children()}
+      {:else}
+        <!-- Default content if no children is provided -->
         <div class="space-y-2 text-center">
           <h1 class="text-2xl font-semibold tracking-tight">Create an account</h1>
           <p class="text-sm text-muted-foreground">Enter your email below to create your account</p>
         </div>
 
-        <form on:submit|preventDefault={handleEmailSubmit} class="space-y-4">
+        <form onsubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }} class="space-y-4">
           <div class="space-y-2">
             <Label htmlFor="split-email">Email</Label>
             <Input
@@ -89,7 +103,7 @@
           </span>
         </div>
 
-        <Button variant="outline" class="w-full" on:click={onGithubLogin}>
+        <Button variant="outline" class="w-full" onclick={onGithubLogin}>
           <BrandIcon name="github" size={16} class="mr-2" />
           GitHub
         </Button>
@@ -99,7 +113,7 @@
           <button
             type="button"
             class="underline underline-offset-4 hover:text-primary"
-            on:click={onTermsClick}
+            onclick={onTermsClick}
           >
             Terms of Service
           </button>
@@ -107,12 +121,12 @@
           <button
             type="button"
             class="underline underline-offset-4 hover:text-primary"
-            on:click={onPrivacyClick}
+            onclick={onPrivacyClick}
           >
             Privacy Policy
           </button>.
         </p>
-      </slot>
+      {/if}
     </div>
   </div>
 </div>

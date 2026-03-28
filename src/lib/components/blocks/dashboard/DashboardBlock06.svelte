@@ -23,41 +23,51 @@
     TableCell
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    rows = [],
+    columns = ['Customer', 'Type', 'Status', 'Date', 'Amount'],
+    currentPage = 1,
+    totalPages = 1,
+    totalItems = 0,
+    pageSize = 10,
+    title = 'Transactions',
+    description = 'A list of all transactions.',
+    onPageChange = undefined,
+    onSearch = undefined,
+    onRowClick = undefined,
+    onExport = undefined
+  }: {
+    class?: string;
+    /** Table rows */
+    rows?: Array<{
+      id: string;
+      name: string;
+      email: string;
+      status: string;
+      type: string;
+      amount: string;
+      date: string;
+    }>;
+    /** Column headers */
+    columns?: string[];
+    /** Pagination state */
+    currentPage?: number;
+    totalPages?: number;
+    totalItems?: number;
+    pageSize?: number;
+    title?: string;
+    description?: string;
+    onPageChange?: ((page: number) => void) | undefined;
+    onSearch?: ((query: string) => void) | undefined;
+    onRowClick?: ((id: string) => void) | undefined;
+    onExport?: (() => void) | undefined;
+  } = $props();
 
-  /** Table rows */
-  export let rows: Array<{
-    id: string;
-    name: string;
-    email: string;
-    status: string;
-    type: string;
-    amount: string;
-    date: string;
-  }> = [];
+  let searchQuery = $state('');
 
-  /** Column headers */
-  export let columns: string[] = ['Customer', 'Type', 'Status', 'Date', 'Amount'];
-
-  /** Pagination state */
-  export let currentPage: number = 1;
-  export let totalPages: number = 1;
-  export let totalItems: number = 0;
-  export let pageSize: number = 10;
-
-  export let title: string = 'Transactions';
-  export let description: string = 'A list of all transactions.';
-
-  export let onPageChange: ((page: number) => void) | undefined = undefined;
-  export let onSearch: ((query: string) => void) | undefined = undefined;
-  export let onRowClick: ((id: string) => void) | undefined = undefined;
-  export let onExport: (() => void) | undefined = undefined;
-
-  let searchQuery = '';
-
-  $: startItem = (currentPage - 1) * pageSize + 1;
-  $: endItem = Math.min(currentPage * pageSize, totalItems);
+  let startItem = $derived((currentPage - 1) * pageSize + 1);
+  let endItem = $derived(Math.min(currentPage * pageSize, totalItems));
 
   function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {
     switch (status.toLowerCase()) {
@@ -87,9 +97,9 @@
         placeholder="Search..."
         class="w-[200px]"
         bind:value={searchQuery}
-        on:input={() => onSearch?.(searchQuery)}
+        oninput={() => onSearch?.(searchQuery)}
       />
-      <Button variant="outline" on:click={() => onExport?.()}>
+      <Button variant="outline" onclick={() => onExport?.()}>
         Export
       </Button>
     </div>
@@ -112,7 +122,7 @@
           {#each rows as row}
             <TableRow
               class="cursor-pointer"
-              on:click={() => onRowClick?.(row.id)}
+              onclick={() => onRowClick?.(row.id)}
             >
               <TableCell>
                 <div class="font-medium">{row.name}</div>
@@ -142,7 +152,7 @@
           variant="outline"
           size="sm"
           disabled={currentPage <= 1}
-          on:click={() => onPageChange?.(currentPage - 1)}
+          onclick={() => onPageChange?.(currentPage - 1)}
         >
           Previous
         </Button>
@@ -153,7 +163,7 @@
           variant="outline"
           size="sm"
           disabled={currentPage >= totalPages}
-          on:click={() => onPageChange?.(currentPage + 1)}
+          onclick={() => onPageChange?.(currentPage + 1)}
         >
           Next
         </Button>

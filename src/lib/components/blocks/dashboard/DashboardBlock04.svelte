@@ -22,42 +22,46 @@
     TableCell
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
-
-  /** Orders data */
-  export let orders: Array<{
-    id: string;
-    customer: string;
-    email: string;
-    type: string;
-    status: string;
-    date: string;
-    amount: string;
-  }> = [];
-
-  /** Selected order detail */
-  export let selectedOrder: {
-    id: string;
-    date: string;
-    items: Array<{ name: string; qty: number; price: string }>;
-    subtotal: string;
-    shipping: string;
-    tax: string;
-    total: string;
-    customer?: { name: string; email: string; phone?: string };
-    paymentMethod?: string;
-  } | null = null;
-
-  /** Summary stats */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change?: string;
-  }> = [];
-
-  export let onSelectOrder: ((id: string) => void) | undefined = undefined;
-  export let onCreateOrder: (() => void) | undefined = undefined;
+  let {
+    class: className = '',
+    orders = [],
+    selectedOrder = null,
+    stats = [],
+    onSelectOrder = undefined,
+    onCreateOrder = undefined
+  }: {
+    class?: string;
+    /** Orders data */
+    orders?: Array<{
+      id: string;
+      customer: string;
+      email: string;
+      type: string;
+      status: string;
+      date: string;
+      amount: string;
+    }>;
+    /** Selected order detail */
+    selectedOrder?: {
+      id: string;
+      date: string;
+      items: Array<{ name: string; qty: number; price: string }>;
+      subtotal: string;
+      shipping: string;
+      tax: string;
+      total: string;
+      customer?: { name: string; email: string; phone?: string };
+      paymentMethod?: string;
+    } | null;
+    /** Summary stats */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change?: string;
+    }>;
+    onSelectOrder?: ((id: string) => void) | undefined;
+    onCreateOrder?: (() => void) | undefined;
+  } = $props();
 
   function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {
     switch (status.toLowerCase()) {
@@ -80,7 +84,7 @@
           <h1 class="text-2xl font-bold tracking-tight">Orders</h1>
           <p class="text-muted-foreground">Manage and track your orders.</p>
         </div>
-        <Button on:click={() => onCreateOrder?.()}>Create Order</Button>
+        <Button onclick={() => onCreateOrder?.()}>Create Order</Button>
       </div>
 
       <!-- Stats Row -->
@@ -119,7 +123,7 @@
               {#each orders as order}
                 <TableRow
                   class="cursor-pointer"
-                  on:click={() => onSelectOrder?.(order.id)}
+                  onclick={() => onSelectOrder?.(order.id)}
                 >
                   <TableCell>
                     <div class="font-medium">{order.customer}</div>

@@ -16,14 +16,18 @@
     Label
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onSubmit = undefined,
+    onSignIn = undefined
+  }: {
+    class?: string;
+    onSubmit?: ((data: { email: string; password: string }) => void) | undefined;
+    onSignIn?: (() => void) | undefined;
+  } = $props();
 
-  export let onSubmit: ((data: { email: string; password: string }) => void) | undefined = undefined;
-  export let onSignIn: (() => void) | undefined = undefined;
-
-  let email = '';
-  let password = '';
+  let email = $state('');
+  let password = $state('');
 
   function handleSubmit() {
     onSubmit?.({ email, password });
@@ -37,7 +41,7 @@
       <CardDescription>Enter your email and password to get started</CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label htmlFor="signup05-email">Email</Label>
           <Input
@@ -63,7 +67,7 @@
         <button
           type="button"
           class="text-primary underline-offset-4 hover:underline"
-          on:click={onSignIn}
+          onclick={onSignIn}
         >
           Sign in
         </button>

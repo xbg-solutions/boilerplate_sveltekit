@@ -1,29 +1,35 @@
 <!--
   src/lib/components/ui/Pagination.svelte
   SHADCN-Svelte Pagination Component
-  
+
   AI SYSTEMS: Use this component for paginated navigation.
   Supports keyboard navigation and proper accessibility.
 -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-svelte';
   import { cn } from '$lib/utils/cn';
 
   // Component props
-  export let currentPage: number = 1;
-  export let totalPages: number = 1;
-  export let showFirstLast: boolean = true;
-  export let showPrevNext: boolean = true;
-  export let maxVisiblePages: number = 5;
-  export let disabled: boolean = false;
-
-  const dispatch = createEventDispatcher<{
-    'page-change': { page: number };
-  }>();
+  let {
+    currentPage = $bindable(1),
+    totalPages = 1,
+    showFirstLast = true,
+    showPrevNext = true,
+    maxVisiblePages = 5,
+    disabled = false,
+    onPageChange,
+  }: {
+    currentPage?: number;
+    totalPages?: number;
+    showFirstLast?: boolean;
+    showPrevNext?: boolean;
+    maxVisiblePages?: number;
+    disabled?: boolean;
+    onPageChange?: (detail: { page: number }) => void;
+  } = $props();
 
   // Calculate visible page numbers
-  $: visiblePages = calculateVisiblePages(currentPage, totalPages, maxVisiblePages);
+  let visiblePages = $derived(calculateVisiblePages(currentPage, totalPages, maxVisiblePages));
 
   function calculateVisiblePages(current: number, total: number, maxVisible: number): (number | 'ellipsis')[] {
     if (total <= maxVisible) {
@@ -66,9 +72,9 @@
     if (disabled || page < 1 || page > totalPages || page === currentPage) {
       return;
     }
-    
+
     currentPage = page;
-    dispatch('page-change', { page });
+    onPageChange?.({ page });
   }
 
   // Handle keyboard navigation
@@ -96,7 +102,7 @@
             'hover:bg-accent hover:text-accent-foreground h-8 px-3'
           )}
           {disabled}
-          on:click={() => changePage(1)}
+          onclick={() => changePage(1)}
         >
           First
         </button>
@@ -115,7 +121,7 @@
             'hover:bg-accent hover:text-accent-foreground h-8 px-3'
           )}
           disabled={disabled || currentPage <= 1}
-          on:click={() => changePage(currentPage - 1)}
+          onclick={() => changePage(currentPage - 1)}
         >
           <ChevronLeft class="h-4 w-4" />
           <span class="sr-only">Previous page</span>
@@ -146,8 +152,8 @@
             aria-label={`Page ${page}`}
             aria-current={page === currentPage ? 'page' : undefined}
             {disabled}
-            on:click={() => changePage(page)}
-            on:keydown={(e) => handleKeydown(e, page)}
+            onclick={() => changePage(page)}
+            onkeydown={(e) => handleKeydown(e, page)}
           >
             {page}
           </button>
@@ -167,7 +173,7 @@
             'hover:bg-accent hover:text-accent-foreground h-8 px-3'
           )}
           disabled={disabled || currentPage >= totalPages}
-          on:click={() => changePage(currentPage + 1)}
+          onclick={() => changePage(currentPage + 1)}
         >
           <ChevronRight class="h-4 w-4" />
           <span class="sr-only">Next page</span>
@@ -187,7 +193,7 @@
             'hover:bg-accent hover:text-accent-foreground h-8 px-3'
           )}
           {disabled}
-          on:click={() => changePage(totalPages)}
+          onclick={() => changePage(totalPages)}
         >
           Last
         </button>

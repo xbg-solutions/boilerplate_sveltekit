@@ -4,6 +4,7 @@
   and a right detail panel for viewing individual order info.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
@@ -28,67 +29,76 @@
   } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    sidebarItems = [
+      { label: 'Dashboard', icon: 'home', active: true },
+      { label: 'Orders', icon: 'clipboard-list' },
+      { label: 'Products', icon: 'box' },
+      { label: 'Customers', icon: 'users' },
+      { label: 'Settings', icon: 'settings' }
+    ],
+    stats = [],
+    orders = [],
+    selectedOrder = null,
+    activeTab = $bindable('week'),
+    onCreateOrder = undefined,
+    onSelectOrder = undefined,
+    onSidebarClick = undefined,
+    onFilter = undefined,
+    onExport = undefined,
+    'order-actions': orderActions
+  }: {
+    class?: string;
+    /** Sidebar navigation icons */
+    sidebarItems?: Array<{
+      label: string;
+      icon: string;
+      active?: boolean;
+      href?: string;
+    }>;
+    /** Summary stat cards */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change?: string;
+    }>;
+    /** Orders table data */
+    orders?: Array<{
+      id: string;
+      customer: string;
+      type: string;
+      status: string;
+      date: string;
+      amount: string;
+    }>;
+    /** Currently selected order detail */
+    selectedOrder?: {
+      id: string;
+      date: string;
+      items: Array<{ name: string; qty: number; price: string }>;
+      subtotal: string;
+      shipping: string;
+      tax: string;
+      total: string;
+      shippingAddress?: string;
+      billingAddress?: string;
+      customerName?: string;
+      customerEmail?: string;
+      paymentMethod?: string;
+    } | null;
+    /** Active time period tab */
+    activeTab?: string;
+    onCreateOrder?: (() => void) | undefined;
+    onSelectOrder?: ((id: string) => void) | undefined;
+    onSidebarClick?: ((label: string) => void) | undefined;
+    onFilter?: (() => void) | undefined;
+    onExport?: (() => void) | undefined;
+    'order-actions'?: Snippet;
+  } = $props();
 
-  /** Sidebar navigation icons */
-  export let sidebarItems: Array<{
-    label: string;
-    icon: string;
-    active?: boolean;
-    href?: string;
-  }> = [
-    { label: 'Dashboard', icon: 'home', active: true },
-    { label: 'Orders', icon: 'clipboard-list' },
-    { label: 'Products', icon: 'box' },
-    { label: 'Customers', icon: 'users' },
-    { label: 'Settings', icon: 'settings' }
-  ];
-
-  /** Summary stat cards */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change?: string;
-  }> = [];
-
-  /** Orders table data */
-  export let orders: Array<{
-    id: string;
-    customer: string;
-    type: string;
-    status: string;
-    date: string;
-    amount: string;
-  }> = [];
-
-  /** Currently selected order detail */
-  export let selectedOrder: {
-    id: string;
-    date: string;
-    items: Array<{ name: string; qty: number; price: string }>;
-    subtotal: string;
-    shipping: string;
-    tax: string;
-    total: string;
-    shippingAddress?: string;
-    billingAddress?: string;
-    customerName?: string;
-    customerEmail?: string;
-    paymentMethod?: string;
-  } | null = null;
-
-  /** Active time period tab */
-  export let activeTab: string = 'week';
-
-  export let onCreateOrder: (() => void) | undefined = undefined;
-  export let onSelectOrder: ((id: string) => void) | undefined = undefined;
-  export let onSidebarClick: ((label: string) => void) | undefined = undefined;
-  export let onFilter: (() => void) | undefined = undefined;
-  export let onExport: (() => void) | undefined = undefined;
-
-  function handleTabChange(e: CustomEvent<{ value: string }>) {
-    activeTab = e.detail.value;
+  function handleTabChange(detail: { value: string }) {
+    activeTab = detail.value;
   }
 
   function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {
@@ -113,7 +123,7 @@
             item.active && 'bg-primary text-primary-foreground'
           )}
           title={item.label}
-          on:click={() => onSidebarClick?.(item.label)}
+          onclick={() => onSidebarClick?.(item.label)}
         >
           <DynamicIcon name={item.icon} size={20} />
         </button>
@@ -129,7 +139,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between">
           <h1 class="text-2xl font-bold tracking-tight">Your Orders</h1>
-          <Button on:click={() => onCreateOrder?.()}>Create New Order</Button>
+          <Button onclick={() => onCreateOrder?.()}>Create New Order</Button>
         </div>
 
         <!-- Stat Cards -->
@@ -150,7 +160,7 @@
         </div>
 
         <!-- Tabs + Table -->
-        <Tabs value={activeTab} on:change={handleTabChange}>
+        <Tabs value={activeTab} onchange={handleTabChange}>
           <div class="flex items-center justify-between">
             <TabsList>
               <TabsTrigger value="week">Week</TabsTrigger>
@@ -158,10 +168,10 @@
               <TabsTrigger value="year">Year</TabsTrigger>
             </TabsList>
             <div class="flex items-center gap-2">
-              <Button variant="outline" size="sm" on:click={() => onFilter?.()}>
+              <Button variant="outline" size="sm" onclick={() => onFilter?.()}>
                 Filter
               </Button>
-              <Button variant="outline" size="sm" on:click={() => onExport?.()}>
+              <Button variant="outline" size="sm" onclick={() => onExport?.()}>
                 Export
               </Button>
             </div>
@@ -184,7 +194,7 @@
                     {#each orders as order}
                       <TableRow
                         class="cursor-pointer"
-                        on:click={() => onSelectOrder?.(order.id)}
+                        onclick={() => onSelectOrder?.(order.id)}
                       >
                         <TableCell class="font-medium">{order.customer}</TableCell>
                         <TableCell>{order.type}</TableCell>
@@ -214,7 +224,9 @@
                 <CardTitle class="text-lg">Order {selectedOrder.id}</CardTitle>
                 <CardDescription>{selectedOrder.date}</CardDescription>
               </div>
-              <slot name="order-actions" />
+              {#if orderActions}
+                {@render orderActions()}
+              {/if}
             </div>
           </CardHeader>
           <CardContent class="space-y-4">

@@ -16,14 +16,19 @@
     Label
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onVerify = undefined,
+    onResend = undefined,
+    email = ''
+  }: {
+    class?: string;
+    onVerify?: ((code: string) => void) | undefined;
+    onResend?: (() => void) | undefined;
+    email?: string;
+  } = $props();
 
-  export let onVerify: ((code: string) => void) | undefined = undefined;
-  export let onResend: (() => void) | undefined = undefined;
-  export let email: string = '';
-
-  let code = '';
+  let code = $state('');
 
   function handleInput(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -44,7 +49,7 @@
       </CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label>Verification code</Label>
           <Input
@@ -52,8 +57,8 @@
             inputmode="numeric"
             placeholder="000000"
             value={code}
-            className="text-center text-lg tracking-[0.5em] font-mono"
-            on:input={handleInput}
+            class="text-center text-lg tracking-[0.5em] font-mono"
+            oninput={handleInput}
           />
           <p class="text-xs text-muted-foreground text-center">Enter the 6-digit code sent to your email.</p>
         </div>
@@ -66,7 +71,7 @@
         <button
           type="button"
           class="text-primary underline-offset-4 hover:underline"
-          on:click={onResend}
+          onclick={onResend}
         >
           Resend
         </button>

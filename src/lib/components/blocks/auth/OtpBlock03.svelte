@@ -3,7 +3,6 @@
   OTP verification with countdown timer for resend.
 -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
   import { cn } from '@xbg.solutions/frontend-core';
   import {
     Button,
@@ -16,37 +15,37 @@
     Label
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onVerify = undefined,
+    onResend = undefined,
+    email = '',
+    countdownSeconds = 60
+  }: {
+    class?: string;
+    onVerify?: ((code: string) => void) | undefined;
+    onResend?: (() => void) | undefined;
+    email?: string;
+    countdownSeconds?: number;
+  } = $props();
 
-  export let onVerify: ((code: string) => void) | undefined = undefined;
-  export let onResend: (() => void) | undefined = undefined;
-  export let email: string = '';
-  export let countdownSeconds: number = 60;
-
-  let digits: string[] = ['', '', '', '', '', ''];
-  let inputs: HTMLInputElement[] = [];
-  let remainingSeconds = countdownSeconds;
-  let intervalId: ReturnType<typeof setInterval> | null = null;
+  let digits: string[] = $state(['', '', '', '', '', '']);
+  let inputs: HTMLInputElement[] = $state([]);
+  let remainingSeconds = $state(countdownSeconds);
 
   function startCountdown() {
     remainingSeconds = countdownSeconds;
-    if (intervalId) clearInterval(intervalId);
-    intervalId = setInterval(() => {
-      remainingSeconds -= 1;
-      if (remainingSeconds <= 0) {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = null;
-      }
-    }, 1000);
   }
 
-  onMount(() => {
+  $effect(() => {
     startCountdown();
-  });
-
-  onDestroy(() => {
-    if (intervalId) clearInterval(intervalId);
+    const intervalId = setInterval(() => {
+      remainingSeconds -= 1;
+      if (remainingSeconds <= 0) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
   });
 
   function handleResend() {
@@ -88,8 +87,8 @@
     onVerify?.(digits.join(''));
   }
 
-  $: canResend = remainingSeconds <= 0;
-  $: timerDisplay = `${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')}`;
+  let canResend = $derived(remainingSeconds <= 0);
+  let timerDisplay = $derived(`${Math.floor(remainingSeconds / 60)}:${String(remainingSeconds % 60).padStart(2, '0')}`);
 </script>
 
 <div class={cn('flex min-h-screen items-center justify-center p-4', className)}>
@@ -101,7 +100,7 @@
       </CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label>Verification code</Label>
           <div class="flex gap-2 justify-center">
@@ -113,9 +112,9 @@
                 inputmode="numeric"
                 maxlength="1"
                 class="flex h-12 w-12 items-center justify-center rounded-md border border-input bg-background text-center text-lg font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                on:input={(e) => handleInput(i, e)}
-                on:keydown={(e) => handleKeydown(i, e)}
-                on:paste={handlePaste}
+                oninput={(e) => handleInput(i, e)}
+                onkeydown={(e) => handleKeydown(i, e)}
+                onpaste={handlePaste}
               />
             {/each}
           </div>
@@ -131,7 +130,7 @@
           <button
             type="button"
             class="text-primary underline-offset-4 hover:underline"
-            on:click={handleResend}
+            onclick={handleResend}
           >
             Resend
           </button>

@@ -7,49 +7,56 @@
    * Email Link Authentication component
    * Provides passwordless sign-in via email links
    */
-  
-  import { createEventDispatcher } from 'svelte';
+
   import { safeSendEmailLink } from '@xbg.solutions/utils-firebase-auth';
   import { Button } from '$lib/components/ui';
-  
-  // Event dispatcher for component events
-  const dispatch = createEventDispatcher();
-  
-  // Component props
-  export let redirectUrl: string = '/';
-  export let infoText: string = "We'll send a secure link to your email. Click the link to sign in without a password.";
-  
+
+  // Component props with callback props replacing dispatched events
+  let {
+    redirectUrl = '/',
+    infoText = "We'll send a secure link to your email. Click the link to sign in without a password.",
+    onSuccess,
+    onSent,
+    onError
+  }: {
+    redirectUrl?: string;
+    infoText?: string;
+    onSuccess?: (data: { email: string }) => void;
+    onSent?: (data: { email: string }) => void;
+    onError?: (data: { error: string }) => void;
+  } = $props();
+
   // Form state
-  let email = '';
-  let emailError = '';
-  let successMessage = '';
-  let isLoading = false;
-  
+  let email = $state('');
+  let emailError = $state('');
+  let successMessage = $state('');
+  let isLoading = $state(false);
+
   // Function to validate email
   function isValidEmail(email: string): boolean {
     return /\S+@\S+\.\S+/.test(email);
   }
-  
+
   // Function to handle email link authentication
   async function handleEmailLogin() {
     // Reset error and success states
     emailError = '';
     successMessage = '';
     isLoading = true;
-    
+
     // Validate email
     if (!email) {
       emailError = 'Please enter your email address';
       isLoading = false;
       return;
     }
-    
+
     if (!isValidEmail(email)) {
       emailError = 'Please enter a valid email address';
       isLoading = false;
       return;
     }
-    
+
     try {
       // Send email link using the auth service
       const result = await safeSendEmailLink(email, {
@@ -59,47 +66,47 @@
         },
         rememberEmail: true
       });
-      
+
       if (result.success) {
         try {
           const { storeEmail } = await import('$lib/services/auth');
           storeEmail(email);
-          dispatch('success', { email });
+          onSuccess?.({ email });
         } catch (e) {
           console.error('Failed to store email directly:', e);
         }
-        
+
         successMessage = `Authentication link sent to ${email}. Please check your inbox.`;
-        dispatch('sent', { email });
+        onSent?.({ email });
         email = '';
       } else if (result.error) {
         emailError = result.error.userMessage || 'Failed to send email link';
-        dispatch('error', { error: emailError });
+        onError?.({ error: emailError });
       }
     } catch (error) {
       console.error('Email login error:', error);
       emailError = 'An unexpected error occurred. Please try again.';
-      dispatch('error', { error: emailError });
+      onError?.({ error: emailError });
     } finally {
       isLoading = false;
     }
   }
 </script>
 
-<form on:submit|preventDefault={handleEmailLogin} class="auth-form">
+<form onsubmit={(e) => { e.preventDefault(); handleEmailLogin(); }} class="auth-form">
   <div class="bg-blue-50 text-blue-800 p-4 rounded-lg mb-4 mx-8">
     <p class="text-sm">
       {infoText}
     </p>
   </div>
-  
+
   <div class="mb-4 mx-8">
     <label for="email" class="block mb-2 font-medium text-gray-700">Email Address</label>
-    <input 
-      type="email" 
-      id="email" 
+    <input
+      type="email"
+      id="email"
       bind:value={email}
-      placeholder="your@email.com" 
+      placeholder="your@email.com"
       disabled={isLoading}
       required
       class="w-full py-2 px-3 bg-white border border-primary-dark rounded-lg text-gray-900 focus:border-accent focus:ring-2 focus:ring-accent focus:ring-opacity-30"
@@ -108,10 +115,10 @@
       <p class="text-red-600 text-sm mt-1">{emailError}</p>
     {/if}
   </div>
-  
+
   <div class="mx-8 mb-4">
-    <button 
-      type="submit" 
+    <button
+      type="submit"
       class="w-full py-2 px-4 text-white rounded-lg flex items-center justify-center font-medium disabled:opacity-60 disabled:cursor-not-allowed bg-accent"
       disabled={!email || isLoading}
     >
@@ -123,7 +130,7 @@
       {/if}
     </button>
   </div>
-  
+
   {#if successMessage}
     <div class="mt-2 mx-8 bg-green-50 text-green-800 p-4 rounded-lg">
       <p class="text-sm">{successMessage}</p>

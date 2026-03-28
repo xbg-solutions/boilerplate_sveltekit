@@ -1,37 +1,57 @@
 <!--
   FormLayout.svelte
   Centered form layout template with optional sidebar
-  
+
   Usage:
-  <FormLayout title="Login" description="Sign in to your account">
-    <form slot="form">
-      <!-- Form content -->
-    </form>
-    <div slot="sidebar">
-      <!-- Optional sidebar content -->
-    </div>
-  </FormLayout>
+  <FormLayout title="Login" description="Sign in to your account"
+    form={formSnippet}
+    sidebar={sidebarSnippet}
+  />
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { Card, CardHeader, CardTitle, CardDescription, CardContent, Separator } from '$lib/components/ui';
-  
+
   // Component props
-  export let title: string = '';
-  export let description: string = '';
-  export let showSidebar: boolean = false;
-  export let sidebarWidth: 'sm' | 'md' | 'lg' = 'md';
-  export let maxWidth: 'sm' | 'md' | 'lg' | 'xl' | '2xl' = 'md';
-  export let centered: boolean = true;
-  export let showLogo: boolean = true;
-  export let logoSrc: string = '';
-  export let logoAlt: string = 'Logo';
-  export let backgroundColor: 'white' | 'gray' | 'gradient' = 'gray';
-  
+  let {
+    title = '',
+    description = '',
+    showSidebar = false,
+    sidebarWidth = 'md',
+    maxWidth = 'md',
+    centered = true,
+    showLogo = true,
+    logoSrc = '',
+    logoAlt = 'Logo',
+    backgroundColor = 'gray',
+    form,
+    'form-footer': formFooter,
+    sidebar,
+    footer,
+    loading
+  }: {
+    title?: string;
+    description?: string;
+    showSidebar?: boolean;
+    sidebarWidth?: 'sm' | 'md' | 'lg';
+    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    centered?: boolean;
+    showLogo?: boolean;
+    logoSrc?: string;
+    logoAlt?: string;
+    backgroundColor?: 'white' | 'gray' | 'gradient';
+    form?: Snippet;
+    'form-footer'?: Snippet;
+    sidebar?: Snippet;
+    footer?: Snippet;
+    loading?: Snippet;
+  } = $props();
+
   // Computed classes
-  $: containerClasses = `min-h-screen ${getBackgroundClasses(backgroundColor)} ${centered ? 'flex items-center justify-center' : 'py-12'} px-4 sm:px-6 lg:px-8`;
-  $: maxWidthClass = getMaxWidthClass(maxWidth);
-  $: sidebarWidthClass = getSidebarWidthClass(sidebarWidth);
-  
+  let containerClasses = $derived(`min-h-screen ${getBackgroundClasses(backgroundColor)} ${centered ? 'flex items-center justify-center' : 'py-12'} px-4 sm:px-6 lg:px-8`);
+  let maxWidthClass = $derived(getMaxWidthClass(maxWidth));
+  let sidebarWidthClass = $derived(getSidebarWidthClass(sidebarWidth));
+
   function getBackgroundClasses(bg: typeof backgroundColor): string {
     switch (bg) {
       case 'white':
@@ -42,7 +62,7 @@
         return 'bg-gray-50';
     }
   }
-  
+
   function getMaxWidthClass(size: typeof maxWidth): string {
     switch (size) {
       case 'sm': return 'max-w-sm';
@@ -53,7 +73,7 @@
       default: return 'max-w-md';
     }
   }
-  
+
   function getSidebarWidthClass(size: typeof sidebarWidth): string {
     switch (size) {
       case 'sm': return 'w-1/3';
@@ -84,7 +104,7 @@
               <img src={logoSrc} alt={logoAlt} class="h-12 w-auto" />
             </div>
           {/if}
-          
+
           {#if title || description}
             <div class="text-center mb-8">
               {#if title}
@@ -95,15 +115,17 @@
               {/if}
             </div>
           {/if}
-          
-          <slot name="form" />
-          
-          <slot name="form-footer" />
+
+          {@render form?.()}
+
+          {@render formFooter?.()}
         </div>
-        
+
         <!-- Sidebar section -->
         <div class="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground {sidebarWidthClass} p-8 flex flex-col justify-center">
-          <slot name="sidebar">
+          {#if sidebar}
+            {@render sidebar()}
+          {:else}
             <div class="space-y-6">
               <h3 class="text-2xl font-semibold">Welcome back!</h3>
               <p class="text-primary-foreground/90 leading-relaxed">
@@ -124,52 +146,52 @@
                 </div>
               </div>
             </div>
-          </slot>
+          {/if}
         </div>
       </div>
     {:else}
       <!-- Single card layout -->
-      <Card className="shadow-xl">
+      <Card class="shadow-xl">
         {#if showLogo && logoSrc}
           <div class="flex justify-center pt-8 mb-4">
             <img src={logoSrc} alt={logoAlt} class="h-12 w-auto" />
           </div>
         {/if}
-        
+
         {#if title || description}
-          <CardHeader className="text-center pb-4">
+          <CardHeader class="text-center pb-4">
             {#if title}
-              <CardTitle className="text-3xl font-bold text-gray-900">{title}</CardTitle>
+              <CardTitle class="text-3xl font-bold text-gray-900">{title}</CardTitle>
             {/if}
             {#if description}
-              <CardDescription className="text-gray-600 mt-2">{description}</CardDescription>
+              <CardDescription class="text-gray-600 mt-2">{description}</CardDescription>
             {/if}
           </CardHeader>
         {/if}
-        
-        <CardContent className="px-8 pb-8">
-          <slot name="form" />
-          
-          {#if $$slots['form-footer']}
-            <Separator className="my-6" />
-            <slot name="form-footer" />
+
+        <CardContent class="px-8 pb-8">
+          {@render form?.()}
+
+          {#if formFooter}
+            <Separator class="my-6" />
+            {@render formFooter()}
           {/if}
         </CardContent>
       </Card>
     {/if}
-    
+
     <!-- Footer content -->
-    {#if $$slots.footer}
+    {#if footer}
       <div class="mt-8 text-center">
-        <slot name="footer" />
+        {@render footer()}
       </div>
     {/if}
   </div>
 </div>
 
 <!-- Loading overlay slot -->
-{#if $$slots.loading}
-  <slot name="loading" />
+{#if loading}
+  {@render loading()}
 {/if}
 
 <style>

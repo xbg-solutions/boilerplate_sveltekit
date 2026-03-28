@@ -3,32 +3,38 @@
   Date picker calendar grid.
 
   Usage:
-  <Calendar bind:selectedDate bind:month bind:year on:select={handleDateSelect} />
+  <Calendar bind:selectedDate bind:month bind:year onSelect={handleDateSelect} />
 -->
 <script lang="ts">
   import { cn } from '$lib/utils/cn';
-  import { createEventDispatcher } from 'svelte';
 
-  export let selectedDate: Date | undefined = undefined;
-  export let month: number = new Date().getMonth();
-  export let year: number = new Date().getFullYear();
-
-  let className: string = '';
-  export { className as class };
-
-  const dispatch = createEventDispatcher<{ select: Date }>();
+  let {
+    selectedDate = $bindable(undefined),
+    month = $bindable(new Date().getMonth()),
+    year = $bindable(new Date().getFullYear()),
+    class: className = '',
+    onSelect,
+    ...rest
+  }: {
+    selectedDate?: Date | undefined;
+    month?: number;
+    year?: number;
+    class?: string;
+    onSelect?: (date: Date) => void;
+    [key: string]: unknown;
+  } = $props();
 
   const dayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-  $: today = new Date();
-  $: todayStr = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+  let today = $derived(new Date());
+  let todayStr = $derived(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`);
 
-  $: firstDay = new Date(year, month, 1);
-  $: startDayOfWeek = firstDay.getDay();
-  $: daysInMonth = new Date(year, month + 1, 0).getDate();
-  $: daysInPrevMonth = new Date(year, month, 0).getDate();
+  let firstDay = $derived(new Date(year, month, 1));
+  let startDayOfWeek = $derived(firstDay.getDay());
+  let daysInMonth = $derived(new Date(year, month + 1, 0).getDate());
+  let daysInPrevMonth = $derived(new Date(year, month, 0).getDate());
 
-  $: monthName = new Date(year, month).toLocaleString('default', { month: 'long' });
+  let monthName = $derived(new Date(year, month).toLocaleString('default', { month: 'long' }));
 
   interface CalendarDay {
     date: number;
@@ -40,7 +46,7 @@
     key: string;
   }
 
-  $: calendarDays = buildCalendar(year, month, selectedDate);
+  let calendarDays = $derived(buildCalendar(year, month, selectedDate));
 
   function buildCalendar(y: number, m: number, sel: Date | undefined): CalendarDay[] {
     const days: CalendarDay[] = [];
@@ -97,7 +103,7 @@
     selectedDate = newDate;
     month = day.month;
     year = day.year;
-    dispatch('select', newDate);
+    onSelect?.(newDate);
   }
 
   function prevMonth() {
@@ -119,13 +125,13 @@
   }
 </script>
 
-<div class={cn('p-3', className)} {...$$restProps}>
+<div class={cn('p-3', className)} {...rest}>
   <!-- Header -->
   <div class="flex items-center justify-between mb-2">
     <button
       type="button"
       class="inline-flex items-center justify-center h-7 w-7 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-      on:click={prevMonth}
+      onclick={prevMonth}
       aria-label="Previous month"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -136,7 +142,7 @@
     <button
       type="button"
       class="inline-flex items-center justify-center h-7 w-7 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-      on:click={nextMonth}
+      onclick={nextMonth}
       aria-label="Next month"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -166,7 +172,7 @@
           !day.isSelected && day.isCurrentMonth && 'text-foreground hover:bg-accent',
           !day.isSelected && !day.isCurrentMonth && 'text-muted-foreground hover:bg-accent'
         )}
-        on:click={() => selectDay(day)}
+        onclick={() => selectDay(day)}
       >
         {day.date}
       </button>

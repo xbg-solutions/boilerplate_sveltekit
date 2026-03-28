@@ -1,12 +1,12 @@
 <!--
   src/lib/components/layout/SEO.svelte
   SEO Meta Tags Component
-  
+
   Automatically generates SEO meta tags from app.config.ts and page-specific overrides.
-  
+
   Usage:
     <SEO title="Page Title" description="Page description" />
-    <SEO 
+    <SEO
       title="Article Title"
       description="Article description"
       image="/og-image.jpg"
@@ -19,16 +19,29 @@
   import { APP_CONFIG } from '$lib/config/app.config';
 
   // Page-specific overrides
-  export let title: string | undefined = undefined;
-  export let description: string | undefined = undefined;
-  export let keywords: string[] | undefined = undefined;
-  export let image: string | undefined = undefined;
-  export let type: 'website' | 'article' | 'product' | 'profile' = 'website';
-  export let author: string | undefined = undefined;
-  export let publishedTime: string | undefined = undefined;
-  export let modifiedTime: string | undefined = undefined;
-  export let noindex = false;
-  export let nofollow = false;
+  let {
+    title = undefined,
+    description = undefined,
+    keywords = undefined,
+    image = undefined,
+    type = 'website',
+    author = undefined,
+    publishedTime = undefined,
+    modifiedTime = undefined,
+    noindex = false,
+    nofollow = false
+  }: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+    image?: string;
+    type?: 'website' | 'article' | 'product' | 'profile';
+    author?: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    noindex?: boolean;
+    nofollow?: boolean;
+  } = $props();
 
   // Get default values from config
   const defaultTitle = APP_CONFIG.seo?.defaultTitle || APP_CONFIG.project.name;
@@ -39,22 +52,22 @@
   const twitterHandle = APP_CONFIG.seo?.twitterHandle;
 
   // Compute final values
-  $: finalTitle = title ? `${title} | ${siteName}` : defaultTitle;
-  $: finalDescription = description || defaultDescription;
-  $: finalImage = image || defaultImage;
-  $: finalKeywords = keywords || defaultKeywords;
-  $: currentUrl = $page.url.href;
-  
+  let finalTitle = $derived(title ? `${title} | ${siteName}` : defaultTitle);
+  let finalDescription = $derived(description || defaultDescription);
+  let finalImage = $derived(image || defaultImage);
+  let finalKeywords = $derived(keywords || defaultKeywords);
+  let currentUrl = $derived($page.url.href);
+
   // Make image URL absolute
-  $: absoluteImageUrl = finalImage.startsWith('http') 
-    ? finalImage 
-    : `${APP_CONFIG.project.url}${finalImage}`;
+  let absoluteImageUrl = $derived(finalImage.startsWith('http')
+    ? finalImage
+    : `${APP_CONFIG.project.url}${finalImage}`);
 
   // Robots directive
-  $: robotsContent = [
+  let robotsContent = $derived([
     noindex ? 'noindex' : 'index',
     nofollow ? 'nofollow' : 'follow'
-  ].join(', ');
+  ].join(', '));
 </script>
 
 <svelte:head>
@@ -66,10 +79,10 @@
     <meta name="keywords" content={finalKeywords.join(', ')} />
   {/if}
   <meta name="robots" content={robotsContent} />
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href={currentUrl} />
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={type} />
   <meta property="og:url" content={currentUrl} />
@@ -79,7 +92,7 @@
   <meta property="og:image:alt" content={finalTitle} />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:locale" content="en_US" />
-  
+
   {#if type === 'article'}
     {#if author}
       <meta property="article:author" content={author} />
@@ -91,7 +104,7 @@
       <meta property="article:modified_time" content={modifiedTime} />
     {/if}
   {/if}
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content={currentUrl} />
@@ -102,11 +115,11 @@
     <meta name="twitter:site" content={twitterHandle} />
     <meta name="twitter:creator" content={twitterHandle} />
   {/if}
-  
+
   <!-- Additional Meta -->
   <meta name="theme-color" content="#29465B" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- Structured Data (JSON-LD) -->
   {@html `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',

@@ -23,46 +23,51 @@
   } from '$lib/components/ui';
   import { DynamicIcon } from '$lib/components/ui/icon';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    navItems = [
+      { label: 'Dashboard', href: '#', active: true },
+      { label: 'Orders', href: '#' },
+      { label: 'Products', href: '#' },
+      { label: 'Customers', href: '#' },
+      { label: 'Analytics', href: '#' }
+    ],
+    stats = [],
+    transactions = [],
+    recentSales = [],
+    onSearch = undefined,
+    onViewAllTransactions = undefined,
+    onNavClick = undefined
+  }: {
+    class?: string;
+    /** Navigation items for the top bar */
+    navItems?: Array<{ label: string; href: string; active?: boolean }>;
+    /** Stat cards data */
+    stats?: Array<{
+      title: string;
+      value: string;
+      change: string;
+      icon?: string;
+    }>;
+    /** Transactions table data */
+    transactions?: Array<{
+      name: string;
+      email: string;
+      amount: string;
+    }>;
+    /** Recent sales sidebar data */
+    recentSales?: Array<{
+      name: string;
+      email: string;
+      amount: string;
+      avatar?: string;
+    }>;
+    onSearch?: ((query: string) => void) | undefined;
+    onViewAllTransactions?: (() => void) | undefined;
+    onNavClick?: ((href: string) => void) | undefined;
+  } = $props();
 
-  /** Navigation items for the top bar */
-  export let navItems: Array<{ label: string; href: string; active?: boolean }> = [
-    { label: 'Dashboard', href: '#', active: true },
-    { label: 'Orders', href: '#' },
-    { label: 'Products', href: '#' },
-    { label: 'Customers', href: '#' },
-    { label: 'Analytics', href: '#' }
-  ];
-
-  /** Stat cards data */
-  export let stats: Array<{
-    title: string;
-    value: string;
-    change: string;
-    icon?: string;
-  }> = [];
-
-  /** Transactions table data */
-  export let transactions: Array<{
-    name: string;
-    email: string;
-    amount: string;
-  }> = [];
-
-  /** Recent sales sidebar data */
-  export let recentSales: Array<{
-    name: string;
-    email: string;
-    amount: string;
-    avatar?: string;
-  }> = [];
-
-  export let onSearch: ((query: string) => void) | undefined = undefined;
-  export let onViewAllTransactions: (() => void) | undefined = undefined;
-  export let onNavClick: ((href: string) => void) | undefined = undefined;
-
-  let searchQuery = '';
+  let searchQuery = $state('');
 
   /** Icon names mapped by keyword */
   const iconMap: Record<string, string> = {
@@ -92,7 +97,7 @@
               'text-sm font-medium transition-colors hover:text-primary',
               item.active ? 'text-foreground' : 'text-muted-foreground'
             )}
-            on:click={() => onNavClick?.(item.href)}
+            onclick={() => onNavClick?.(item.href)}
           >
             {item.label}
           </button>
@@ -104,7 +109,7 @@
           placeholder="Search..."
           class="w-[200px] lg:w-[300px]"
           bind:value={searchQuery}
-          on:input={() => onSearch?.(searchQuery)}
+          oninput={() => onSearch?.(searchQuery)}
         />
         <!-- Settings icon -->
         <Button variant="ghost" size="icon">
@@ -145,7 +150,7 @@
             <CardTitle>Transactions</CardTitle>
             <CardDescription>Recent transactions from your store.</CardDescription>
           </div>
-          <Button variant="outline" size="sm" on:click={() => onViewAllTransactions?.()}>
+          <Button variant="outline" size="sm" onclick={() => onViewAllTransactions?.()}>
             View All
           </Button>
         </CardHeader>

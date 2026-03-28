@@ -15,12 +15,15 @@
     Label
   } from '$lib/components/ui';
 
-  let className: string = '';
-  export { className as class };
+  let {
+    class: className = '',
+    onSubmit = undefined
+  }: {
+    class?: string;
+    onSubmit?: ((email: string) => void) | undefined;
+  } = $props();
 
-  export let onSubmit: ((email: string) => void) | undefined = undefined;
-
-  let email = '';
+  let email = $state('');
 
   function handleSubmit() {
     onSubmit?.(email);
@@ -34,7 +37,7 @@
       <CardDescription>Enter your email below to login to your account</CardDescription>
     </CardHeader>
     <CardContent>
-      <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-4">
         <div class="space-y-2">
           <Label htmlFor="login03-email">Email</Label>
           <Input
