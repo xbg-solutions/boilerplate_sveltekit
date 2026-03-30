@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Utilities
+# BPSK — Utilities
 
-**Skill: `xbg_bpsk_utils`**
+**Skill: `bpsk/utils`**
 
 Pure helper functions that don't own state. Import what you need; there is no initialization required.
 

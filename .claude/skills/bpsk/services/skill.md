@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Services
+# BPSK — Services
 
-**Skill: `xbg_bpsk_services`**
+**Skill: `bpsk/services`**
 
 Services are singleton instances that encapsulate business logic. They own state mutations (via stores), API calls, and cross-service coordination. Components and route load functions call services — they never implement business logic themselves.
 

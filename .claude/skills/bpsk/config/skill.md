@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Configuration
+# BPSK — Configuration
 
-**Skill: `xbg_bpsk_config`**
+**Skill: `bpsk/config`**
 
 How the configuration system works, what lives where, and how to extend it.
 

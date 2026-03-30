@@ -1,6 +1,6 @@
 # Security Hardening Skill
 
-**Skill ID**: `xbg_bpsk_security`
+**Skill ID**: `bpsk/security_hardening`
 **Category**: XBG Boilerplate SvelteKit - Security
 **Status**: Production-ready boilerplate template
 
@@ -255,7 +255,7 @@ The `storage.rules` and `firestore.rules` files are **templates** with common pa
 ## File Structure
 
 ```
-.claude/skills/xbg_boilerplate_sveltekit/security_hardening/
+.claude/skills/bpsk/security_hardening/
 ├── skill.md                          # This file - Skill documentation
 ├── README_SECURITY.md                # Navigation guide
 ├── SECURITY_SETUP.md                 # Setup for new projects

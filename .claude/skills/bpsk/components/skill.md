@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Components & Blocks
+# BPSK — Components & Blocks
 
-**Skill: `xbg_bpsk_components`**
+**Skill: `bpsk/components`**
 
 Atomic UI components and pre-built page blocks. All are optional imports — consumers cherry-pick what they need.
 

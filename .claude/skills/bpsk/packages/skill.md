@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Package Distribution & Development
+# BPSK — Package Distribution & Development
 
-**Skill: `xbg_bpsk_packages`**
+**Skill: `bpsk/packages`**
 
 How the boilerplate is distributed as npm packages, what lives where, how to install utilities, how to develop on top of them, and how the test suite is structured.
 

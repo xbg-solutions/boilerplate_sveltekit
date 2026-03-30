@@ -1,6 +1,6 @@
-# XBG Boilerplate SvelteKit — Stores
+# BPSK — Stores
 
-**Skill: `xbg_bpsk_stores`**
+**Skill: `bpsk/stores`**
 
 The store layer manages reactive UI state. Stores are thin — they hold state and expose minimal mutation helpers. Business logic lives in services. Never call Firebase or API endpoints directly from store code.
 
