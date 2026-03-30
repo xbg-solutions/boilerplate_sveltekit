@@ -1,13 +1,27 @@
 // Event bus package barrel exports
+// Uses explicit re-exports to resolve naming conflicts between services and stores
 
-// Services
-export * from './services/events/event-bus';
-export * from './services/events/pub-sub';
+// Services — event-bus (core event system)
+export {
+  EventError,
+  eventBus,
+  eventBusStore as eventBusServiceStore,
+  publish,
+  subscribe,
+  createEventBus
+} from './services/events/event-bus';
+
+// Services — pub-sub (higher-level pub/sub)
+export {
+  createPubSubService,
+  pubSubStore as pubSubServiceStore,
+  pubSubService as pubSubServiceInstance
+} from './services/events/pub-sub';
 
 // Stores
-export * from './stores/event-bus';
+export { type EventBusState, eventBusStore, eventBusService } from './stores/event-bus';
 export * from './stores/event.store';
-export * from './stores/pub-sub';
+export { type PubSubState, pubSubStore, pubSubService } from './stores/pub-sub';
 
 // Types
 export type * from './types/event.types';

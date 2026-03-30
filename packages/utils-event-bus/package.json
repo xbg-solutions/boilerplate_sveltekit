@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/utils-event-bus",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "XBG Event Bus - Pub/sub event system and stores",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

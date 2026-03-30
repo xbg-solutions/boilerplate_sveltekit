@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/utils-firebase-auth",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "XBG Firebase Auth - Auth service, token service, auth stores, auth guard",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
