@@ -1,16 +1,17 @@
 {
   "name": "@xbg.solutions/frontend-core",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "XBG Frontend Core - Base framework, types, stores, error handling, logging",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
-  "files": ["lib"],
+  "files": ["lib", ".claude/skills", "scripts/copy-skills.cjs"],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rm -rf lib",
-    "prepublishOnly": "npm run build"
+    "clean": "rm -rf lib .claude",
+    "prepublishOnly": "node scripts/bundle-skills.cjs && npm run build",
+    "postinstall": "node scripts/copy-skills.cjs"
   },
   "publishConfig": {
     "access": "public"
