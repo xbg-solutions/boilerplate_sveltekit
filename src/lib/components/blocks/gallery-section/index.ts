@@ -1,0 +1,12 @@
+export { default as GallerySection01 } from './GallerySection01.svelte';
+export { default as GallerySection02 } from './GallerySection02.svelte';
+export { default as GallerySection03 } from './GallerySection03.svelte';
+export { default as GallerySection04 } from './GallerySection04.svelte';
+export { default as GallerySection05 } from './GallerySection05.svelte';
+export { default as GallerySection06 } from './GallerySection06.svelte';
+export { default as GallerySection07 } from './GallerySection07.svelte';
+export { default as GallerySection08 } from './GallerySection08.svelte';
+export { default as GallerySection09 } from './GallerySection09.svelte';
+export { default as GallerySection10 } from './GallerySection10.svelte';
+export { default as GallerySection11 } from './GallerySection11.svelte';
+export { default as GallerySection12 } from './GallerySection12.svelte';

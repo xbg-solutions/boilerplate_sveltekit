@@ -18,7 +18,7 @@ A SvelteKit 5 boilerplate with Firebase Auth, Tailwind CSS, and shadcn-svelte co
 - **SvelteKit 2** with **Svelte 5** runes syntax (`$props()`, `$state()`, `$derived()`, `$effect()`, `{@render}`)
 - **TypeScript** in strict mode
 - **Tailwind CSS 3** with utility-first styling
-- **shadcn-svelte** — 30+ atomic UI components + 30+ pre-built page blocks
+- **Three-tier component system** — basic atoms (agent-coded), extended atoms + 450+ blocks (from registry via `npx xbg-frontend add`)
 - **Firebase** — Authentication (email-link, phone), Hosting, Storage
 - **Vitest** — Unit and integration test suite
 
@@ -31,7 +31,7 @@ A SvelteKit 5 boilerplate with Firebase Auth, Tailwind CSS, and shadcn-svelte co
 - Node.js 18+
 - A Firebase project ([console.firebase.google.com](https://console.firebase.google.com))
 
-### 1. Install the core package
+### 1. Install core + configure
 
 ```bash
 mkdir my-app && cd my-app
@@ -39,7 +39,7 @@ npm init -y
 npm install @xbg.solutions/frontend-core
 ```
 
-This gives you the base framework (config types, stores, error handling, logging, event bus, routing, and utilities). Then install only the utility packages you need:
+Then install only the utility packages you need:
 
 ```bash
 npm install @xbg.solutions/utils-firebase-auth   # Auth (auto-pulls csrf + secure-storage)
@@ -51,18 +51,35 @@ npm install @xbg.solutions/utils-rbac             # Role-based access control
 ### 2. Run setup
 
 ```bash
-npm run setup          # Interactive wizard (human)
-# OR
-node __scripts__/setup.cjs --config setup-config.json   # Non-interactive (agent / CI)
+npx xbg-frontend setup                              # Interactive wizard (human)
+npx xbg-frontend setup --config setup-config.json   # Non-interactive (agent / CI)
 ```
 
-The setup wizard writes your `.env`, `app.config.ts`, Firebase config, and scaffolds your project structure (routes, UI components, build config). See [setup-config-schema.md](docs/setup-config-schema.md) for the JSON schema.
+The setup wizard writes your `.env`, `app.config.ts`, Firebase config. See [setup-config-schema.md](docs/setup-config-schema.md) for the JSON schema.
 
-### 3. Validate and run
+### 3. Add components from registry
 
 ```bash
-npm run validate       # Verify configuration
-npm run dev            # http://localhost:5173
+# Add extended atoms (complex components with custom logic)
+npx xbg-frontend add otp-input calendar select statistic-card
+
+# Add block categories (full page compositions)
+npx xbg-frontend add block-auth block-dashboard block-sidebar block-hero-section
+
+# Add advanced components
+npx xbg-frontend add chart-wrapper data-table form-wizard
+
+# List all available components
+npx xbg-frontend add list
+```
+
+Components are copied into your project as owned source (shadcn philosophy). Basic atoms (Button, Card, Input, etc.) are simple enough for agents to code directly following the Svelte 5 runes + `tv()` + `cn()` pattern.
+
+### 4. Validate and run
+
+```bash
+npx xbg-frontend validate   # Verify configuration
+npm run dev                  # http://localhost:5173
 ```
 
 ### Developing on the boilerplate repo itself
@@ -75,13 +92,6 @@ cd my-app
 npm install
 npm run setup
 npm run dev
-```
-
-### Manual Configuration (no wizard)
-
-```bash
-cp .env.example .env
-# Fill in VITE_* values, then edit src/lib/config/app.config.ts
 ```
 
 ---
@@ -173,16 +183,14 @@ src/
 │   │   ├── routes.config.ts       # Route metadata
 │   │   └── security.ts            # CSP, headers, validation
 │   ├── components/
-│   │   ├── ui/                    # 30+ shadcn atomic components
-│   │   ├── blocks/                # 30+ pre-built page blocks
-│   │   │   ├── auth/              # LoginBlock01-05, SignupBlock01-05, OtpBlock01-05
-│   │   │   ├── dashboard/         # DashboardBlock01-07, ChartsBlock01
-│   │   │   ├── sidebar/           # SidebarLayout01-05
-│   │   │   ├── forms/             # SettingsBlock
-│   │   │   ├── tasks/             # TasksBlock
-│   │   │   ├── music/             # MusicBlock
-│   │   │   ├── playground/        # PlaygroundBlock01-02
-│   │   │   └── calendar/          # CalendarBlock01-03
+│   │   ├── ui/                    # Atomic components (basic + extended)
+│   │   ├── blocks/                # 450+ page blocks across 55 categories
+│   │   │   ├── auth/              # LoginBlock, SignupBlock, OtpBlock variants
+│   │   │   ├── dashboard/         # DashboardBlock, ChartsBlock variants
+│   │   │   ├── sidebar/           # SidebarLayout variants
+│   │   │   ├── hero-section/      # HeroSection variants
+│   │   │   ├── pricing-section/   # PricingSection variants
+│   │   │   └── ...                # 49 more categories
 │   │   ├── layout/                # AppInitializer, AuthGuard, PageTransition, Seo
 │   │   ├── auth/                  # EmailLinkAuth, PhoneAuth
 │   │   ├── advanced/              # ChartWrapper, DataTable, FormWizard, ImageUpload
@@ -201,7 +209,7 @@ src/
 │   └── unauthorized/              # 403 page
 └── app.html                       # HTML template
 
-__scripts__/                       # Setup wizard, validators, generators
+__scripts__/                       # Thin wrappers → packages/create-frontend/src/commands/
 __tests__/                         # Vitest test suite (unit + integration)
 packages/                          # npm workspace packages
 .claude/skills/                    # AI-optimized skills documentation
@@ -212,13 +220,11 @@ docs/                              # Architecture docs
 
 ## UI Components
 
-### Atomic Components (`$lib/components/ui`)
+### Three-Tier System
 
-Button, Input, Label, Select, Checkbox, RadioGroup, Textarea, Card, Dialog, Sheet, Tabs, Table, DropdownMenu, Breadcrumb, Alert, Badge, Progress, Avatar, Pagination, Popover, Separator, Skeleton, Calendar, OtpInput, and more.
-
-### Pre-Built Blocks (`$lib/components/blocks`)
-
-Full page compositions for auth, dashboards, sidebars, forms, tasks, and more. Each comes in numbered variants (01, 02, 03...) with different layouts.
+1. **Basic atoms** — Button, Card, Input, Label, Badge, etc. Agent-coded following Svelte 5 runes + `tv()` + `cn()` pattern.
+2. **Extended atoms** — OtpInput, Calendar, Select, DataTable, ChartWrapper, etc. Installed via `npx xbg-frontend add`.
+3. **Blocks** — 450+ page-level compositions across 55 categories (auth, dashboard, hero, pricing, testimonials, etc.). Installed via `npx xbg-frontend add block-<category>`.
 
 ```svelte
 <script lang="ts">
@@ -294,12 +300,14 @@ npm run build            # Production build
 npm run preview          # Preview build
 npm run lint             # ESLint
 npm run typecheck        # TypeScript strict check
-npm run validate         # Validate full configuration
 
-# Generators
-npm run generate:component -- <Name>
-npm run generate:route -- <path>
-npm run generate:service -- <Name>
+# CLI commands
+npx xbg-frontend setup                     # Configure project
+npx xbg-frontend validate                  # Validate configuration
+npx xbg-frontend add block-auth            # Add components from registry
+npx xbg-frontend generate component <Name> # Generate component scaffold
+npx xbg-frontend generate route <path>     # Generate route
+npx xbg-frontend generate service <Name>   # Generate service
 
 # Analysis
 npm run analyze          # Bundle analysis

@@ -13,24 +13,40 @@ Bootstrap, configure, validate, and run a project built on this boilerplate.
 
 ---
 
-## Quick Start
+## Quick Start (Agent / CI)
+
+```bash
+# 1. Install core framework
+npm install @xbg.solutions/frontend-core
+
+# 2. Configure project (non-interactive)
+npx xbg-frontend setup --config setup-config.json
+
+# 3. Add components from registry
+npx xbg-frontend add block-auth block-dashboard block-sidebar
+
+# 4. Validate and run
+npx xbg-frontend validate
+npm run dev
+```
 
 ### Interactive (human developer)
+
+```bash
+npm install @xbg.solutions/frontend-core
+npx xbg-frontend setup          # Interactive wizard
+npx xbg-frontend validate
+npm run dev                      # http://localhost:5173
+```
+
+### Developing on the boilerplate repo itself
 
 ```bash
 git clone <repo-url> my-app
 cd my-app
 npm install
-npm run setup          # Interactive wizard
-npm run validate
-npm run dev            # http://localhost:5173
-```
-
-### Non-Interactive (agent / CI)
-
-```bash
-node __scripts__/setup.cjs --config path/to/setup-config.json
-npm run validate
+npm run setup
+npm run dev
 ```
 
 ---
@@ -42,10 +58,9 @@ npm run validate
 | 1 | **Project identity** — name, shortName, description, domain, support email |
 | 2 | **Firebase** — project ID, API key, auth domain, etc.; updates `firebase.json` + `.firebaserc` |
 | 3 | **API / Backend** — dev + prod base URLs |
-| 4 | **Utility selection** — checklist of `@xbg.solutions/utils-*` packages to install |
-| 5 | **RBAC** — roles, hierarchy, permissions, JWT claim map (if utils-rbac selected) |
-| 6 | **Feature flags** — phone auth, analytics, real-time, etc. |
-| 7 | **Generate & validate** — writes `.env`, `.env.example`, generates `app.config.ts` |
+| 4 | **RBAC** — roles, hierarchy, permissions, JWT claim map |
+| 5 | **Feature flags** — phone auth, analytics, real-time, etc. |
+| 6 | **Generate & validate** — writes `.env`, `.env.example`, generates `app.config.ts` |
 
 ---
 
@@ -103,14 +118,16 @@ npm run validate
 }
 ```
 
+See [setup-config-schema.md](docs/setup-config-schema.md) for the full schema with validation rules and examples.
+
 ---
 
 ## Two-Part Configuration Model
 
 | Location | Contains | Written By |
 |----------|----------|-----------|
-| `.env` | Secrets, IDs (Firebase keys, API URLs, app name) | `npm run setup` |
-| `app.config.ts` | Structural config (roles, permissions, features) | `npm run setup` or manual edit |
+| `.env` | Secrets, IDs (Firebase keys, API URLs, app name) | `npx xbg-frontend setup` |
+| `app.config.ts` | Structural config (roles, permissions, features) | `npx xbg-frontend setup` or manual edit |
 
 The wizard writes both. After setup, neither contains placeholder strings.
 
@@ -204,12 +221,12 @@ npm run test:unit        # Unit tests
 npm run test:integration # Integration tests
 npm run test:coverage    # Coverage report
 
-npm run generate:component -- UserProfile
-npm run generate:route -- dashboard --auth --roles=user,admin
-npm run generate:service -- AnalyticsService
+npx xbg-frontend generate component UserProfile
+npx xbg-frontend generate route dashboard --auth --roles=user,admin
+npx xbg-frontend generate service AnalyticsService
 
-npm run validate         # Full config validation
-npm run analyze          # Bundle analysis
+npx xbg-frontend validate         # Full config validation
+npm run analyze                    # Bundle analysis
 ```
 
 ---
@@ -235,7 +252,7 @@ Build output is static HTML in `build/`. Works with Vercel, Netlify, Docker, or 
 | Mistake | Fix |
 |---|---|
 | Missing `VITE_` prefix | `undefined` at runtime — add prefix |
-| Firebase config mismatch | `npm run validate` |
+| Firebase config mismatch | `npx xbg-frontend validate` |
 | `VITE_APP_SHORT_NAME` not set | Generic `app_*` storage prefix — set in `.env` |
 | Stores accessed before init | Wait for `initializationStore.isInitialized` |
 | `goto()` in load function | Use `redirect()` from `@sveltejs/kit` |

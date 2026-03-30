@@ -1,0 +1,1578 @@
+{
+  "version": 1,
+  "basicAtoms": [
+    "button",
+    "card",
+    "input",
+    "label",
+    "badge",
+    "checkbox",
+    "radio-group",
+    "sheet",
+    "tabs",
+    "table",
+    "dropdown-menu",
+    "breadcrumb",
+    "alert",
+    "progress"
+  ],
+  "atoms": {
+    "otp-input": {
+      "name": "OtpInput",
+      "registryPath": "atoms/otp-input",
+      "targetPath": "src/lib/components/ui/otp-input",
+      "files": [
+        "OtpInput.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "calendar": {
+      "name": "Calendar",
+      "registryPath": "atoms/calendar",
+      "targetPath": "src/lib/components/ui/calendar",
+      "files": [
+        "Calendar.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "select": {
+      "name": "Select",
+      "registryPath": "atoms/select",
+      "targetPath": "src/lib/components/ui/select",
+      "files": [
+        "Select.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "lucide-svelte",
+          "tailwind-variants"
+        ]
+      }
+    },
+    "dialog": {
+      "name": "Dialog",
+      "registryPath": "atoms/dialog",
+      "targetPath": "src/lib/components/ui/dialog",
+      "files": [
+        "Dialog.svelte",
+        "DialogDescription.svelte",
+        "DialogFooter.svelte",
+        "DialogHeader.svelte",
+        "DialogTitle.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "lucide-svelte"
+        ]
+      }
+    },
+    "statistic-card": {
+      "name": "StatisticCard",
+      "registryPath": "atoms/statistic-card",
+      "targetPath": "src/lib/components/ui/statistic-card",
+      "files": [
+        "StatisticCard.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "card"
+        ],
+        "packages": []
+      }
+    },
+    "user-item": {
+      "name": "UserItem",
+      "registryPath": "atoms/user-item",
+      "targetPath": "src/lib/components/ui/user-item",
+      "files": [
+        "UserItem.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "notification-badge": {
+      "name": "NotificationBadge",
+      "registryPath": "atoms/notification-badge",
+      "targetPath": "src/lib/components/ui/notification-badge",
+      "files": [
+        "NotificationBadge.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "sidebar-item": {
+      "name": "SidebarItem",
+      "registryPath": "atoms/sidebar-item",
+      "targetPath": "src/lib/components/ui/sidebar-item",
+      "files": [
+        "SidebarItem.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "tailwind-variants"
+        ]
+      }
+    },
+    "nav": {
+      "name": "Nav",
+      "registryPath": "atoms/nav",
+      "targetPath": "src/lib/components/ui/nav",
+      "files": [
+        "NavItem.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "tailwind-variants"
+        ]
+      }
+    },
+    "menu": {
+      "name": "Menu",
+      "registryPath": "atoms/menu",
+      "targetPath": "src/lib/components/ui/menu",
+      "files": [
+        "MenuItem.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "tailwind-variants"
+        ]
+      }
+    },
+    "message": {
+      "name": "Message",
+      "registryPath": "atoms/message",
+      "targetPath": "src/lib/components/ui/message",
+      "files": [
+        "Message.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "tailwind-variants"
+        ]
+      }
+    },
+    "legend": {
+      "name": "Legend",
+      "registryPath": "atoms/legend",
+      "targetPath": "src/lib/components/ui/legend",
+      "files": [
+        "Legend.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "settings-card": {
+      "name": "SettingsCard",
+      "registryPath": "atoms/settings-card",
+      "targetPath": "src/lib/components/ui/settings-card",
+      "files": [
+        "SettingsCard.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "card"
+        ],
+        "packages": []
+      }
+    },
+    "text-editor": {
+      "name": "TextEditor",
+      "registryPath": "atoms/text-editor",
+      "targetPath": "src/lib/components/ui/text-editor",
+      "files": [
+        "TextEditor.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "tailwind-variants"
+        ]
+      }
+    },
+    "uploader": {
+      "name": "Uploader",
+      "registryPath": "atoms/uploader",
+      "targetPath": "src/lib/components/ui/uploader",
+      "files": [
+        "Uploader.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "icon": {
+      "name": "Icon",
+      "registryPath": "atoms/icon",
+      "targetPath": "src/lib/components/ui/icon",
+      "files": [
+        "BrandIcon.svelte",
+        "DynamicIcon.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": [
+          "@xbg.solutions/frontend-core",
+          "lucide-svelte",
+          "simple-icons"
+        ]
+      }
+    }
+  },
+  "advanced": {
+    "chart-wrapper": {
+      "name": "ChartWrapper",
+      "registryPath": "advanced",
+      "targetPath": "src/lib/components/advanced",
+      "files": [
+        "ChartWrapper.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "alert",
+          "badge",
+          "button",
+          "card",
+          "dropdown-menu"
+        ],
+        "packages": [
+          "lucide-svelte"
+        ]
+      }
+    },
+    "data-table": {
+      "name": "DataTable",
+      "registryPath": "advanced",
+      "targetPath": "src/lib/components/advanced",
+      "files": [
+        "DataTable.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "badge",
+          "button",
+          "checkbox",
+          "dropdown-menu",
+          "input",
+          "table"
+        ],
+        "packages": [
+          "@xbg.solutions/utils-sanitizer",
+          "lucide-svelte"
+        ]
+      }
+    },
+    "form-wizard": {
+      "name": "FormWizard",
+      "registryPath": "advanced",
+      "targetPath": "src/lib/components/advanced",
+      "files": [
+        "FormWizard.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "alert",
+          "badge",
+          "button",
+          "card",
+          "progress"
+        ],
+        "packages": [
+          "lucide-svelte"
+        ]
+      }
+    },
+    "image-upload": {
+      "name": "ImageUpload",
+      "registryPath": "advanced",
+      "targetPath": "src/lib/components/advanced",
+      "files": [
+        "ImageUpload.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "alert",
+          "badge",
+          "button",
+          "card",
+          "input",
+          "label",
+          "progress"
+        ],
+        "packages": [
+          "@xbg.solutions/frontend-core",
+          "@xbg.solutions/utils-file-upload",
+          "lucide-svelte"
+        ]
+      }
+    }
+  },
+  "blocks": {
+    "block-account-section": {
+      "name": "Account Section Blocks",
+      "registryPath": "blocks/account-section",
+      "targetPath": "src/lib/components/blocks/account-section",
+      "files": [
+        "AccountSection01.svelte",
+        "AccountSection02.svelte",
+        "AccountSection03.svelte",
+        "AccountSection04.svelte",
+        "AccountSection05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-app-shell": {
+      "name": "App Shell Blocks",
+      "registryPath": "blocks/app-shell",
+      "targetPath": "src/lib/components/blocks/app-shell",
+      "files": [
+        "AppShell01.svelte",
+        "AppShell02.svelte",
+        "AppShell03.svelte",
+        "AppShell04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-auth": {
+      "name": "Auth Blocks",
+      "registryPath": "blocks/auth",
+      "targetPath": "src/lib/components/blocks/auth",
+      "files": [
+        "AuthSplitScreen.svelte",
+        "LoginBlock01.svelte",
+        "LoginBlock02.svelte",
+        "LoginBlock03.svelte",
+        "LoginBlock04.svelte",
+        "LoginBlock05.svelte",
+        "OtpBlock01.svelte",
+        "OtpBlock02.svelte",
+        "OtpBlock03.svelte",
+        "OtpBlock04.svelte",
+        "OtpBlock05.svelte",
+        "SignupBlock01.svelte",
+        "SignupBlock02.svelte",
+        "SignupBlock03.svelte",
+        "SignupBlock04.svelte",
+        "SignupBlock05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "icon"
+        ],
+        "basicAtoms": [
+          "button",
+          "card",
+          "checkbox",
+          "input",
+          "label"
+        ],
+        "packages": []
+      }
+    },
+    "block-banner": {
+      "name": "Banner Blocks",
+      "registryPath": "blocks/banner",
+      "targetPath": "src/lib/components/blocks/banner",
+      "files": [
+        "Banner01.svelte",
+        "Banner02.svelte",
+        "Banner03.svelte",
+        "Banner04.svelte",
+        "Banner05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-bento-grid": {
+      "name": "Bento Grid Blocks",
+      "registryPath": "blocks/bento-grid",
+      "targetPath": "src/lib/components/blocks/bento-grid",
+      "files": [
+        "BentoGrid01.svelte",
+        "BentoGrid02.svelte",
+        "BentoGrid03.svelte",
+        "BentoGrid04.svelte",
+        "BentoGrid05.svelte",
+        "BentoGrid06.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-blog-section": {
+      "name": "Blog Section Blocks",
+      "registryPath": "blocks/blog-section",
+      "targetPath": "src/lib/components/blocks/blog-section",
+      "files": [
+        "BlogSection01.svelte",
+        "BlogSection02.svelte",
+        "BlogSection03.svelte",
+        "BlogSection04.svelte",
+        "BlogSection05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-buttons": {
+      "name": "Buttons Blocks",
+      "registryPath": "blocks/buttons",
+      "targetPath": "src/lib/components/blocks/buttons",
+      "files": [
+        "ButtonBookmark.svelte",
+        "ButtonLike.svelte",
+        "ButtonMenu.svelte",
+        "ButtonSplitDropdown.svelte",
+        "ButtonStepper.svelte",
+        "ButtonSteps.svelte",
+        "ButtonToggleGroup.svelte",
+        "ButtonsGroup.svelte",
+        "SocialButtonsHorizontal.svelte",
+        "SocialButtonsVertical.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-calendar": {
+      "name": "Calendar Blocks",
+      "registryPath": "blocks/calendar",
+      "targetPath": "src/lib/components/blocks/calendar",
+      "files": [
+        "CalendarBlock01.svelte",
+        "CalendarBlock02.svelte",
+        "CalendarBlock03.svelte",
+        "CalendarBlock04.svelte",
+        "CalendarBlock05.svelte",
+        "CalendarBlock06.svelte",
+        "CalendarBlock07.svelte",
+        "CalendarBlock08.svelte",
+        "CalendarBlock09.svelte",
+        "CalendarBlock10.svelte",
+        "CalendarBlock11.svelte",
+        "CalendarBlock12.svelte",
+        "CalendarBlock13.svelte",
+        "CalendarBlock14.svelte",
+        "CalendarBlock15.svelte",
+        "CalendarBlock16.svelte",
+        "CalendarBlock17.svelte",
+        "CalendarBlock18.svelte",
+        "CalendarBlock19.svelte",
+        "CalendarBlock20.svelte",
+        "CalendarBlock21.svelte",
+        "CalendarBlock22.svelte",
+        "CalendarBlock23.svelte",
+        "CalendarBlock24.svelte",
+        "CalendarBlock25.svelte",
+        "CalendarBlock26.svelte",
+        "CalendarBlock27.svelte",
+        "CalendarBlock28.svelte",
+        "CalendarBlock29.svelte",
+        "CalendarBlock30.svelte",
+        "CalendarBlock31.svelte",
+        "CalendarBlock32.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-card": {
+      "name": "Card Blocks",
+      "registryPath": "blocks/card",
+      "targetPath": "src/lib/components/blocks/card",
+      "files": [
+        "Card01.svelte",
+        "Card02.svelte",
+        "Card03.svelte",
+        "Card04.svelte",
+        "Card05.svelte",
+        "Card06.svelte",
+        "Card07.svelte",
+        "Card08.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-cart": {
+      "name": "Cart Blocks",
+      "registryPath": "blocks/cart",
+      "targetPath": "src/lib/components/blocks/cart",
+      "files": [
+        "Cart01.svelte",
+        "Cart02.svelte",
+        "Cart03.svelte",
+        "Cart04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-checkout": {
+      "name": "Checkout Blocks",
+      "registryPath": "blocks/checkout",
+      "targetPath": "src/lib/components/blocks/checkout",
+      "files": [
+        "Checkout01.svelte",
+        "Checkout02.svelte",
+        "Checkout03.svelte",
+        "Checkout04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-comparison-section": {
+      "name": "Comparison Section Blocks",
+      "registryPath": "blocks/comparison-section",
+      "targetPath": "src/lib/components/blocks/comparison-section",
+      "files": [
+        "ComparisonSection01.svelte",
+        "ComparisonSection02.svelte",
+        "ComparisonSection03.svelte",
+        "ComparisonSection04.svelte",
+        "ComparisonSection05.svelte",
+        "ComparisonSection06.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-contact-section": {
+      "name": "Contact Section Blocks",
+      "registryPath": "blocks/contact-section",
+      "targetPath": "src/lib/components/blocks/contact-section",
+      "files": [
+        "ContactSection01.svelte",
+        "ContactSection02.svelte",
+        "ContactSection03.svelte",
+        "ContactSection04.svelte",
+        "ContactSection05.svelte",
+        "ContactSection06.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-cta": {
+      "name": "Cta Blocks",
+      "registryPath": "blocks/cta",
+      "targetPath": "src/lib/components/blocks/cta",
+      "files": [
+        "CTA01.svelte",
+        "CTA02.svelte",
+        "CTA03.svelte",
+        "CTA04.svelte",
+        "CTA05.svelte",
+        "CTA06.svelte",
+        "CTA07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-dashboard": {
+      "name": "Dashboard Blocks",
+      "registryPath": "blocks/dashboard",
+      "targetPath": "src/lib/components/blocks/dashboard",
+      "files": [
+        "ChartsBlock01.svelte",
+        "DashboardBlock01.svelte",
+        "DashboardBlock02.svelte",
+        "DashboardBlock03.svelte",
+        "DashboardBlock04.svelte",
+        "DashboardBlock05.svelte",
+        "DashboardBlock06.svelte",
+        "DashboardBlock07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "icon"
+        ],
+        "basicAtoms": [
+          "badge",
+          "button",
+          "card",
+          "dropdown-menu",
+          "input",
+          "table",
+          "tabs"
+        ],
+        "packages": []
+      }
+    },
+    "block-description-list": {
+      "name": "Description List Blocks",
+      "registryPath": "blocks/description-list",
+      "targetPath": "src/lib/components/blocks/description-list",
+      "files": [
+        "DescriptionList01.svelte",
+        "DescriptionList02.svelte",
+        "DescriptionList03.svelte",
+        "DescriptionList04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-empty-lp": {
+      "name": "Empty Lp Blocks",
+      "registryPath": "blocks/empty-lp",
+      "targetPath": "src/lib/components/blocks/empty-lp",
+      "files": [
+        "EmptyLP01.svelte",
+        "EmptyLP02.svelte",
+        "EmptyLP03.svelte",
+        "EmptyLP04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-empty-section": {
+      "name": "Empty Section Blocks",
+      "registryPath": "blocks/empty-section",
+      "targetPath": "src/lib/components/blocks/empty-section",
+      "files": [
+        "EmptySection01.svelte",
+        "EmptySection02.svelte",
+        "EmptySection03.svelte",
+        "EmptySection04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-faq-section": {
+      "name": "Faq Section Blocks",
+      "registryPath": "blocks/faq-section",
+      "targetPath": "src/lib/components/blocks/faq-section",
+      "files": [
+        "FaqSection01.svelte",
+        "FaqSection02.svelte",
+        "FaqSection03.svelte",
+        "FaqSection04.svelte",
+        "FaqSection05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-feature-section": {
+      "name": "Feature Section Blocks",
+      "registryPath": "blocks/feature-section",
+      "targetPath": "src/lib/components/blocks/feature-section",
+      "files": [
+        "FeatureSection01.svelte",
+        "FeatureSection02.svelte",
+        "FeatureSection03.svelte",
+        "FeatureSection04.svelte",
+        "FeatureSection05.svelte",
+        "FeatureSection06.svelte",
+        "FeatureSection07.svelte",
+        "FeatureSection08.svelte",
+        "FeatureSection09.svelte",
+        "FeatureSection10.svelte",
+        "FeatureSection11.svelte",
+        "FeatureSection12.svelte",
+        "FeatureSection13.svelte",
+        "FeatureSection14.svelte",
+        "FeatureSection15.svelte",
+        "FeatureSection16.svelte",
+        "FeatureSection17.svelte",
+        "FeatureSection18.svelte",
+        "FeatureSection19.svelte",
+        "FeatureSection20.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-footer": {
+      "name": "Footer Blocks",
+      "registryPath": "blocks/footer",
+      "targetPath": "src/lib/components/blocks/footer",
+      "files": [
+        "Footer01.svelte",
+        "Footer02.svelte",
+        "Footer03.svelte",
+        "Footer04.svelte",
+        "Footer05.svelte",
+        "Footer06.svelte",
+        "Footer07.svelte",
+        "Footer08.svelte",
+        "Footer09.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-forms": {
+      "name": "Forms Blocks",
+      "registryPath": "blocks/forms",
+      "targetPath": "src/lib/components/blocks/forms",
+      "files": [
+        "SettingsBlock.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button",
+          "card",
+          "checkbox",
+          "input",
+          "label",
+          "radio-group",
+          "tabs"
+        ],
+        "packages": []
+      }
+    },
+    "block-gallery-section": {
+      "name": "Gallery Section Blocks",
+      "registryPath": "blocks/gallery-section",
+      "targetPath": "src/lib/components/blocks/gallery-section",
+      "files": [
+        "GallerySection01.svelte",
+        "GallerySection02.svelte",
+        "GallerySection03.svelte",
+        "GallerySection04.svelte",
+        "GallerySection05.svelte",
+        "GallerySection06.svelte",
+        "GallerySection07.svelte",
+        "GallerySection08.svelte",
+        "GallerySection09.svelte",
+        "GallerySection10.svelte",
+        "GallerySection11.svelte",
+        "GallerySection12.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-header-section": {
+      "name": "Header Section Blocks",
+      "registryPath": "blocks/header-section",
+      "targetPath": "src/lib/components/blocks/header-section",
+      "files": [
+        "HeaderSection01.svelte",
+        "HeaderSection02.svelte",
+        "HeaderSection03.svelte",
+        "HeaderSection04.svelte",
+        "HeaderSection05.svelte",
+        "HeaderSection06.svelte",
+        "HeaderSection07.svelte",
+        "HeaderSection08.svelte",
+        "HeaderSection09.svelte",
+        "HeaderSection10.svelte",
+        "HeaderSection11.svelte",
+        "HeaderSection12.svelte",
+        "HeaderSection13.svelte",
+        "HeaderSection14.svelte",
+        "HeaderSection15.svelte",
+        "HeaderSection16.svelte",
+        "HeaderSection17.svelte",
+        "HeaderSection18.svelte",
+        "HeaderSection19.svelte",
+        "HeaderSection20.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-hero-section": {
+      "name": "Hero Section Blocks",
+      "registryPath": "blocks/hero-section",
+      "targetPath": "src/lib/components/blocks/hero-section",
+      "files": [
+        "HeroSection01.svelte",
+        "HeroSection02.svelte",
+        "HeroSection03.svelte",
+        "HeroSection04.svelte",
+        "HeroSection05.svelte",
+        "HeroSection06.svelte",
+        "HeroSection07.svelte",
+        "HeroSection08.svelte",
+        "HeroSection09.svelte",
+        "HeroSection10.svelte",
+        "HeroSection11.svelte",
+        "HeroSection12.svelte",
+        "HeroSection13.svelte",
+        "HeroSection14.svelte",
+        "HeroSection15.svelte",
+        "HeroSection16.svelte",
+        "HeroSection17.svelte",
+        "HeroSection18.svelte",
+        "HeroSection19.svelte",
+        "HeroSection20.svelte",
+        "HeroSection21.svelte",
+        "HeroSection22.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-logo-section": {
+      "name": "Logo Section Blocks",
+      "registryPath": "blocks/logo-section",
+      "targetPath": "src/lib/components/blocks/logo-section",
+      "files": [
+        "LogoSection01.svelte",
+        "LogoSection02.svelte",
+        "LogoSection03.svelte",
+        "LogoSection04.svelte",
+        "LogoSection05.svelte",
+        "LogoSection06.svelte",
+        "LogoSection07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-lp-navbar": {
+      "name": "Lp Navbar Blocks",
+      "registryPath": "blocks/lp-navbar",
+      "targetPath": "src/lib/components/blocks/lp-navbar",
+      "files": [
+        "LPNavbar01.svelte",
+        "LPNavbar02.svelte",
+        "LPNavbar03.svelte",
+        "LPNavbar04.svelte",
+        "LPNavbar05.svelte",
+        "LPNavbar06.svelte",
+        "LPNavbar07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-mail": {
+      "name": "Mail Blocks",
+      "registryPath": "blocks/mail",
+      "targetPath": "src/lib/components/blocks/mail",
+      "files": [
+        "MailBlock.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-music": {
+      "name": "Music Blocks",
+      "registryPath": "blocks/music",
+      "targetPath": "src/lib/components/blocks/music",
+      "files": [
+        "MusicBlock.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "icon"
+        ],
+        "basicAtoms": [
+          "button",
+          "tabs"
+        ],
+        "packages": []
+      }
+    },
+    "block-navbar": {
+      "name": "Navbar Blocks",
+      "registryPath": "blocks/navbar",
+      "targetPath": "src/lib/components/blocks/navbar",
+      "files": [
+        "Navbar01.svelte",
+        "Navbar02.svelte",
+        "Navbar03.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-not-found": {
+      "name": "Not Found Blocks",
+      "registryPath": "blocks/not-found",
+      "targetPath": "src/lib/components/blocks/not-found",
+      "files": [
+        "NotFound01.svelte",
+        "NotFound02.svelte",
+        "NotFound03.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-order-history": {
+      "name": "Order History Blocks",
+      "registryPath": "blocks/order-history",
+      "targetPath": "src/lib/components/blocks/order-history",
+      "files": [
+        "OrderHistory01.svelte",
+        "OrderHistory02.svelte",
+        "OrderHistory03.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-page-header": {
+      "name": "Page Header Blocks",
+      "registryPath": "blocks/page-header",
+      "targetPath": "src/lib/components/blocks/page-header",
+      "files": [
+        "PageHeader01.svelte",
+        "PageHeader02.svelte",
+        "PageHeader03.svelte",
+        "PageHeader04.svelte",
+        "PageHeader05.svelte",
+        "PageHeader06.svelte",
+        "PageHeader07.svelte",
+        "PageHeader08.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-playground": {
+      "name": "Playground Blocks",
+      "registryPath": "blocks/playground",
+      "targetPath": "src/lib/components/blocks/playground",
+      "files": [
+        "PlaygroundBlock01.svelte",
+        "PlaygroundBlock02.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "select"
+        ],
+        "basicAtoms": [
+          "button",
+          "input",
+          "label",
+          "tabs"
+        ],
+        "packages": []
+      }
+    },
+    "block-pricing-section": {
+      "name": "Pricing Section Blocks",
+      "registryPath": "blocks/pricing-section",
+      "targetPath": "src/lib/components/blocks/pricing-section",
+      "files": [
+        "PricingSection01.svelte",
+        "PricingSection02.svelte",
+        "PricingSection03.svelte",
+        "PricingSection04.svelte",
+        "PricingSection05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-product-card": {
+      "name": "Product Card Blocks",
+      "registryPath": "blocks/product-card",
+      "targetPath": "src/lib/components/blocks/product-card",
+      "files": [
+        "ProductCard01.svelte",
+        "ProductCard02.svelte",
+        "ProductCard03.svelte",
+        "ProductCard04.svelte",
+        "ProductCard05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-product-detail": {
+      "name": "Product Detail Blocks",
+      "registryPath": "blocks/product-detail",
+      "targetPath": "src/lib/components/blocks/product-detail",
+      "files": [
+        "ProductDetail01.svelte",
+        "ProductDetail02.svelte",
+        "ProductDetail03.svelte",
+        "ProductDetail04.svelte",
+        "ProductDetail05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-product-listing": {
+      "name": "Product Listing Blocks",
+      "registryPath": "blocks/product-listing",
+      "targetPath": "src/lib/components/blocks/product-listing",
+      "files": [
+        "ProductListing01.svelte",
+        "ProductListing02.svelte",
+        "ProductListing03.svelte",
+        "ProductListing04.svelte",
+        "ProductListing05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-product-reviews": {
+      "name": "Product Reviews Blocks",
+      "registryPath": "blocks/product-reviews",
+      "targetPath": "src/lib/components/blocks/product-reviews",
+      "files": [
+        "ProductReviews01.svelte",
+        "ProductReviews02.svelte",
+        "ProductReviews03.svelte",
+        "ProductReviews04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-promo-section": {
+      "name": "Promo Section Blocks",
+      "registryPath": "blocks/promo-section",
+      "targetPath": "src/lib/components/blocks/promo-section",
+      "files": [
+        "PromoSection01.svelte",
+        "PromoSection02.svelte",
+        "PromoSection03.svelte",
+        "PromoSection04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-rich-text": {
+      "name": "Rich Text Blocks",
+      "registryPath": "blocks/rich-text",
+      "targetPath": "src/lib/components/blocks/rich-text",
+      "files": [
+        "RichText01.svelte",
+        "RichText02.svelte",
+        "RichText03.svelte",
+        "RichText04.svelte",
+        "RichText05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-section": {
+      "name": "Section Blocks",
+      "registryPath": "blocks/section",
+      "targetPath": "src/lib/components/blocks/section",
+      "files": [
+        "Section01.svelte",
+        "Section02.svelte",
+        "Section03.svelte",
+        "Section04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-section-footer": {
+      "name": "Section Footer Blocks",
+      "registryPath": "blocks/section-footer",
+      "targetPath": "src/lib/components/blocks/section-footer",
+      "files": [
+        "SectionFooter01.svelte",
+        "SectionFooter02.svelte",
+        "SectionFooter03.svelte",
+        "SectionFooter04.svelte",
+        "SectionFooter05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-section-header": {
+      "name": "Section Header Blocks",
+      "registryPath": "blocks/section-header",
+      "targetPath": "src/lib/components/blocks/section-header",
+      "files": [
+        "SectionHeader01.svelte",
+        "SectionHeader02.svelte",
+        "SectionHeader03.svelte",
+        "SectionHeader04.svelte",
+        "SectionHeader05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-settings": {
+      "name": "Settings Blocks",
+      "registryPath": "blocks/settings",
+      "targetPath": "src/lib/components/blocks/settings",
+      "files": [
+        "Settings01.svelte",
+        "Settings02.svelte",
+        "Settings03.svelte",
+        "Settings04.svelte",
+        "Settings05.svelte",
+        "Settings06.svelte",
+        "Settings07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-sidebar": {
+      "name": "Sidebar Blocks",
+      "registryPath": "blocks/sidebar",
+      "targetPath": "src/lib/components/blocks/sidebar",
+      "files": [
+        "SidebarLayout01.svelte",
+        "SidebarLayout02.svelte",
+        "SidebarLayout03.svelte",
+        "SidebarLayout04.svelte",
+        "SidebarLayout05.svelte",
+        "SidebarLayout06.svelte",
+        "SidebarLayout07.svelte",
+        "SidebarLayout08.svelte",
+        "SidebarLayout09.svelte",
+        "SidebarLayout10.svelte",
+        "SidebarLayout11.svelte",
+        "SidebarLayout12.svelte",
+        "SidebarLayout13.svelte",
+        "SidebarLayout14.svelte",
+        "SidebarLayout15.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "icon"
+        ],
+        "basicAtoms": [
+          "breadcrumb",
+          "button",
+          "checkbox",
+          "input"
+        ],
+        "packages": []
+      }
+    },
+    "block-sign-in": {
+      "name": "Sign In Blocks",
+      "registryPath": "blocks/sign-in",
+      "targetPath": "src/lib/components/blocks/sign-in",
+      "files": [
+        "SignIn01.svelte",
+        "SignIn02.svelte",
+        "SignIn03.svelte",
+        "SignIn04.svelte",
+        "SignIn05.svelte",
+        "SignIn06.svelte",
+        "SignIn07.svelte",
+        "SignIn08.svelte",
+        "SignIn09.svelte",
+        "SignIn10.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-sign-up": {
+      "name": "Sign Up Blocks",
+      "registryPath": "blocks/sign-up",
+      "targetPath": "src/lib/components/blocks/sign-up",
+      "files": [
+        "SignUp01.svelte",
+        "SignUp02.svelte",
+        "SignUp03.svelte",
+        "SignUp04.svelte",
+        "SignUp05.svelte",
+        "SignUp06.svelte",
+        "SignUp07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-stats-section": {
+      "name": "Stats Section Blocks",
+      "registryPath": "blocks/stats-section",
+      "targetPath": "src/lib/components/blocks/stats-section",
+      "files": [
+        "StatsSection01.svelte",
+        "StatsSection02.svelte",
+        "StatsSection03.svelte",
+        "StatsSection04.svelte",
+        "StatsSection05.svelte",
+        "StatsSection06.svelte",
+        "StatsSection07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-store-navbar": {
+      "name": "Store Navbar Blocks",
+      "registryPath": "blocks/store-navbar",
+      "targetPath": "src/lib/components/blocks/store-navbar",
+      "files": [
+        "StoreNavbar01.svelte",
+        "StoreNavbar02.svelte",
+        "StoreNavbar03.svelte",
+        "StoreNavbar04.svelte",
+        "StoreNavbar05.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-table-header": {
+      "name": "Table Header Blocks",
+      "registryPath": "blocks/table-header",
+      "targetPath": "src/lib/components/blocks/table-header",
+      "files": [
+        "TableHeader01.svelte",
+        "TableHeader02.svelte",
+        "TableHeader03.svelte",
+        "TableHeader04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [
+          "button"
+        ],
+        "packages": []
+      }
+    },
+    "block-tasks": {
+      "name": "Tasks Blocks",
+      "registryPath": "blocks/tasks",
+      "targetPath": "src/lib/components/blocks/tasks",
+      "files": [
+        "TasksBlock.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [
+          "select"
+        ],
+        "basicAtoms": [
+          "badge",
+          "button",
+          "checkbox",
+          "dropdown-menu",
+          "input",
+          "table"
+        ],
+        "packages": []
+      }
+    },
+    "block-team-section": {
+      "name": "Team Section Blocks",
+      "registryPath": "blocks/team-section",
+      "targetPath": "src/lib/components/blocks/team-section",
+      "files": [
+        "TeamSection01.svelte",
+        "TeamSection02.svelte",
+        "TeamSection03.svelte",
+        "TeamSection04.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    },
+    "block-testimonials": {
+      "name": "Testimonials Blocks",
+      "registryPath": "blocks/testimonials",
+      "targetPath": "src/lib/components/blocks/testimonials",
+      "files": [
+        "Testimonial01.svelte",
+        "Testimonial02.svelte",
+        "Testimonial03.svelte",
+        "Testimonial04.svelte",
+        "Testimonial05.svelte",
+        "Testimonial06.svelte",
+        "Testimonial07.svelte",
+        "Testimonials01.svelte",
+        "Testimonials02.svelte",
+        "Testimonials03.svelte",
+        "Testimonials04.svelte",
+        "Testimonials05.svelte",
+        "Testimonials06.svelte",
+        "Testimonials07.svelte",
+        "index.ts"
+      ],
+      "dependencies": {
+        "atoms": [],
+        "basicAtoms": [],
+        "packages": []
+      }
+    }
+  }
+}

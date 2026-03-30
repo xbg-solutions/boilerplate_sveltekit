@@ -12,7 +12,7 @@ A production-ready SvelteKit 5 foundation for **agentic, AI-assisted development
 
 - **SvelteKit 2** with **Svelte 5** runes and strict TypeScript
 - **Firebase Auth** (email-link, phone)
-- **Tailwind CSS 3 + shadcn-svelte** (30+ atomic components, 30+ page blocks)
+- **Tailwind CSS 3** with three-tier component system (basic atoms, extended atoms, 450+ blocks)
 - **Vitest** test suite
 - **Singleton service pattern** throughout
 - **npm workspace** with `@xbg.solutions/*` packages in `packages/`
@@ -23,12 +23,12 @@ A production-ready SvelteKit 5 foundation for **agentic, AI-assisted development
 
 | Skill | Directory | Read When You Need To... |
 |---|---|---|
-| `setup` | `setup/` | Bootstrap a project, run the setup wizard, mono-repo tidy-up, deploy |
+| `setup` | `setup/` | Bootstrap a project, `npx xbg-frontend setup`, mono-repo tidy-up, deploy |
 | `config` | `config/` | Understand `app.config.ts`, the two-part config model, add roles/features |
 | `stores` | `stores/` | Use or extend Svelte stores (authStore, loadingStore, toastStore, etc.) |
 | `services` | `services/` | Call services (authService, apiService, toastService, etc.) |
 | `utils` | `utils/` | Use utility functions (cn, routeHandler, authGuard, rbacUtil, etc.) |
-| `components` | `components/` | Use atomic UI components or pre-built page blocks |
+| `components` | `components/` | Three-tier components: basic atoms (code), extended atoms + blocks (`npx xbg-frontend add`) |
 | `packages` | `packages/` | npm distribution, dependency graph, import path mapping |
 | `security_hardening` | `security_hardening/` | CSP/headers, Firebase security rules, App Check, CSRF, rate limiting |
 
@@ -44,16 +44,15 @@ src/
 │   │   ├── routes.config.ts       # Route metadata + RouteHelper
 │   │   └── security.ts            # CSP, headers, validation
 │   ├── components/
-│   │   ├── ui/                    # 30+ shadcn atomic components
-│   │   ├── blocks/                # 30+ pre-built page blocks
-│   │   │   ├── auth/              # LoginBlock01-05, SignupBlock01-05, OtpBlock01-05
-│   │   │   ├── dashboard/         # DashboardBlock01-07, ChartsBlock01
-│   │   │   ├── sidebar/           # SidebarLayout01-05
-│   │   │   ├── forms/             # SettingsBlock
-│   │   │   ├── tasks/             # TasksBlock
-│   │   │   ├── music/             # MusicBlock
-│   │   │   ├── playground/        # PlaygroundBlock01-02
-│   │   │   └── calendar/          # CalendarBlock01-03
+│   │   ├── ui/                    # Atomic components (basic + extended)
+│   │   ├── blocks/                # 450+ pre-built page blocks across 55 categories
+│   │   │   ├── auth/              # LoginBlock, SignupBlock, OtpBlock variants
+│   │   │   ├── dashboard/         # DashboardBlock, ChartsBlock variants
+│   │   │   ├── sidebar/           # SidebarLayout variants
+│   │   │   ├── hero-section/      # HeroSection variants
+│   │   │   ├── pricing-section/   # PricingSection variants
+│   │   │   ├── testimonials/      # Testimonials variants
+│   │   │   └── ...                # 49 more categories (see components skill)
 │   │   ├── layout/                # AppInitializer, AuthGuard, DeferredRender, PageTransition, Seo
 │   │   ├── auth/                  # EmailLinkAuth, PhoneAuth
 │   │   ├── advanced/              # ChartWrapper, DataTable, FormWizard, ImageUpload
@@ -84,7 +83,7 @@ src/
 │   └── unauthorized/              # 403 page
 └── app.html
 
-__scripts__/                       # setup.cjs, validate-setup.cjs, generators
+__scripts__/                       # Thin wrappers → packages/create-frontend/src/commands/
 __tests__/                         # Vitest (unit + integration)
 packages/                          # npm workspace packages (@xbg.solutions/*)
 docs/                              # Architecture docs
@@ -99,12 +98,15 @@ docs/                              # Architecture docs
 All values flow through **`src/lib/config/app.config.ts`**.
 - Secrets/IDs come from `.env` via `import.meta.env`
 - Roles, permissions, feature flags live in `SETUP:start/end` marked blocks
-- Run `npm run setup` or `node __scripts__/setup.cjs --config <path>` to write both
-- Run `npm run validate` to verify
+- Run `npx xbg-frontend setup` (interactive) or `npx xbg-frontend setup --config <path>` (non-interactive) to write both
+- Run `npx xbg-frontend validate` to verify
 
-### 2. Atomic Components + Blocks
+### 2. Three-Tier Components
 
-Use shadcn atomic components from `$lib/components/ui`. Pre-built blocks in `$lib/components/blocks` (aliased as `$blocks` in vite.config.ts) for common page patterns. Blocks compose atomic components.
+- **Basic atoms** — code yourself following Svelte 5 runes + `tv()` + `cn()` pattern
+- **Extended atoms + blocks** — install from registry: `npx xbg-frontend add <name>`
+- All components live in `$lib/components/ui` (atoms) and `$lib/components/blocks` (blocks, aliased as `$blocks`)
+- Blocks compose atomic components — never duplicate atomic logic inside a block
 
 ### 3. Singleton Services
 

@@ -4,18 +4,31 @@
 
 Boilerplate repos are forked/cloned to start new projects. When the boilerplate is updated, there's no way to propagate changes to existing projects.
 
-## Solution: Two-part distribution model (mirroring backend)
+## Solution: Two-part distribution model
 
 ### Part 1: npm packages (runtime dependencies)
 
 The boilerplate is split into installable packages that live in `node_modules/` and are imported by project code. Updates propagate via standard `npm update`. Semver protects downstream projects from breaking changes.
 
-### Part 2: CLI scaffolding tool (project structure)
+### Part 2: CLI tool with component registry (project structure + UI)
 
-A CLI tool handles everything that isn't a runtime import — project structure, config files, UI components, templates, wiring code. It operates in two modes:
+A CLI tool (`npx xbg-frontend`) handles everything that isn't a runtime import — project configuration, component installation, code generation, and validation.
 
-- `npx @xbg.solutions/create-frontend` — Initial setup with interactive prompts
-- `npx @xbg.solutions/create-frontend --sync` — Run in existing projects to check for updates and offer new utilities
+```bash
+# Configure project
+npx xbg-frontend setup --config setup-config.json
+
+# Add components from registry (copy-on-install, shadcn philosophy)
+npx xbg-frontend add block-auth block-dashboard otp-input
+
+# Generate scaffolds
+npx xbg-frontend generate component UserProfile
+npx xbg-frontend generate route dashboard --auth
+npx xbg-frontend generate service AnalyticsService
+
+# Validate
+npx xbg-frontend validate
+```
 
 ---
 
@@ -34,27 +47,19 @@ The base framework package every project depends on.
 - Route handler utilities (`route-handler.ts`, `route-handler.store.ts`)
 - Core services (`initialization.service.ts`, `toast.service.ts`)
 - Base layout components (`ErrorBoundary`, `PageTransition`, `ClientOnly`)
+- `cn()` utility (Tailwind class merging via `clsx` + `tailwind-merge`)
+- Event bus + pub/sub system (`eventBus`, `publish`, `subscribe`)
+- Mutex service for mutual exclusion
 
-**No optional dependencies.** This is the foundation everything else builds on. Essential utilities like logging are included here rather than as separate packages — every project needs them.
+**No optional dependencies.** This is the foundation everything else builds on.
 
 ### @xbg.solutions/test-utils-frontend (dev dependency)
 
 Test utilities installed as a devDependency. Kept separate from core to avoid shipping test code and test framework dependencies (`vitest`, `@testing-library/svelte`) to production.
 
-**Contains:**
-- Firebase auth mocks (`createFirebaseAuthMock()`)
-- Svelte store mocks (`createMockStore()`)
-- API response mocks (`createApiResponseMock()`)
-- Console mocks (`createConsoleMock()`)
-- Async helpers (`waitForAsync()`, `flushPromises()`)
-- Mock validation utilities (`validateFirebaseMocks()`, `resetFirebaseMocks()`)
-- Test timeout constants
-
-**Depends on:** `@xbg.solutions/frontend-core`
-
 ### @xbg.solutions/utils-* (individually installable)
 
-Each utility is its own package. Projects install only what they need. The CLI prompts for selection during init.
+Each utility is its own package. Projects install only what they need.
 
 | Package | Description | Depends on |
 |---|---|---|
@@ -72,52 +77,70 @@ Each utility is its own package. Projects install only what they need. The CLI p
 | `@xbg.solutions/utils-file-upload` | File handling with Firebase Storage | `core`, `utils-firebase-auth`, `utils-api-client` |
 | `@xbg.solutions/utils-state-manager` | Global state persistence | `core`, `utils-secure-storage` |
 
-> **Note:** `utils-event-bus` and `utils-mutex` were merged into `frontend-core` to avoid circular dependencies. The event bus and mutex are foundational utilities used by core itself.
+> **Note:** `utils-event-bus` and `utils-mutex` were merged into `frontend-core` to avoid circular dependencies.
 
-**Dependency auto-resolution:** When a project installs `@xbg.solutions/utils-firebase-auth`, npm automatically installs its dependencies (`utils-csrf`, `utils-secure-storage`, etc.). No manual chaining required.
+**Dependency auto-resolution:** Installing `@xbg.solutions/utils-firebase-auth` automatically installs its dependencies (`utils-csrf`, `utils-secure-storage`, etc.).
 
 ### @xbg.solutions/create-frontend (CLI tool, not a runtime dependency)
 
-Evolves from the current `__scripts__/` directory. Not installed as a project dependency — invoked via `npx`.
+The CLI tool with component registry. Not installed as a project dependency — invoked via `npx xbg-frontend`.
 
-**Init mode** (`npx @xbg.solutions/create-frontend`):
-1. Project identity (name, short name, domain, version)
-2. Firebase configuration (project ID, API key, auth domain, etc.)
-3. API configuration (base URLs, timeout, retry settings)
-4. **Utility selection** — interactive checklist of available `@xbg.solutions/utils-*` packages
-5. RBAC setup (if `utils-rbac` selected)
-6. Feature flags
-7. Generates project skeleton, runs `npm install` for core + selected packages
-8. Writes `app.config.ts` with only relevant config sections for selected utilities
-9. Scaffolds wiring code with imports from selected packages
+**Commands:**
 
-**Sync mode** (`npx @xbg.solutions/create-frontend --sync`):
-- Checks for package updates across installed `@xbg.solutions/*` packages
-- Merges updated config/scaffold files
-- Offers newly available utilities not yet installed
-- Updates scaffolded files (config templates, build config) if boilerplate has changed
+| Command | What it does |
+|---|---|
+| `setup` | Interactive wizard or `--config setup-config.json` for non-interactive |
+| `add <names>` | Copy components from registry into project (`--yes` for agents, `--force` to overwrite) |
+| `add list` | List all available registry components |
+| `validate` | Check project structure, deps, env vars, config |
+| `generate component <Name>` | Generate Svelte component with optional test/story/docs |
+| `generate route <path>` | Generate route with auth guards, load functions, role checks |
+| `generate service <Name>` | Generate service with CRUD, error handling, events |
 
-**Generators:**
-- `npx @xbg.solutions/create-frontend generate component <Name>` — Svelte component with optional test/story/docs
-- `npx @xbg.solutions/create-frontend generate route <path>` — Route with auth guards, load functions, role checks
-- `npx @xbg.solutions/create-frontend generate service <Name>` — Service with CRUD, error handling, events
-
-**Validation:**
-- `npx @xbg.solutions/create-frontend validate` — Checks project structure, dependencies, env vars, config
+**Component registry** contains:
+- **Extended atoms** (16): OtpInput, Calendar, Select, Dialog, StatisticCard, UserItem, NotificationBadge, SidebarItem, NavItem, MenuItem, Message, Legend, SettingsCard, TextEditor, Uploader, Icon
+- **Advanced components** (4): ChartWrapper, DataTable, FormWizard, ImageUpload
+- **Blocks** (450+ across 55 categories): auth, dashboard, sidebar, hero-section, pricing-section, testimonials, team-section, and more
 
 ---
 
-## What the CLI scaffolds (project-local, not packaged)
+## Three-Tier Component Model
 
-These files are generated into the project and owned by the project. They are not imported from packages.
+### Tier 1: Basic Atoms (agent-coded)
 
-- **shadcn-svelte UI components** — Copied into `src/lib/components/ui/` per shadcn philosophy (own and customize)
-- **`app.config.ts`** — Generated by the setup wizard, uses `defineConfig()` types from `@xbg.solutions/frontend-core`
-- **Project skeleton** — Routes (`+layout.svelte`, `+layout.ts`, `+page.svelte`, `+error.svelte`), `app.html`, `app.css`
-- **Build and tool config** — `svelte.config.js`, `vite.config.ts`, `tailwind.config.cjs`, `postcss.config.cjs`, `tsconfig.json`
-- **`.env` file** — From interactive prompts
-- **Generated code** — Components, routes, and services created via generators
-- **Auth components** — `PhoneAuth`, `EmailLinkAuth` (project-local, customizable)
+Simple shadcn-style components: Button, Card, Input, Label, Badge, Checkbox, RadioGroup, Sheet, Tabs, Table, DropdownMenu, Breadcrumb, Alert, Progress, Textarea, Popover, Pagination, Avatar, Separator, Skeleton.
+
+Agents code these directly following the Svelte 5 runes + `tv()` + `cn()` pattern. They're too simple to warrant registry overhead and too commonly customized to lock down.
+
+### Tier 2: Extended Atoms (from registry)
+
+Complex components with significant logic: OtpInput (108 lines, auto-focus/paste), Calendar (181 lines, date grid), DataTable (644 lines, sort/filter/paginate), etc.
+
+```bash
+npx xbg-frontend add otp-input calendar data-table
+```
+
+Copied into `src/lib/components/ui/<name>/`. Project owns the source.
+
+### Tier 3: Blocks (from registry)
+
+Full page compositions across 55 categories. Each category has multiple layout variants.
+
+```bash
+npx xbg-frontend add block-auth block-dashboard block-hero-section
+```
+
+Copied into `src/lib/components/blocks/<category>/`. Project owns the source.
+
+### Why copy-on-install?
+
+Components are **copied, not imported from npm**. This means:
+- Updates to the boilerplate don't break existing projects
+- Projects can freely customize any component
+- No runtime dependency on the component package
+- Follows the proven shadcn model
+
+Runtime packages (`@xbg.solutions/frontend-core`, `utils-*`) ARE imported from npm and DO receive updates via `npm update`.
 
 ---
 
@@ -126,10 +149,12 @@ These files are generated into the project and owned by the project. They are no
 ```
 @xbg.solutions/create-frontend (CLI, invoked via npx)
     │
-    ▼ scaffolds project that imports from:
+    ├── setup: configures .env, app.config.ts, Firebase
+    ├── add: copies components from registry → src/lib/components/
+    └── generate: scaffolds components, routes, services
 
 @xbg.solutions/frontend-core ◄─────────────────────────────┐
-    ▲  (includes event-bus, mutex, logging, errors)         │
+    ▲  (includes event-bus, mutex, logging, errors, cn)     │
     │                                                       │
     ├── @xbg.solutions/utils-csrf ◄──────────────┐          │
     ├── @xbg.solutions/utils-secure-storage      │          │
@@ -158,19 +183,18 @@ These files are generated into the project and owned by the project. They are no
 
 ## What changes in project code
 
-Instead of relative imports from copied boilerplate files:
-
-```typescript
-import { AppError } from '../../utils/error-handler';
-import { loadingStore } from '../../stores/loading.store';
-import { apiService } from '../../services/api/api.service';
-```
-
-Projects import from packages:
+Projects import runtime code from packages:
 
 ```typescript
 import { AppError, loadingStore } from '@xbg.solutions/frontend-core';
 import { apiService } from '@xbg.solutions/utils-api-client';
+```
+
+Components use `$lib/` paths because they're project-local:
+
+```typescript
+import { cn } from '$lib/utils/cn';
+import { Button, Card } from '$lib/components/ui';
 ```
 
 ---
@@ -180,9 +204,8 @@ import { apiService } from '@xbg.solutions/utils-api-client';
 1. **Utilities are individually installable** — no monolith package dragging in unused dependencies
 2. **Core framework is one package** — base types, stores, error handling, and layout components travel together
 3. **Scaffolding is separate from runtime** — the CLI generates/merges project files but isn't a runtime dependency
-4. **Setup script becomes the CLI** — the existing interactive setup wizard evolves into the CLI's init flow, including utility selection
-5. **UI components are scaffolded, not packaged** — follows shadcn philosophy: project owns and customizes its components
-6. **Code generators stay project-local** — generated components, routes, and services live in the project and import from packages
-7. **Test utilities are a separate dev package** — keeps production bundle clean, avoids shipping vitest/testing-library
+4. **Components are copy-on-install** — `npx xbg-frontend add` copies from registry; project owns the source
+5. **Basic atoms are agent-coded** — simple enough to code fresh with project-specific styling
+6. **Extended atoms + blocks are registry-provided** — complex enough to warrant consistent starting points
+7. **Test utilities are a separate dev package** — keeps production bundle clean
 8. **Dependencies auto-resolve** — installing a utility automatically pulls in its @xbg dependencies via npm
-9. **MCP docs removed** — project uses `.claude/` skill files for AI agent context instead
