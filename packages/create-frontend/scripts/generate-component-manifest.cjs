@@ -242,21 +242,21 @@ const EXTERNAL_STUBS = {
     building: 'const building = false;',
     version:  'const version = "1.0.0";',
   },
-  '@xbg.solutions/frontend-core': {
+  '@xbg.solutions/bpsk-core': {
     cn:           "const cn = (...c) => c.flat(Infinity).filter(Boolean).join(' ');",
     toastService: 'const toastService = { success: (m) => console.log("[toast:success]", m), error: (m) => console.error("[toast:error]", m), info: (m) => console.info("[toast:info]", m), warning: (m) => console.warn("[toast:warn]", m), show: (m, _t) => console.log("[toast]", m) };',
     AUTH_ROUTES:  "const AUTH_ROUTES = { LOGIN: '/login', SIGNUP: '/signup', FORGOT_PASSWORD: '/forgot-password', RESET_PASSWORD: '/reset-password', HOME: '/', DASHBOARD: '/dashboard' };",
     APP_CONFIG:   "const APP_CONFIG = { appName: 'App', version: '1.0.0', apiUrl: 'https://api.example.com', features: {} };",
     useAuth:      'const useAuth = () => ({ user: null, isAuthenticated: false, loading: false, signIn: async () => {}, signOut: async () => {} });',
   },
-  '@xbg.solutions/utils-sanitizer': {
+  '@xbg.solutions/bpsk-utils-sanitizer': {
     escapeHtml:   "const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;');",
     sanitizeText: 'const sanitizeText = (s) => String(s).replace(/<[^>]*>/g, "");',
   },
-  '@xbg.solutions/utils-file-upload': {
+  '@xbg.solutions/bpsk-utils-file-upload': {
     storageService: 'const storageService = { upload: async (file, storagePath) => ({ url: URL.createObjectURL(file), path: storagePath || file.name }), delete: async (_path) => {}, getUrl: async (_path) => "", getMetadata: async (_path) => ({}) };',
   },
-  '@xbg.solutions/utils-firebase-auth': {
+  '@xbg.solutions/bpsk-utils-firebase-auth': {
     safeSendEmailLink: 'const safeSendEmailLink = async (_email) => ({ success: true, error: null });',
     signInWithGoogle:  'const signInWithGoogle = async () => ({ user: null, error: null });',
     signInWithPhone:   'const signInWithPhone = async (_phone) => ({ verificationId: "demo", error: null });',

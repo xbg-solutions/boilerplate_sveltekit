@@ -5,13 +5,13 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { Card, Alert, AlertDescription, Button, Label, Input } from '$lib/components/ui';
-  import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '@xbg.solutions/utils-firebase-auth';
-  import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
-  import { safeForceSync } from '@xbg.solutions/utils-tab-sync';
-  import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
-  import { publish } from '@xbg.solutions/frontend-core';
-  import { tabSyncStore } from '@xbg.solutions/utils-tab-sync';
-  import type { EmailLinkVerifyOptions } from '@xbg.solutions/frontend-core';
+  import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '@xbg.solutions/bpsk-utils-firebase-auth';
+  import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
+  import { safeForceSync } from '@xbg.solutions/bpsk-utils-tab-sync';
+  import { AUTH_EVENTS } from '@xbg.solutions/bpsk-core';
+  import { publish } from '@xbg.solutions/bpsk-core';
+  import { tabSyncStore } from '@xbg.solutions/bpsk-utils-tab-sync';
+  import type { EmailLinkVerifyOptions } from '@xbg.solutions/bpsk-core';
 
   // Get data from page load function
   let { data = {} }: { data?: {

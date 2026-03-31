@@ -1,6 +1,6 @@
 {
-  "name": "@xbg.solutions/utils-secure-storage",
-  "version": "1.2.0",
+  "name": "@xbg.solutions/bpsk-utils-secure-storage",
+  "version": "1.2.3",
   "description": "XBG Secure Storage - Encrypted client-side storage with key derivation",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,7 +16,7 @@
     "access": "public"
   },
 "dependencies": {
-    "@xbg.solutions/frontend-core": "^1.0.0"
+    "@xbg.solutions/bpsk-core": "^1.0.0"
   },
 "peerDependencies": {
     "svelte": "^5.0.0"

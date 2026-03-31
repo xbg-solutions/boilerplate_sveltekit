@@ -8,11 +8,11 @@
   import '../app.css';
 
   // Import stores and services
-  import { authStore } from '@xbg.solutions/utils-firebase-auth';
-  import { initializationStore } from '@xbg.solutions/frontend-core';
-  import { subscribe } from '@xbg.solutions/frontend-core';
-  import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
-  import { loadingStore } from '@xbg.solutions/frontend-core';
+  import { authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';
+  import { initializationStore } from '@xbg.solutions/bpsk-core';
+  import { subscribe } from '@xbg.solutions/bpsk-core';
+  import { AUTH_EVENTS } from '@xbg.solutions/bpsk-core';
+  import { loadingStore } from '@xbg.solutions/bpsk-core';
   import { PageTransition } from '$lib/components/layout';
 
   // Immediately disable SvelteKit's navigation progress bar and hide all browser-level loading indicators
@@ -107,7 +107,7 @@
   }
 
   // Type imports
-  import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
+  import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
   import type { User } from 'firebase/auth';
   import type { Snippet } from 'svelte';
 

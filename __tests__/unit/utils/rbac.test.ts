@@ -6,9 +6,9 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { rbacUtil } from '@xbg.solutions/utils-rbac';
-import { ROLES, CLAIM_BOOLEAN_MAP, ROLE_PERMISSIONS } from '@xbg.solutions/frontend-core';
-import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
+import { rbacUtil } from '@xbg.solutions/bpsk-utils-rbac';
+import { ROLES, CLAIM_BOOLEAN_MAP, ROLE_PERMISSIONS } from '@xbg.solutions/bpsk-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
 
 // Mock the logger to avoid console output during tests
 vi.mock('../services/logging/logging.service', () => ({

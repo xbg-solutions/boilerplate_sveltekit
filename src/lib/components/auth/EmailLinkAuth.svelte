@@ -8,7 +8,7 @@
    * Provides passwordless sign-in via email links
    */
 
-  import { safeSendEmailLink } from '@xbg.solutions/utils-firebase-auth';
+  import { safeSendEmailLink } from '@xbg.solutions/bpsk-utils-firebase-auth';
   import { Button } from '$lib/components/ui';
 
   // Component props with callback props replacing dispatched events

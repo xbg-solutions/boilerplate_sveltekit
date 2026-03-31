@@ -10,9 +10,9 @@
  */
 
 import { writable } from 'svelte/store';
-import type { DecodedToken, TokenRole } from '@xbg.solutions/frontend-core';
-import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
-import type { AppError } from '@xbg.solutions/frontend-core';
+import type { DecodedToken, TokenRole } from '@xbg.solutions/bpsk-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
+import type { AppError } from '@xbg.solutions/bpsk-core';
 
 /**
  * Token store state

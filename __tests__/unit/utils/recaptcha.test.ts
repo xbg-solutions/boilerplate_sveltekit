@@ -5,7 +5,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Test the real recaptcha utilities
-import { clearRecaptchaVerifier, createRecaptchaVerifier } from '@xbg.solutions/utils-recaptcha';
+import { clearRecaptchaVerifier, createRecaptchaVerifier } from '@xbg.solutions/bpsk-utils-recaptcha';
 
 describe('reCAPTCHA Utility', () => {
   beforeEach(() => {

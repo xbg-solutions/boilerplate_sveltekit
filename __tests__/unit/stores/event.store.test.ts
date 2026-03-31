@@ -13,8 +13,8 @@ vi.mock('$lib/services/events/pub-sub', () => ({
 }));
 
 // Import after the mock
-import { subscribe, publish } from '@xbg.solutions/frontend-core';
-import { eventStore, eventDerived, connectStoreToEvents } from '@xbg.solutions/frontend-core';
+import { subscribe, publish } from '@xbg.solutions/bpsk-core';
+import { eventStore, eventDerived, connectStoreToEvents } from '@xbg.solutions/bpsk-core';
 
 // Type casting for TypeScript
 const subscribeMock = subscribe as any;

@@ -23,12 +23,12 @@ A production-ready SvelteKit 5 foundation for **agentic, AI-assisted development
 
 | Skill | Directory | Read When You Need To... |
 |---|---|---|
-| `setup` | `setup/` | Bootstrap a project, `npx xbg-frontend setup`, mono-repo tidy-up, deploy |
+| `setup` | `setup/` | Bootstrap a project, `npx @xbg.solutions/bpsk setup`, mono-repo tidy-up, deploy |
 | `config` | `config/` | Understand `app.config.ts`, the two-part config model, add roles/features |
 | `stores` | `stores/` | Use or extend Svelte stores (authStore, loadingStore, toastStore, etc.) |
 | `services` | `services/` | Call services (authService, apiService, toastService, etc.) |
 | `utils` | `utils/` | Use utility functions (cn, routeHandler, authGuard, rbacUtil, etc.) |
-| `components` | `components/` | Three-tier components: basic atoms (code), extended atoms + blocks (`npx xbg-frontend add`) |
+| `components` | `components/` | Three-tier components: basic atoms (code), extended atoms + blocks (`npx @xbg.solutions/bpsk add`) |
 | `packages` | `packages/` | npm distribution, dependency graph, import path mapping |
 | `security_hardening` | `security_hardening/` | CSP/headers, Firebase security rules, App Check, CSRF, rate limiting |
 | `contributing` | `contributing/` | Extend the boilerplate: add atoms/blocks, update registry, maintain component manifest |
@@ -99,13 +99,13 @@ docs/                              # Architecture docs
 All values flow through **`src/lib/config/app.config.ts`**.
 - Secrets/IDs come from `.env` via `import.meta.env`
 - Roles, permissions, feature flags live in `SETUP:start/end` marked blocks
-- Run `npx xbg-frontend setup` (interactive) or `npx xbg-frontend setup --config <path>` (non-interactive) to write both
-- Run `npx xbg-frontend validate` to verify
+- Run `npx @xbg.solutions/bpsk setup` (interactive) or `npx @xbg.solutions/bpsk setup --config <path>` (non-interactive) to write both
+- Run `npx @xbg.solutions/bpsk validate` to verify
 
 ### 2. Three-Tier Components
 
 - **Basic atoms** — code yourself following Svelte 5 runes + `tv()` + `cn()` pattern
-- **Extended atoms + blocks** — install from registry: `npx xbg-frontend add <name>`
+- **Extended atoms + blocks** — install from registry: `npx @xbg.solutions/bpsk add <name>`
 - All components live in `$lib/components/ui` (atoms) and `$lib/components/blocks` (blocks, aliased as `$blocks`)
 - Blocks compose atomic components — never duplicate atomic logic inside a block
 

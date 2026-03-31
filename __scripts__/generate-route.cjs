@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Wrapper — delegates to packages/create-frontend/src/commands/generate-route.cjs
- * Prefer: npx xbg-frontend generate route <path>
+ * Prefer: npx bpsk generate route <path>
  */
 'use strict';
 require('../packages/create-frontend/src/commands/generate-route.cjs');

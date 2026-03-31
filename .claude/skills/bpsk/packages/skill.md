@@ -11,7 +11,7 @@ How the boilerplate is distributed as npm packages, what lives where, how to ins
 The boilerplate uses a **two-part distribution model**:
 
 1. **npm packages** (`@xbg.solutions/*`) — Runtime code that lives in `node_modules/` and updates via `npm update` with semver protection
-2. **CLI scaffolding** (`@xbg.solutions/create-frontend`) — Generates project-local files (config, UI components, routes, build config) that the project owns and customizes
+2. **CLI scaffolding** (`@xbg.solutions/bpsk`) — Generates project-local files (config, UI components, routes, build config) that the project owns and customizes
 
 This means: **packages are imported, scaffolded files are copied.** An agent modifying scaffolded code (e.g., shadcn components in `src/lib/components/ui/`) is editing project-owned files. An agent using package functionality imports from `@xbg.solutions/*`.
 
@@ -19,7 +19,7 @@ This means: **packages are imported, scaffolded files are copied.** An agent mod
 
 ## Package Map
 
-### @xbg.solutions/frontend-core (always required)
+### @xbg.solutions/bpsk-core (always required)
 
 The base framework package. Every project depends on it.
 
@@ -38,7 +38,7 @@ The base framework package. Every project depends on it.
 
 **No optional dependencies.** This is the foundation everything else builds on. Event bus and mutex are included here because they are foundational utilities used by core itself.
 
-### @xbg.solutions/test-utils-frontend (devDependency)
+### @xbg.solutions/bpsk-test-utils (devDependency)
 
 Test utilities. Separate from core to keep production bundles clean — avoids shipping `vitest`, `@testing-library/svelte`, and `jsdom` to production.
 
@@ -51,40 +51,40 @@ Test utilities. Separate from core to keep production bundles clean — avoids s
 - `validateFirebaseMocks()`, `resetFirebaseMocks()` — Mock validation
 - Test timeout constants
 
-**Depends on:** `@xbg.solutions/frontend-core`
+**Depends on:** `@xbg.solutions/bpsk-core`
 
-### @xbg.solutions/utils-* (individually installable)
+### @xbg.solutions/bpsk-utils-* (individually installable)
 
 Each utility is its own package. Projects install only what they need. The CLI prompts for selection during init. Dependencies auto-resolve via npm.
 
 | Package | What It Provides | Depends On |
 |---|---|---|
-| `@xbg.solutions/utils-firebase-auth` | Auth service, token service, auth/token stores, auth guard, signout | `core`, `utils-csrf`, `utils-secure-storage`, `firebase` |
-| `@xbg.solutions/utils-api-client` | API service, request/response handlers, response caching | `core`, `utils-csrf` |
-| `@xbg.solutions/utils-secure-storage` | AES-GCM encrypted client storage with key derivation | `core` |
-| `@xbg.solutions/utils-csrf` | CSRF token generation/validation, store, constants | `core` |
-| `@xbg.solutions/utils-sanitizer` | Input sanitization, XSS prevention | `core` |
-| `@xbg.solutions/utils-rbac` | Role hierarchy, permission checking, store | `core` |
-| `@xbg.solutions/utils-tab-sync` | Cross-tab sync via BroadcastChannel/storage events | `core`, `utils-firebase-auth` |
-| `@xbg.solutions/utils-recaptcha` | reCAPTCHA v3 integration | `core` |
-| `@xbg.solutions/utils-seo` | Meta tags, structured data, OpenGraph | `core` |
-| `@xbg.solutions/utils-sse` | Server-sent events client | `core` |
-| `@xbg.solutions/utils-performance` | Performance metrics, monitoring | `core` |
-| `@xbg.solutions/utils-file-upload` | File handling with Firebase Storage | `core`, `utils-firebase-auth`, `utils-api-client` |
-| `@xbg.solutions/utils-state-manager` | Global state persistence | `core`, `utils-secure-storage` |
+| `@xbg.solutions/bpsk-utils-firebase-auth` | Auth service, token service, auth/token stores, auth guard, signout | `core`, `utils-csrf`, `utils-secure-storage`, `firebase` |
+| `@xbg.solutions/bpsk-utils-api-client` | API service, request/response handlers, response caching | `core`, `utils-csrf` |
+| `@xbg.solutions/bpsk-utils-secure-storage` | AES-GCM encrypted client storage with key derivation | `core` |
+| `@xbg.solutions/bpsk-utils-csrf` | CSRF token generation/validation, store, constants | `core` |
+| `@xbg.solutions/bpsk-utils-sanitizer` | Input sanitization, XSS prevention | `core` |
+| `@xbg.solutions/bpsk-utils-rbac` | Role hierarchy, permission checking, store | `core` |
+| `@xbg.solutions/bpsk-utils-tab-sync` | Cross-tab sync via BroadcastChannel/storage events | `core`, `utils-firebase-auth` |
+| `@xbg.solutions/bpsk-utils-recaptcha` | reCAPTCHA v3 integration | `core` |
+| `@xbg.solutions/bpsk-utils-seo` | Meta tags, structured data, OpenGraph | `core` |
+| `@xbg.solutions/bpsk-utils-sse` | Server-sent events client | `core` |
+| `@xbg.solutions/bpsk-utils-performance` | Performance metrics, monitoring | `core` |
+| `@xbg.solutions/bpsk-utils-file-upload` | File handling with Firebase Storage | `core`, `utils-firebase-auth`, `utils-api-client` |
+| `@xbg.solutions/bpsk-utils-state-manager` | Global state persistence | `core`, `utils-secure-storage` |
 
 > **Note:** Event bus, mutex, and pub/sub are included in `frontend-core` (not separate packages) to avoid circular dependencies.
 
-### @xbg.solutions/create-frontend (CLI tool)
+### @xbg.solutions/bpsk (CLI tool)
 
-The project scaffolding and component registry CLI. Invoked via `npx xbg-frontend`.
+The project scaffolding and component registry CLI. Invoked via `npx @xbg.solutions/bpsk`.
 
 **Commands:**
-- **Setup**: `npx xbg-frontend setup` (interactive) or `npx xbg-frontend setup --config setup-config.json` (agent/CI)
-- **Add components**: `npx xbg-frontend add otp-input block-auth block-dashboard` — copies from registry into project
-- **Generators**: `npx xbg-frontend generate component <Name>`, `npx xbg-frontend generate route <path>`, `npx xbg-frontend generate service <Name>`
-- **Validation**: `npx xbg-frontend validate`
-- **List**: `npx xbg-frontend add list` — shows all available registry components
+- **Setup**: `npx @xbg.solutions/bpsk setup` (interactive) or `npx @xbg.solutions/bpsk setup --config setup-config.json` (agent/CI)
+- **Add components**: `npx @xbg.solutions/bpsk add otp-input block-auth block-dashboard` — copies from registry into project
+- **Generators**: `npx @xbg.solutions/bpsk generate component <Name>`, `npx @xbg.solutions/bpsk generate route <path>`, `npx @xbg.solutions/bpsk generate service <Name>`
+- **Validation**: `npx @xbg.solutions/bpsk validate`
+- **List**: `npx @xbg.solutions/bpsk add list` — shows all available registry components
 
 **Contains a component registry** with 450+ blocks across 55 categories, 16+ extended atoms, and 4 advanced components. The `add` command copies `.svelte` source files into the project (shadcn philosophy: own your source).
 
@@ -93,37 +93,37 @@ The project scaffolding and component registry CLI. Invoked via `npx xbg-fronten
 ## Dependency Graph
 
 ```
-@xbg.solutions/create-frontend (CLI, invoked via npx)
+@xbg.solutions/bpsk (CLI, invoked via npx)
     │
     ▼ scaffolds project that imports from:
 
-@xbg.solutions/frontend-core ◄─────────────────────────────┐
+@xbg.solutions/bpsk-core ◄─────────────────────────────┐
     ▲  (includes event-bus, mutex, logging, errors)         │
     │                                                       │
-    ├── @xbg.solutions/utils-csrf ◄──────────────┐          │
-    ├── @xbg.solutions/utils-secure-storage      │          │
-    ├── @xbg.solutions/utils-firebase-auth ──────┤ (auto)   │
+    ├── @xbg.solutions/bpsk-utils-csrf ◄──────────────┐          │
+    ├── @xbg.solutions/bpsk-utils-secure-storage      │          │
+    ├── @xbg.solutions/bpsk-utils-firebase-auth ──────┤ (auto)   │
     │       └── depends on csrf,                 │          │
     │          secure-storage, rbac              │          │
-    ├── @xbg.solutions/utils-api-client ─────────┘          │
+    ├── @xbg.solutions/bpsk-utils-api-client ─────────┘          │
     │       └── depends on csrf                             │
-    ├── @xbg.solutions/utils-tab-sync                       │
+    ├── @xbg.solutions/bpsk-utils-tab-sync                       │
     │       └── depends on firebase-auth                    │
-    ├── @xbg.solutions/utils-rbac                           │
-    ├── @xbg.solutions/utils-sanitizer                      │
-    ├── @xbg.solutions/utils-recaptcha                      │
-    ├── @xbg.solutions/utils-seo                            │
-    ├── @xbg.solutions/utils-sse                            │
-    ├── @xbg.solutions/utils-performance                    │
-    ├── @xbg.solutions/utils-file-upload                    │
+    ├── @xbg.solutions/bpsk-utils-rbac                           │
+    ├── @xbg.solutions/bpsk-utils-sanitizer                      │
+    ├── @xbg.solutions/bpsk-utils-recaptcha                      │
+    ├── @xbg.solutions/bpsk-utils-seo                            │
+    ├── @xbg.solutions/bpsk-utils-sse                            │
+    ├── @xbg.solutions/bpsk-utils-performance                    │
+    ├── @xbg.solutions/bpsk-utils-file-upload                    │
     │       └── depends on firebase-auth, api-client        │
-    └── @xbg.solutions/utils-state-manager                  │
+    └── @xbg.solutions/bpsk-utils-state-manager                  │
             └── depends on secure-storage                   │
                                                             │
-@xbg.solutions/test-utils-frontend (devDependency) ────────┘
+@xbg.solutions/bpsk-test-utils (devDependency) ────────┘
 ```
 
-**Dependency auto-resolution:** Installing `@xbg.solutions/utils-firebase-auth` automatically pulls in `utils-csrf` and `utils-secure-storage`. No manual chaining required.
+**Dependency auto-resolution:** Installing `@xbg.solutions/bpsk-utils-firebase-auth` automatically pulls in `utils-csrf` and `utils-secure-storage`. No manual chaining required.
 
 ---
 
@@ -135,26 +135,26 @@ Projects import from `@xbg.solutions/*` packages:
 
 ```typescript
 // Core — always available
-import { AppError, loadingStore, initializationStore } from '@xbg.solutions/frontend-core';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { cn } from '@xbg.solutions/frontend-core';
-import { toastService, toastStore } from '@xbg.solutions/frontend-core';
-import { routeHandler } from '@xbg.solutions/frontend-core';
+import { AppError, loadingStore, initializationStore } from '@xbg.solutions/bpsk-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { cn } from '@xbg.solutions/bpsk-core';
+import { toastService, toastStore } from '@xbg.solutions/bpsk-core';
+import { routeHandler } from '@xbg.solutions/bpsk-core';
 
 // Utils — only available if installed
-import { authService, authStore } from '@xbg.solutions/utils-firebase-auth';
-import { guardRoute, guardRouteServer } from '@xbg.solutions/utils-firebase-auth';
-import { apiService } from '@xbg.solutions/utils-api-client';
-import { rbacUtil, rbacStore } from '@xbg.solutions/utils-rbac';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { publish, subscribe, mutexService } from '@xbg.solutions/frontend-core';  // event-bus + mutex are in core
-import { tabSyncService } from '@xbg.solutions/utils-tab-sync';
-import { sanitizeHtml, sanitizeUrl } from '@xbg.solutions/utils-sanitizer';
-import { performanceMonitor } from '@xbg.solutions/utils-performance';
+import { authService, authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import { guardRoute, guardRouteServer } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import { apiService } from '@xbg.solutions/bpsk-utils-api-client';
+import { rbacUtil, rbacStore } from '@xbg.solutions/bpsk-utils-rbac';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { publish, subscribe, mutexService } from '@xbg.solutions/bpsk-core';  // event-bus + mutex are in core
+import { tabSyncService } from '@xbg.solutions/bpsk-utils-tab-sync';
+import { sanitizeHtml, sanitizeUrl } from '@xbg.solutions/bpsk-utils-sanitizer';
+import { performanceMonitor } from '@xbg.solutions/bpsk-utils-performance';
 
 // Test utils — only in test files
-import { createFirebaseAuthMock, createMockStore } from '@xbg.solutions/test-utils-frontend';
-import { waitForAsync, flushPromises } from '@xbg.solutions/test-utils-frontend';
+import { createFirebaseAuthMock, createMockStore } from '@xbg.solutions/bpsk-test-utils';
+import { waitForAsync, flushPromises } from '@xbg.solutions/bpsk-test-utils';
 ```
 
 ### In the boilerplate repo itself (current state)
@@ -163,46 +163,46 @@ The boilerplate uses `$lib/` path aliases that resolve to local source:
 
 ```typescript
 // These $lib/ paths map to what becomes @xbg.solutions/* packages
-import { AppError } from '$lib/utils/error-handler';         // → @xbg.solutions/frontend-core
-import { loadingStore } from '$lib/stores/loading.store';     // → @xbg.solutions/frontend-core
-import { authService } from '$lib/services/auth';             // → @xbg.solutions/utils-firebase-auth
-import { apiService } from '$lib/services/api';               // → @xbg.solutions/utils-api-client
-import { rbacUtil } from '$lib/utils/rbac';                   // → @xbg.solutions/utils-rbac
-import { publish, subscribe } from '$lib/services/events';    // → @xbg.solutions/utils-event-bus
+import { AppError } from '$lib/utils/error-handler';         // → @xbg.solutions/bpsk-core
+import { loadingStore } from '$lib/stores/loading.store';     // → @xbg.solutions/bpsk-core
+import { authService } from '$lib/services/auth';             // → @xbg.solutions/bpsk-utils-firebase-auth
+import { apiService } from '$lib/services/api';               // → @xbg.solutions/bpsk-utils-api-client
+import { rbacUtil } from '$lib/utils/rbac';                   // → @xbg.solutions/bpsk-utils-rbac
+import { publish, subscribe } from '$lib/services/events';    // → @xbg.solutions/bpsk-utils-event-bus
 ```
 
 ### Import path mapping ($lib → @xbg)
 
 | `$lib/` Path (boilerplate) | `@xbg.solutions/*` Package (consuming project) |
 |---|---|
-| `$lib/utils/error-handler` | `@xbg.solutions/frontend-core` |
-| `$lib/utils/cn` | `@xbg.solutions/frontend-core` |
-| `$lib/utils/route-handler` | `@xbg.solutions/frontend-core` |
-| `$lib/stores/loading.store` | `@xbg.solutions/frontend-core` |
-| `$lib/stores/toast.store` | `@xbg.solutions/frontend-core` |
-| `$lib/stores/initialization.store` | `@xbg.solutions/frontend-core` |
-| `$lib/stores/logging.store` | `@xbg.solutions/frontend-core` |
-| `$lib/services/initialization` | `@xbg.solutions/frontend-core` |
-| `$lib/services/toast` | `@xbg.solutions/frontend-core` |
-| `$lib/services/logging/logging.service` | `@xbg.solutions/frontend-core` |
-| `$lib/components/layout` (`ErrorBoundary`, `PageTransition`, `ClientOnly`) | `@xbg.solutions/frontend-core` |
-| `$lib/services/auth` | `@xbg.solutions/utils-firebase-auth` |
-| `$lib/stores/auth.store` | `@xbg.solutions/utils-firebase-auth` |
-| `$lib/utils/auth-guard` | `@xbg.solutions/utils-firebase-auth` |
-| `$lib/utils/tokens` | `@xbg.solutions/utils-firebase-auth` |
-| `$lib/services/api` | `@xbg.solutions/utils-api-client` |
-| `$lib/utils/rbac` | `@xbg.solutions/utils-rbac` |
-| `$lib/stores/rbac` | `@xbg.solutions/utils-rbac` |
-| `$lib/utils/secure-storage` | `@xbg.solutions/utils-secure-storage` |
-| `$lib/utils/csrf` | `@xbg.solutions/utils-csrf` |
-| `$lib/utils/sanitizer` | `@xbg.solutions/utils-sanitizer` |
-| `$lib/services/events` | `@xbg.solutions/frontend-core` |
-| `$lib/utils/mutex` | `@xbg.solutions/frontend-core` |
-| `$lib/services/tab-sync` | `@xbg.solutions/utils-tab-sync` |
-| `$lib/utils/performance` | `@xbg.solutions/utils-performance` |
-| `$lib/utils/seo` | `@xbg.solutions/utils-seo` |
-| `$lib/utils/sse` | `@xbg.solutions/utils-sse` |
-| `$lib/services/state` | `@xbg.solutions/utils-state-manager` |
+| `$lib/utils/error-handler` | `@xbg.solutions/bpsk-core` |
+| `$lib/utils/cn` | `@xbg.solutions/bpsk-core` |
+| `$lib/utils/route-handler` | `@xbg.solutions/bpsk-core` |
+| `$lib/stores/loading.store` | `@xbg.solutions/bpsk-core` |
+| `$lib/stores/toast.store` | `@xbg.solutions/bpsk-core` |
+| `$lib/stores/initialization.store` | `@xbg.solutions/bpsk-core` |
+| `$lib/stores/logging.store` | `@xbg.solutions/bpsk-core` |
+| `$lib/services/initialization` | `@xbg.solutions/bpsk-core` |
+| `$lib/services/toast` | `@xbg.solutions/bpsk-core` |
+| `$lib/services/logging/logging.service` | `@xbg.solutions/bpsk-core` |
+| `$lib/components/layout` (`ErrorBoundary`, `PageTransition`, `ClientOnly`) | `@xbg.solutions/bpsk-core` |
+| `$lib/services/auth` | `@xbg.solutions/bpsk-utils-firebase-auth` |
+| `$lib/stores/auth.store` | `@xbg.solutions/bpsk-utils-firebase-auth` |
+| `$lib/utils/auth-guard` | `@xbg.solutions/bpsk-utils-firebase-auth` |
+| `$lib/utils/tokens` | `@xbg.solutions/bpsk-utils-firebase-auth` |
+| `$lib/services/api` | `@xbg.solutions/bpsk-utils-api-client` |
+| `$lib/utils/rbac` | `@xbg.solutions/bpsk-utils-rbac` |
+| `$lib/stores/rbac` | `@xbg.solutions/bpsk-utils-rbac` |
+| `$lib/utils/secure-storage` | `@xbg.solutions/bpsk-utils-secure-storage` |
+| `$lib/utils/csrf` | `@xbg.solutions/bpsk-utils-csrf` |
+| `$lib/utils/sanitizer` | `@xbg.solutions/bpsk-utils-sanitizer` |
+| `$lib/services/events` | `@xbg.solutions/bpsk-core` |
+| `$lib/utils/mutex` | `@xbg.solutions/bpsk-core` |
+| `$lib/services/tab-sync` | `@xbg.solutions/bpsk-utils-tab-sync` |
+| `$lib/utils/performance` | `@xbg.solutions/bpsk-utils-performance` |
+| `$lib/utils/seo` | `@xbg.solutions/bpsk-utils-seo` |
+| `$lib/utils/sse` | `@xbg.solutions/bpsk-utils-sse` |
+| `$lib/services/state` | `@xbg.solutions/bpsk-utils-state-manager` |
 
 ---
 
@@ -213,12 +213,12 @@ import { publish, subscribe } from '$lib/services/events';    // → @xbg.soluti
 These files are generated by the CLI into the project. The project owns and customizes them:
 
 - **Basic UI atoms** — `src/lib/components/ui/` — agent-coded following Svelte 5 + tv() + cn() pattern
-- **Extended atoms + blocks** — copied from registry via `npx xbg-frontend add` — project owns the source
+- **Extended atoms + blocks** — copied from registry via `npx @xbg.solutions/bpsk add` — project owns the source
 - **Auth components** — `src/lib/components/auth/` (`EmailLinkAuth`, `PhoneAuth`)
 - **`app.config.ts`** — `src/lib/config/app.config.ts` (uses `defineConfig()` types from core)
 - **Routes** — `src/routes/` (`+layout.svelte`, `+page.svelte`, `+error.svelte`, protected routes)
 - **Build/tool config** — `svelte.config.js`, `vite.config.ts`, `tailwind.config.cjs`, `postcss.config.cjs`, `tsconfig.json`
-- **`.env` + `.env.example`** — Generated by `npx xbg-frontend setup`
+- **`.env` + `.env.example`** — Generated by `npx @xbg.solutions/bpsk setup`
 - **`app.html`**, **`app.css`** — Base HTML and global styles
 - **Generated code** — Components, routes, and services created via CLI generators
 
@@ -226,9 +226,9 @@ These files are generated by the CLI into the project. The project owns and cust
 
 These live in `node_modules/@xbg.solutions/` and update via `npm update`:
 
-- All `@xbg.solutions/frontend-core` exports (types, stores, services, utils, layout components)
-- All `@xbg.solutions/utils-*` exports (auth, API, RBAC, events, etc.)
-- All `@xbg.solutions/test-utils-frontend` exports (mocks, helpers)
+- All `@xbg.solutions/bpsk-core` exports (types, stores, services, utils, layout components)
+- All `@xbg.solutions/bpsk-utils-*` exports (auth, API, RBAC, events, etc.)
+- All `@xbg.solutions/bpsk-test-utils` exports (mocks, helpers)
 
 **Rule:** Never copy code out of `node_modules/@xbg.solutions/` into project source. Import from the package instead.
 
@@ -239,7 +239,7 @@ These live in `node_modules/@xbg.solutions/` and update via `npm update`:
 ### Direct install
 
 ```bash
-npm install @xbg.solutions/utils-seo
+npm install @xbg.solutions/bpsk-utils-seo
 ```
 
 ### What happens after install
@@ -250,7 +250,7 @@ npm install @xbg.solutions/utils-seo
 4. Import from the package in your code:
 
 ```typescript
-import { seoService } from '@xbg.solutions/utils-seo';
+import { seoService } from '@xbg.solutions/bpsk-utils-seo';
 ```
 
 ---
@@ -260,7 +260,7 @@ import { seoService } from '@xbg.solutions/utils-seo';
 ### Adding a New Feature
 
 1. **Identify which packages you need** — Check the package map above
-2. **Install if not present** — `npm install @xbg.solutions/utils-<name>`
+2. **Install if not present** — `npm install @xbg.solutions/bpsk-utils-<name>`
 3. **Import from the package** — Use `@xbg.solutions/*` imports (or `$lib/` in the boilerplate repo)
 4. **Compose in routes** — Build features in `src/routes/`, composing packaged services with scaffolded UI components
 5. **Configure in `app.config.ts`** — Add any new roles, routes, or feature flags
@@ -271,11 +271,11 @@ import { seoService } from '@xbg.solutions/utils-seo';
 // src/routes/protected/analytics/+page.svelte
 <script lang="ts">
   import { Button, Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui';
-  import { authStore } from '@xbg.solutions/utils-firebase-auth';         // or '$lib/stores/auth.store'
-  import { apiService } from '@xbg.solutions/utils-api-client';            // or '$lib/services/api'
-  import { rbacUtil } from '@xbg.solutions/utils-rbac';                    // or '$lib/utils/rbac'
-  import { showErrorToast } from '@xbg.solutions/frontend-core';           // or '$lib/utils/error-handler-toast'
-  import { performanceMonitor } from '@xbg.solutions/utils-performance';   // or '$lib/utils/performance'
+  import { authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';         // or '$lib/stores/auth.store'
+  import { apiService } from '@xbg.solutions/bpsk-utils-api-client';            // or '$lib/services/api'
+  import { rbacUtil } from '@xbg.solutions/bpsk-utils-rbac';                    // or '$lib/utils/rbac'
+  import { showErrorToast } from '@xbg.solutions/bpsk-core';           // or '$lib/utils/error-handler-toast'
+  import { performanceMonitor } from '@xbg.solutions/bpsk-utils-performance';   // or '$lib/utils/performance'
 
   let data = $state<AnalyticsData | null>(null);
 
@@ -328,7 +328,7 @@ Then add a barrel export:
 export { analyticsService } from './analytics.service';
 ```
 
-This service would eventually be packaged as `@xbg.solutions/utils-analytics` or similar.
+This service would eventually be packaged as `@xbg.solutions/bpsk-utils-analytics` or similar.
 
 ---
 
@@ -376,7 +376,7 @@ import {
   waitForAsync,
   flushPromises,
   resetFirebaseMocks
-} from '@xbg.solutions/test-utils-frontend';
+} from '@xbg.solutions/bpsk-test-utils';
 
 // Or in the boilerplate repo:
 // import { createFirebaseAuthMock, ... } from '$lib/__test-utils__';
@@ -433,7 +433,7 @@ test('apiService.post was called', () => {
 1. **Utilities are individually installable** — No monolith package dragging in unused dependencies
 2. **Core framework is one package** — Base types, stores, error handling, and layout components travel together
 3. **Scaffolding is separate from runtime** — The CLI generates/merges project files but isn't a runtime dependency
-4. **UI components are copy-on-install** — `npx xbg-frontend add` copies from registry into project. Follows shadcn philosophy: project owns and customizes its components. Updates to the boilerplate don't affect existing projects.
+4. **UI components are copy-on-install** — `npx @xbg.solutions/bpsk add` copies from registry into project. Follows shadcn philosophy: project owns and customizes its components. Updates to the boilerplate don't affect existing projects.
 5. **Test utilities are a separate dev package** — Keeps production bundle clean
 6. **Dependencies auto-resolve** — Installing a utility automatically pulls in its `@xbg.solutions/*` dependencies via npm
 7. **Semver protects downstream projects** — Package updates follow semver; breaking changes require major bumps
@@ -445,7 +445,7 @@ test('apiService.post was called', () => {
 | Mistake | Fix |
 |---|---|
 | Copying code from `node_modules/@xbg.solutions/` into `src/` | Import from the package directly |
-| Installing `@xbg.solutions/test-utils-frontend` as a regular dependency | Use `--save-dev` (it's a devDependency) |
+| Installing `@xbg.solutions/bpsk-test-utils` as a regular dependency | Use `--save-dev` (it's a devDependency) |
 | Importing from `$lib/` in a consuming project | Use `@xbg.solutions/*` package imports |
 | Manually installing transitive deps (e.g., `utils-csrf` when `utils-firebase-auth` is installed) | Let npm auto-resolve — just install the top-level package |
 | Editing scaffolded `app.config.ts` outside `SETUP:start/end` markers | CLI sync may overwrite non-marked sections; put custom config outside markers |

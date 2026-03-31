@@ -1,10 +1,10 @@
 {
-  "name": "@xbg.solutions/create-frontend",
-  "version": "1.2.0",
+  "name": "@xbg.solutions/bpsk",
+  "version": "1.2.3",
   "description": "CLI tool and component registry for XBG frontend projects",
   "type": "module",
   "bin": {
-    "xbg-frontend": "./bin/xbg-frontend.cjs"
+    "bpsk": "./bin/xbg-frontend.cjs"
   },
   "files": [
     "bin",

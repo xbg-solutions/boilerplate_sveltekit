@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { handleError, createErrorResponse } from '@xbg.solutions/frontend-core';
+import { handleError, createErrorResponse } from '@xbg.solutions/bpsk-core';
 
 // Import the real implementation - don't mock this file directly
 const originalModule = await vi.importActual('$lib/utils/firebase') as {

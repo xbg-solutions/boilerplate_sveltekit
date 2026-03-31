@@ -13,9 +13,9 @@
  */
 
 import { uploadFile, type UploadOptions, type UploadResult, type UploadProgress } from '../utils/firebase-storage';
-import { apiService } from '@xbg.solutions/utils-api-client';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { AppError } from '@xbg.solutions/frontend-core';
+import { apiService } from '@xbg.solutions/bpsk-utils-api-client';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { AppError } from '@xbg.solutions/bpsk-core';
 
 // Create logger for file upload service
 const uploadLogger = loggerService.withContext('FileUploadService');

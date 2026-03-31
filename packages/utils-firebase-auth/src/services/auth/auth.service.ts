@@ -17,13 +17,13 @@ import {
   subscribeToAuthChanges,
   signOutUser,
   processFirebaseError
-} from '@xbg.solutions/frontend-core';
-import { loggerService } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
 import { tokenService } from '../token/token.service';
-import { publish, subscribe } from '@xbg.solutions/frontend-core';
-import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
+import { publish, subscribe } from '@xbg.solutions/bpsk-core';
+import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
 import { authStore, type AuthMethod } from '../../stores/auth.store';
-import { AUTH_EVENTS, AUTH_ROUTES_LEGACY as AUTH_ROUTES, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/frontend-core';
+import { AUTH_EVENTS, AUTH_ROUTES_LEGACY as AUTH_ROUTES, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/bpsk-core';
 import { extractClaims } from '../../utils/tokens';
 import { goto } from '$app/navigation';
 
@@ -32,7 +32,7 @@ import emailLinkService from './email-link';
 import phoneAuthService from './phone-auth';
 
 // Import auth types
-import type { EmailLinkOptions, EmailLinkVerifyOptions, AuthResult } from '@xbg.solutions/frontend-core';
+import type { EmailLinkOptions, EmailLinkVerifyOptions, AuthResult } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const authLogger = loggerService.withContext('AuthService');

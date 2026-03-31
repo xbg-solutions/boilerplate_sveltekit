@@ -7,10 +7,10 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { tokenStore, type TokenState } from '@xbg.solutions/utils-firebase-auth';
-import type { DecodedToken, TokenRole } from '@xbg.solutions/frontend-core';
-import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
-import { AppError } from '@xbg.solutions/frontend-core';
+import { tokenStore, type TokenState } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import type { DecodedToken, TokenRole } from '@xbg.solutions/bpsk-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
+import { AppError } from '@xbg.solutions/bpsk-core';
 
 describe('Token Store', () => {
   // Mock data

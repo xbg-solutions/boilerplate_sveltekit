@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 // Test real email link auth functions
-import { sendEmailLink, verifyEmailLink } from '@xbg.solutions/utils-firebase-auth';
+import { sendEmailLink, verifyEmailLink } from '@xbg.solutions/bpsk-utils-firebase-auth';
 
 describe('Email Link Authentication', () => {
   beforeEach(() => {

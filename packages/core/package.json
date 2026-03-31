@@ -1,6 +1,6 @@
 {
-  "name": "@xbg.solutions/frontend-core",
-  "version": "1.2.0",
+  "name": "@xbg.solutions/bpsk-core",
+  "version": "1.2.3",
   "description": "XBG Frontend Core - Base framework, types, stores, error handling, logging",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

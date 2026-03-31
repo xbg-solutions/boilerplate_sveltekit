@@ -17,7 +17,7 @@ import {
   publish,
   normalizeError,
   handleError
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
 
 // Create context-aware logger
 const sseLogger = loggerService.withContext('SSE');

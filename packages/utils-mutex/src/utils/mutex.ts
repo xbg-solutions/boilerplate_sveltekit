@@ -3,7 +3,7 @@
  * Mutex utility for managing critical sections
  */
 
-import { loggerService, AppError, normalizeError } from '@xbg.solutions/frontend-core';
+import { loggerService, AppError, normalizeError } from '@xbg.solutions/bpsk-core';
 import type { MutexOptions, MutexLockInfo, MutexResult } from '../types/mutex.types';
 import { 
   DEFAULT_MUTEX_TIMEOUT, 

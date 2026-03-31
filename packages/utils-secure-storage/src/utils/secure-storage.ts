@@ -17,7 +17,7 @@ import {
   handleError,
   normalizeError,
   tryCatch
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
 import { STORAGE_DEFAULT_TTL, STORAGE_PREFIX } from '../constants/secure-storage.constants';
 import type { 
   StorageOptions, 

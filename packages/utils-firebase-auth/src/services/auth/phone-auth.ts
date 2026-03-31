@@ -13,12 +13,12 @@ import {
     signInWithPhoneNumber,
     signInWithCredential
   } from 'firebase/auth';
-  import { getFirebaseAuth, processFirebaseError } from '@xbg.solutions/frontend-core';
-  import { loggerService } from '@xbg.solutions/frontend-core';
-  import { publish } from '@xbg.solutions/frontend-core';
-  import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
-  import { AUTH_EVENTS, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/frontend-core';
-  import type { PhoneAuthOptions, PhoneCodeVerifyOptions, AuthResult } from '@xbg.solutions/frontend-core';
+  import { getFirebaseAuth, processFirebaseError } from '@xbg.solutions/bpsk-core';
+  import { loggerService } from '@xbg.solutions/bpsk-core';
+  import { publish } from '@xbg.solutions/bpsk-core';
+  import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
+  import { AUTH_EVENTS, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/bpsk-core';
+  import type { PhoneAuthOptions, PhoneCodeVerifyOptions, AuthResult } from '@xbg.solutions/bpsk-core';
   
   // Create a context-aware logger
   const phoneAuthLogger = loggerService.withContext('PhoneAuthService');

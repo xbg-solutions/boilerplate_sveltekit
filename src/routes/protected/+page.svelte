@@ -9,12 +9,12 @@
 -->
 <script lang="ts">
   import { Card, Alert, AlertDescription } from '$lib/components/ui';
-  import { authStore } from '@xbg.solutions/utils-firebase-auth';
-  import { loggerService } from '@xbg.solutions/frontend-core';
-  import { tokenService } from '@xbg.solutions/utils-firebase-auth';
-  import { rbacUtil } from '@xbg.solutions/utils-rbac';
-  import { subscribe } from '@xbg.solutions/frontend-core';
-  import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
+  import { authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';
+  import { loggerService } from '@xbg.solutions/bpsk-core';
+  import { tokenService } from '@xbg.solutions/bpsk-utils-firebase-auth';
+  import { rbacUtil } from '@xbg.solutions/bpsk-utils-rbac';
+  import { subscribe } from '@xbg.solutions/bpsk-core';
+  import { TAB_SYNC_EVENTS } from '@xbg.solutions/bpsk-utils-tab-sync';
 
   // Get user from the auth store
   let user = $derived($authStore.user);

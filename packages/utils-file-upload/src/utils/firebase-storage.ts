@@ -16,7 +16,7 @@ import {
   type UploadTaskSnapshot,
   type UploadTask
 } from 'firebase/storage';
-import { getFirebaseApp, FirebaseError, loggerService } from '@xbg.solutions/frontend-core';
+import { getFirebaseApp, FirebaseError, loggerService } from '@xbg.solutions/bpsk-core';
 
 // Create logger for storage operations
 const storageLogger = loggerService.withContext('FirebaseStorage');

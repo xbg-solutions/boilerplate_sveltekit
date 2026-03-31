@@ -6,7 +6,7 @@
  */
 
 import { writable, type Writable } from 'svelte/store';
-import { loggerService } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
 
 export interface CacheItem<T = any> {
   key: string;

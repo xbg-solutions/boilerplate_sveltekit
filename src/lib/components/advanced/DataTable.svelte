@@ -58,7 +58,7 @@
 </script>
 
 <script lang="ts">
-  import { escapeHtml } from '@xbg.solutions/utils-sanitizer';
+  import { escapeHtml } from '@xbg.solutions/bpsk-utils-sanitizer';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Badge } from '$lib/components/ui/badge';

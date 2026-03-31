@@ -23,8 +23,8 @@ import {
   publish,
   AUTH_EVENTS,
   AUTH_ROUTES_LEGACY as AUTH_ROUTES
-} from '@xbg.solutions/frontend-core';
-import type { ErrorOptions } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import type { ErrorOptions } from '@xbg.solutions/bpsk-core';
 import { tokenService } from '../services/token/token.service';
 import { goto } from '$app/navigation';
 

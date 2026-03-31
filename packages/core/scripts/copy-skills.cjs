@@ -20,7 +20,7 @@ if (!projectRoot) {
 const packageJson = path.join(projectRoot, 'package.json');
 try {
 	const pkg = JSON.parse(fs.readFileSync(packageJson, 'utf8'));
-	if (pkg.name === 'boilerplate_frontend' || pkg.name === '@xbg.solutions/frontend-core') {
+	if (pkg.name === 'boilerplate_frontend' || pkg.name === '@xbg.solutions/bpsk-core') {
 		process.exit(0);
 	}
 } catch {

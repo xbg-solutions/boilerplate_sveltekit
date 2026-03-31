@@ -1,5 +1,5 @@
 // src/lib/types/tab-sync.types.ts
-import type { AppError } from '@xbg.solutions/frontend-core';
+import type { AppError } from '@xbg.solutions/bpsk-core';
 
 /**
  * Information about a single tab

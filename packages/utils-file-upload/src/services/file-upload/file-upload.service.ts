@@ -7,7 +7,7 @@
 
 import { writable, type Writable } from 'svelte/store';
 import { uploadFile, deleteFile, type UploadResult, type UploadProgress } from '../../utils/firebase-storage';
-import { loggerService, toastService } from '@xbg.solutions/frontend-core';
+import { loggerService, toastService } from '@xbg.solutions/bpsk-core';
 
 export interface FileUploadItem {
   id: string;

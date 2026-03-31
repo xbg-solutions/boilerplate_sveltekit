@@ -24,13 +24,13 @@ grep -n "SETUP:start" src/lib/config/app.config.ts
 
 | Value type | Location | Written by |
 |------------|----------|------------|
-| App name, domain, support email | `.env` → `VITE_APP_*` | `npx xbg-frontend setup` |
-| Firebase keys + IDs | `.env` → `VITE_FIREBASE_*` | `npx xbg-frontend setup` |
-| API base URLs | `.env` → `VITE_API_BASE_URL_*` | `npx xbg-frontend setup` |
-| GA4 / analytics IDs | `.env` → `VITE_GA_*` | `npx xbg-frontend setup` |
-| Auth roles, hierarchy, permissions | `app.config.ts` auth block | `npx xbg-frontend setup` or manual |
-| JWT claim boolean map | `app.config.ts` auth.claimMap | `npx xbg-frontend setup` or manual |
-| Feature on/off flags | `app.config.ts` features block | `npx xbg-frontend setup` or manual |
+| App name, domain, support email | `.env` → `VITE_APP_*` | `npx @xbg.solutions/bpsk setup` |
+| Firebase keys + IDs | `.env` → `VITE_FIREBASE_*` | `npx @xbg.solutions/bpsk setup` |
+| API base URLs | `.env` → `VITE_API_BASE_URL_*` | `npx @xbg.solutions/bpsk setup` |
+| GA4 / analytics IDs | `.env` → `VITE_GA_*` | `npx @xbg.solutions/bpsk setup` |
+| Auth roles, hierarchy, permissions | `app.config.ts` auth block | `npx @xbg.solutions/bpsk setup` or manual |
+| JWT claim boolean map | `app.config.ts` auth.claimMap | `npx @xbg.solutions/bpsk setup` or manual |
+| Feature on/off flags | `app.config.ts` features block | `npx @xbg.solutions/bpsk setup` or manual |
 | Routes, UI, security internals | `app.config.ts` (structural) | Manual only |
 | localStorage/tabSync prefix | derived from `VITE_APP_SHORT_NAME` | automatic |
 

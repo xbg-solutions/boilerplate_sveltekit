@@ -23,7 +23,7 @@
     Copy,
     Check
   } from 'lucide-svelte';
-  import { toastService as toast } from '@xbg.solutions/frontend-core';
+  import { toastService as toast } from '@xbg.solutions/bpsk-core';
 
   // Error data from SvelteKit
   let error = $derived($page.error);

@@ -46,7 +46,7 @@ export {
     PhoneCodeVerifyOptions,
     AuthStateChangePayload,
     AuthEventPayload
-  } from '@xbg.solutions/frontend-core';
+  } from '@xbg.solutions/bpsk-core';
   
   export type { AuthMethod } from '../../stores/auth.store';
   
@@ -54,4 +54,4 @@ export {
   export { authStore } from '../../stores/auth.store';
   
   // Re-export constants for use in other modules
-  export { AUTH_EVENTS, AUTH_ROUTES_LEGACY as AUTH_ROUTES, AUTH_CONFIG } from '@xbg.solutions/frontend-core';
+  export { AUTH_EVENTS, AUTH_ROUTES_LEGACY as AUTH_ROUTES, AUTH_CONFIG } from '@xbg.solutions/bpsk-core';

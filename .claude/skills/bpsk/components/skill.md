@@ -19,7 +19,7 @@ Simple shadcn-style components that agents code directly following the Svelte 5 
 Complex components with significant custom logic. Install via:
 
 ```bash
-npx xbg-frontend add otp-input calendar select statistic-card
+npx @xbg.solutions/bpsk add otp-input calendar select statistic-card
 ```
 
 Copies source into `src/lib/components/ui/<name>/`. You own the code — customize freely.
@@ -29,7 +29,7 @@ Copies source into `src/lib/components/ui/<name>/`. You own the code — customi
 Full page-level compositions assembled from atoms. Install via:
 
 ```bash
-npx xbg-frontend add block-auth block-dashboard block-sidebar
+npx @xbg.solutions/bpsk add block-auth block-dashboard block-sidebar
 ```
 
 Copies all variants for a category into `src/lib/components/blocks/<category>/`.
@@ -40,22 +40,22 @@ Copies all variants for a category into `src/lib/components/blocks/<category>/`.
 
 ```bash
 # Add specific extended atoms
-npx xbg-frontend add otp-input calendar
+npx @xbg.solutions/bpsk add otp-input calendar
 
 # Add block categories (copies all variants)
-npx xbg-frontend add block-auth block-dashboard block-hero-section
+npx @xbg.solutions/bpsk add block-auth block-dashboard block-hero-section
 
 # Add advanced components
-npx xbg-frontend add chart-wrapper data-table form-wizard
+npx @xbg.solutions/bpsk add chart-wrapper data-table form-wizard
 
 # Non-interactive (for agents — auto-accept prompts)
-npx xbg-frontend add block-auth block-dashboard --yes
+npx @xbg.solutions/bpsk add block-auth block-dashboard --yes
 
 # Overwrite existing
-npx xbg-frontend add block-auth --force
+npx @xbg.solutions/bpsk add block-auth --force
 
 # List all available components
-npx xbg-frontend add list
+npx @xbg.solutions/bpsk add list
 ```
 
 The `add` command:
@@ -105,40 +105,40 @@ Blocks come in numbered variants (01, 02, 03...) representing different layouts 
 
 | Category | Command | Variants | Purpose |
 |---|---|---|---|
-| `block-auth` | `npx xbg-frontend add block-auth` | LoginBlock01-05, SignupBlock01-05, OtpBlock01-05, AuthSplitScreen | Authentication pages |
-| `block-dashboard` | `npx xbg-frontend add block-dashboard` | DashboardBlock01-07, ChartsBlock01 | Dashboard layouts |
-| `block-sidebar` | `npx xbg-frontend add block-sidebar` | SidebarLayout01-15 | Sidebar navigation |
-| `block-calendar` | `npx xbg-frontend add block-calendar` | CalendarBlock01-32 | Calendar/date views |
-| `block-hero-section` | `npx xbg-frontend add block-hero-section` | HeroSection variants | Landing page heroes |
-| `block-pricing-section` | `npx xbg-frontend add block-pricing-section` | PricingSection variants | Pricing tables |
-| `block-testimonials` | `npx xbg-frontend add block-testimonials` | Testimonials01-07 | Social proof sections |
-| `block-team-section` | `npx xbg-frontend add block-team-section` | TeamSection01-04 | Team member displays |
-| `block-feature-section` | `npx xbg-frontend add block-feature-section` | FeatureSection variants | Feature showcases |
-| `block-faq-section` | `npx xbg-frontend add block-faq-section` | FAQSection variants | FAQ accordions |
-| `block-footer` | `npx xbg-frontend add block-footer` | Footer variants | Page footers |
-| `block-navbar` | `npx xbg-frontend add block-navbar` | Navbar variants | Navigation bars |
-| `block-cta` | `npx xbg-frontend add block-cta` | CTA variants | Call-to-action sections |
-| `block-contact-section` | `npx xbg-frontend add block-contact-section` | ContactSection variants | Contact forms |
-| `block-blog-section` | `npx xbg-frontend add block-blog-section` | BlogSection variants | Blog layouts |
-| `block-stats-section` | `npx xbg-frontend add block-stats-section` | StatsSection01-07 | Statistics displays |
-| `block-forms` | `npx xbg-frontend add block-forms` | SettingsBlock | Settings/forms pages |
-| `block-tasks` | `npx xbg-frontend add block-tasks` | TasksBlock | Task list with filters |
-| `block-mail` | `npx xbg-frontend add block-mail` | Mail variants | Email client layouts |
-| `block-music` | `npx xbg-frontend add block-music` | MusicBlock | Media app layout |
-| `block-playground` | `npx xbg-frontend add block-playground` | PlaygroundBlock01-02 | AI playground layouts |
-| `block-sign-in` | `npx xbg-frontend add block-sign-in` | SignIn variants | Sign-in pages |
-| `block-sign-up` | `npx xbg-frontend add block-sign-up` | SignUp variants | Sign-up pages |
-| `block-cart` | `npx xbg-frontend add block-cart` | Cart variants | Shopping cart |
-| `block-checkout` | `npx xbg-frontend add block-checkout` | Checkout variants | Checkout flows |
-| `block-product-card` | `npx xbg-frontend add block-product-card` | ProductCard variants | Product displays |
-| `block-product-detail` | `npx xbg-frontend add block-product-detail` | ProductDetail variants | Product pages |
-| `block-product-listing` | `npx xbg-frontend add block-product-listing` | ProductListing variants | Product grids |
-| `block-bento-grid` | `npx xbg-frontend add block-bento-grid` | BentoGrid variants | Bento grid layouts |
-| `block-gallery-section` | `npx xbg-frontend add block-gallery-section` | GallerySection variants | Image galleries |
-| `block-banner` | `npx xbg-frontend add block-banner` | Banner variants | Announcement banners |
-| `block-comparison-section` | `npx xbg-frontend add block-comparison-section` | ComparisonSection variants | Feature comparisons |
+| `block-auth` | `npx @xbg.solutions/bpsk add block-auth` | LoginBlock01-05, SignupBlock01-05, OtpBlock01-05, AuthSplitScreen | Authentication pages |
+| `block-dashboard` | `npx @xbg.solutions/bpsk add block-dashboard` | DashboardBlock01-07, ChartsBlock01 | Dashboard layouts |
+| `block-sidebar` | `npx @xbg.solutions/bpsk add block-sidebar` | SidebarLayout01-15 | Sidebar navigation |
+| `block-calendar` | `npx @xbg.solutions/bpsk add block-calendar` | CalendarBlock01-32 | Calendar/date views |
+| `block-hero-section` | `npx @xbg.solutions/bpsk add block-hero-section` | HeroSection variants | Landing page heroes |
+| `block-pricing-section` | `npx @xbg.solutions/bpsk add block-pricing-section` | PricingSection variants | Pricing tables |
+| `block-testimonials` | `npx @xbg.solutions/bpsk add block-testimonials` | Testimonials01-07 | Social proof sections |
+| `block-team-section` | `npx @xbg.solutions/bpsk add block-team-section` | TeamSection01-04 | Team member displays |
+| `block-feature-section` | `npx @xbg.solutions/bpsk add block-feature-section` | FeatureSection variants | Feature showcases |
+| `block-faq-section` | `npx @xbg.solutions/bpsk add block-faq-section` | FAQSection variants | FAQ accordions |
+| `block-footer` | `npx @xbg.solutions/bpsk add block-footer` | Footer variants | Page footers |
+| `block-navbar` | `npx @xbg.solutions/bpsk add block-navbar` | Navbar variants | Navigation bars |
+| `block-cta` | `npx @xbg.solutions/bpsk add block-cta` | CTA variants | Call-to-action sections |
+| `block-contact-section` | `npx @xbg.solutions/bpsk add block-contact-section` | ContactSection variants | Contact forms |
+| `block-blog-section` | `npx @xbg.solutions/bpsk add block-blog-section` | BlogSection variants | Blog layouts |
+| `block-stats-section` | `npx @xbg.solutions/bpsk add block-stats-section` | StatsSection01-07 | Statistics displays |
+| `block-forms` | `npx @xbg.solutions/bpsk add block-forms` | SettingsBlock | Settings/forms pages |
+| `block-tasks` | `npx @xbg.solutions/bpsk add block-tasks` | TasksBlock | Task list with filters |
+| `block-mail` | `npx @xbg.solutions/bpsk add block-mail` | Mail variants | Email client layouts |
+| `block-music` | `npx @xbg.solutions/bpsk add block-music` | MusicBlock | Media app layout |
+| `block-playground` | `npx @xbg.solutions/bpsk add block-playground` | PlaygroundBlock01-02 | AI playground layouts |
+| `block-sign-in` | `npx @xbg.solutions/bpsk add block-sign-in` | SignIn variants | Sign-in pages |
+| `block-sign-up` | `npx @xbg.solutions/bpsk add block-sign-up` | SignUp variants | Sign-up pages |
+| `block-cart` | `npx @xbg.solutions/bpsk add block-cart` | Cart variants | Shopping cart |
+| `block-checkout` | `npx @xbg.solutions/bpsk add block-checkout` | Checkout variants | Checkout flows |
+| `block-product-card` | `npx @xbg.solutions/bpsk add block-product-card` | ProductCard variants | Product displays |
+| `block-product-detail` | `npx @xbg.solutions/bpsk add block-product-detail` | ProductDetail variants | Product pages |
+| `block-product-listing` | `npx @xbg.solutions/bpsk add block-product-listing` | ProductListing variants | Product grids |
+| `block-bento-grid` | `npx @xbg.solutions/bpsk add block-bento-grid` | BentoGrid variants | Bento grid layouts |
+| `block-gallery-section` | `npx @xbg.solutions/bpsk add block-gallery-section` | GallerySection variants | Image galleries |
+| `block-banner` | `npx @xbg.solutions/bpsk add block-banner` | Banner variants | Announcement banners |
+| `block-comparison-section` | `npx @xbg.solutions/bpsk add block-comparison-section` | ComparisonSection variants | Feature comparisons |
 
-Run `npx xbg-frontend add list` to see all available components with current variant counts.
+Run `npx @xbg.solutions/bpsk add list` to see all available components with current variant counts.
 
 ---
 
@@ -257,7 +257,7 @@ Blocks accept data via props and callback props. They do NOT own business logic.
 
 | Don't | Do |
 |---|---|
-| Rebuild components that are in the registry | `npx xbg-frontend add <name>` |
+| Rebuild components that are in the registry | `npx @xbg.solutions/bpsk add <name>` |
 | Modify atomic components inside blocks | Import and compose atomic components |
 | Hardcode data in blocks | Pass data via props |
 | Put business logic in blocks | Handle callbacks in parent, call services |
@@ -265,4 +265,4 @@ Blocks accept data via props and callback props. They do NOT own business logic.
 | Use `export let` / `<slot />` / `on:click` (Svelte 4) | Use `$props()` / `{@render}` / `onclick` (Svelte 5) |
 | Use `createEventDispatcher` | Use callback props (`onSubmit`, `onChange`, etc.) |
 | Use `$$restProps` | Use `{...rest}` from `$props()` destructuring |
-| Import `cn` from `@xbg.solutions/frontend-core` in components | Import from `$lib/utils/cn` |
+| Import `cn` from `@xbg.solutions/bpsk-core` in components | Import from `$lib/utils/cn` |

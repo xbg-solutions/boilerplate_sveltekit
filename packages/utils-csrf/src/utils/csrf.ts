@@ -18,9 +18,9 @@ import {
   handleError,
   normalizeError,
   tryCatch
-} from '@xbg.solutions/frontend-core';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { escapeHtml } from '@xbg.solutions/utils-sanitizer';
+} from '@xbg.solutions/bpsk-core';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { escapeHtml } from '@xbg.solutions/bpsk-utils-sanitizer';
 import { 
   CSRF_TOKEN_KEY, 
   CSRF_HEADER_NAME, 

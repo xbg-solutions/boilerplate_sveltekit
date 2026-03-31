@@ -1,14 +1,14 @@
 // src/lib/services/tab-sync/tab-sync.service.ts
-import { browser } from '@xbg.solutions/frontend-core';
+import { browser } from '@xbg.solutions/bpsk-core';
 import { get } from 'svelte/store';
-import { publish, subscribe } from '@xbg.solutions/frontend-core';
-import { authService } from '@xbg.solutions/utils-firebase-auth';
-import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
+import { publish, subscribe } from '@xbg.solutions/bpsk-core';
+import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import { AUTH_EVENTS } from '@xbg.solutions/bpsk-core';
 import { TAB_SYNC_EVENTS, TAB_SYNC_CONFIG, TAB_SYNC_MESSAGE_TYPES, TAB_SYNC_ERROR_TYPES } from '../../constants/tab-sync.constants';
 import { tabSyncStore } from '../../stores/tab-sync.store';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
-import type { Subscription } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
+import type { Subscription } from '@xbg.solutions/bpsk-core';
 import type { 
   TabInfo, 
   TabSyncMessage, 
@@ -639,7 +639,7 @@ class TabSyncService implements ITabSyncService {
       if (!authService.isAuthenticated()) {
         logger.info('Still not authenticated after refresh, forcing deeper refresh');
         try {
-          const { getFirebaseAuth } = await import('@xbg.solutions/frontend-core');
+          const { getFirebaseAuth } = await import('@xbg.solutions/bpsk-core');
           const auth = await getFirebaseAuth();
           // Manually check current user from Firebase
           const currentUser = auth.currentUser;
@@ -1118,7 +1118,7 @@ class TabSyncService implements ITabSyncService {
     // Try to get fresh Firebase auth first, which might have been updated in another tab
     try {
       // Attempt to directly check Firebase auth state for latest info
-      const { getFirebaseAuth } = await import('@xbg.solutions/frontend-core');
+      const { getFirebaseAuth } = await import('@xbg.solutions/bpsk-core');
       const firebaseAuth = await getFirebaseAuth();
       const currentUser = firebaseAuth.currentUser;
       

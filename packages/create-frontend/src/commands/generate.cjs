@@ -17,7 +17,7 @@ switch (subcommand) {
     require('./generate-service.cjs');
     break;
   default:
-    console.log('Usage: xbg-frontend generate <type> <name> [options]');
+    console.log('Usage: bpsk generate <type> <name> [options]');
     console.log('');
     console.log('Types: component, route, service');
     process.exit(subcommand ? 1 : 0);

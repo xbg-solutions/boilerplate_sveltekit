@@ -33,8 +33,8 @@
     FileText,
     Camera
   } from 'lucide-svelte';
-  import { toastService as toast } from '@xbg.solutions/frontend-core';
-  import { storageService } from '@xbg.solutions/utils-file-upload';
+  import { toastService as toast } from '@xbg.solutions/bpsk-core';
+  import { storageService } from '@xbg.solutions/bpsk-utils-file-upload';
 
   // Types
   export interface UploadedFile {

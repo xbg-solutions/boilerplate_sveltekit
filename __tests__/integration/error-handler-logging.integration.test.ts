@@ -13,8 +13,8 @@ import {
   handleError,
   createErrorResponse,
   withErrorHandling
-} from '@xbg.solutions/frontend-core';
-import { loggerService } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
 
 // This test uses the actual logging service, not a complete mock
 // to test real integration between components

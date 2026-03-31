@@ -9,17 +9,17 @@
  * - Token refresh on authentication failures
  */
 
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { tokenService } from '@xbg.solutions/utils-firebase-auth';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { tokenService } from '@xbg.solutions/bpsk-utils-firebase-auth';
 import { 
   ApiError, 
   AuthError, 
   ValidationError, 
   normalizeError 
-} from '@xbg.solutions/frontend-core';
-import { API_CONSTANTS } from '@xbg.solutions/frontend-core';
-import type { IResponseHandler } from '@xbg.solutions/frontend-core';
-import type { LogContext } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { API_CONSTANTS } from '@xbg.solutions/bpsk-core';
+import type { IResponseHandler } from '@xbg.solutions/bpsk-core';
+import type { LogContext } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const responseLogger = loggerService.withContext('ResponseHandler');

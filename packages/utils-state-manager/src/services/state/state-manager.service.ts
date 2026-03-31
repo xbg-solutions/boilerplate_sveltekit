@@ -11,10 +11,10 @@
  */
 
 import { get, writable } from 'svelte/store';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { publish, subscribe } from '@xbg.solutions/frontend-core';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { publish, subscribe } from '@xbg.solutions/bpsk-core';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { AppError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
 import { stateManagerStore } from '../../stores/state-manager.store';
 import { PersistenceStrategy } from '../../types/state-manager.types';
 import type { 

@@ -10,19 +10,19 @@
  * - Data serialization
  */
 
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { tokenService } from '@xbg.solutions/utils-firebase-auth';
-import { csrfProtection } from '@xbg.solutions/utils-csrf';
-import { inputSanitizer } from '@xbg.solutions/utils-sanitizer';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { tokenService } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import { csrfProtection } from '@xbg.solutions/bpsk-utils-csrf';
+import { inputSanitizer } from '@xbg.solutions/bpsk-utils-sanitizer';
 import { 
   ApiError, 
   NetworkError, 
   normalizeError 
-} from '@xbg.solutions/frontend-core';
-import { API_CONSTANTS } from '@xbg.solutions/frontend-core';
-import type { IRequestHandler } from '@xbg.solutions/frontend-core';
-import type { RequestOptions } from '@xbg.solutions/frontend-core';
-import type { LogContext } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { API_CONSTANTS } from '@xbg.solutions/bpsk-core';
+import type { IRequestHandler } from '@xbg.solutions/bpsk-core';
+import type { RequestOptions } from '@xbg.solutions/bpsk-core';
+import type { LogContext } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const requestLogger = loggerService.withContext('RequestHandler');

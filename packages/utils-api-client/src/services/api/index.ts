@@ -14,7 +14,7 @@ export { requestHandler } from './request-handler';
 export { responseHandler } from './response-handler';
 
 // Re-export API constants for consumers who need them
-export { API_CONSTANTS } from '@xbg.solutions/frontend-core';
+export { API_CONSTANTS } from '@xbg.solutions/bpsk-core';
 
 // Export types to improve developer experience
 export type { 
@@ -24,4 +24,4 @@ export type {
   PaginationParams,
   ResponseMetadata,
   ApiClient
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';

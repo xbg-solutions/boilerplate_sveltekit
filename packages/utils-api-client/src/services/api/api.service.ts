@@ -10,8 +10,8 @@
  * - Request deduplication
  */
 
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { publish } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { publish } from '@xbg.solutions/bpsk-core';
 import { 
   ApiError, 
   AuthError, 
@@ -19,13 +19,13 @@ import {
   ValidationError,
   normalizeError,
   withErrorHandling 
-} from '@xbg.solutions/frontend-core';
-import { API_CONSTANTS } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { API_CONSTANTS } from '@xbg.solutions/bpsk-core';
 import { requestHandler } from './request-handler';
 import { responseHandler } from './response-handler';
-import type { IApiService } from '@xbg.solutions/frontend-core';
-import type { RequestOptions, SafeRequestResult } from '@xbg.solutions/frontend-core';
-import type { LogContext } from '@xbg.solutions/frontend-core';
+import type { IApiService } from '@xbg.solutions/bpsk-core';
+import type { RequestOptions, SafeRequestResult } from '@xbg.solutions/bpsk-core';
+import type { LogContext } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const apiLogger = loggerService.withContext('ApiService');

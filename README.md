@@ -18,7 +18,7 @@ A SvelteKit 5 boilerplate with Firebase Auth, Tailwind CSS, and shadcn-svelte co
 - **SvelteKit 2** with **Svelte 5** runes syntax (`$props()`, `$state()`, `$derived()`, `$effect()`, `{@render}`)
 - **TypeScript** in strict mode
 - **Tailwind CSS 3** with utility-first styling
-- **Three-tier component system** — basic atoms (agent-coded), extended atoms + 450+ blocks (from registry via `npx xbg-frontend add`)
+- **Three-tier component system** — basic atoms (agent-coded), extended atoms + 450+ blocks (from registry via `npx @xbg.solutions/bpsk add`)
 - **Firebase** — Authentication (email-link, phone), Hosting, Storage
 - **Vitest** — Unit and integration test suite
 
@@ -36,23 +36,23 @@ A SvelteKit 5 boilerplate with Firebase Auth, Tailwind CSS, and shadcn-svelte co
 ```bash
 mkdir my-app && cd my-app
 npm init -y
-npm install @xbg.solutions/frontend-core
+npm install @xbg.solutions/bpsk-core
 ```
 
 Then install only the utility packages you need:
 
 ```bash
-npm install @xbg.solutions/utils-firebase-auth   # Auth (auto-pulls csrf + secure-storage)
-npm install @xbg.solutions/utils-api-client       # Typed HTTP client
-npm install @xbg.solutions/utils-rbac             # Role-based access control
+npm install @xbg.solutions/bpsk-utils-firebase-auth   # Auth (auto-pulls csrf + secure-storage)
+npm install @xbg.solutions/bpsk-utils-api-client       # Typed HTTP client
+npm install @xbg.solutions/bpsk-utils-rbac             # Role-based access control
 # ... see package table below for the full list
 ```
 
 ### 2. Run setup
 
 ```bash
-npx xbg-frontend setup                              # Interactive wizard (human)
-npx xbg-frontend setup --config setup-config.json   # Non-interactive (agent / CI)
+npx @xbg.solutions/bpsk setup                              # Interactive wizard (human)
+npx @xbg.solutions/bpsk setup --config setup-config.json   # Non-interactive (agent / CI)
 ```
 
 The setup wizard writes your `.env`, `app.config.ts`, Firebase config. See [setup-config-schema.md](docs/setup-config-schema.md) for the JSON schema.
@@ -61,16 +61,16 @@ The setup wizard writes your `.env`, `app.config.ts`, Firebase config. See [setu
 
 ```bash
 # Add extended atoms (complex components with custom logic)
-npx xbg-frontend add otp-input calendar select statistic-card
+npx @xbg.solutions/bpsk add otp-input calendar select statistic-card
 
 # Add block categories (full page compositions)
-npx xbg-frontend add block-auth block-dashboard block-sidebar block-hero-section
+npx @xbg.solutions/bpsk add block-auth block-dashboard block-sidebar block-hero-section
 
 # Add advanced components
-npx xbg-frontend add chart-wrapper data-table form-wizard
+npx @xbg.solutions/bpsk add chart-wrapper data-table form-wizard
 
 # List all available components
-npx xbg-frontend add list
+npx @xbg.solutions/bpsk add list
 ```
 
 Components are copied into your project as owned source (shadcn philosophy). Basic atoms (Button, Card, Input, etc.) are simple enough for agents to code directly following the Svelte 5 runes + `tv()` + `cn()` pattern.
@@ -78,7 +78,7 @@ Components are copied into your project as owned source (shadcn philosophy). Bas
 ### 4. Validate and run
 
 ```bash
-npx xbg-frontend validate   # Verify configuration
+npx @xbg.solutions/bpsk validate   # Verify configuration
 npm run dev                  # http://localhost:5173
 ```
 
@@ -103,7 +103,7 @@ npm run dev
 | 1 | Project identity (name, short name, domain, support email) |
 | 2 | Firebase configuration (updates `firebase.json` + `.firebaserc`) |
 | 3 | API base URLs (dev + prod) |
-| 4 | Utility package selection (`@xbg.solutions/utils-*`) |
+| 4 | Utility package selection (`@xbg.solutions/bpsk-utils-*`) |
 | 5 | RBAC — roles, hierarchy, permissions, JWT claim map |
 | 6 | Feature flags (phone auth, analytics, real-time, etc.) |
 | 7 | Generates `.env`, `.env.example`, updates `app.config.ts` |
@@ -149,23 +149,23 @@ features: {
 
 | Package | Description |
 |---|---|
-| `@xbg.solutions/frontend-core` | Base framework — config types, core stores, error handling, logging, event bus, mutex |
-| `@xbg.solutions/test-utils-frontend` | Test utilities (devDependency) — Firebase mocks, store mocks, async helpers |
-| `@xbg.solutions/utils-firebase-auth` | Auth service, token service, auth stores, auth guard |
-| `@xbg.solutions/utils-api-client` | Typed HTTP client, request/response handlers, response caching |
-| `@xbg.solutions/utils-secure-storage` | Encrypted client-side storage (AES-GCM) |
-| `@xbg.solutions/utils-csrf` | CSRF token generation/validation |
-| `@xbg.solutions/utils-sanitizer` | Input sanitization, XSS prevention |
-| `@xbg.solutions/utils-rbac` | Role hierarchy, permission checking |
-| `@xbg.solutions/utils-tab-sync` | Cross-tab synchronization |
-| `@xbg.solutions/utils-recaptcha` | reCAPTCHA v3 integration |
-| `@xbg.solutions/utils-seo` | Meta tags, structured data, OpenGraph |
-| `@xbg.solutions/utils-sse` | Server-sent events client |
-| `@xbg.solutions/utils-performance` | Performance metrics, monitoring |
-| `@xbg.solutions/utils-file-upload` | File handling with Firebase Storage |
-| `@xbg.solutions/utils-state-manager` | Global state persistence |
-| `@xbg.solutions/utils-event-bus` | Event bus (also included in core) |
-| `@xbg.solutions/utils-mutex` | Mutex service (also included in core) |
+| `@xbg.solutions/bpsk-core` | Base framework — config types, core stores, error handling, logging, event bus, mutex |
+| `@xbg.solutions/bpsk-test-utils` | Test utilities (devDependency) — Firebase mocks, store mocks, async helpers |
+| `@xbg.solutions/bpsk-utils-firebase-auth` | Auth service, token service, auth stores, auth guard |
+| `@xbg.solutions/bpsk-utils-api-client` | Typed HTTP client, request/response handlers, response caching |
+| `@xbg.solutions/bpsk-utils-secure-storage` | Encrypted client-side storage (AES-GCM) |
+| `@xbg.solutions/bpsk-utils-csrf` | CSRF token generation/validation |
+| `@xbg.solutions/bpsk-utils-sanitizer` | Input sanitization, XSS prevention |
+| `@xbg.solutions/bpsk-utils-rbac` | Role hierarchy, permission checking |
+| `@xbg.solutions/bpsk-utils-tab-sync` | Cross-tab synchronization |
+| `@xbg.solutions/bpsk-utils-recaptcha` | reCAPTCHA v3 integration |
+| `@xbg.solutions/bpsk-utils-seo` | Meta tags, structured data, OpenGraph |
+| `@xbg.solutions/bpsk-utils-sse` | Server-sent events client |
+| `@xbg.solutions/bpsk-utils-performance` | Performance metrics, monitoring |
+| `@xbg.solutions/bpsk-utils-file-upload` | File handling with Firebase Storage |
+| `@xbg.solutions/bpsk-utils-state-manager` | Global state persistence |
+| `@xbg.solutions/bpsk-utils-event-bus` | Event bus (also included in core) |
+| `@xbg.solutions/bpsk-utils-mutex` | Mutex service (also included in core) |
 
 Install only what you need — dependencies auto-resolve.
 
@@ -223,8 +223,8 @@ docs/                              # Architecture docs
 ### Three-Tier System
 
 1. **Basic atoms** — Button, Card, Input, Label, Badge, etc. Agent-coded following Svelte 5 runes + `tv()` + `cn()` pattern.
-2. **Extended atoms** — OtpInput, Calendar, Select, DataTable, ChartWrapper, etc. Installed via `npx xbg-frontend add`.
-3. **Blocks** — 450+ page-level compositions across 55 categories (auth, dashboard, hero, pricing, testimonials, etc.). Installed via `npx xbg-frontend add block-<category>`.
+2. **Extended atoms** — OtpInput, Calendar, Select, DataTable, ChartWrapper, etc. Installed via `npx @xbg.solutions/bpsk add`.
+3. **Blocks** — 450+ page-level compositions across 55 categories (auth, dashboard, hero, pricing, testimonials, etc.). Installed via `npx @xbg.solutions/bpsk add block-<category>`.
 
 ```svelte
 <script lang="ts">
@@ -302,12 +302,12 @@ npm run lint             # ESLint
 npm run typecheck        # TypeScript strict check
 
 # CLI commands
-npx xbg-frontend setup                     # Configure project
-npx xbg-frontend validate                  # Validate configuration
-npx xbg-frontend add block-auth            # Add components from registry
-npx xbg-frontend generate component <Name> # Generate component scaffold
-npx xbg-frontend generate route <path>     # Generate route
-npx xbg-frontend generate service <Name>   # Generate service
+npx @xbg.solutions/bpsk setup                     # Configure project
+npx @xbg.solutions/bpsk validate                  # Validate configuration
+npx @xbg.solutions/bpsk add block-auth            # Add components from registry
+npx @xbg.solutions/bpsk generate component <Name> # Generate component scaffold
+npx @xbg.solutions/bpsk generate route <path>     # Generate route
+npx @xbg.solutions/bpsk generate service <Name>   # Generate service
 
 # Analysis
 npm run analyze          # Bundle analysis

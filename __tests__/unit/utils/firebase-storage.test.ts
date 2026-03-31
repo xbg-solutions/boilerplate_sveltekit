@@ -14,7 +14,7 @@ import {
   formatFileSize,
   type UploadOptions,
   type UploadProgress 
-} from '@xbg.solutions/utils-file-upload';
+} from '@xbg.solutions/bpsk-utils-file-upload';
 
 // Mock Firebase Storage
 const mockUploadTask = {

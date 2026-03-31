@@ -13,8 +13,8 @@
  */
 
 import { get } from 'svelte/store';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { getFirebaseAuth, safeGetCurrentUser, subscribeToAuthChanges } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { getFirebaseAuth, safeGetCurrentUser, subscribeToAuthChanges } from '@xbg.solutions/bpsk-core';
 import { 
   decodeToken, 
   extractClaims, 
@@ -30,13 +30,13 @@ import {
   getUserRoles,
   TokenError
 } from '../../utils/tokens';
-import { rbacUtil } from '@xbg.solutions/utils-rbac';
+import { rbacUtil } from '@xbg.solutions/bpsk-utils-rbac';
 import { tokenStore } from '../../stores/token.store';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { AppError, handleError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
-import { AUTH_NAMESPACE, AUTH_TOKEN_TTL, EMAIL_FOR_SIGN_IN_KEY } from '@xbg.solutions/utils-secure-storage';
-import type { DecodedToken, TokenRefreshResult, TokenRole } from '@xbg.solutions/frontend-core';
-import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { AppError, handleError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
+import { AUTH_NAMESPACE, AUTH_TOKEN_TTL, EMAIL_FOR_SIGN_IN_KEY } from '@xbg.solutions/bpsk-utils-secure-storage';
+import type { DecodedToken, TokenRefreshResult, TokenRole } from '@xbg.solutions/bpsk-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const tokenLogger = loggerService.withContext('TokenService');

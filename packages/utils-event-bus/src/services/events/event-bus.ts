@@ -4,9 +4,9 @@
  */
 
 import { writable } from 'svelte/store';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { mutexService } from '@xbg.solutions/utils-mutex';
-import { AppError, normalizeError } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { mutexService } from '@xbg.solutions/bpsk-utils-mutex';
+import { AppError, normalizeError } from '@xbg.solutions/bpsk-core';
 import type { IEventBus } from '../../types/events.interfaces';
 import type { 
   BaseEvent, 

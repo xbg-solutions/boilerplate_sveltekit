@@ -13,11 +13,11 @@
  * boolean values are correctly interpreted.
  */
 
-import { loggerService, AppError } from '@xbg.solutions/frontend-core';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { AUTH_NAMESPACE, AUTH_TOKEN_TTL } from '@xbg.solutions/utils-secure-storage';
+import { loggerService, AppError } from '@xbg.solutions/bpsk-core';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { AUTH_NAMESPACE, AUTH_TOKEN_TTL } from '@xbg.solutions/bpsk-utils-secure-storage';
 import { getAuth } from 'firebase/auth';
-import type { DecodedToken, TokenOptions, TokenRole, TokenVerificationResult, TokenRefreshResult, FirebaseUserClaims } from '@xbg.solutions/frontend-core';
+import type { DecodedToken, TokenOptions, TokenRole, TokenVerificationResult, TokenRefreshResult, FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const logger = loggerService.withContext('TokenUtils');

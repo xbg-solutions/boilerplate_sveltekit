@@ -8,7 +8,7 @@
  * Legacy storage constants - use central config for new development.
  */
 
-import { APP_CONFIG } from '@xbg.solutions/frontend-core';
+import { APP_CONFIG } from '@xbg.solutions/bpsk-core';
 
 /** 
  * @deprecated Use APP_CONFIG.security.storage instead

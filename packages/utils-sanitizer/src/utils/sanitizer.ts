@@ -16,7 +16,7 @@ import {
   handleError,
   normalizeError,
   tryCatch
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
 import type { 
   SanitizerOptions, 
   SanitizationLevel, 

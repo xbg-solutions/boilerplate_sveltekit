@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { sanitize, strictSanitizer } from '@xbg.solutions/utils-sanitizer';
-import { STORAGE_PREFIX } from '@xbg.solutions/utils-secure-storage';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { sanitize, strictSanitizer } from '@xbg.solutions/bpsk-utils-sanitizer';
+import { STORAGE_PREFIX } from '@xbg.solutions/bpsk-utils-secure-storage';
 
 describe('Secure Storage and Sanitizer Integration', () => {
   // Mock storage data

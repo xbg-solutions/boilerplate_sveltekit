@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { cn } from '@xbg.solutions/frontend-core';
+import { cn } from '@xbg.solutions/bpsk-core';
 
 describe('cn utility function', () => {
   describe('Basic Functionality', () => {

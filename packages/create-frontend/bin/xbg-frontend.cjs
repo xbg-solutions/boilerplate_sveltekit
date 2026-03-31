@@ -21,7 +21,7 @@ switch (command) {
     require('../src/commands/generate.cjs');
     break;
   default:
-    console.log('Usage: xbg-frontend <command>');
+    console.log('Usage: bpsk <command>');
     console.log('');
     console.log('Commands:');
     console.log('  setup      Configure project (--config <path> for non-interactive)');

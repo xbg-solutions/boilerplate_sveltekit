@@ -3,7 +3,7 @@
 Reference for the non-interactive setup mode:
 
 ```bash
-npx xbg-frontend setup --config setup-config.json
+npx @xbg.solutions/bpsk setup --config setup-config.json
 ```
 
 This file is the platform-provided input that replaces the interactive setup wizard when an autonomous agent configures the project.

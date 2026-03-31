@@ -263,7 +263,7 @@
         "atoms": [],
         "basicAtoms": [],
         "packages": [
-          "@xbg.solutions/frontend-core",
+          "@xbg.solutions/bpsk-core",
           "lucide-svelte",
           "simple-icons"
         ]
@@ -312,7 +312,7 @@
           "table"
         ],
         "packages": [
-          "@xbg.solutions/utils-sanitizer",
+          "@xbg.solutions/bpsk-utils-sanitizer",
           "lucide-svelte"
         ]
       }
@@ -359,8 +359,8 @@
           "progress"
         ],
         "packages": [
-          "@xbg.solutions/frontend-core",
-          "@xbg.solutions/utils-file-upload",
+          "@xbg.solutions/bpsk-core",
+          "@xbg.solutions/bpsk-utils-file-upload",
           "lucide-svelte"
         ]
       }

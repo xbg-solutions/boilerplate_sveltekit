@@ -7,9 +7,9 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { tabSyncStore } from '@xbg.solutions/utils-tab-sync';
-import type { TabInfo, QueuedMessage } from '@xbg.solutions/utils-tab-sync';
-import { AppError } from '@xbg.solutions/frontend-core';
+import { tabSyncStore } from '@xbg.solutions/bpsk-utils-tab-sync';
+import type { TabInfo, QueuedMessage } from '@xbg.solutions/bpsk-utils-tab-sync';
+import { AppError } from '@xbg.solutions/bpsk-core';
 
 // Mock browser globals
 vi.mock('../../utils/browser', () => ({

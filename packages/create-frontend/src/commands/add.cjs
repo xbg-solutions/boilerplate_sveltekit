@@ -6,12 +6,12 @@
  * Copies components from the XBG registry into a consuming project.
  *
  * Usage:
- *   npx xbg-frontend add otp-input calendar          # Add extended atoms
- *   npx xbg-frontend add block-auth block-dashboard   # Add block categories
- *   npx xbg-frontend add chart-wrapper                # Add advanced components
- *   npx xbg-frontend add block-auth --yes             # Skip prompts (for agents)
- *   npx xbg-frontend add block-auth --force           # Overwrite existing
- *   npx xbg-frontend list                             # List all available components
+ *   npx bpsk add otp-input calendar          # Add extended atoms
+ *   npx bpsk add block-auth block-dashboard   # Add block categories
+ *   npx bpsk add chart-wrapper                # Add advanced components
+ *   npx bpsk add block-auth --yes             # Skip prompts (for agents)
+ *   npx bpsk add block-auth --force           # Overwrite existing
+ *   npx bpsk list                             # List all available components
  */
 
 'use strict';

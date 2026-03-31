@@ -10,9 +10,9 @@
  * authentication and authorization models.
  */
 
-import { loggerService, ROLES, CLAIM_BOOLEAN_MAP, BOOLEAN_CLAIM_ROLE_MAP, ROLE_PERMISSIONS, ROLE_HIERARCHY } from '@xbg.solutions/frontend-core';
-import { extractClaims } from '@xbg.solutions/utils-firebase-auth';
-import type { FirebaseUserClaims, DecodedToken } from '@xbg.solutions/frontend-core';
+import { loggerService, ROLES, CLAIM_BOOLEAN_MAP, BOOLEAN_CLAIM_ROLE_MAP, ROLE_PERMISSIONS, ROLE_HIERARCHY } from '@xbg.solutions/bpsk-core';
+import { extractClaims } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import type { FirebaseUserClaims, DecodedToken } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const logger = loggerService.withContext('RBACUtil');

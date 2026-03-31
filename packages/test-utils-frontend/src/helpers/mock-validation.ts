@@ -41,7 +41,7 @@ export function validateFirebaseMocks() {
  */
 export async function resetFirebaseMocks() {
   try {
-    const { safeGetCurrentUser, getFirebaseAuth, subscribeToAuthChanges } = await import('@xbg.solutions/frontend-core');
+    const { safeGetCurrentUser, getFirebaseAuth, subscribeToAuthChanges } = await import('@xbg.solutions/bpsk-core');
     
     // Reset all mocks to ensure clean state
     vi.mocked(safeGetCurrentUser).mockReset();

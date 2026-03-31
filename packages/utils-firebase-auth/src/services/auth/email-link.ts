@@ -15,14 +15,14 @@ import {
   signInWithEmailLink,
   getAuth
 } from 'firebase/auth';
-import { getFirebaseAuth, getFirebaseState, processFirebaseError } from '@xbg.solutions/frontend-core';
-import { secureStorage } from '@xbg.solutions/utils-secure-storage';
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { publish } from '@xbg.solutions/frontend-core';
-import { AppError, handleError, normalizeError, withErrorHandling } from '@xbg.solutions/frontend-core';
-import { AUTH_EVENTS, AUTH_CONFIG, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/frontend-core';
-import { AUTH_NAMESPACE, EMAIL_FOR_SIGN_IN_KEY } from '@xbg.solutions/utils-secure-storage';
-import type { EmailLinkOptions, EmailLinkVerifyOptions, AuthResult } from '@xbg.solutions/frontend-core';
+import { getFirebaseAuth, getFirebaseState, processFirebaseError } from '@xbg.solutions/bpsk-core';
+import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { publish } from '@xbg.solutions/bpsk-core';
+import { AppError, handleError, normalizeError, withErrorHandling } from '@xbg.solutions/bpsk-core';
+import { AUTH_EVENTS, AUTH_CONFIG, CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/bpsk-core';
+import { AUTH_NAMESPACE, EMAIL_FOR_SIGN_IN_KEY } from '@xbg.solutions/bpsk-utils-secure-storage';
+import type { EmailLinkOptions, EmailLinkVerifyOptions, AuthResult } from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const emailLinkLogger = loggerService.withContext('EmailLinkService');

@@ -7,8 +7,8 @@
 
 import { get } from 'svelte/store';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { initializationStore, type InitializationState } from '@xbg.solutions/frontend-core';
-import { AppError } from '@xbg.solutions/frontend-core';
+import { initializationStore, type InitializationState } from '@xbg.solutions/bpsk-core';
+import { AppError } from '@xbg.solutions/bpsk-core';
 
 describe('Initialization Store', () => {
   // Reset the store before each test

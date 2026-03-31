@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mutexService, MutexError } from '@xbg.solutions/frontend-core';
-import { loggerService } from '@xbg.solutions/frontend-core';
+import { mutexService, MutexError } from '@xbg.solutions/bpsk-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
 
 // Mock the logger service
 vi.mock('../services/logging/logging.service', () => {

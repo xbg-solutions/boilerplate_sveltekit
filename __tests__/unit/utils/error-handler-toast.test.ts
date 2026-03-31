@@ -4,15 +4,15 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { toastService } from '@xbg.solutions/frontend-core';
+import { toastService } from '@xbg.solutions/bpsk-core';
 import { 
   showErrorToast, 
   showSuccessToast, 
   showWarningToast, 
   showInfoToast,
   withToastNotification
-} from '@xbg.solutions/frontend-core';
-import { AppError } from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
+import { AppError } from '@xbg.solutions/bpsk-core';
 
 // Mock the toast service
 vi.mock('$lib/services/toast', () => ({

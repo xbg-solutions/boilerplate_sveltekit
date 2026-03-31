@@ -4,13 +4,13 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { sanitize, strictSanitizer } from '@xbg.solutions/utils-sanitizer';
+import { sanitize, strictSanitizer } from '@xbg.solutions/bpsk-utils-sanitizer';
 import { 
   AppError, 
   ValidationError, 
   handleError,
   withErrorHandling
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
 
 describe('Sanitizer and Error Handler Integration', () => {
   // Original console methods

@@ -9,7 +9,7 @@
 
 import { goto } from '$app/navigation';
 import { authService } from '../services/auth';
-import { AUTH_ROUTES_LEGACY as AUTH_ROUTES } from '@xbg.solutions/frontend-core';
+import { AUTH_ROUTES_LEGACY as AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
 
 /**
  * Options for route guarding

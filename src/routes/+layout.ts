@@ -9,16 +9,16 @@
  */
 
 import { browser } from '$app/environment';
-import { initializationService } from '@xbg.solutions/frontend-core';
-import { authService } from '@xbg.solutions/utils-firebase-auth';
-import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
+import { initializationService } from '@xbg.solutions/bpsk-core';
+import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
+import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
 import { redirect } from '@sveltejs/kit';
-import { APP_CONFIG, configHelpers } from '@xbg.solutions/frontend-core';
+import { APP_CONFIG, configHelpers } from '@xbg.solutions/bpsk-core';
 
 // For protected routes
-import { authStore } from '@xbg.solutions/utils-firebase-auth';
+import { authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';
 import { get } from 'svelte/store';
-import { initializationStore } from '@xbg.solutions/frontend-core';
+import { initializationStore } from '@xbg.solutions/bpsk-core';
 import { goto } from '$app/navigation';
 import type { LayoutLoad } from './$types';
 

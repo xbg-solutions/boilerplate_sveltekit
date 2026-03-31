@@ -6,7 +6,7 @@
  */
 
 import { cacheService, type CacheOptions } from './cache.service';
-import { loggerService } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
 
 export interface APIResponse<T = any> {
   data: T;

@@ -17,25 +17,25 @@ Bootstrap, configure, validate, and run a project built on this boilerplate.
 
 ```bash
 # 1. Install core framework
-npm install @xbg.solutions/frontend-core
+npm install @xbg.solutions/bpsk-core
 
 # 2. Configure project (non-interactive)
-npx xbg-frontend setup --config setup-config.json
+npx @xbg.solutions/bpsk setup --config setup-config.json
 
 # 3. Add components from registry
-npx xbg-frontend add block-auth block-dashboard block-sidebar
+npx @xbg.solutions/bpsk add block-auth block-dashboard block-sidebar
 
 # 4. Validate and run
-npx xbg-frontend validate
+npx @xbg.solutions/bpsk validate
 npm run dev
 ```
 
 ### Interactive (human developer)
 
 ```bash
-npm install @xbg.solutions/frontend-core
-npx xbg-frontend setup          # Interactive wizard
-npx xbg-frontend validate
+npm install @xbg.solutions/bpsk-core
+npx @xbg.solutions/bpsk setup          # Interactive wizard
+npx @xbg.solutions/bpsk validate
 npm run dev                      # http://localhost:5173
 ```
 
@@ -126,8 +126,8 @@ See [setup-config-schema.md](docs/setup-config-schema.md) for the full schema wi
 
 | Location | Contains | Written By |
 |----------|----------|-----------|
-| `.env` | Secrets, IDs (Firebase keys, API URLs, app name) | `npx xbg-frontend setup` |
-| `app.config.ts` | Structural config (roles, permissions, features) | `npx xbg-frontend setup` or manual edit |
+| `.env` | Secrets, IDs (Firebase keys, API URLs, app name) | `npx @xbg.solutions/bpsk setup` |
+| `app.config.ts` | Structural config (roles, permissions, features) | `npx @xbg.solutions/bpsk setup` or manual edit |
 
 The wizard writes both. After setup, neither contains placeholder strings.
 
@@ -221,11 +221,11 @@ npm run test:unit        # Unit tests
 npm run test:integration # Integration tests
 npm run test:coverage    # Coverage report
 
-npx xbg-frontend generate component UserProfile
-npx xbg-frontend generate route dashboard --auth --roles=user,admin
-npx xbg-frontend generate service AnalyticsService
+npx @xbg.solutions/bpsk generate component UserProfile
+npx @xbg.solutions/bpsk generate route dashboard --auth --roles=user,admin
+npx @xbg.solutions/bpsk generate service AnalyticsService
 
-npx xbg-frontend validate         # Full config validation
+npx @xbg.solutions/bpsk validate         # Full config validation
 npm run analyze                    # Bundle analysis
 ```
 
@@ -252,7 +252,7 @@ Build output is static HTML in `build/`. Works with Vercel, Netlify, Docker, or 
 | Mistake | Fix |
 |---|---|
 | Missing `VITE_` prefix | `undefined` at runtime — add prefix |
-| Firebase config mismatch | `npx xbg-frontend validate` |
+| Firebase config mismatch | `npx @xbg.solutions/bpsk validate` |
 | `VITE_APP_SHORT_NAME` not set | Generic `app_*` storage prefix — set in `.env` |
 | Stores accessed before init | Wait for `initializationStore.isInitialized` |
 | `goto()` in load function | Use `redirect()` from `@sveltejs/kit` |

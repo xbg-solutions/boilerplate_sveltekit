@@ -56,4 +56,4 @@ export { Calendar } from './calendar';
 export { BrandIcon, DynamicIcon } from './icon';
 
 // Utility exports
-export { cn } from '@xbg.solutions/frontend-core';
+export { cn } from '@xbg.solutions/bpsk-core';

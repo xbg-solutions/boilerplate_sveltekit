@@ -56,7 +56,7 @@ import {
   generateRobotsTxt,
   seoUtils,
   type SEOData 
-} from '@xbg.solutions/utils-seo';
+} from '@xbg.solutions/bpsk-utils-seo';
 
 // Performance mock setup (moved from global setup)
 const mockPerformance = {

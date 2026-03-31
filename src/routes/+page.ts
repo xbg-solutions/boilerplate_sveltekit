@@ -7,10 +7,10 @@
  */
 
 import { browser } from '$app/environment';
-import { initializationService } from '@xbg.solutions/frontend-core';
-import { authStore } from '@xbg.solutions/utils-firebase-auth';
+import { initializationService } from '@xbg.solutions/bpsk-core';
+import { authStore } from '@xbg.solutions/bpsk-utils-firebase-auth';
 import { get } from 'svelte/store';
-import { AUTH_ROUTES } from '@xbg.solutions/frontend-core';
+import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 

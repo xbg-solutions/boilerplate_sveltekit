@@ -6,8 +6,8 @@
  * Note: This now uses a CLI tool instead of the removed user management UI
  */
 
-import { loggerService } from '@xbg.solutions/frontend-core';
-import { CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/frontend-core';
+import { loggerService } from '@xbg.solutions/bpsk-core';
+import { CREATE_AUTH_USER_ON_FIRST_SIGNIN } from '@xbg.solutions/bpsk-core';
 
 // Define simplified types for user creation
 interface CustomClaims {

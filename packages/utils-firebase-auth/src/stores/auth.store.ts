@@ -11,8 +11,8 @@
 
 import { writable, get } from 'svelte/store';
 import type { User } from 'firebase/auth';
-import type { FirebaseUserClaims } from '@xbg.solutions/frontend-core';
-import type { AppError } from '@xbg.solutions/frontend-core';
+import type { FirebaseUserClaims } from '@xbg.solutions/bpsk-core';
+import type { AppError } from '@xbg.solutions/bpsk-core';
 
 /**
  * Authentication method used by the user

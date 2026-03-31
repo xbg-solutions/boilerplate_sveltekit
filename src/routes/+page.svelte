@@ -3,11 +3,11 @@
   Login Page with Consistent Design System Integration
 -->
 <script lang="ts">
-  import { subscribe } from '@xbg.solutions/frontend-core';
-  import { TAB_SYNC_EVENTS } from '@xbg.solutions/utils-tab-sync';
-  import { AUTH_EVENTS } from '@xbg.solutions/frontend-core';
+  import { subscribe } from '@xbg.solutions/bpsk-core';
+  import { TAB_SYNC_EVENTS } from '@xbg.solutions/bpsk-utils-tab-sync';
+  import { AUTH_EVENTS } from '@xbg.solutions/bpsk-core';
   import { PhoneAuth, EmailLinkAuth } from '$lib/components/auth';
-  import { authService } from '@xbg.solutions/utils-firebase-auth';
+  import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
   import { goto } from '$app/navigation';
 
   // Get return URL and other params from data or URL

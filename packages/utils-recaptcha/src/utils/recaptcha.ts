@@ -18,7 +18,7 @@ import {
   withErrorHandling,
   publish,
   AUTH_EVENTS
-} from '@xbg.solutions/frontend-core';
+} from '@xbg.solutions/bpsk-core';
 
 // Create a context-aware logger
 const recaptchaLogger = loggerService.withContext('RecaptchaUtility');
