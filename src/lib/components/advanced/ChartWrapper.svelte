@@ -451,8 +451,8 @@
               <!-- Export Menu -->
               {#if showExport}
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild let:builder>
-                    <Button builders={[builder]} variant="outline" size="sm">
+                  <DropdownMenuTrigger>
+                    <Button variant="outline" size="sm">
                       <Download class="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>

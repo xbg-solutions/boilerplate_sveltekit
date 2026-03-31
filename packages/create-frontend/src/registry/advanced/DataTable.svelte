@@ -376,8 +376,8 @@
       <!-- Bulk Actions -->
       {#if defaultOptions.bulkActions && selectedRows.size > 0}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild let:builder>
-            <Button builders={[builder]} variant="outline" size="sm">
+          <DropdownMenuTrigger>
+            <Button variant="outline" size="sm">
               Actions ({selectedRows.size})
             </Button>
           </DropdownMenuTrigger>
@@ -398,8 +398,8 @@
     <div class="flex items-center gap-2">
       <!-- Column Visibility -->
       <DropdownMenu>
-        <DropdownMenuTrigger asChild let:builder>
-          <Button builders={[builder]} variant="outline" size="sm">
+        <DropdownMenuTrigger>
+          <Button variant="outline" size="sm">
             <Settings class="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
@@ -420,8 +420,8 @@
       <!-- Export -->
       {#if defaultOptions.export}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild let:builder>
-            <Button builders={[builder]} variant="outline" size="sm">
+          <DropdownMenuTrigger>
+            <Button variant="outline" size="sm">
               <Download class="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -554,8 +554,8 @@
               <!-- Row Actions -->
               <TableCell>
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild let:builder>
-                    <Button builders={[builder]} variant="ghost" size="sm" onclick={(e: MouseEvent) => e.stopPropagation()}>
+                  <DropdownMenuTrigger>
+                    <Button variant="ghost" size="sm" onclick={(e: MouseEvent) => e.stopPropagation()}>
                       <MoreHorizontal class="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>

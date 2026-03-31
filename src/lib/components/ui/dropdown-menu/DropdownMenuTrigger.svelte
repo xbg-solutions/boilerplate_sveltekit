@@ -6,28 +6,25 @@
   import type { Snippet } from 'svelte';
 
   let {
-    builders = [],
-    asChild = false,
     children,
     ...rest
   }: {
-    builders?: any[];
-    asChild?: boolean;
     children?: Snippet;
     [key: string]: any;
   } = $props();
 
   const dropdown = getContext('dropdown') as any;
 
-  function handleClick() {
+  function handleClick(e: MouseEvent) {
+    e.stopPropagation();
     dropdown?.toggle();
   }
 </script>
 
-{#if asChild}
+<!--
+  Use display:contents so this wrapper is invisible in the layout while still
+  capturing click events that bubble up from child buttons.
+-->
+<span onclick={handleClick} style="display: contents" {...rest}>
   {@render children?.()}
-{:else}
-  <button type="button" onclick={handleClick} {...rest}>
-    {@render children?.()}
-  </button>
-{/if}
+</span>

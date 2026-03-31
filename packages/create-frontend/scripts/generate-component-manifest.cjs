@@ -72,24 +72,391 @@ const FIGMA_KEY = (FETCH_IMAGES && imagesIdx !== -1 && !args[imagesIdx + 1]?.sta
   : '';
 
 // ---------------------------------------------------------------------------
-// Helpers — playground URL
+// Helpers — playground URL (multi-file $lib resolver)
 // ---------------------------------------------------------------------------
 
-async function buildPlaygroundUrl(source, title) {
-  const payload = JSON.stringify({
-    name: title,
-    tailwind: true,
-    files: [{
-      type: 'file',
-      name: 'App.svelte',
-      basename: 'App.svelte',
-      contents: source,
-      text: true,
-    }],
+const LIB_ROOT = path.join(REPO_ROOT, 'src', 'lib');
+
+/** Return true only if p exists AND is a regular file (not a directory). */
+function isFile(p) {
+  try { return fs.statSync(p).isFile(); } catch { return false; }
+}
+
+/** Resolve a $lib/... import to an absolute path on disk, or null. */
+function resolveLib(libPath) {
+  const rel = libPath.replace(/^\$lib\//, '');
+  const base = path.join(LIB_ROOT, rel);
+  // Check index files BEFORE .svelte so bare module paths like
+  // '$lib/components/ui/button' resolve to the barrel index.ts
+  // rather than an adjacent Button.svelte (avoids case-insensitive FS issues).
+  for (const c of [base, `${base}.ts`, `${base}.js`,
+    path.join(base, 'index.ts'), path.join(base, 'index.js'), `${base}.svelte`]) {
+    if (isFile(c)) return c;
+  }
+  return null;
+}
+
+/** Resolve a relative import path from a given directory to an absolute path. */
+function resolveRel(rel, fromDir) {
+  const base = path.resolve(fromDir, rel);
+  for (const c of [base, `${base}.ts`, `${base}.js`,
+    path.join(base, 'index.ts'), path.join(base, 'index.js'), `${base}.svelte`]) {
+    if (isFile(c)) return c;
+  }
+  return null;
+}
+
+/** Convert an absolute lib path to a flat playground filename. */
+function pgFileName(absPath) {
+  const rel = path.relative(LIB_ROOT, absPath);
+  return rel.replace(/[\\/]/g, '_').replace(/\.ts$/, '.js');
+}
+
+/** Parse `export { A, B } from './x'` → { A: './x', B: './x' } */
+function parseReexports(source) {
+  const map = {};
+  const re = /export\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g;
+  let m;
+  while ((m = re.exec(source)) !== null) {
+    const from = m[2];
+    for (let spec of m[1].split(',')) {
+      spec = spec.trim();
+      if (!spec || /^type\b/.test(spec)) continue;
+      const asMatch = spec.match(/(?:default\s+as\s+)?(\w+)(?:\s+as\s+(\w+))?/);
+      const exported = asMatch ? (asMatch[2] || asMatch[1]) : null;
+      if (exported && exported !== 'type') map[exported] = from;
+    }
+  }
+  return map;
+}
+
+/**
+ * Follow barrel chain (up to 4 hops) to find the actual .svelte file for a
+ * named export. Handles both:
+ *   export { Button } from './button'          (re-export with from)
+ *   import Button from '../Button.svelte';
+ *   export { Button }                          (import + re-export without from)
+ */
+function findSvelteForName(name, barrelAbsPath, _depth) {
+  if ((_depth || 0) > 4) return null;
+  if (!isFile(barrelAbsPath)) return null;
+  const src = fs.readFileSync(barrelAbsPath, 'utf8');
+  const barrelDir = path.dirname(barrelAbsPath);
+
+  // Strategy 1: export { Name } from './path' (re-export with from clause)
+  const relPath = parseReexports(src)[name];
+  if (relPath) {
+    const resolved = resolveRel(relPath, barrelDir);
+    if (!resolved) return null;
+    if (resolved.endsWith('.svelte')) return resolved;
+    return findSvelteForName(name, resolved, (_depth || 0) + 1);
+  }
+
+  // Strategy 2: import Name from './path' (default import, then re-exported)
+  const defMatch = new RegExp(`import\\s+${name}\\s+from\\s+['"]([^'"]+)['"]`).exec(src);
+  if (defMatch) {
+    const resolved = resolveRel(defMatch[1], barrelDir);
+    if (!resolved) return null;
+    if (resolved.endsWith('.svelte')) return resolved;
+    return findSvelteForName(name, resolved, (_depth || 0) + 1);
+  }
+
+  // Strategy 3: import { Name } from './path' (named import, re-exported)
+  const namedMatch = new RegExp(`import\\s+\\{[^}]*\\b${name}\\b[^}]*\\}\\s+from\\s+['"]([^'"]+)['"]`).exec(src);
+  if (namedMatch) {
+    const resolved = resolveRel(namedMatch[1], barrelDir);
+    if (!resolved) return null;
+    if (resolved.endsWith('.svelte')) return resolved;
+    return findSvelteForName(name, resolved, (_depth || 0) + 1);
+  }
+
+  return null;
+}
+
+/** Strip TypeScript-only syntax from a .ts file to make it valid JS. */
+function stripTS(src) {
+  // Protect rename specifiers in import/export { X as Y } blocks BEFORE
+  // any stripping so we don't accidentally remove them.
+  // Strategy: temporarily replace " as Identifier" inside {…} spec lists
+  // with a placeholder, strip, then restore.
+
+  // We only need to preserve renames that follow an identifier (not type casts
+  // which follow expressions).  Simple heuristic: inside an import/export
+  // specifier block the pattern is always "word as word".
+  const renames = [];
+  let guarded = src.replace(
+    /(\bimport\b|\bexport\b)\s*\{([^}]+)\}/g,
+    (full, kw, specs) => {
+      const patched = specs.replace(/\b(\w+)\s+as\s+(\w+)\b/g, (m, a, b) => {
+        const idx = renames.length;
+        renames.push(m);
+        return `\x00RENAME${idx}\x00`;
+      });
+      return `${kw} {${patched}}`;
+    }
+  );
+
+  guarded = guarded
+    .replace(/^import\s+type\b[^\n]*\n?/gm, '')            // import type {...}
+    .replace(/^export\s+type\b[^\n]*\n?/gm, '')             // export type {...}
+    .replace(/,\s*type\s+\w+(?=\s*[,}])/g, '')              // , type Foo in list
+    .replace(/\btype\s+(\w+)(?=\s*[,}])/g, '$1')            // type Foo at start
+    .replace(/:\s*[\w.]+(?:<[^>]*>)?(?:\[\])?\s*(?=[,)=;\n])/g, '') // :Type
+    .replace(/\s+as\s+[\w<>[\].]+(?=\s*[;,)}\n])/g, '');   // as Type casts
+
+  // Restore rename placeholders
+  return guarded.replace(/\x00RENAME(\d+)\x00/g, (_, i) => renames[+i]);
+}
+
+/** Inline stub for $lib/utils/cn — avoids including cn.ts + its npm deps. */
+const CN_INLINE = "const cn = (...c) => c.flat(Infinity).filter(Boolean).join(' ');";
+
+// ---------------------------------------------------------------------------
+// Stubs for external packages unavailable in the Svelte playground
+// ---------------------------------------------------------------------------
+
+/**
+ * Per-package, per-export inline stubs.
+ * Each value is a self-contained JavaScript declaration string.
+ */
+const EXTERNAL_STUBS = {
+  '$app/navigation': {
+    goto:         "const goto = (url, _opts) => { if (typeof window !== 'undefined') window.location.href = String(url); };",
+    afterNavigate:  'const afterNavigate = (_fn) => {};',
+    beforeNavigate: 'const beforeNavigate = (_fn) => {};',
+    pushState:    'const pushState = (_url, _state) => {};',
+    replaceState: 'const replaceState = (_url, _state) => {};',
+    invalidate:   'const invalidate = async (_url) => {};',
+    invalidateAll:'const invalidateAll = async () => {};',
+    preloadCode:  'const preloadCode = async (..._urls) => {};',
+    preloadData:  "const preloadData = async (_url) => ({ type: 'loaded', status: 200, data: {} });",
+  },
+  '$app/stores': {
+    page:       "const page = { subscribe: (fn) => { fn({ url: new URL('http://localhost/'), params: {}, data: {}, status: 200, route: { id: null }, form: null }); return () => {}; } };",
+    navigating: 'const navigating = { subscribe: (fn) => { fn(null); return () => {}; } };',
+    updated:    'const updated = { subscribe: (fn) => { fn(false); return () => {}; }, check: async () => false };',
+  },
+  '$app/environment': {
+    browser:  'const browser = typeof window !== "undefined";',
+    dev:      'const dev = false;',
+    building: 'const building = false;',
+    version:  'const version = "1.0.0";',
+  },
+  '@xbg.solutions/frontend-core': {
+    cn:           "const cn = (...c) => c.flat(Infinity).filter(Boolean).join(' ');",
+    toastService: 'const toastService = { success: (m) => console.log("[toast:success]", m), error: (m) => console.error("[toast:error]", m), info: (m) => console.info("[toast:info]", m), warning: (m) => console.warn("[toast:warn]", m), show: (m, _t) => console.log("[toast]", m) };',
+    AUTH_ROUTES:  "const AUTH_ROUTES = { LOGIN: '/login', SIGNUP: '/signup', FORGOT_PASSWORD: '/forgot-password', RESET_PASSWORD: '/reset-password', HOME: '/', DASHBOARD: '/dashboard' };",
+    APP_CONFIG:   "const APP_CONFIG = { appName: 'App', version: '1.0.0', apiUrl: 'https://api.example.com', features: {} };",
+    useAuth:      'const useAuth = () => ({ user: null, isAuthenticated: false, loading: false, signIn: async () => {}, signOut: async () => {} });',
+  },
+  '@xbg.solutions/utils-sanitizer': {
+    escapeHtml:   "const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;');",
+    sanitizeText: 'const sanitizeText = (s) => String(s).replace(/<[^>]*>/g, "");',
+  },
+  '@xbg.solutions/utils-file-upload': {
+    storageService: 'const storageService = { upload: async (file, storagePath) => ({ url: URL.createObjectURL(file), path: storagePath || file.name }), delete: async (_path) => {}, getUrl: async (_path) => "", getMetadata: async (_path) => ({}) };',
+  },
+  '@xbg.solutions/utils-firebase-auth': {
+    safeSendEmailLink: 'const safeSendEmailLink = async (_email) => ({ success: true, error: null });',
+    signInWithGoogle:  'const signInWithGoogle = async () => ({ user: null, error: null });',
+    signInWithPhone:   'const signInWithPhone = async (_phone) => ({ verificationId: "demo", error: null });',
+    confirmPhoneCode:  'const confirmPhoneCode = async (_vid, _code) => ({ user: null, error: null });',
+  },
+};
+
+/**
+ * Replace imports from private / SvelteKit-specific packages with inline stubs.
+ * Handles named imports including aliases: import { A, B as b } from 'pkg'
+ */
+function rewriteExternalImports(source) {
+  const pkgList = Object.keys(EXTERNAL_STUBS);
+  if (pkgList.length === 0) return source;
+
+  const escapedPkgs = pkgList.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const pkgPattern  = escapedPkgs.join('|');
+  const importRe    = new RegExp(
+    `import\\s*\\{([^}]+)\\}\\s*from\\s*['"](?:${pkgPattern})['"]\\s*;?`,
+    'g'
+  );
+
+  return source.replace(importRe, (match, specs) => {
+    const pkgMatch = match.match(/from\s*['"]([^'"]+)['"]/);
+    if (!pkgMatch) return match;
+    const pkg   = pkgMatch[1];
+    const stubs = EXTERNAL_STUBS[pkg];
+    if (!stubs) return `// unresolved external: ${pkg}`;
+
+    const lines = [];
+    for (let spec of specs.split(',')) {
+      spec = spec.trim();
+      if (!spec || /^type[\s\b]/.test(spec)) continue;
+      const asMatch  = spec.match(/^(\w+)\s+as\s+(\w+)$/);
+      const original = asMatch ? asMatch[1] : spec;
+      const alias    = asMatch ? asMatch[2] : null;
+      const stubLine = stubs[original];
+      if (!stubLine) {
+        lines.push(`// playground stub not available: ${original} from ${pkg}`);
+        continue;
+      }
+      // If imported with an alias (e.g. toastService as toast), rename the const
+      lines.push(alias
+        ? stubLine.replace(new RegExp(`\\bconst ${original}\\b`), `const ${alias}`)
+        : stubLine
+      );
+    }
+    return lines.join('\n');
   });
+}
+
+/**
+ * Strip Svelte 4 slot-prop patterns that are invalid in Svelte 5 (the playground).
+ *
+ *  Svelte 4:  <Foo asChild let:builder> <Bar builders={[builder]} ...>
+ *  Svelte 5:  <Foo>                     <Bar ...>
+ *
+ * Our DropdownMenuTrigger handles clicks via context already.
+ * Without asChild it wraps in a plain <button>; click propagation ensures
+ * the dropdown still opens correctly in the playground demo.
+ */
+function fixSvelte4SlotProps(source) {
+  // Remove standalone `asChild` attribute (no value, e.g. <Foo asChild ...>)
+  source = source.replace(/\s+asChild(?=[\s/>])/g, '');
+  // Remove `let:builder` slot-prop directive
+  source = source.replace(/\s+let:builder\b/g, '');
+  // Remove `builders={…}` prop (e.g. builders={[builder]})
+  source = source.replace(/\s+builders=\{[^}]*\}/g, '');
+  return source;
+}
+
+/** Non-existent Lucide icon names → nearest valid substitute */
+const LUCIDE_ICON_FIXES = {
+  Scatter3D: 'ScatterChart',
+};
+
+/**
+ * Replace imports of icons that don't exist in the playground's lucide-svelte
+ * with valid substitutes, and patch their usages in the template too.
+ */
+function fixLucideImports(source) {
+  const entries = Object.entries(LUCIDE_ICON_FIXES);
+  if (entries.length === 0) return source;
+
+  // Patch specifier names inside lucide-svelte import blocks
+  source = source.replace(
+    /import\s*\{([^}]+)\}\s*from\s*['"]lucide-svelte['"]/g,
+    (match, specs) => {
+      const patched = specs.replace(
+        new RegExp(`\\b(${Object.keys(LUCIDE_ICON_FIXES).join('|')})\\b`, 'g'),
+        name => LUCIDE_ICON_FIXES[name]
+      );
+      return match.replace(specs, patched);
+    }
+  );
+
+  // Also replace any remaining usages of the old names in the component body
+  for (const [bad, good] of entries) {
+    source = source.replace(new RegExp(`\\b${bad}\\b`, 'g'), good);
+  }
+
+  return source;
+}
+
+/**
+ * Rewrite $lib/... imports in a source string.
+ * Populates `collected` Map<pgFileName, contents> with all needed extra files.
+ * Returns the rewritten source.
+ */
+function rewriteLibImports(source, collected) {
+  // 0. Fix Svelte 4 slot-prop patterns, stub external packages, fix bad icons.
+  source = fixSvelte4SlotProps(source);
+  source = rewriteExternalImports(source);
+  source = fixLucideImports(source);
+
+  // 1. Replace $lib/utils/cn import with a self-contained inline
+  source = source.replace(
+    /^[^\n]*from\s+['"]\$lib\/utils\/cn['"]\s*;?[^\n]*$/m,
+    CN_INLINE
+  );
+
+  // 2. Named barrel imports from $lib/components/ui (or $lib/components/ui/icon)
+  //    → resolve each name directly to its .svelte file
+  source = source.replace(
+    /import\s+\{([^}]+)\}\s+from\s+['"](\$lib\/components\/(?:ui|ui\/icon))['"]/g,
+    (match, specs, libPath) => {
+      const barrelAbs = resolveLib(libPath);
+      if (!barrelAbs) return `// unresolved: ${libPath}`;
+      const names = specs.split(',')
+        .map(s => s.trim().replace(/^type\s+/, ''))
+        .filter(Boolean);
+      return names.map(name => {
+        const svelteAbs = findSvelteForName(name, barrelAbs);
+        if (!svelteAbs) return `// could not resolve: ${name} from ${libPath}`;
+        const pg = pgFileName(svelteAbs);
+        if (!collected.has(pg)) addLibFile(svelteAbs, collected);
+        return `import { default as ${name} } from './${pg}'`;
+      }).join('\n');
+    }
+  );
+
+  // 3. Any remaining $lib/... imports (direct .svelte, blocks, etc.)
+  source = source.replace(
+    /from\s+['"](\$lib\/[^'"]+)['"]/g,
+    (match, libPath) => {
+      if (libPath === '$lib/utils/cn') return '/* cn inlined */';
+      const abs = resolveLib(libPath);
+      if (!abs) return match;
+      const pg = pgFileName(abs);
+      if (!collected.has(pg)) addLibFile(abs, collected);
+      return match.replace(libPath, `./${pg}`);
+    }
+  );
+
+  return source;
+}
+
+/**
+ * Read a lib file, process its imports, and add it (and its deps) to collected.
+ */
+function addLibFile(absPath, collected) {
+  const pg = pgFileName(absPath);
+  if (collected.has(pg)) return; // already queued or done
+  collected.set(pg, null);       // sentinel — prevents infinite cycles
+
+  let src = fs.readFileSync(absPath, 'utf8');
+
+  // .ts files need type stripping + relative-import rewriting
+  if (absPath.endsWith('.ts') && !absPath.endsWith('.d.ts')) {
+    src = stripTS(src);
+    const dir = path.dirname(absPath);
+    src = src.replace(/from\s+['"](\.[^'"]+)['"]/g, (match, rel) => {
+      const childAbs = resolveRel(rel, dir);
+      if (!childAbs || !childAbs.startsWith(LIB_ROOT)) return match;
+      const childPg = pgFileName(childAbs);
+      if (!collected.has(childPg)) addLibFile(childAbs, collected);
+      return match.replace(rel, `./${childPg}`);
+    });
+  }
+
+  // Rewrite $lib imports inside this file too
+  src = rewriteLibImports(src, collected);
+
+  collected.set(pg, src);
+}
+
+async function buildPlaygroundUrl(source, title, sourceFile) {
+  const collected = new Map(); // pgFileName -> rewritten contents
+  const appSource = rewriteLibImports(source, collected);
+
+  const files = [
+    { type: 'file', name: 'App.svelte', basename: 'App.svelte', contents: appSource, text: true },
+    ...[...collected.entries()]
+      .filter(([, v]) => v !== null)
+      .map(([name, contents]) => ({ type: 'file', name, basename: name, contents, text: true })),
+  ];
+
+  const payload = JSON.stringify({ name: title, tailwind: true, files });
   const compressed = await gzipAsync(Buffer.from(payload, 'utf8'));
-  const hash = compressed.toString('base64');
-  return `https://svelte.dev/playground/untitled#${hash}`;
+  return `https://svelte.dev/playground/untitled#${compressed.toString('base64')}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -251,10 +618,8 @@ async function processVariant(opts) {
   const tags         = [...(groupMeta.tags || []), ...(variantMeta.tags || [])];
   const figmaNodeId  = variantMeta.figmaNodeId || null;
 
-  // Playground URL — only generate if the source has no $lib imports, since $lib
-  // is a local SvelteKit path alias that the Svelte REPL cannot resolve.
-  const hasLocalImports = source.includes("'$lib") || source.includes('"$lib');
-  const playgroundUrl = hasLocalImports ? null : await buildPlaygroundUrl(source, `XBG — ${title}`);
+  // Playground URL — $lib imports are resolved into additional playground files.
+  const playgroundUrl = await buildPlaygroundUrl(source, `XBG — ${title}`, sourceFile);
 
   // Image path (relative, for the manifest)
   const relImagePath  = `images/${category}/${groupId}/${componentName}.png`;
