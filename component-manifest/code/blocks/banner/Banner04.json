@@ -1,0 +1,26 @@
+{
+  "id": "banner04",
+  "name": "Banner04",
+  "category": "blocks",
+  "group": "banner",
+  "title": "Social Proof Pill",
+  "description": "Floating pill badge showing recent activity or user count.",
+  "tags": [
+    "banner",
+    "announcement",
+    "notification",
+    "social-proof",
+    "pill"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tcount?: string;\n\t\tlabel?: string;\n\t\tvariant?: 'light' | 'dark';\n\t\thref?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tcount = '5K+',\n\t\tlabel = 'Loved by',\n\t\tvariant = 'light',\n\t\thref\n\t}: Props = $props();\n\n\tconst isLight = variant === 'light';\n\tconst containerClass = isLight\n\t\t? 'inline-flex items-center gap-3 rounded-full border bg-background px-4 py-2'\n\t\t: 'inline-flex items-center gap-3 rounded-full border border-background/20 bg-foreground text-background px-4 py-2';\n</script>\n\n<a\n\t{href}\n\tclass={cn(containerClass, className)}\n\trole={href ? 'link' : 'status'}\n>\n\t<div class=\"flex -space-x-2\">\n\t\t{#each [0, 1, 2] as index}\n\t\t\t<div\n\t\t\t\tclass={cn(\n\t\t\t\t\t'h-8 w-8 rounded-full',\n\t\t\t\t\tisLight ? 'bg-muted' : 'bg-background/30'\n\t\t\t\t)}\n\t\t\t></div>\n\t\t{/each}\n\t</div>\n\n\t<span class=\"text-sm font-medium\">\n\t\t{label} <strong>{count}</strong> customers\n\t</span>\n\n\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"flex-shrink-0\">\n\t\t<polyline points=\"9 18 15 12 9 6\"></polyline>\n\t</svg>\n</a>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17006:184210",
+  "playgroundUrl": null
+}

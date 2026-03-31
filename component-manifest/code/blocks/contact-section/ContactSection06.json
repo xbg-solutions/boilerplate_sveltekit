@@ -1,0 +1,32 @@
+{
+  "id": "contactsection06",
+  "name": "ContactSection06",
+  "category": "blocks",
+  "group": "contact-section",
+  "title": "Multi-step Contact",
+  "description": "Two-step contact flow: topic selection then detailed message form.",
+  "tags": [
+    "contact",
+    "form",
+    "landing-page",
+    "multi-step",
+    "form"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonSubmit?: (data: any) => void;\n\t}\n\n\tlet step: 1 | 2 = $state(1);\n\tlet contactType = $state('');\n\tlet name = $state('');\n\tlet email = $state('');\n\tlet message = $state('');\n\n\tconst { class: className, onSubmit }: Props = $props();\n\n\tconst contactOptions = [\n\t\t{ id: 'sales', label: 'Sales', description: 'Interested in our plans?' },\n\t\t{ id: 'support', label: 'Support', description: 'Need help with your account?' },\n\t\t{ id: 'general', label: 'General', description: 'Other inquiries' }\n\t];\n\n\tfunction handleSubmit() {\n\t\tif (onSubmit && name && email && message) {\n\t\t\tonSubmit({ type: contactType, name, email, message });\n\t\t\tname = '';\n\t\t\temail = '';\n\t\t\tmessage = '';\n\t\t\tstep = 1;\n\t\t\tcontactType = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-lg\">\n\t\t{#if step === 1}\n\t\t\t<div class=\"text-center\">\n\t\t\t\t<h2 class=\"text-3xl font-bold\">What can we help you with?</h2>\n\t\t\t\t<div class=\"mt-8 space-y-3\">\n\t\t\t\t\t{#each contactOptions as option}\n\t\t\t\t\t\t<button\n\t\t\t\t\t\t\tonclick={() => {\n\t\t\t\t\t\t\t\tcontactType = option.id;\n\t\t\t\t\t\t\t\tstep = 2;\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\tclass=\"flex flex-col items-start gap-2 w-full rounded-lg border p-4 text-left hover:border-foreground transition-colors\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<p class=\"font-semibold\">{option.label}</p>\n\t\t\t\t\t\t\t<p class=\"text-sm text-muted-foreground\">{option.description}</p>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t{/each}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t{:else}\n\t\t\t<div>\n\t\t\t\t<Button variant=\"outline\" onclick={() => (step = 1)} class=\"mb-8\">← Back</Button>\n\n\t\t\t\t<h2 class=\"text-3xl font-bold\">\n\t\t\t\t\t{contactOptions.find((opt) => opt.id === contactType)?.label} Inquiry\n\t\t\t\t</h2>\n\n\t\t\t\t<form class=\"mt-8 space-y-4\" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"text\"\n\t\t\t\t\t\tplaceholder=\"Your name\"\n\t\t\t\t\t\tbind:value={name}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"email\"\n\t\t\t\t\t\tplaceholder=\"your@email.com\"\n\t\t\t\t\t\tbind:value={email}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<textarea\n\t\t\t\t\t\tplaceholder=\"Your message\"\n\t\t\t\t\t\tbind:value={message}\n\t\t\t\t\t\trows={5}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Button type=\"submit\" class=\"w-full\">Send message</Button>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t{/if}\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:172280",
+  "playgroundUrl": null
+}

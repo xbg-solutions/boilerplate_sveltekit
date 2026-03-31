@@ -1,0 +1,32 @@
+{
+  "id": "contactsection01",
+  "name": "ContactSection01",
+  "category": "blocks",
+  "group": "contact-section",
+  "title": "Centred Contact Form",
+  "description": "Single centred form with name, email, subject, and message fields.",
+  "tags": [
+    "contact",
+    "form",
+    "landing-page",
+    "centered",
+    "form"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tonSubmit?: (data: any) => void;\n\t}\n\n\tlet name = $state('');\n\tlet email = $state('');\n\tlet message = $state('');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Get in touch',\n\t\tdescription = 'We would love to hear from you. Send us a message and we will respond as soon as possible.',\n\t\tonSubmit\n\t}: Props = $props();\n\n\tfunction handleSubmit() {\n\t\tif (onSubmit && name && email && message) {\n\t\t\tonSubmit({ name, email, message });\n\t\t\tname = '';\n\t\t\temail = '';\n\t\t\tmessage = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-lg text-center\">\n\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\t\t<p class=\"mt-4 text-muted-foreground\">{description}</p>\n\n\t\t<form class=\"mt-8 space-y-4\" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>\n\t\t\t<div class=\"grid grid-cols-1 gap-4 sm:grid-cols-2\">\n\t\t\t\t<input\n\t\t\t\t\ttype=\"text\"\n\t\t\t\t\tplaceholder=\"Your name\"\n\t\t\t\t\tbind:value={name}\n\t\t\t\t\tclass=\"rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"email\"\n\t\t\t\t\tplaceholder=\"your@email.com\"\n\t\t\t\t\tbind:value={email}\n\t\t\t\t\tclass=\"rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t</div>\n\n\t\t\t<textarea\n\t\t\t\tplaceholder=\"Your message\"\n\t\t\t\tbind:value={message}\n\t\t\t\trows={5}\n\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t/>\n\n\t\t\t<Button type=\"submit\" class=\"w-full\">Send message</Button>\n\t\t</form>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:172025",
+  "playgroundUrl": null
+}

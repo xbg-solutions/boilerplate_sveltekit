@@ -1,0 +1,33 @@
+{
+  "id": "tableheader03",
+  "name": "TableHeader03",
+  "category": "blocks",
+  "group": "table-header",
+  "title": "Title + Search (Stacked) + Export",
+  "description": "Title and search stacked left, export and new buttons right.",
+  "tags": [
+    "table",
+    "header",
+    "filters",
+    "app",
+    "stacked",
+    "export"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tsearchPlaceholder?: string;\n\t\tnewLabel?: string;\n\t\texportLabel?: string;\n\t\tonNew?: () => void;\n\t\tonExport?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Table name',\n\t\tdescription = 'Read and write directly to databases and stores from your projects.',\n\t\tsearchPlaceholder = 'Search...',\n\t\tnewLabel = 'New',\n\t\texportLabel = 'Export',\n\t\tonNew,\n\t\tonExport\n\t}: Props = $props();\n\n\tlet searchQuery = $state('');\n\n\t// SVG Icons\n\tconst SearchIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.35-4.35\"></path></svg>`;\n\n\tconst ExportIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"7 10 12 15 17 10\"></polyline><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"></line></svg>`;\n\n\tconst PlusIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line></svg>`;\n</script>\n\n<div class={cn('flex flex-col gap-4', className)}>\n\t<!-- Row 1: Title + Description LEFT, Export + New RIGHT -->\n\t<div class=\"flex items-start justify-between\">\n\t\t<div class=\"flex-1\">\n\t\t\t<h2 class=\"font-semibold\">{title}</h2>\n\t\t\t<p class=\"text-sm text-muted-foreground\">{description}</p>\n\t\t</div>\n\n\t\t<!-- Desktop: Right side buttons -->\n\t\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t\t<Button variant=\"outline\" size=\"sm\" onclick={onExport}>\n\t\t\t\t<span class=\"mr-1\">{@html ExportIcon}</span>\n\t\t\t\t{exportLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onNew}>\n\t\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t\t{newLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n\n\t<!-- Row 2: Search LEFT (Desktop) -->\n\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t<div class=\"relative w-64\">\n\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t{@html SearchIcon}\n\t\t\t</div>\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\tplaceholder={searchPlaceholder}\n\t\t\t\tbind:value={searchQuery}\n\t\t\t\tclass=\"w-full pl-8 pr-3 py-2 border rounded-md bg-background text-sm\"\n\t\t\t/>\n\t\t</div>\n\t</div>\n\n\t<!-- Mobile Layout -->\n\t<div class=\"sm:hidden space-y-2 w-full\">\n\t\t<!-- New + Export buttons -->\n\t\t<div class=\"flex gap-2\">\n\t\t\t<Button onclick={onNew} class=\"flex-1\">\n\t\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t\t{newLabel}\n\t\t\t</Button>\n\t\t\t<Button variant=\"outline\" onclick={onExport}>\n\t\t\t\t<span>{@html ExportIcon}</span>\n\t\t\t</Button>\n\t\t</div>\n\n\t\t<!-- Search Input -->\n\t\t<div class=\"relative w-full\">\n\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t{@html SearchIcon}\n\t\t\t</div>\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\tplaceholder={searchPlaceholder}\n\t\t\t\tbind:value={searchQuery}\n\t\t\t\tclass=\"w-full pl-8 pr-3 py-2 border rounded-md bg-background text-sm\"\n\t\t\t/>\n\t\t</div>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:5116",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+1X/W7bNhB/lZtQwAlmWpGSdK1re1u3ri3QFl0aDAPmAaMl2mZDkQJJWfEMA3uIPeGeZEfK+rDjLP2n/xQDgoi8L9797nhHbwJJMxYMg1+fv4R//vobrrkVDL6GD4zqZAknHyxNblh6iqQXt7nSNugHlnJRcpkGQ6sL1g/mXDATDH/bBHadO2OOgHI709/n+cCsmLCONqOGHaMnSlomLZoJRibRPLcgqFyMp4E102AylVPLM3c+bCCRsIW5Vhn0Hgk+CwvLhQkT2Xu2J/a8sFYdiCYKudIdFBbcyzsNPFrPacLgvVa5gY0jTm0iqDHfDsFYzeXiWUW0Dp9DYsoql7mShyzjcXwv0PpSiZTpQwHJyjd0xsQhnXm0j7KUfMdKJJ6cwngCK8XThlHl6C5vW0WKKBu7F98Q/OcdpqTfiRDG0LumM1y4ZPX6d+J0AleMpkBlCqXmlkHKNUusWINVkFJLXaqN5xurNC59Htaq0JBr9RFlzaC2fAcmZ7+qwcGgkaqxckyEoCZ3oHKcCoOa6cHq7+PjERnusj2GR7lbnJzuykEwC5U/PxdMr52AsdSyk16vFglD+PDLS3jt8Gxxrfx1RNT5Y2RWC7jNhDRYxEtr82EYlmU5KM8HSi/C+OzsLESRaQAlT+0ShaLHuFkyvljaerfirHyubnF7BmcQX+AfUvF+CSRJrGTcYW2oG4b7pNAaS/sHJZRu6KS2HrckwSVLaI5ErQqZ7jM+Ki5bzmSUcJ1gHSTOiShC2WRdrzQunjiZsBKajHJql5AiOYsjiCNyMTi/9P+8lOPiB6Oe/PGsW5FVWr405Bow3iIY0eXqgsYQg3MnIrh6ddndk3hFLjoo5UqsnVHI0ap1SHwDEUrGaAkit66Ed2KTkRe+jVz8zuG1XyHucBs3NLc693qVzpFUvBeF+dIScQyaI8hETzvQtDqXDZpxo/O00YmPwYkr3yjd3JKjlK+qLjveJPKkNxfsFtw/kigBC5qTi16/bcOnWz/tRl8RAleqhGjYDOUfO/33zYufrvu7i4MsbHJw9frlq2sgpNJvT50G/kjs0Zkh2MpQ4WNhLJ+vyYzZkjG5m7BHtEjU8JC7jFsmDmxiWMZn2K9RZuPnxnYULuNWPm/EsUmjeAb+mxWWpWSOQ2FR52jTmS1oJK/9CdGhSVWfO0wQhBur8iFcuSoDw1MGMz/qTR37QRxLnqZMgsmGHRwS5qa+hz/uhrh7Nayo5lS6IlaFddl1Fcb/dDVqMlwrmQie3Iw39UzZNibQiMmpbI7PtAdx893SZqLT6jBMJ9fR23Qm2bbxKKxcuuNixwXM/qeeX9/vI6fX4/W+o5tk7KWlKdR4WL8aXW3CyS5Rp0cr8tNzsqemmaCWrxiU5PFFN21dITozSmCJgWBzS+LBJb5IchKFMRCrqTRogpG1J9xXjh1UKtja2d5Bp4bD77jMC9vquafwru6nQUvO2yfOeHPn1bNtBWf4wB6uqChYLedfIx2JOtySzAshIBfkCT6syDnkaxwvM6XdM8oHhNFlKcwWZIaP+SpG2F3I1rfw4Sy/VTN82cMbio84ezStmM86szlGRZwnlX9tPp0l167qXxQP3F5fH/dd04M7cH/r+myX4r9bxsNt4uG+cN8tbNHcXbvXrgLvQbFzcfay8f/V+axXp/66X82oVf1i3v6+/Rf0BfBaeA8AAA=="
+}

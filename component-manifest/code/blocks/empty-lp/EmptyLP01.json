@@ -1,0 +1,31 @@
+{
+  "id": "emptylp01",
+  "name": "EmptyLP01",
+  "category": "blocks",
+  "group": "empty-lp",
+  "title": "Icon + CTAs",
+  "description": "Centred icon with heading and two action buttons.",
+  "tags": [
+    "empty-state",
+    "landing-page",
+    "icon",
+    "cta"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'No data yet',\n\t\tdescription = 'Start creating your first item to see it appear here.',\n\t\tprimaryLabel = 'Create now',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-24 px-4 text-center', className)}>\n\t<div class=\"mx-auto flex flex-col items-center gap-6\">\n\t\t<div class=\"h-16 w-16 rounded-full bg-muted flex items-center justify-center text-muted-foreground\">\n\t\t\t<svg class=\"h-8 w-8\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<path\n\t\t\t\t\td=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"\n\t\t\t\t/>\n\t\t\t</svg>\n\t\t</div>\n\n\t\t<div>\n\t\t\t<h2 class=\"text-2xl font-bold\">{title}</h2>\n\t\t\t<p class=\"mt-2 text-muted-foreground max-w-sm mx-auto\">{description}</p>\n\t\t</div>\n\n\t\t<div class=\"flex gap-3\">\n\t\t\t<Button onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t<Button variant=\"outline\" onclick={onSecondary}>{secondaryLabel}</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18192:33116",
+  "playgroundUrl": null
+}

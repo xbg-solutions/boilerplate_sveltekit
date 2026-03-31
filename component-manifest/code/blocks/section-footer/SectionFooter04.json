@@ -1,0 +1,30 @@
+{
+  "id": "sectionfooter04",
+  "name": "SectionFooter04",
+  "category": "blocks",
+  "group": "section-footer",
+  "title": "Section Footer 04",
+  "description": "Footer bars for individual content sections — pagination, load-more, and action links.",
+  "tags": [
+    "section-footer",
+    "pagination",
+    "load-more"
+  ],
+  "source": "<!--\n  SectionFooter04.svelte\n  Primary CTA button left. \"Need more?\" text + secondary link/button right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    ctaLabel = 'Purchase credits',\n    needMoreText = 'Need more?',\n    contactLabel = 'Contact sales',\n    oncta = () => {},\n    oncontact = () => {}\n  }: {\n    class?: string;\n    ctaLabel?: string;\n    needMoreText?: string;\n    contactLabel?: string;\n    oncta?: () => void;\n    oncontact?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between', className)}>\n  <Button size=\"sm\" onclick={oncta}>{ctaLabel}</Button>\n  <div class=\"flex items-center gap-2 text-sm\">\n    {#if needMoreText}\n      <span class=\"text-muted-foreground\">{needMoreText}</span>\n    {/if}\n    <Button variant=\"outline\" size=\"sm\" onclick={oncontact}>{contactLabel}</Button>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4941",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VU207cMBD9lamLtKBuCGp5CruLAKl9aRFSeajU9MHrOIuLY0f2ZGEbReIj+oX9ko7jLEuW9iWXmTPH58zYbpnhlWQZ+3b5Cf48/YavUqCyBj5ai9LBySmbMuRKPyhTsAxdI6esVFp6ln1vGW7qUBwChBuoLur62K+lxhBbci//FRfWoDRINGz2JklyA9ul48onpwM2ZG6cqrjbwNXtBSwbRNKnZYnHkLNrKQuorJPnOQOUjwjvwEtiL0KBVuY+HSqcWt3hcW6SZJGbmRdO1Qiam9U8Z+hztggrqaq2DqEFYaCD0tkKJgdaLdMGlfapMJOzEewyco+gwlLWBHNpowI+VGhJ8PABIDT3Pouva2oNzGEymQ455J/5UuoQu2mcuKP2gXCyUOi3GEOWv5Dj2+CWcLsWPLNQc7nAZ6ar+A+e0+C2IGtoMcoeHsF8AW23Cw/oXSpkumyk/zwDj06Z1dlY+H78pdhXNS9k7ud6dRSMEtZWFWd7+l4nO5J8UDtb+8MjCszSOORFmMCsUOuofN4KczgptXyE8EiE1bDidfIB6k1yCr7K+rCzD+Fboax8ImiadBro/2fjUZWbZCnxQUozme7meNT1W2g27AmvfknaWr6ijUmitRL387a31S3abbu6WRrhsXQnMme9wtHyQeX7fpMngXURG9K+VeWozV2ME52vuXnm6+uqBmWRlIRcOduYgljaUS01jYq21KkqB7atqzV3ihskPtsgHS9J7v7nNM4puH0x6D3HKVkO53F4h9uGZMSbpvvR/QV/SF3foAQAAA=="
+}

@@ -1,0 +1,24 @@
+{
+  "id": "testimonial03",
+  "name": "Testimonial03",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "Testimonial 03",
+  "description": "Customer testimonial sections in various layouts — single centred, card grids, split with image, dark, and masonry.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Testimonial {\n\t\tquote: string;\n\t\tname: string;\n\t\trole?: string;\n\t\tcompany?: string;\n\t\tavatarUrl?: string;\n\t\trating?: number;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttestimonial?: Testimonial;\n\t\timageUrl?: string;\n\t}\n\n\tconst defaultTestimonial: Testimonial = {\n\t\tquote:\n\t\t\t'\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n\t\tname: 'Lando Norris',\n\t\trole: 'CEO',\n\t\tcompany: 'Acme Inc.',\n\t\trating: 5\n\t};\n\n\tlet {\n\t\tclass: className,\n\t\ttestimonial = defaultTestimonial,\n\t\timageUrl\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-5xl grid grid-cols-1 gap-8 sm:grid-cols-2 sm:items-center\">\n\t\t<div class=\"aspect-square rounded-lg bg-muted overflow-hidden flex items-center justify-center\">\n\t\t\t{#if imageUrl}\n\t\t\t\t<img src={imageUrl} alt=\"testimonial\" class=\"w-full h-full object-cover\" />\n\t\t\t{:else}\n\t\t\t\t<div class=\"text-muted-foreground text-sm\">Image placeholder</div>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div>\n\t\t\t{#if testimonial.rating}\n\t\t\t\t<div class=\"flex gap-1 mb-4\">\n\t\t\t\t\t{#each Array(5) as _, i}\n\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\twidth=\"16\"\n\t\t\t\t\t\t\theight=\"16\"\n\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\tfill={i < testimonial.rating ? '#f59e0b' : 'none'}\n\t\t\t\t\t\t\tstroke=\"#f59e0b\"\n\t\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\" />\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t{/each}\n\t\t\t\t</div>\n\t\t\t{/if}\n\n\t\t\t<p class=\"text-lg font-medium italic leading-relaxed text-foreground\">\n\t\t\t\t{testimonial.quote}\n\t\t\t</p>\n\n\t\t\t<p class=\"font-semibold text-foreground mt-4\">{testimonial.name}</p>\n\t\t\t{#if testimonial.role || testimonial.company}\n\t\t\t\t<p class=\"text-sm text-muted-foreground\">\n\t\t\t\t\t{testimonial.role}\n\t\t\t\t\t{#if testimonial.role && testimonial.company}\n\t\t\t\t\t\t·\n\t\t\t\t\t{/if}\n\t\t\t\t\t{testimonial.company}\n\t\t\t\t</p>\n\t\t\t{/if}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VW/Y6bRhB/lRGJwp1ksKHnO5/ju+hStdWpVVqpiVSpVNUCC95k2SW7iz/qWOpD9F36fx+lT9JZwDZwPlVGBs/M/ubjNzN45whSUGfu/PL2O/j3z7/gPdWGFVIwwmHylTNyDGF8zUTqzI2q6MjJGKfamf+6c8y2tCetAO1anIey9PWKcmNlMdH0nDyRwlBhEMZZ6ESx0gAnIr+LHKMj5z4SEcZQSmVgB4mAPWRKFuC+5CweV4ZxPU6E+xrNrCFCqYwktBf6zqoi87mShs5BG8VE/rqR2YAGIiU5fTOQJbIoidgOxWRFDFEfFB8qFMFQcpSKqoipqqX7YYg/KVnqQ3AJJ1oPYcwpCVR1Umr1rCA5feK+dYR11QZSmpGKm87ZHhDc9avTPEfGjZyflyTFen94hO+ZgUwq+JblBYEl0WDrwamhfAuYq9CoLWgKslLoULNcQKlkQrX24dFEkauBiUTRlMV4AitQMcNWFIhIQZMV1VBp0BKKKlkChkZ9eL+ktRcpbG8AURRiSpDvrOKIkSiSGfRoEZJKG1mwP0jMqR857qhLrfsDmkh4J5Vi+qCyFKPq629+PEhaglH4kBQUHkXiH41rLucwrWvbNhom32NuDvXtHfocPeEOi/yUhlGfwhp83vbEHbws7cPFJbpbjJupsJMgFpomhknRuLvbJeLCXXu2JhDnXkyST7mSFRal3HrBNZQb7wp0Mcf7NfDc3mfu6BTr5b6er0XKVi1i5BQbD+uMZJCNt/amGw65Ymn95SWSay+AnJTezOKehKH9yQwttJdQ2+Lt6A7AiS4xAU9/riyjdag09Xhuoy8qy6hc4XhwufaWLE2pgIzTDXSB4SPyzbLt0E9kdi9YBoeC7g9SjIAVOWiV3O2OSiDc2A1z4iNyjkG2BV02Nxl/tCEnNjA0Gp/czSnXtOunm6mhG9Ok5OF00JaWWqoLDPrRhgIlx02wlDylajHG4yfwMcta6KPiWM5+xp0k/KZZn4uprqUlL4Ai9q46pWvAKMH5e1CKbC+ml4Bz/vsI2L5rg4B6lfclkVmz1CwRP7iOnKFuSVm+NM8oV4yu38oNaicwgfAKr6dG+E7hSB0szmQKb8B9kU1v6SR2AadX4L5w90MEXI7yE0UvrelTH42Fd0gkHFrcDw8sSsm3OQ5iKXGf2eIGIYQQTP3JLcz88BrCEG798AYCvK784AqCmR/MIAz8CdrhdePf3MDUn4Wt7GDXnpv5t0GDZJF7ndeGMEYq+gyOLYNd9s/2lDik0G9WnMIM38UebnJWFThzhLMEOCUpFtpTlJMNbTv41NG9Htp1CapfKMdYFuPy/qzr2qWmBYtxCoboUJi6TXvAdrHvW7xnpgD3O3z50pO1G75bnEH+uoCzQzsck6GnfX+IzsXy6tX/xGI///zd5/K4AM74PZNNtyBnlsfxCdumeYfgs/1Lhyk3f+f2v+3/A+5Up1ECCgAA"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "legend",
+  "name": "Legend",
+  "category": "atoms",
+  "group": "legend",
+  "title": "Legend",
+  "description": "Coloured dot or line swatch with a label, used beside charts.",
+  "tags": [
+    "chart",
+    "legend",
+    "data-viz"
+  ],
+  "source": "<!--\n  src/lib/components/ui/legend/Legend.svelte\n  Chart legend with colored dots and labels.\n\n  Usage:\n  <Legend items={[{ label: 'Revenue', color: '#3b82f6' }, { label: 'Expenses', color: '#ef4444' }]} />\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  let {\n    items = [],\n    class: className = '',\n    ...rest\n  }: {\n    items?: Array<{ label: string; color: string }>;\n    class?: string;\n    [key: string]: unknown;\n  } = $props();\n</script>\n\n<div class={cn('flex flex-wrap items-center gap-4', className)} {...rest}>\n  {#each items as item}\n    <div class=\"flex items-center gap-2\">\n      <span\n        class=\"h-3 w-3 rounded-full flex-shrink-0\"\n        style:background-color={item.color}\n      ></span>\n      <span class=\"text-sm text-muted-foreground\">{item.label}</span>\n    </div>\n  {/each}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

@@ -1,0 +1,31 @@
+{
+  "id": "emptylp04",
+  "name": "EmptyLP04",
+  "category": "blocks",
+  "group": "empty-lp",
+  "title": "No Results",
+  "description": "Search or filter returned no results with suggestion to adjust.",
+  "tags": [
+    "empty-state",
+    "landing-page",
+    "no-results",
+    "search"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tonClear?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'No results found',\n\t\tdescription = 'Try adjusting your search or filters to find what you are looking for.',\n\t\tonClear\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-24 px-4 text-center', className)}>\n\t<div class=\"mx-auto flex flex-col items-center gap-6\">\n\t\t<div class=\"h-16 w-16 rounded-full bg-muted flex items-center justify-center text-muted-foreground\">\n\t\t\t<svg class=\"h-8 w-8\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<circle cx=\"11\" cy=\"11\" r=\"8\" />\n\t\t\t\t<line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\" />\n\t\t\t\t<line x1=\"8\" y1=\"11\" x2=\"14\" y2=\"11\" />\n\t\t\t</svg>\n\t\t</div>\n\n\t\t<div>\n\t\t\t<h2 class=\"text-2xl font-bold\">{title}</h2>\n\t\t\t<p class=\"mt-2 text-muted-foreground max-w-sm mx-auto\">{description}</p>\n\t\t</div>\n\n\t\t<Button variant=\"outline\" onclick={onClear}>Clear filters</Button>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:19630",
+  "playgroundUrl": null
+}

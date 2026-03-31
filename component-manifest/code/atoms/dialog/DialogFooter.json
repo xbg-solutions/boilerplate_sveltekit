@@ -1,0 +1,24 @@
+{
+  "id": "dialogfooter",
+  "name": "DialogFooter",
+  "category": "atoms",
+  "group": "dialog",
+  "title": "Dialog Footer",
+  "description": "Action button row at the bottom of a dialog.",
+  "tags": [
+    "modal",
+    "overlay",
+    "dialog"
+  ],
+  "source": "<!--\n  src/lib/components/ui/dialog/DialogFooter.svelte\n  SHADCN-Svelte Dialog Footer Component\n\n  AI SYSTEMS: Use this component as the footer area for dialog actions.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n\n  let { class: className = '', children }: { class?: string; children?: Snippet } = $props();\n</script>\n\n<div class={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}>\n  {@render children?.()}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

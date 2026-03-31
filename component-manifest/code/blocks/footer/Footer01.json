@@ -1,0 +1,26 @@
+{
+  "id": "footer01",
+  "name": "Footer01",
+  "category": "blocks",
+  "group": "footer",
+  "title": "Single Row Footer",
+  "description": "Logo + copyright + nav links in one compact row.",
+  "tags": [
+    "footer",
+    "landing-page",
+    "navigation",
+    "minimal",
+    "single-row"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t}\n\n\tlet { class: customClass = '' }: Props = $props();\n\n\tconst links = ['Products', 'Docs', 'Blog', 'About'];\n\tconst twitterIcon = `<path d=\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z\"/>`;\n\tconst githubIcon = `<path d=\"M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22\"/>`;\n\tconst linkedinIcon = `<path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\"/><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\"/><circle cx=\"4\" cy=\"4\" r=\"2\"/>`;\n\tconst logoSvg = `<path d=\"m9 12 2 2 4-4\"/><path d=\"M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7z\"/>`;\n</script>\n\n<footer class={cn('w-full border-t bg-background px-4 py-6 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\">\n\t\t<!-- Logo -->\n\t\t<div class=\"flex items-center gap-2 font-semibold\">\n\t\t\t<div class=\"h-7 w-7 rounded bg-foreground flex items-center justify-center\">\n\t\t\t\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"white\" stroke-width=\"2.5\">\n\t\t\t\t\t{logoSvg}\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\tAcme Inc.\n\t\t</div>\n\n\t\t<!-- Links -->\n\t\t<div class=\"flex flex-wrap gap-6 text-sm\">\n\t\t\t{#each links as link}\n\t\t\t\t<a href=\"#\" class=\"text-muted-foreground hover:text-foreground transition-colors\">\n\t\t\t\t\t{link}\n\t\t\t\t</a>\n\t\t\t{/each}\n\t\t</div>\n\n\t\t<!-- Social Icons -->\n\t\t<div class=\"flex gap-4\">\n\t\t\t<a href=\"#\" class=\"text-muted-foreground hover:text-foreground transition-colors\">\n\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t{twitterIcon}\n\t\t\t\t</svg>\n\t\t\t</a>\n\t\t\t<a href=\"#\" class=\"text-muted-foreground hover:text-foreground transition-colors\">\n\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t{githubIcon}\n\t\t\t\t</svg>\n\t\t\t</a>\n\t\t\t<a href=\"#\" class=\"text-muted-foreground hover:text-foreground transition-colors\">\n\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t{linkedinIcon}\n\t\t\t\t</svg>\n\t\t\t</a>\n\t\t</div>\n\t</div>\n\n\t<!-- Copyright -->\n\t<div class=\"mt-6 border-t pt-6 text-center\">\n\t\t<p class=\"text-sm text-muted-foreground\">© {new Date().getFullYear()} Acme Inc. All rights reserved.</p>\n\t</div>\n</footer>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:176139",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VXa47bNhC+ytQJ4F0gpE09bcfbwtkg3QApUHSBoEUcIDRNW2okUaDox8Yw0EP0Er1Gj9KTdEjJtuxsg/ZHfwUL8DEiv/m+4XDo3XUKnsvOqPPzi+/hr99+h/u0WGYSflIbeKWUkbrzrGN4mm3SYt4ZGb2SzzqLNJNVZ/Ru1zEPpd1sDbiugZqUJa3WMjPWNuOVfMwuVGFkYRCmM66ETksDGS+WN9OOqaadb6fF1KR5qbSBHYgC9rDQKofu0yyd9VYmzaqeKLrPcZldiFB6wYWEH7UqK9hZ49SIjFfVdyOojEZRdq3Z1xsy6WDt9xGIVWVUfmsncAPdLuxHDc4NPC3t4Oq6cYSkK+SZFh/tx3ddXDZfCVN1n0H3pRKuf5Gppe0nM7Uy3ffPT/vMJjVI9DXOcPeHcclNAnNU/AMbUC8IwKNemPjU7w8yElPPiwHtETZh3wPGcM0diyiLMxLQmAUkop7PSEiDPgM3vvNoHARZTGM/JgM68MM3uCuske8GFIEDHPkQ0sjzPuWEURYxYDENvYThev9NjIsCCCjzoruQMhZ/mnZ6335oyVimJlnNHlExBDYUJARGQxISD9uY+DkLIFoTnw5ijtJicE3f/hE6DHBZxIRPUQ31Q1QRBEgKGbtRPEFxAbjGbQGvj9ziGE39pqntbEiHKOQeIxn7NEISEYoOBpyhvwHUbe0Vt9xitGK7ChGQddNNLkFD54tfcLD8UEU8EH1r9awipBsxxxniyYVMQOgBZf5bz7sMpc0kOU+Lx1ICz51HENXqsI/WcUKCNYm5B17DxCN2fJyBd1zT2kkid4RjLYWBLWIjDXjAfoj9Jp2bBMcBjhOZLhODE+aIjkWqBZYCsW2+i4dmoGuQCy1qqe7Xy3MZOWqvKQYkcKAnhSHEwgaT0aGlTjAD+0dtzG5aM+8ufHvKwHGvrhS2OhTjhStP9S2+2Yniqrshi1WWwUzpudTEwGxJZlx8XGq1KuZQbkkA5QOJoMpHOInwlrbu/vXeFZ3xPF03mEh/S/jKKMj5lmxIvM1gkcmta4hQGSx5iZgI5ywaayaOUyPzighpi5Kd/4o+0sUDmUmzkbJoiht6+oYQeINRA0IOprZz5+oMzLrzYIGVk1QyT2cqmx/RLjYnmObIGJx0ObehWCgtm1B8Dn0gWU9bqIhb4ake8oSdJ4qdrVO5eaFskrgLisXGWvFJyNBUqELiDEuw+ihxvknQ7dFADrBYLM58Ts2uyad9i0gPmZzk9lDvcTYRuYTXhaBNIA8fW5F2VfsLoXZnuNG8dHGOwMgtxjlv8do9kVwkTf3nlRu0+XFItFwg3hN7WxpsB5OvjJy3TyBRa6lH7lvLajQvqtSkqrDppXT1WVAuPPb4iVzPktv/o/57JVKegS01XwyDy+l2Wv3Pqs7TKzpLr+i/ppdYaY0ZfGvdPJJll+FsvchfyDP+VcTi9Kx/9aFoP8v/IhinStS+du7S3aryQVvahxt3/rwYLDPH16o0h6JzUYTH5Xl8qxwejTNu+PMP2BVyAy+5kVfXdCnNK3wRf5FcX13v4VgkYYLPpONVgZaV1Gs5p+NeeSZi3KtfWBza/wHQY/37f/9+/zdYZMWhNgwAAA=="
+}

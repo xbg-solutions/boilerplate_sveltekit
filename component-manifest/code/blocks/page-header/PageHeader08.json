@@ -1,0 +1,30 @@
+{
+  "id": "pageheader08",
+  "name": "PageHeader08",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 08",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader08.svelte\n  Search top-left + avatar top-right, then title + description + Share/View/Edit/Publish below.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    searchPlaceholder = 'Search',\n    user = { name: 'shadcn', email: 'm@example.com', avatar: '' },\n    title = 'Project alpha',\n    description = 'Manage your project\\'s details such as name, image, description and settings.',\n    onshare = () => {},\n    onview = () => {},\n    onedit = () => {},\n    onpublish = () => {}\n  }: {\n    class?: string;\n    searchPlaceholder?: string;\n    user?: { name: string; email: string; avatar?: string };\n    title?: string;\n    description?: string;\n    onshare?: () => void;\n    onview?: () => void;\n    onedit?: () => void;\n    onpublish?: () => void;\n  } = $props();\n\n  function initials(name: string) {\n    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();\n  }\n</script>\n\n<div class={cn('py-4', className)}>\n  <!-- Top bar: search + avatar -->\n  <div class=\"mb-6 flex items-center justify-between gap-4\">\n    <div class=\"flex items-center gap-2 rounded-md border bg-background px-3 py-1.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"text-muted-foreground\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>\n      <input type=\"text\" placeholder={searchPlaceholder} class=\"w-40 bg-transparent text-sm outline-none placeholder:text-muted-foreground\" />\n    </div>\n    <div class=\"flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border\">\n      {#if user.avatar}\n        <img src={user.avatar} alt={user.name} class=\"h-full w-full object-cover\" />\n      {:else}\n        <span class=\"text-xs font-semibold\">{initials(user.name)}</span>\n      {/if}\n    </div>\n  </div>\n\n  <!-- Page header -->\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <div>\n      <h1 class=\"text-2xl font-bold\">{title}</h1>\n      {#if description}<p class=\"mt-1 text-sm text-muted-foreground\">{description}</p>{/if}\n    </div>\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <Button variant=\"outline\" size=\"sm\" onclick={onshare}>Share</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n      <Button size=\"sm\" onclick={onpublish}>Publish</Button>\n      <Button variant=\"ghost\" size=\"icon\" class=\"h-8 w-8\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n      </Button>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4658",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81X747iNhB/lWl6EqASAuxutWWBtneq2i+tVrq2qnTcB5MY4l3HjmyHsEWR+hB9wj5JZ/IHEhakU9sPlZbFnhmPx7+Z+dkcPMUS7s28395+D3/98Sc8si2HHziLuIHxvTf0HBMyFyryZs5kfOhthOTWm304eO4lpZUkQLvaz7dpOrI7Lh3J1szyS/JQK8eVQzfe/DPfXyko9622Hd/XhiR+z5kJY3A69SXfOPgC2I45ZkqJEdvYDcHFXIETTnJUR9yGRqROaIWz9zEzPPhV8Dz4LhIueMzWUtgY1lzqfLRSvr9cqXm1AiRT28XKc3blLWlvkaTaODhAqKCAjdEJ9N5IsQ4yJ6QNQtV76Ji9zZzTZ6ahRq2iswaZIHtaITma0wAglMzaWfX1EyIFC+j1hpXOlmd/lCzksZaUEFRWgDQmmS2lByCUZ9CzMYswriHwBNOGguQbvmdJKvkII0F5hR4qelDUPirk0PWj0U88dMBkGrNmhzaeaPMjU1QgLzozkFb2q1XPohnViQWbYbaYLeMZIjRoPOz4YCrCgzkn1NaOmk20spQo3KA/gMUSDsVRscPcXZJzTOcleVpn+KQiTTHrAP71DKwzGMLDFaTPDQhnlDU417oG5WZagXtcC8VDC+Fzly1QzlU1HCiuzrDTInpoA3JZQ5Bc1tSgvFYWiNMbzGNq+4O6ODeZCstMCSWcYNL222ceNDga7jKjSjxGNpXC9XvQG4wSlvZz2iL/MP44GD1pofo9lFspQt4fD2E6GDn9S5py8w7JodwVw8AmDCo4lhTFPBK7KlOLQ4gO0hf/Fov32CWDomxQ4g74WaewppKuknhiiLK30ejka+Ula/9L2Ei+B+F4Yv0QOxM76CmzTmxe/DV3OUcy2bLUv61Z4MzD68VkPAWjMxXxyE8iWGtDzbre+msWPm9LDaR7/wbwHJPR3dExura7LewTqch17Fw6C4I8z0f5zUibbTAdj8cBmqw8yEXkYjSaYFwQc2K+ZkYV8VbvcTqGMUxv8Q+lSMsSRQrrAmeYPf3McR5mxmDc77TU5ij3G+/Tk0gKxUOWorA8QFdBeW1pGnAc3zs/yRzisNGGb2v9ch4KEyLJhBTkZEIrXpqRwcH9yguW85S5GCLK0nQC04l/O7qhT6kjFE6oCaxoB3T/1Juin/TUvYvDq4YujjHm/u2YcuMMUzZlBAaUcdsEdObodD6B1nY4u3IwCJoSCbBGrpZL7N9Djh8bYws9++PLxVdP9Y6bDd5OfiyiCGuxKaxNJmVdWlhu9aD6ahXU4XOxKdlqVHVB0SgItWQL1oSLQ1uPbO9qCfXyCae42jGvvvSaqN4PKbrWuXHDGZeWt7dBUFW3IvYWNnjj+5YnYo2AYryHI7sctx4UmGVce3IdiE1xjm8zOvZ/+WCJqwfLpZYvM0D/MHhZdTbYZFZKjM5pXKXDIhyOpmds0OGBUw3Gk+4hp3tZnbI5Ycn6eKZ40s1Oi/iLeXqiJudPjoV4rZEOncVBuryI0SUELtdeyV1tPqrfMDtmBFPEMHVLUPuL36ndbIJjrUIk9OfFob6qimX50poH1fp/44/YrFjSk+2/8EZ3YrGkt99Vb1dW1ndmsazfjJ8QzTbW1p1iEfjMbZFjzQIttP8R/991+P/u/8D/Z/w+PfL7tOb3ScnhHaOvPsHo7opN9zLo5uU1UzTf9FsG26r6HVN8LP4GtyLHtvsMAAA="
+}

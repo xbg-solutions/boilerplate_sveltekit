@@ -1,0 +1,25 @@
+{
+  "id": "featuresection05",
+  "name": "FeatureSection05",
+  "category": "blocks",
+  "group": "feature-section",
+  "title": "Dark Features",
+  "description": "Dark background 3-col feature grid.",
+  "tags": [
+    "features",
+    "landing-page",
+    "dark",
+    "grid"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Feature {\n\t\ticon?: string;\n\t\ttitle: string;\n\t\tdescription: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tfeatures?: Feature[];\n\t}\n\n\tconst defaultFeatures: Feature[] = [\n\t\t{ title: 'Lightning Fast', description: 'Built for performance with optimized components that load instantly.' },\n\t\t{ title: 'Fully Customizable', description: 'Every component can be tailored to match your brand perfectly.' },\n\t\t{ title: 'Dark Mode Ready', description: 'Beautiful light and dark modes out of the box.' },\n\t\t{ title: 'TypeScript Native', description: 'Full TypeScript support with complete type definitions.' },\n\t\t{ title: 'Accessible', description: 'WCAG 2.1 compliant with keyboard navigation and screen reader support.' },\n\t\t{ title: 'Open Source', description: 'MIT licensed and free to use in any project, personal or commercial.' },\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Everything you need to ship faster',\n\t\tdescription = 'A comprehensive set of tools and components to accelerate your development workflow.',\n\t\tfeatures = defaultFeatures,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-xs uppercase tracking-widest text-background/60\">Feature Section</p>\n\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h2>\n\t\t\t<p class=\"mt-3 text-lg text-background/80 max-w-2xl mx-auto\">\n\t\t\t\t{description}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3\">\n\t\t\t{#each features as feature}\n\t\t\t\t<div>\n\t\t\t\t\t<div class=\"flex h-10 w-10 items-center justify-center rounded-lg bg-background/10 mb-4\">\n\t\t\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-background\">\n\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3\" />\n\t\t\t\t\t\t\t<path d=\"M19.07 4.93a10 10 0 0 0-14.14 0M4.93 19.07a10 10 0 0 0 14.14 0\" />\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</div>\n\t\t\t\t\t<h3 class=\"text-lg font-semibold text-background\">{feature.title}</h3>\n\t\t\t\t\t<p class=\"mt-2 text-background/80 text-sm\">{feature.description}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:175608",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VW6W7jNhB+lYG6gHcBy1eMNOt1tki2zaJAsy2aBVogzg9aoixuKFIgKR81DPQh+oR9kn7UYctHkcAih8P55vhmpG2gWMaDSfDn/Wf69+9/6EdmXumBM1cYboNu4JiQK6HiYOJMwbtBIiTkk+dt4Da5v+gF0KvN3OV5zy65dF42Z5ZfkkdaOa4czARTGxmRO5JMLW5ngbOz4ONMzZzIcm0cbSlStKPE6Iw6b6SY9wsnpO1HqvMBal4RpkzCIt44TVsvxgFQfpiQdUaoxYdK5oST/EQW88oFodXRye7U/m9G57axHklm7UXzp8KW/dOjpE4z5LXzzy9tbERgHcU8YYV0TU1aunRLz5WlLdWhdX4Ri9QpYNADs67TpaP4OveFkI4SbShHWNpkTCG0lXApaehk4i8eU6SRfeUrRC5lKI5mMQn4wpSTm16Hdt1T2IdCyg19KqzTsMHmkp9B/7TkZnOwTRFTNOfkCaYNUJ2mjLkopY0uDM0NU3HpJI/+D7Tk6qOOOf3OWbw5D5Yz0CUpJEmfFfIWY38nwx1LunCkE4TIaa7XFxG+guNPFUO/MCeW51H5wKmlZou8ZG6ZUh+s5A5BQsEXUijh79mLYHdRxK0Vl3L3x6e7zzTqDSuLAnWoAF75Zq6ZiUmxpVgwr11GibucKzJICzeNTxdBf82h94SMR+eojz9/ReYirizK480msOrrVFgOPkC0odzob6hQ15fKasUkgVvwMuMmEkzuMV/qfkU6jnpoQuXjC8ZEt9VFoHZFGJd6LoMSpHhFEpuKnBKQm5tO96zH/MW7Mk2Gp/AcNSPLq0JrLW0ZR5vgmhjyLrlhqFNJvZhjUOk88yRdafOaSL3qNVBNzwLnpDFLhd2knhO39Cb3i7fvEPi0X/nnR5uaWuTLe1oGfruN1NvOKkw8j+aLED3JF0YX8NLxtQvnLHqt9/kmHF5Tvg7HZLMJntckF/55g8rts/huVw7QaSyWNcIsyNYhOsH31zpchddrWU/ZE7USEOVGZimbh8PRXg2K+bHa2hJYhSJjxpMz8BJ1ClcCpXCnnvevB7DUzOenKvxpPz8YT0cHX104qgxcraUPtFyPsU7w2gjnWsYHPOf7uuUlmF3SZ7e33E9Hl2IAylWFIhdn7t4M6kyNgFrn7hikRbgWVBPQtI+sfqz4floJFw4HtDAiLn/CCJQMh7RgeXjjgz0Ir1qI2+84w2Dcc4/ZZr07ODWtQV1bsAdOJF9T6sFX/kc4ntmm1t8wtkWyabZlEnjsMwNCtvKCe6DF+CgVJZBdLjCPYpcCaHg9CyjlvjDNbin46l6vsR3QgEZj/EOKDwcJkUIjYocXo37l2EeFMfDjk8ZbYS8PG+ug5DEPD+6duQXHImEiDJPIYw/Lu5tmZbBAjql/fitnGK0xzh+H73uD72nce3/FEPzQu4+/cDjuDcc0ePQHVOq0j6k+vmAcg2C5OC5S/6xs6dVxiKhDSX3LM1HR/yzwbU2HXsV+sP7q2GZ+ob+OGV+KbNY21mZ5u11Pvd72PT13J+TfrxB01fJY+y9KAFVfk7uX3X8OzPV3gAoAAA=="
+}

@@ -1,0 +1,26 @@
+{
+  "id": "logosection02",
+  "name": "LogoSection02",
+  "category": "blocks",
+  "group": "logo-section",
+  "title": "Left + 2-col Grid",
+  "description": "Left label with a two-column grid of logos.",
+  "tags": [
+    "logos",
+    "social-proof",
+    "landing-page",
+    "grid",
+    "2-col"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Logo {\n\t\tname: string;\n\t\tlogoUrl?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tlogos?: Logo[];\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t}\n\n\tconst defaultLogos: Logo[] = [\n\t\t{ name: 'Buzzsnap' },\n\t\t{ name: 'Dashstar' },\n\t\t{ name: 'Editly' },\n\t\t{ name: 'Geoaura' },\n\t\t{ name: 'Nanodea' },\n\t\t{ name: 'Orionbo' }\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\tlogos = defaultLogos,\n\t\ttitle = 'Customer logos that build trust',\n\t\tdescription = 'Add logos of notable companies using your product. Include recognizable brands in grayscale to maintain visual consistency.'\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-12 px-4', className)}>\n\t<div class=\"mx-auto max-w-5xl flex flex-col gap-8 sm:flex-row sm:items-start\">\n\t\t<div class=\"flex-shrink-0 sm:w-1/3\">\n\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">Logo Section</p>\n\t\t\t<h2 class=\"mt-2 text-2xl font-bold text-foreground\">{title}</h2>\n\t\t\t<p class=\"mt-3 text-sm text-muted-foreground\">{description}</p>\n\t\t</div>\n\n\t\t<div class=\"sm:w-2/3\">\n\t\t\t<div class=\"grid grid-cols-2 gap-y-4 gap-x-8\">\n\t\t\t\t{#each logos as logo (logo.name)}\n\t\t\t\t\t<div class=\"flex items-center gap-2 font-semibold text-sm text-foreground\">\n\t\t\t\t\t\t{#if logo.logoUrl}\n\t\t\t\t\t\t\t<img src={logo.logoUrl} alt={logo.name} class=\"h-5 w-5 object-contain\" />\n\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t<div class=\"h-5 w-5 rounded bg-foreground/80\"></div>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t{logo.name}\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:178819",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV74rbOBB/lcFX8JZGcZu2sKRJS3t3LIXSHhwHB5v9IMuyo6ssCUneJGsM9xD3hPckN5KdxEl9H2yL+fObmd/MyG2iaM2TZfLnpzv49+9/4AsvPbyABWFawp0VRTJLPBVyJ1SRLL1t+CwpheQuWd63iT+Y4BwEaDdAfTRm7h659EGWU8en5Ewrz5VHmGTlmBXGg6SqWm8S7zbJ+43aeFEbbT20wBR0UFpdQ/pMijxrvJAuYyp9h2bBEKFsSRmHL7rS0AbZxoeoS3DeClW960US1X9Y+eFC3F2D/Ga1cUcUJqlzHyZwgjCEu38YhF54ya8tC94XJ7SajIo0OA8FL2kjfYBzR1RYw32P0UJfSvqpeXpyipoUutmV6hfqts5TO6H6tcDEDhOKO65pY+mE5itVuuBTmm8WK8k1aoLiYWiA5P6CryXEz1f0mY0Yw5LGlc5GvKEq/blxXtfcQm/st9RD3ghZAI6d8+nsB0qD18eiGBx0CUp7miMa07WhSnAHjUPG4aAbC8bqomF+Dp8Vk03BwXKmKyWeoktuqSocCAWVpQfHKMq8hpriYOADj8I1VEJomHA4uuwwT2Mjl8PArOGZCYeb58jKKuuTDIOsVo6zmG5kZd0ydZPuSNlICXlFcsq+V1Y3qgBzIK8WYPbkTTo7U/i8i+uwKsTjgLBJ6j2hTUxvT3bk7V5CKfk+vuLmVtSQW3D1Mkqs3oWz8Lx2JIyJH1bsCjUauy0O6XfyMnjsyKvs9ckWrc3J1vO9J3sk2BhuGW45dgkrQbbJTmCPPESLuvG8IKW2vK8RweKS/t5TssrMGXy7ONfnyaIHWITa8LIguQ6TEEQXaG2cn26VbRdTaSLQ697L1f+bUTuaqe6c0ipDct73I37FVORmccnNWF/hzQnhFbrhsJbQkAN5E797cjvyw+36iVO2HaaYuniAm/Ceq9j/s+lEw6BvK+PhAov4i54wx2txJu1Y/kXhY+CQhyhj8PlwUXaXegwu6gqcZev2wgyo9IMoJNyd8tuSt4DjCTr/C/tNwqWPu7RJILsOveTS8R/jjYs9gsXkeRF251xMdvsS6zl1bAydifIKeJTqBbVX3m0W+nIyGavP5+MJN74faTyHfyZy3f8vu4fuP8KbAANmBwAA"
+}

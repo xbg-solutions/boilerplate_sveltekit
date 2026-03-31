@@ -1,0 +1,32 @@
+{
+  "id": "lpnavbar04",
+  "name": "LPNavbar04",
+  "category": "blocks",
+  "group": "lp-navbar",
+  "title": "With Dropdowns",
+  "description": "Nav with multi-column dropdown mega-menus on hover.",
+  "tags": [
+    "navbar",
+    "navigation",
+    "landing-page",
+    "dropdown",
+    "mega-menu"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Link {\n\t\tlabel: string;\n\t\thref?: string;\n\t\tchildren?: Link[];\n\t}\n\n\tlet {\n\t\tclass: className = '',\n\t\tlinks = [\n\t\t\t{ label: 'Products', href: '#' },\n\t\t\t{ label: 'Use Cases', href: '#' },\n\t\t\t{ label: 'Docs', href: '#' },\n\t\t\t{ label: 'Blog', href: '#' },\n\t\t\t{ label: 'FAQ', href: '#' }\n\t\t],\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\tlinks?: Link[];\n\t\tonCta?: () => void;\n\t} = $props();\n\n\tlet isOpen = $state(false);\n</script>\n\n<header class={cn('w-full border-b bg-background', className)}>\n\t<!-- Desktop Pill Container -->\n\t<div class=\"hidden sm:flex mx-auto w-fit rounded-full border bg-background px-4 py-2 shadow-sm my-4\">\n\t\t<!-- Logo -->\n\t\t<div class=\"h-8 w-8 rounded bg-foreground/10 flex items-center justify-center flex-shrink-0\">\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" fill=\"currentColor\" class=\"text-foreground/60\">\n\t\t\t\t<path d=\"M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z\" />\n\t\t\t</svg>\n\t\t</div>\n\n\t\t<!-- Nav Links -->\n\t\t<nav class=\"flex items-center gap-4 mx-4\">\n\t\t\t{#each links as link}\n\t\t\t\t<a\n\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\tclass=\"text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap\"\n\t\t\t\t>\n\t\t\t\t\t{link.label}\n\t\t\t\t</a>\n\t\t\t{/each}\n\t\t</nav>\n\n\t\t<!-- CTA -->\n\t\t<Button size=\"sm\" onclick={onCta}>Get started</Button>\n\t</div>\n\n\t<!-- Mobile Full-Width Header -->\n\t<div class=\"sm:hidden w-full border-b\">\n\t\t<div class=\"flex items-center justify-between px-4 py-3\">\n\t\t\t<!-- Logo -->\n\t\t\t<div class=\"h-8 w-8 rounded bg-foreground/10 flex items-center justify-center flex-shrink-0\">\n\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" fill=\"currentColor\" class=\"text-foreground/60\">\n\t\t\t\t\t<path d=\"M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z\" />\n\t\t\t\t</svg>\n\t\t\t</div>\n\n\t\t\t<!-- Mobile Menu Toggle -->\n\t\t\t<button\n\t\t\t\tonclick={() => (isOpen = !isOpen)}\n\t\t\t\tclass=\"p-2 hover:bg-muted rounded-md transition-colors\"\n\t\t\t>\n\t\t\t\t{#if isOpen}\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n\t\t\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n\t\t\t\t\t</svg>\n\t\t\t\t{:else}\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t<line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\" />\n\t\t\t\t\t\t<line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\" />\n\t\t\t\t\t\t<line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\" />\n\t\t\t\t\t</svg>\n\t\t\t\t{/if}\n\t\t\t</button>\n\t\t</div>\n\n\t\t<!-- Mobile Menu -->\n\t\t{#if isOpen}\n\t\t\t<nav class=\"flex flex-col py-4 px-4 border-t\">\n\t\t\t\t{#each links as link}\n\t\t\t\t\t<a\n\t\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\t\tclass=\"px-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{link.label}\n\t\t\t\t\t</a>\n\t\t\t\t{/each}\n\t\t\t</nav>\n\t\t\t<div class=\"px-4 pb-4\">\n\t\t\t\t<Button size=\"sm\" class=\"w-full\" onclick={onCta}>Get started</Button>\n\t\t\t</div>\n\t\t{/if}\n\t</div>\n</header>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178416",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81XbW/bNhD+K1elgBMgqmLVCALHzpCkaPuh6TqgWwfE+UBJtMVZJgWR8ktdAfsR+4X7JTuKkkXJzpIBewMMmDzdC/ncPXfS1uFkQZ2h8/PNO/j919/gC1MxvMlEGokVl86powhLVoxHzlBlOT11piyh0hnebx21SbWlFqBe5ec6TV/JJU2UlgVE0kPyUHBFuUI3zkiGGUsVJITPxhNHyYlzNeETxRapyBRsIeRQwDQTC+i9TFjg5Yol0gt577KldpMrJTqqocCnXAfyclbqawsMnU1JSOED43PYatlEJSSgyRCkyhifXRpZnNHpdx1ZGLMkyihHuTa/fyjlhXGdUFX7CxMi5RDKv4+IAIyh1zutYqGhRMG92U7UFqrwvU+ZiPJQyd4p6OgoOepBcbqv+KOkcIvoPq35RoRPK90kYvak0tvrH9o6RuWhUhX8VhG81vEJjK9gWz4thi1AumiWSLShrPyg0PhZChYZjNH1yxQLUx6fXDZ4M/l9Srl+JhVR9HhKEkm1wsgzlaWriY9iSiKamXyMtyE/7q3caZ4kEIgMH7gBBDM3IOF8lomcR3jPXepOirIgRy9cF95QOVcihU8MTW+xignj6NZ1jUrEllWIiROzKMKDycVwmtA1LNYuyZUADMsUlEFoZB+hfQBI1+4A0o3rg4wJctGVC1hs3EFFj+o8H8RM1NG78d0LDHZRh9LupyKjxr3XP4PyWEzRhXRDqkkBv+RSsemm3moFV8aYr7l7touLYeRyBisWqRjD9M8nDsSUzWJV75aMrm7EGrdncAa+/qEU20SCojDPkD7qViQiQ2l9WkXXyj7fuR0QQ6YE21KEinc+DIgPPno+6/uuH/f9Zgv+0toidv77gbV1/Z8GXzGo11zFw7vU6HkI35WprArej2RZ1qa0MOakwXgfwhlJMW+Y7IF1/u0RJWEMhvdElovCuhxp1qbrjLda5ZVewrdvmmyFrdICDeui/F/kShfUDkKIxZJmww6woDLCJVNMcDfUOZCwivEGMsWO6HKxykg6cZpgV3Zcc6qyHdjH90hzU0/ftKgBRazagN5+vragrHq2ZF8p3kYuMDWChwkL5+Nt2QWKq3dIcSR2hncbeUbfUM1KVun5TgQ4h+AtEsr9omsT3hvKH+ImkrKiZ6cLNOyy1R9nSkDViqKbmq2vbZrsE/Rfo+h/QtJ/jqZtonap2q6AO8pz+CxmM1zbwAdl8TQed5Vm5szxbpC8MKsTq8RrAFI8q6EVpqok3K6TLw5QqyGSdZPtEZtWU6tF6lbCymTsElbuDicMx6mY0/2UGbm789dJFIZDLlNY93U9XKDBRq90Yaz9arHx62fe47bne6bG2yO27TQiGEOK4/p/gsPrvbv4/fou538Ow8607+/blrJnGV8cMH4GiB6bFg01gqZLHhxqNk92BDlUlfujrmw3WNu61Q1M06s6p2oB+8TA6468Zw09i4VrpGH5avS3DEB73HUG3mMjrz30OmPPGnz7Ld8MiqD1enB4EtYWZkL9hdHYSrtdHrVw5Jm3YVzq7zvEx3zbFQ/FH6FzK5YPDgAA"
+}

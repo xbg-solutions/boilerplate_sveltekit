@@ -1,0 +1,30 @@
+{
+  "id": "pageheader02",
+  "name": "PageHeader02",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 02",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader02.svelte\n  Breadcrumb + title + description left, Share/View/Edit/Publish actions right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    breadcrumbs = [{ label: 'Home', href: '#' }, { label: 'Settings', href: '#' }, { label: 'Profile details' }],\n    title = 'Project alpha',\n    description = \"Manage your project's details such as name, image, description and settings.\",\n    onshare = () => {},\n    onview = () => {},\n    onedit = () => {},\n    onpublish = () => {}\n  }: {\n    class?: string;\n    breadcrumbs?: Array<{ label: string; href?: string }>;\n    title?: string;\n    description?: string;\n    onshare?: () => void;\n    onview?: () => void;\n    onedit?: () => void;\n    onpublish?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('py-4', className)}>\n  <!-- Breadcrumb -->\n  <nav class=\"mb-4 flex items-center gap-1.5 text-sm text-muted-foreground\">\n    {#each breadcrumbs as crumb, i}\n      {#if i > 0}\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>\n      {/if}\n      {#if crumb.href && i < breadcrumbs.length - 1}\n        <a href={crumb.href} class=\"hover:text-foreground\">{crumb.label}</a>\n      {:else}\n        <span class={i === breadcrumbs.length - 1 ? 'font-medium text-foreground' : ''}>{crumb.label}</span>\n      {/if}\n    {/each}\n  </nav>\n\n  <!-- Header row -->\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <div>\n      <h1 class=\"text-2xl font-bold\">{title}</h1>\n      {#if description}<p class=\"mt-1 text-sm text-muted-foreground\">{description}</p>{/if}\n    </div>\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <Button variant=\"outline\" size=\"sm\" onclick={onshare}>Share</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n      <Button size=\"sm\" onclick={onpublish}>Publish</Button>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4633",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE61W3W7bNhR+lTO1qBLMsmw3GzZFVtEUw3rTIUCBYUDVC1qiLSYUKZCUf2YI2EP0CfckO6RkSU4c7GJDjIg8fzznO9+hdPQEKakXeX/c/Qp///UN7smGwkdKcqpgtvAmniGM75jIvciomk68NeNUe9GXo2cOlfW0ArTr4ryvqqneUm6sbEU0vSTPpDBUGAzjxd8FQSrAndseO1t0hlZ8p1CWqbpcwfdgmOEUnznVmWKVYVIAp2szgc8FUTT8ndFd+EvOTHhfrzjTBZDMGmlQbFOYaSqCIElF3HoDJ2KzTD2jUy+xZ7GyksrAETIBDayVLMF/zdkqrA3jOsyEf3tmdlcbI5+YZhK1wtYW1szaWw9O0dwuADJOtI7ax2+IDCzB9yetbtXXqlH85YgJriiPwP8oS+pPoFB0jbtXPjQTGLSfqTFMbPTLFvdK2iYhbraZGrVfuyNbRJfO5IFmBgivCnJKaIzzElLvExGWHQdZK6haB1+fooKuMwRcg234BFFC08lZCCJy0F2y09TrDsH22ObhAVfXsEzg2PSKLfbzkpxiiy/Jq67rg8pqmugM/HcRaKMwh9tnqKPqvVLkEPfQdZYO2N4RmuR2BN/TgKOSn6q6WlHcJriVLL8dV3tZY+u9rOkqfq5sEITX2KNKX12jIA7bnBJLyDhn2xaL5TETV351CG6QPD0nrxs3DnYyx/PnZgfFgpy8U69cBTew5nQPzNBSBxkyHy+ODamC+fQHMHRvAl22z7I2NA/WUtGNkrXIu6kDOL6iBKkzpj/SyK2QR01rZM3YGhgkMOtFmI3ebmBfcmGzKYypojDc7XbT3dupVJtwMZvNQjRJPdix3BRoNH+Lm4LaC+G0s8jfyT1uZzCDxQ3+UIojw1EkEH/cYR/lI8V9ViuFVX6QXKpeHpyiLwYRZ4JmpEJhV+5Y8SCZGDRJXBFTQG4R/RnmP8GPgftLvTCJbf5JD0LI1ueIOJymlqDw5g3iE4+BnHIqNhg5gPkYNOIIjd3vfZu+pYXcUhW5jp31qjN2g9HEIRlSiijX9KwnFREngjFYLpcvpATvwF/jqyAokeF1R5PhUB/w7vKbpyfb6JfwOIaWRm4Th0jSpL18HY27F5qSu57GwxCknmOw/Rdkkjv23oAuIyexPrhu+a0Nwasftw+1Nmx9CFbU7CgVPZdt2D65uJj3R7jaFnsOruCV5A5Td4FgTcU8OWvq6A5p4moYNxPM/3WojmfOYZWMMIrDIb/nCOgC76rHYPZ8mBd9gejXvfe2RDEi7BDJ2lhOW4azP+2M6BLXUmScZY/LY3frNYl7S8dh6/9f4tmBbRL7uv8/otnrtUnsd8OL0V7w7K7fJum+N574D2ifVqen/a7C9rXfVM3X5h9hUN1thwkAAA=="
+}

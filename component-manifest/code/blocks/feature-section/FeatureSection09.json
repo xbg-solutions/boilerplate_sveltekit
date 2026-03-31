@@ -1,0 +1,25 @@
+{
+  "id": "featuresection09",
+  "name": "FeatureSection09",
+  "category": "blocks",
+  "group": "feature-section",
+  "title": "Numbered Steps",
+  "description": "Features presented as numbered sequential steps.",
+  "tags": [
+    "features",
+    "landing-page",
+    "steps",
+    "numbered"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Feature {\n\t\ticon?: string;\n\t\ttitle: string;\n\t\tdescription: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tfeatures?: Feature[];\n\t}\n\n\tconst defaultFeatures: Feature[] = [\n\t\t{ title: 'Lightning Fast', description: 'Built for performance with optimized components that load instantly.' },\n\t\t{ title: 'Fully Customizable', description: 'Every component can be tailored to match your brand perfectly.' },\n\t\t{ title: 'Dark Mode Ready', description: 'Beautiful light and dark modes out of the box.' },\n\t\t{ title: 'TypeScript Native', description: 'Full TypeScript support with complete type definitions.' },\n\t\t{ title: 'Accessible', description: 'WCAG 2.1 compliant with keyboard navigation and screen reader support.' },\n\t\t{ title: 'Open Source', description: 'MIT licensed and free to use in any project, personal or commercial.' },\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Everything you need to ship faster',\n\t\tdescription = 'A comprehensive set of tools and components to accelerate your development workflow.',\n\t\tfeatures = defaultFeatures,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">Feature Section</p>\n\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h2>\n\t\t\t<p class=\"mt-3 text-lg text-muted-foreground max-w-2xl mx-auto\">\n\t\t\t\t{description}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3\">\n\t\t\t{#each features as feature, i}\n\t\t\t\t<div>\n\t\t\t\t\t<div class=\"text-4xl font-black text-muted-foreground/20 mb-4\">\n\t\t\t\t\t\t{String(i + 1).padStart(2, '0')}\n\t\t\t\t\t</div>\n\t\t\t\t\t<h3 class=\"text-lg font-semibold text-foreground\">{feature.title}</h3>\n\t\t\t\t\t<p class=\"mt-2 text-muted-foreground text-sm\">{feature.description}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:175788",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VWf2/bNhD9KgetgBPMsmMnCArX6ZB2S1FgTYe5wAYk+YOSTjYXihTIk3/MELAP0U+4T7KjJNuS7f1jEafjvXv3HilvAy0yDCbBnx8+wb//fIfHIovQYgIzwtwF/YCEVCupk2BCtsB+kEqFLpg8bQPa5H6nD3BeU+c+zwduiYp8LBIOz8Vjowk1cZlg6mIrcwIl9PzuOSD3HLx/1s8ks9xYgi3EGkpIrcmg90bJaFiQVG4Y6947TvOJXMqmIkZ4QEGFRdj6ML9glJ8m4MhKPX9Xx0iSwqNYgnUL0ujOm/K4/m/W5G5XPVbCubPlj4Ot+sev0rpjX6dp/umljc0MHEGCqSgUNRmulQt38FRX2kJDrfernC9IMwY8CEe9PnT49T4UUhGkxkLOtIzNhGZqK0kLMJyTyb9Z+9jw9LVXCGghWBwjEpDci9CkNoMelP1j2IdCqQ18LBwZriEihSfQvyzRbg61IRYaIgRvMOMdRwYyQfECNqawEFmhk6pJjP8P9GdhX+GLSRB+R5FsTsmiYLukhQLlpwK+YuL3ZLzHgSkITMoUESKzPovwjT0+qx36KEguT1l54tBKc0VeObcaqSerkJgkJ3ghpZZ+nzsLdh/H6Jw8N7s/Pt5/gvFgVFeUrEMN8IqbyAibgBZLORc+u2LJexE1WB4L2l1PZ0G/5pw344nHp6hfPn/jycWoHcvjy6Zc1etUOGQ/cGgDuTV/sUJ9L5UzWihgb3GXGdpYCrXHfGnOK4+jc4YmUD0e+Zrot04RW7s2DC28l9kSoLE2iVvIHFI2N9pe/+SM+Y331ZgsLrhz1gwc1kIbo1zFo21wA4LnrtAK1qmyXoJ8UZk88yZdGfuaKrMa7KB2Z5Zxjg5mlVBOmnviDt7kfnFxycSnw7o/f7XpqeN5+U4r4nfbWF/0VmHqfRTNw0jEr3NrCm/+TTi6hXwd3oDLJvy8BTX3z7es1H5ql2V1YU4TuWwqPgfZOmTn+/O0Dlfh7Vo1t+pRGuGaQpaXJwlZFI7G+zROzLtpawfsIhaV73Qgy12yLuFK8ugJqoysIExCvlOw7p+L7a7kWc14OswP9RfjQ7sUjusa12vluVbrG16n/KUII6OSAyT5o9xqlM1cOabcVx4uxudoMMp1jaLm5ztu5jVm4GaCXZyWzVpoO07TIc/2fe3yYz0oHF3B3Mqk+gljNmI4grnIw7ee7yF43ULc/oCCr8O944Tbrfsgy0Nf0waX2oGueodZKh7jefbD8ZV3wU2Hc9XHrPpoXUj4EUaXg1wkMxKWLsZ96F31LssO9PCkmcV1txeeftWKw0zW0vpoxzfbhuegVpYVve7WzM9450TNKuqydr22gm03Hje+HfrRl0fC7ld8nmtH89r/R2Kg+v9R+VL+B8ZQ7RJTCQAA"
+}

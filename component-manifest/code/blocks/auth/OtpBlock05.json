@@ -1,0 +1,41 @@
+{
+  "id": "otpblock05",
+  "name": "OtpBlock05",
+  "category": "blocks",
+  "group": "auth",
+  "title": "OTP — Minimal",
+  "description": "Minimal OTP input with just digits and a verify button.",
+  "tags": [
+    "auth",
+    "login",
+    "sign-up",
+    "otp",
+    "otp",
+    "minimal"
+  ],
+  "source": "<!--\n  OtpBlock05.svelte\n  Compact OTP verification with single-line input.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    CardFooter,\n    Input,\n    Label\n  } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    onVerify = undefined,\n    onResend = undefined,\n    email = ''\n  }: {\n    class?: string;\n    onVerify?: ((code: string) => void) | undefined;\n    onResend?: (() => void) | undefined;\n    email?: string;\n  } = $props();\n\n  let code = $state('');\n\n  function handleInput(event: Event) {\n    const target = event.target as HTMLInputElement;\n    code = target.value.replace(/\\D/g, '').slice(0, 6);\n  }\n\n  function handleSubmit() {\n    onVerify?.(code);\n  }\n</script>\n\n<div class={cn('flex min-h-screen items-center justify-center p-4', className)}>\n  <Card class=\"w-full max-w-md\">\n    <CardHeader>\n      <CardTitle class=\"text-2xl\">Enter verification code</CardTitle>\n      <CardDescription>\n        We sent a 6-digit code to {email || 'your email'}.\n      </CardDescription>\n    </CardHeader>\n    <CardContent>\n      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class=\"space-y-4\">\n        <div class=\"space-y-2\">\n          <Label>Verification code</Label>\n          <Input\n            type=\"text\"\n            inputmode=\"numeric\"\n            placeholder=\"000000\"\n            value={code}\n            class=\"text-center text-lg tracking-[0.5em] font-mono\"\n            oninput={handleInput}\n          />\n          <p class=\"text-xs text-muted-foreground text-center\">Enter the 6-digit code sent to your email.</p>\n        </div>\n        <Button type=\"submit\" class=\"w-full\">Verify</Button>\n      </form>\n    </CardContent>\n    <CardFooter class=\"justify-center\">\n      <p class=\"text-sm text-muted-foreground\">\n        Didn't receive the code?\n        <button\n          type=\"button\"\n          class=\"text-primary underline-offset-4 hover:underline\"\n          onclick={onResend}\n        >\n          Resend\n        </button>\n      </p>\n    </CardFooter>\n  </Card>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "CardFooter",
+        "Input",
+        "Label"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18753:227137",
+  "playgroundUrl": null
+}

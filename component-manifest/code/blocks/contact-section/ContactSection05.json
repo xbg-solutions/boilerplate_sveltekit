@@ -1,0 +1,32 @@
+{
+  "id": "contactsection05",
+  "name": "ContactSection05",
+  "category": "blocks",
+  "group": "contact-section",
+  "title": "Form + Map",
+  "description": "Contact form alongside an embedded map placeholder.",
+  "tags": [
+    "contact",
+    "form",
+    "landing-page",
+    "map",
+    "form"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tonSubmit?: (data: any) => void;\n\t}\n\n\tlet name = $state('');\n\tlet email = $state('');\n\tlet message = $state('');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Get in touch',\n\t\tonSubmit\n\t}: Props = $props();\n\n\tfunction handleSubmit() {\n\t\tif (onSubmit && name && email && message) {\n\t\t\tonSubmit({ name, email, message });\n\t\t\tname = '';\n\t\t\temail = '';\n\t\t\tmessage = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-background', className)}>\n\t<div class=\"grid grid-cols-1 gap-0 sm:grid-cols-2\">\n\t\t<div class=\"py-16 px-4 sm:px-6\">\n\t\t\t<div class=\"mx-auto max-w-lg\">\n\t\t\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\n\t\t\t\t<form class=\"mt-8 space-y-4\" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"text\"\n\t\t\t\t\t\tplaceholder=\"Your name\"\n\t\t\t\t\t\tbind:value={name}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"email\"\n\t\t\t\t\t\tplaceholder=\"your@email.com\"\n\t\t\t\t\t\tbind:value={email}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<textarea\n\t\t\t\t\t\tplaceholder=\"Your message\"\n\t\t\t\t\t\tbind:value={message}\n\t\t\t\t\t\trows={5}\n\t\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Button type=\"submit\" class=\"w-full\">Send message</Button>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"bg-muted rounded-r-xl flex items-center justify-center min-h-[300px] hidden sm:flex\">\n\t\t\t<div class=\"text-muted-foreground flex flex-col items-center gap-2\">\n\t\t\t\t<svg class=\"h-12 w-12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n\t\t\t\t\t<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\" />\n\t\t\t\t\t<circle cx=\"12\" cy=\"10\" r=\"3\" />\n\t\t\t\t</svg>\n\t\t\t\t<p class=\"text-sm\">Our location</p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:172237",
+  "playgroundUrl": null
+}

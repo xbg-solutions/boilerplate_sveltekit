@@ -1,0 +1,33 @@
+{
+  "id": "herosection17",
+  "name": "HeroSection17",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Gradient Blob + Email",
+  "description": "Pastel blob background, centred content with inline email capture and logo strip.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "gradient",
+    "email",
+    "logos"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tplaceholderEmail?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Stay Updated with Our Latest',\n\t\tsubtitle = 'Get exclusive tips, industry insights, and product updates delivered to your inbox.',\n\t\tprimaryLabel = 'Subscribe',\n\t\tonPrimary,\n\t\tplaceholderEmail = 'your@email.com',\n\t}: Props = $props();\n\n\tlet email = $state('');\n\n\tfunction handleSubscribe() {\n\t\tif (email) {\n\t\t\tonPrimary?.();\n\t\t\temail = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-gradient-to-b from-orange-50 to-pink-50 px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<!-- Decorative Gradient Blobs -->\n\t<div class=\"absolute inset-0 overflow-hidden pointer-events-none\">\n\t\t<div class=\"absolute -top-40 -right-40 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl\" />\n\t\t<div class=\"absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300/20 rounded-full blur-3xl\" />\n\t</div>\n\n\t<div class=\"relative z-10 mx-auto max-w-4xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<!-- Headline -->\n\t\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\n\t\t\t<!-- Subtitle -->\n\t\t\t<p class=\"mt-6 text-lg text-gray-600 max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\n\t\t\t<!-- Email Signup Inline -->\n\t\t\t<div class=\"mt-10 flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto\">\n\t\t\t\t<input\n\t\t\t\t\ttype=\"email\"\n\t\t\t\t\tplaceholder={placeholderEmail}\n\t\t\t\t\tbind:value={email}\n\t\t\t\t\tclass=\"flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent\"\n\t\t\t\t\trequired\n\t\t\t\t/>\n\t\t\t\t<Button size=\"lg\" onclick={handleSubscribe} class=\"bg-orange-600 hover:bg-orange-700\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\n\t\t\t<!-- Logo Strip -->\n\t\t\t<div class=\"mt-16 border-t border-gray-300/30 pt-10\">\n\t\t\t\t<p class=\"text-sm text-gray-600 mb-6\">Trusted by leading companies</p>\n\t\t\t\t<div class=\"flex flex-wrap justify-center items-center gap-8 opacity-60\">\n\t\t\t\t\t<div class=\"text-gray-700 font-semibold\">Acme</div>\n\t\t\t\t\t<div class=\"text-gray-700 font-semibold\">TechCorp</div>\n\t\t\t\t\t<div class=\"text-gray-700 font-semibold\">StartupIO</div>\n\t\t\t\t\t<div class=\"text-gray-700 font-semibold\">CloudNet</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:44487",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VW6W4bNxB+lenCgGxUtNZHbFeW3MZp4QYwkgBOgQJVf+xBSay5JMNDRwQBfYg+YZ+kQ+6hXVkNiuaPNBxyDn7zzXA3kUgKGg2jX+8f4O8//4IHneSMCgv3XKbwLfxUJIxH/cji35KJPBpa7Wg/mjJOTTT8bRPZtfIOvALPVe5eK3VqFpRbr0sTQw/pMykshkI30chkmikLPBGz8SSyZhLdTcTEskJJbWEDmYAtTLUsoHfEWTpwlnEzyETvtnPs3lkr945mEneFDzRwLJz3FhhaT5OMwgctlYGNV05sxhNjvh+CsZqJ2W2ptMxyuq80Lj2oV5oViV4/Jinl+3tSfCh3ceP4BMZ3sJAsrw05ZjOXPKc6gN413pZpc2o7qQ4h/L1DdPutZGEMvSebrOEXlSeW5rBkdg7vnYZHXBrb63cv4c8/oGu6yrgzbEHBMmX6gAV3mMQaBcNmc4uqROSgtMxdZsEF7wZyytFGYxwrYS0xDBOpXJ3WYdqYhNRc6uud0vpAA0z/MBbeyPv9gfrVKVa0tNwOq/KN4Uh54fjkdgcUrUyPjMU0j3u9enPqRGYZ8mSOt+G0SQdrUoHLpnAczBtNu3qnZZigrYP0epVqW5VrNCg57XksRoaWEUO5xptMHPeWZOo4h3RGZlXTEStJGqhLpMZOoORVjJASxcSzF9WKXIJak/MYTDH0wk0QVuQK+Mz/3/T6O0acbEMPjb4hBH6kGbq0vrSdFjdASHkqZ4squ0mUpEZyZ6mvO7UkBonlnXK5JHOW51SAkqGBCF34viIC+6vq2H/zhHdT5DIGoj2RvLQkNzHM/Q9CUN33Io4HeDstnchpXgHEnSYXKz6JYPDlEKnE7i9CFE6nL4MEHP9TiNEAI9yVbOkE05SXKH4mZzEUK5I45HyRrMiSXHoHhzK0dGVJRj1izYGqLj/TJOdM0LoMYWN+1jV9teK+zkG+QhlrHeRrlKc4RPHiHHtPJ9kzzgtiPcIQTiCz1uS7OG6FndhN6PltE24wP6uu2qT1VA+GdlqqyarAPMoAfNYKdBXHFRTnmFkFTjd0PXFa0dV+8LLln9hMOAVvxQt42tBiJliHKaer8EMyGaAKspZLmCWKXMAfOMXYdF3VoMqxyA+mOGJCObtb40jFFw5DhU6fRO2d1pwab/aH1rZ9MsVROlwk3NHxhr7YrW8T0j5r+vyiYSnCnEqNnqu/Em+kMtY/c2YonfUwhUasVP7pIOftRTNTaqvKFxJHGJVoBKd7PU0/OYZjfacbtIGqHlvDPnt4+Ay7R4qMs+x5vNmbrNumYLte92yZ+8Ey3Omu96iKjGk/Hi3QRoMy/I4WrZZtqPQoZxKe8BlVX2TQVQ2r3cd3cIFj13OsyxHVbVBT7HdBSq7Q4qNG4uGzmK6BY6NjEcB/jSSCUVMR3x5IaUfnpU7UPnsZvjmmXnh+34BUScasD72H3ssxFFK8DhTAwWFowfzwQLPXWUEbDP+Pg480m7+RWn2VE/xq0dapt++/yssbLl3+jtp9J911e7WTawnf7/LNRtl/AGPA8uN3+/v2H2/rqbg3CwAA"
+}

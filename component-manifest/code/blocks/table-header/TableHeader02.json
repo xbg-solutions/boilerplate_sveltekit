@@ -1,0 +1,33 @@
+{
+  "id": "tableheader02",
+  "name": "TableHeader02",
+  "category": "blocks",
+  "group": "table-header",
+  "title": "Title + Date Range",
+  "description": "Title left, date range picker + filters + new button right.",
+  "tags": [
+    "table",
+    "header",
+    "filters",
+    "app",
+    "date-range",
+    "filters"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tdateRange?: string;\n\t\tnewLabel?: string;\n\t\tonNew?: () => void;\n\t\tonFilter?: () => void;\n\t\tonDateRangeClick?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Table name',\n\t\tdescription = 'Read and write directly to databases and stores from your projects.',\n\t\tdateRange = 'Jan 20, 2022 – Feb 09, 2022',\n\t\tnewLabel = 'New',\n\t\tonNew,\n\t\tonFilter,\n\t\tonDateRangeClick\n\t}: Props = $props();\n\n\t// SVG Icons\n\tconst CalendarIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"></line><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"></line><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"></line></svg>`;\n\n\tconst FilterIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 6h18M7 12h10M11 18h2\"></path></svg>`;\n\n\tconst PlusIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line></svg>`;\n</script>\n\n<div class={cn('flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between', className)}>\n\t<!-- Left: Title and Description -->\n\t<div class=\"flex-1\">\n\t\t<h2 class=\"font-semibold\">{title}</h2>\n\t\t<p class=\"text-sm text-muted-foreground\">{description}</p>\n\t</div>\n\n\t<!-- Right: Date Range, Filter, New (Desktop) -->\n\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t<!-- Date Range Button -->\n\t\t<Button variant=\"outline\" size=\"sm\" onclick={onDateRangeClick} class=\"flex items-center gap-2\">\n\t\t\t<span>{@html CalendarIcon}</span>\n\t\t\t{dateRange}\n\t\t</Button>\n\n\t\t<!-- Filter Button -->\n\t\t<Button variant=\"outline\" size=\"sm\" onclick={onFilter}>\n\t\t\t<span class=\"mr-1\">{@html FilterIcon}</span>\n\t\t\tFilters\n\t\t</Button>\n\n\t\t<!-- New Button -->\n\t\t<Button onclick={onNew}>\n\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t{newLabel}\n\t\t</Button>\n\t</div>\n\n\t<!-- Mobile Layout -->\n\t<div class=\"sm:hidden space-y-2 w-full\">\n\t\t<!-- New and Filters buttons row -->\n\t\t<div class=\"flex gap-2\">\n\t\t\t<Button onclick={onNew} class=\"flex-1\">\n\t\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t\t{newLabel}\n\t\t\t</Button>\n\t\t\t<Button variant=\"outline\" onclick={onFilter}>\n\t\t\t\t<span>{@html FilterIcon}</span>\n\t\t\t</Button>\n\t\t</div>\n\n\t\t<!-- Date Range Button -->\n\t\t<Button\n\t\t\tvariant=\"outline\"\n\t\t\tonclick={onDateRangeClick}\n\t\t\tclass=\"w-full flex items-center justify-center gap-2\"\n\t\t>\n\t\t\t<span>{@html CalendarIcon}</span>\n\t\t\t{dateRange}\n\t\t</Button>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:5097",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE91X/W7bNhB/lZtQwAlqRZbSZolje1sStFiRFEVWDAPmAZUl2mJCkQJJWfYMA32H7Qn3JDtKovylZMXQvwokEXkf5N3vfkcyK4eHKXH6zm9Xb+Gfz3/DR6oZgZdwE2oC9yGfEafr6JCygvLY6WuZk64zpYwop//7ytHLzHgbAdrVa/2UZSdqTpg2skmoSJs8ElwTrnEZZ6AiSTMNDLcbjh2txs5ozMeappmQGlYQcVjDVIoUOi8YnXi5pkx5Ee9c7phd5VqLPdNIoJabjbyclvbGA7eW0zAi8EGKTMHKCMc6YqFSP/RBaUn57LISagPIvjAmVchU8AMVAlfitq/gpLgNJ4TtywV/TwoUHh3DcARzQeNG8YYiVrJdd2P3uWY0ejy0WVepIsxK7yTYh/LzHmvS3UoRhtD5GE5wYKrV6R4kagzuSRhDyGMoJEV+xFSSSLMlaAGYd2hqrUq90kLisCzEUuQSMike0FadNCvb+M2670IOQa+Lv0GANPwL3pAJ9C4qgfWwABoHhMyKS/y6u5B121EqcenXRR/Ci8wMjo5rVnge/PLrW/jZQLaB7jpkhMehNGL0+TRQ8xksUsYVUjXROut7XlEUJ8XpiZAzL+j1eh6ajB0oaKwTNPLPcJIQOku0nc0pKa7EAqc96EHwCn9Qil3EUMSRrzhDkohHgvMolxIJfC2YkI3ctasHGxGjnERhhkIpch7vKh4E5RvNaGAqByaCU7Rb4vfVdsjnOyGbmVzUm8llNRgNPLPGaGBWh4Vvc1v6teEiaERmdFa6GONtl/MDj/PnHU6tg9+zHoFvXYys8TFlGH263O6Dih3fWimzUCcQo+TuFM4S//zue/CDxO/d+T7450lVK2PUiskHlqtvDZEtSgaWL68bSgYNXS5aKfa6odiGxheNT9BGMRyV56S5t/ggpvPqkB2uIn7UmTKyAPPHjQSDWZi5p6DSfimRojBjPE1T5UbEXExm/pArTadLd0J0QQjvdDeH9vG6vBwH37ku3JKp7td3tjl2b7aOa9et7DbBjJ1yS7++XlGXBBsV3seuIimdCGYwXJW3wnrgJYG1zhpjTRZonEL5TXNNYneKB/7MFmC1dW/gElkViYehjCrqldHfG9b0t54a3bpBu4BHOhxhNo9aZMetqSQ0jgm3OMIOgAbiYJOl2WuziX0m1IuivhbMQ0lDbmgscm3qazhG/zQsVSmOBY/MJTJc7V8r6x18nwsFN1NZyEerHxOdsp27BWEqVdZw1VyQ6zpMr4qzRrDOqwLsa+RUrbTejbTJLJUlb+rAN+foftiVRj0XsqntU/FuxYNmXxaMPcAOELQPhhYAD8l4Jyb4iIXbEJ8rupVxSDVLugzfju7SDaBwpzlju1Qz+ZlmrKGASbmrAtPqm4T32/KQKe2QPNXL/xelQ5z2kPovOj1DoT26P82avQ23i/PF/WvXaonRqp7uYGthsavqCof9bA/m3fau3L9ykzcw2K/5TwwP3Oq/sPUf638BwOqGPr0NAAA="
+}

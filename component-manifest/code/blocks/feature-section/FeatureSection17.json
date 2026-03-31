@@ -1,0 +1,25 @@
+{
+  "id": "featuresection17",
+  "name": "FeatureSection17",
+  "category": "blocks",
+  "group": "feature-section",
+  "title": "Vertical Timeline",
+  "description": "Numbered circles on a vertical line with alternating left/right content.",
+  "tags": [
+    "features",
+    "landing-page",
+    "timeline",
+    "steps"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface TimelineStep {\n\t\tnumber: number;\n\t\ttitle: string;\n\t\tdescription: string;\n\t\talign: 'left' | 'right';\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\theading?: string;\n\t\tsteps?: TimelineStep[];\n\t}\n\n\tconst defaultSteps: TimelineStep[] = [\n\t\t{\n\t\t\tnumber: 1,\n\t\t\ttitle: 'Get Started',\n\t\t\tdescription: 'Sign up and create your first project in minutes.',\n\t\t\talign: 'left',\n\t\t},\n\t\t{\n\t\t\tnumber: 2,\n\t\t\ttitle: 'Configure',\n\t\t\tdescription: 'Set up your preferences and integrations.',\n\t\t\talign: 'right',\n\t\t},\n\t\t{\n\t\t\tnumber: 3,\n\t\t\ttitle: 'Build',\n\t\t\tdescription: 'Create amazing products with powerful tools.',\n\t\t\talign: 'left',\n\t\t},\n\t\t{\n\t\t\tnumber: 4,\n\t\t\ttitle: 'Deploy',\n\t\t\tdescription: 'Launch to production with one click.',\n\t\t\talign: 'right',\n\t\t},\n\t\t{\n\t\t\tnumber: 5,\n\t\t\ttitle: 'Grow',\n\t\t\tdescription: 'Scale your business with confidence.',\n\t\t\talign: 'left',\n\t\t},\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\theading = 'The Journey to Success',\n\t\tsteps = defaultSteps,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-white py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-4xl\">\n\t\t<h2 class=\"text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 text-center mb-16\">\n\t\t\t{heading}\n\t\t</h2>\n\n\t\t<div class=\"relative\">\n\t\t\t<!-- Timeline Line -->\n\t\t\t<div class=\"absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 transform -translate-x-1/2\"></div>\n\n\t\t\t<!-- Steps -->\n\t\t\t<div class=\"space-y-12\">\n\t\t\t\t{#each steps as step}\n\t\t\t\t\t<div class={cn('flex gap-8', step.align === 'right' ? 'flex-row-reverse' : 'flex-row')}>\n\t\t\t\t\t\t<!-- Content -->\n\t\t\t\t\t\t<div class=\"flex-1 pt-2\">\n\t\t\t\t\t\t\t<div class={cn('p-6 bg-gray-50 rounded-lg border border-gray-200', step.align === 'right' ? 'text-right' : '')}>\n\t\t\t\t\t\t\t\t<h3 class=\"text-lg font-semibold text-gray-900\">{step.title}</h3>\n\t\t\t\t\t\t\t\t<p class=\"mt-2 text-gray-600 text-sm\">{step.description}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<!-- Timeline Circle -->\n\t\t\t\t\t\t<div class=\"flex justify-center\">\n\t\t\t\t\t\t\t<div class=\"flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white font-bold border-4 border-white shadow-lg\">\n\t\t\t\t\t\t\t\t{step.number}\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<!-- Empty Space -->\n\t\t\t\t\t\t<div class=\"flex-1\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17878:35255",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VW/27bNhB+lZtWQC1g1omTBptrt1izocBQDANSDAPi/EFLJ5ktRREkFdvzBOwh9oR7kh0pyZZ/dUH3T0QdT3fffffdxZtI8QKjcfT7u/fwz19/w29onEi4hI+iQCkURoPIcSGXQqXR2JkKB1EmJNpofL+J3Fr7j72B/NpQP2j90j6idN425xZP2ZNSOVSOwkQTmxihHUiu8ukscnYWvZmpmROFLo2DDSQKashMWUD8TIr5sHJC2mGi4tfk5h0plMl4glvQdw41bPzdzKmqmKMZQ/N83RidcBLHYJ0RKm9tKTZARKkObrgUOdliiZmL4U+IjcgXLqR39SGGX02pbZc8kdzatwfhFshTejs0WwLtfftF3D/0kxBp1kGKGa+k89f20BumcN9EawHs6r8cdJa2+Pg9Orhz3DhM4+3lHgvxHRUOlQauUkgMcoewLisDmTCERJvyEyYOhIJCqMqhfbkLtEdaa60HZ8CNjsDdlioTeWXwLDRCT8gCHG0wQ4MqQRug+m7khnvPU5Ca9v0XpqsjTO8qIc9SddvQwwv+B/XUc5NWibOwFG4BulySPCoJrizlV7N0fYToR9SyXJ+D9IFXKllQzg4NmRs8pUJIpEg+fzU7r47lZMrl2WbRSmmlM68sydW2xCS+zanv3JNIeWhHXlLz+yM2hvD4hTbNYG/IaCDijwuEnym1wrXn4q5KSCe2CxzGjtz6YxWu6nE7y1N4pv3h+QvKPhk2dfkVpSYWG1JD9ukmUc/jJaM+S5jnbLkQJAi9Zpc3oFfsGmwxpucNyNw/v4sHO9Qv6rDzJql4bIPNomLFeEWAC75iS3a9ku1iJLfFaOvlcOXY1Ur66OFMjpDRemXzUqbgDE8+ExHM+bZC8KDRWLPvLy6atwT97oJiTji3GajjLYN1m3K4GL1pyD+AaVDSpD1i79vJN4xtNxN88H8Y2932v+ZzW0paHeCbzS6HI2qRZhcwL50rCzos2aUncy4rZCOP2XBls9IUwMKRkiNb+S8JwGRIsbcwWyChpWcBWE1bm1GTRr0CqPxvkdPsNOrgNhzq3fVekND3TOIKcq5DX733yyBjmE6n3UzBWwhujCaFGXxEYzGG8c4YtzLoZfEF3Db/LPslnCgkBLkE7dh+JafhatIh0Rqk8OoCTFmpFFMmc2LepKSH5tE4EO9fLCroqH2lco7LaER7tS9ayhV0arEQjVb74qQaNiFj2C816e/qVFC9GxcqvBfiptO3LbahekuJAupjkjr5nLId92Wr8FthEolP6A98qqwT2bodui/3qf1kQdL0UzACWieF7eZ1P9K2gd3yCfOy5aBZRbut0Db3ujs093bBU1KmzE/gookIFDb7v/6fzP1UaLeGOz96T1J1f7TP5twM/chuofWvd+fuRHu82d109r9xiaXm9239UP8L62MwXhYLAAA="
+}

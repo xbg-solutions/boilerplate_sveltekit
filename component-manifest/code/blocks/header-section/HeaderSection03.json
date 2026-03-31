@@ -1,0 +1,31 @@
+{
+  "id": "headersection03",
+  "name": "HeaderSection03",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Screenshot",
+  "description": "Header with a browser/app screenshot mockup below.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "screenshot"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"aspect-video w-full rounded-2xl bg-muted shadow-2xl flex items-center justify-center\"><svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-3xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t{#if eyebrow}\n\t\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t\t{eyebrow}\n\t\t\t\t</div>\n\t\t\t{/if}\n\n\t\t\t{#if title}\n\t\t\t\t<h1 class=\"text-4xl sm:text-6xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t\t{/if}\n\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t\t{/if}\n\n\t\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t\t{secondaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-12\">\n\t\t\t{@html imagePlaceholder}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:176388",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31W227bRhD9lQEbQDagDUVZNgxFUlv3IS9FYCBBE6AqEF5W5NbLXWJ3qUsFAf2IPPa5H5Yv6QxJsSRlGzCk2blfzox19FSYc2/ufXl4D9///gafhcvgY2w4VzbTzht7LhRyJ1TizZ0p+djbCMmtN//96LlDQabEQL3G0c9F8dZuuXTEi0LLn+PHWjmuHLrxFjY2onAgQ5Uu156za2+1Vmsn8kIbB0eIFZxgY3QOozdSRH7phLR+rEbvemoPpXN6oBprlCoK5Jei0icLDG02Yczh0ejCwpGYaxfL0Nof52CdESp9VzP5gUdG74ZsJ5zkQ2bC60qEVkNRYUQemsOvYcTlUGY5NiN5SarVY22LgqtrWK5gq0XSCj+ejS/Fp7payV2vwjlUXx9wKONejbCE0Qe+A8Mlx6nB93/+HY075ZL8U8Yh1wk3CnbhAZyGqBQygY024FC249HZptON8WUTyNl7zMy60DienI36vSCl3wSmlPBcn1XahowvelBVPW+muoQ3BRFX183YUck6QNOUP0qcfqYlFoJ6XxeJ2NZdQfyFtuCxY1uRcA07timlBKNLlfCETfcSopTlJaYMNgsTvat4G8n3IBzPLYs5oQv+LK0Tm0PzREQv7DaFnUhchjFupmsPMi7SzJ1fW6zzQe/xOYEJTGf4h1zcLIkshRjGFwJDP3F8x6Ux6PgXLbVp+ezsPUDWuRrH967Ol+GMeFpV4s8mlJHBOoEi3qDBoflundx3U6xehnQxV3+1iIWJERExce7f3lLAQ0saMiAKFQstD1IoDoXGtaOMpgEEtxDcQTCBW5gGlZqP3cFPnMPqK44L3xV26A6oBYKCUNTUdIzV1aiZC84iCuOnuioo9mwGxYFNJ2DzORH3o/H/aL8+VWelN+x8z8ISUZyHe7ZjN3vZ3J6BWtXFZrJ5xIJpq7Z2xx/EBpoVOp2ZwzARuwOhqBHsEitpWLBpi7G6MG0Im2es+bcTqu6GqgugymZvOzlUeTyTQ9XQNlFfbJqb0OZdLXbXIgv6Rc8Q3djMir4jpOPdZhFuDjiDncc7xRxhhNqCgF0da48LPwteDdy5Dt3wRT+6TOFZAFO0e4rWdbPwi5dC9oZRDYA+WKyr4iqaDiANYna5up38mv8xWsVSxE/LY3uMTmDFX7SaMh3OpXv2esOpnb3uvr1tJ9iGRoSKtlGXjqBEm/9S0P4hfS1sFyQtfbkCuRvA/qfM5fLinJ4GjloKV7peY6TpNwWOtf49cfrj9B88n9XghAgAAA=="
+}

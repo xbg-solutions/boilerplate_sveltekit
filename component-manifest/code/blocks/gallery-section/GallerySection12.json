@@ -1,0 +1,26 @@
+{
+  "id": "gallerysection12",
+  "name": "GallerySection12",
+  "category": "blocks",
+  "group": "gallery-section",
+  "title": "Feature Showcase",
+  "description": "Large featured image with scrollable thumbnail strip.",
+  "tags": [
+    "gallery",
+    "images",
+    "landing-page",
+    "featured",
+    "thumbnails"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\timages?: Array<{ src?: string; alt?: string; caption?: string }>;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Explore our gallery',\n\t\tdescription = 'Premium featured showcase with curated highlights',\n\t\timages = Array.from({ length: 1 }, (_, i) => ({ alt: `Feature ${i + 1}` }))\n\t}: Props = $props();\n\n\tconst features = ['Premium quality materials', 'Handcrafted details', 'Sustainable practices', 'Limited edition availability'];\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted rounded-lg flex items-center justify-center overflow-hidden\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full px-4 py-16', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t{#if title || description}\n\t\t\t<div class=\"mb-12 text-center\">\n\t\t\t\t<p class=\"mb-2 text-sm font-medium text-muted-foreground\">Gallery Section</p>\n\t\t\t\t{#if title}\n\t\t\t\t\t<h2 class=\"mb-2 text-3xl font-bold tracking-tight sm:text-4xl\">{title}</h2>\n\t\t\t\t{/if}\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t<div class=\"grid grid-cols-1 gap-12 sm:grid-cols-2 items-center\">\n\t\t\t<div class=\"aspect-square\">\n\t\t\t\t{@html imagePlaceholder}\n\t\t\t</div>\n\n\t\t\t<div>\n\t\t\t\t<h3 class=\"text-2xl font-bold mb-4\">Premium Feature Collection</h3>\n\t\t\t\t<p class=\"text-muted-foreground mb-6\">Discover our handpicked selection of exceptional items carefully curated for discerning customers.</p>\n\n\t\t\t\t<ul class=\"space-y-4 mb-8\">\n\t\t\t\t\t{#each features as feature}\n\t\t\t\t\t\t<li class=\"flex items-start gap-3\">\n\t\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\t\twidth=\"20\"\n\t\t\t\t\t\t\t\theight=\"20\"\n\t\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t\t\t\tclass=\"shrink-0 text-foreground mt-0.5\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<polyline points=\"20 6 9 17 4 12\"></polyline>\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t<span class=\"text-base\">{feature}</span>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t{/each}\n\t\t\t\t</ul>\n\n\t\t\t\t<div class=\"flex gap-3\">\n\t\t\t\t\t<button class=\"px-6 py-2 bg-foreground text-background rounded-lg font-medium hover:bg-foreground/90 transition-colors\">\n\t\t\t\t\t\tLearn More\n\t\t\t\t\t</button>\n\t\t\t\t\t<button class=\"px-6 py-2 border border-foreground rounded-lg font-medium hover:bg-foreground/5 transition-colors\">\n\t\t\t\t\t\tView Collection\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "19193:17140",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VX4W7bNhB+lYMWwAlmRZaSeKnreGu7rfvRDQECDAPqYqEp2uJCkRpJxTZcA3uIPeGeZEdKsiXbwboficTj8fjxvu+O8iaQJGfBKPjt7Xv456+/4UdGbKkZPGRqSYlhQT+whIsll2kwsrpk/WDOBTPB6OMmsOvCrXUG9KsjvSmKS/PMhHW2GYY4ZadKWiYthgnGhmpeWBBELu6mgTXTYDKVU8vzQmkLG6AStjDXKofemeCzqLRcmIjK3mt0c44YSs8JZXCvVWFg44xTSwUx5tsRGKu5XLyujJZbwQ6NKasgcCUPp3hOFsxFeaM1WY83YDTd+wARtjWipBsDthMfZlvhFMx2sI3AP37B9PRb6OAOej+sCqGQBVVqWBAhmF73+kdgnee9Zjkvc5hXvKVgauJgyW0GtNTEojXji0zgnzVNnOpkGMKf7NLl93wDgsmFzUYQw7YP57/3gV/A3QRwBo86gsdGHmcbDl9DvH2E7cWFP+Oozv4dnBXu5fyipgepNrbB5+Y/7kD/WRLB7RpyxKg5EQgOej8RmVJN5g52ypz4vPmhNPguyQwzVGhCLafMT3zgOXe+LOU+KeQZl5AZd5F7nzog/JnvBUolUyJlGsE8jlP+XBGB4luG81IIyKrHbBHmpQutVSlTloZiAXPBVoD75SakzAkP/kBgfL5uhuoZxSjUMsx4mjKJYh6b5wWykdoMd0iupwFkzFHRjJ45W75VKxwOYADJNXgrFpVAk1SS4QgFpZ4YjpFQjRu9U6iPnT1soseXN2hsTmPZylYnCOeopoU/RnQ9cJg0oxbcnle4YF0/d2Fu2yD9SDvfZBpEkzHlmiIJ1Fluqw3Xu1fdoEDHQom14BL5UlijDlESQ3wD8RDiAdxAEnu3CPOD/5GHySPShWMvcNcE5NggTsdqdaYNlee9mqRiFV5DsQ7jIapgV0kXW988Oqzmq5CUVqHMVuEyHK5E3WGmdvMVn0NVdZ8/Q6u0ttX8YaBZGCfg01qxvQvkXYu2Y+1nsDSx14U5yhMVf5ISjPK+KnJ4qI47jopW4D3K7d6I+2XJiQ2vVqLacYYSB4uV8oStKLSOTDD5yDtd+xxsqpjjKEvau0V8vj3Y/FRmDo7s42KBvHTCTTvGwfnaO1ZCqOmpJ+QREwvNU3D/QqqECWPskoXjBg+4tyadQm1x1QlFTIFJDw02I806hG6+y2wujrrGMdRW2LYesqtudpIONUgZ1vmk6YVNZ8XKFo0IsqvT8jqZYxdwiAG/54a6JuQvjwybacHpk7sYWB0X1BzYijJPBRFVkvDy0szV1Xp3Z2BoSDEY09JdZhT7nMqZNpc1e3tkpdhBMwXmKVxjaSKc2046nZYYodn+LiCmee+oCiMKvovY6rh4A+AXgaP66iCyX4R95NA2tbvGi23veHbfiU9On2zNx26dXn08/ULzfslx182TUz67RGf4ifEUDqqCa8vAhgPXgA+XHuXLSeq4Qw9gCK8g/gauIU7cTRE1TscJ9537mIaCyK5U3VegawEN2bgQfQ5WjiPBu2qJnFpayhhHpegKr13HXientDGeldaqPSS8OIbu4kjcBd9KXA2VPtXj9q3fauGZK65RZ2n0auA6rTT+C8Q1H6XNkUI/MKIl/IyrOuiiCt6XQlbafbhUjzb6/4H25gvA/orKb/Wi/0Dcbtrd0f69eUPyq5j47n5dYNarXxbbT9t/Acx+KG2PDAAA"
+}

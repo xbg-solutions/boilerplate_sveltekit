@@ -1,0 +1,32 @@
+{
+  "id": "contactsection02",
+  "name": "ContactSection02",
+  "category": "blocks",
+  "group": "contact-section",
+  "title": "Info + Form Split",
+  "description": "Contact details (address, email, phone) on the left, form on the right.",
+  "tags": [
+    "contact",
+    "form",
+    "landing-page",
+    "split",
+    "info"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tonSubmit?: (data: any) => void;\n\t}\n\n\tlet name = $state('');\n\tlet email = $state('');\n\tlet message = $state('');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Get in touch',\n\t\tdescription = 'Have a question? We would love to hear from you.',\n\t\tonSubmit\n\t}: Props = $props();\n\n\tfunction handleSubmit() {\n\t\tif (onSubmit && name && email && message) {\n\t\t\tonSubmit({ name, email, message });\n\t\t\tname = '';\n\t\t\temail = '';\n\t\t\tmessage = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 gap-12 sm:grid-cols-2\">\n\t\t\t<div>\n\t\t\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\t\t\t\t<p class=\"mt-4 text-muted-foreground\">{description}</p>\n\n\t\t\t\t<div class=\"mt-12 space-y-6\">\n\t\t\t\t\t<div class=\"flex gap-4\">\n\t\t\t\t\t\t<div class=\"h-6 w-6 text-muted-foreground flex-shrink-0\">\n\t\t\t\t\t\t\t<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t\t\t<path\n\t\t\t\t\t\t\t\t\td=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t<polyline points=\"22,6 12,13 2,6\" />\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<p class=\"font-semibold\">Email</p>\n\t\t\t\t\t\t\t<p class=\"text-muted-foreground\">hello@example.com</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"flex gap-4\">\n\t\t\t\t\t\t<div class=\"h-6 w-6 text-muted-foreground flex-shrink-0\">\n\t\t\t\t\t\t\t<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t\t\t<path\n\t\t\t\t\t\t\t\t\td=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.5 19.79 19.79 0 0 1 1.56 2.18 2 2 0 0 1 3.53 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z\"\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<p class=\"font-semibold\">Phone</p>\n\t\t\t\t\t\t\t<p class=\"text-muted-foreground\">+1 (555) 000-0000</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"flex gap-4\">\n\t\t\t\t\t\t<div class=\"h-6 w-6 text-muted-foreground flex-shrink-0\">\n\t\t\t\t\t\t\t<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t\t\t<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\" />\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"10\" r=\"3\" />\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<p class=\"font-semibold\">Address</p>\n\t\t\t\t\t\t\t<p class=\"text-muted-foreground\">123 Main St, City, State 12345</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<form class=\"space-y-4\" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"text\"\n\t\t\t\t\tplaceholder=\"Your name\"\n\t\t\t\t\tbind:value={name}\n\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"email\"\n\t\t\t\t\tplaceholder=\"your@email.com\"\n\t\t\t\t\tbind:value={email}\n\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t\t<textarea\n\t\t\t\t\tplaceholder=\"Your message\"\n\t\t\t\t\tbind:value={message}\n\t\t\t\t\trows={5}\n\t\t\t\t\tclass=\"w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t\t<Button type=\"submit\" class=\"w-full\">Send message</Button>\n\t\t\t</form>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:172050",
+  "playgroundUrl": null
+}

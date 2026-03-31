@@ -1,0 +1,32 @@
+{
+  "id": "productcard04",
+  "name": "ProductCard04",
+  "category": "blocks",
+  "group": "product-card",
+  "title": "Minimal Card",
+  "description": "Image and price only; 'Quick add' button appears on hover.",
+  "tags": [
+    "product",
+    "card",
+    "e-commerce",
+    "minimal",
+    "hover"
+  ],
+  "source": "<!--\n  ProductCard04.svelte\n  Minimal product card with hover effect showing quick add button.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    name = 'Ceramic Coffee Mug',\n    price = '$24.99',\n    onQuickAdd = () => {}\n  }: {\n    class?: string;\n    name?: string;\n    price?: string;\n    onQuickAdd?: () => void;\n  } = $props();\n\n  let isHovering = $state(false);\n</script>\n\n<div\n  class={cn('rounded-lg overflow-hidden bg-background', className)}\n  onmouseenter={() => (isHovering = true)}\n  onmouseleave={() => (isHovering = false)}\n>\n  <!-- Image container -->\n  <div class=\"relative aspect-square bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden\">\n    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"56\" height=\"56\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"text-gray-400\">\n      <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"/>\n      <circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/>\n      <polyline points=\"21 15 16 10 5 21\"/>\n    </svg>\n\n    <!-- Hover overlay button -->\n    {#if isHovering}\n      <div class=\"absolute inset-0 bg-black/50 flex items-end justify-center p-4 animate-in fade-in\">\n        <Button onclick={onQuickAdd} variant=\"secondary\" class=\"w-full\">Quick add</Button>\n      </div>\n    {/if}\n  </div>\n\n  <!-- Content -->\n  <div class=\"p-3\">\n    <h3 class=\"font-semibold text-sm line-clamp-1\">{name}</h3>\n    <p class=\"mt-2 text-lg font-bold\">{price}</p>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE21V247bNhD9lam6gHeBpSXfgsSxXWT90PQhQfNWoO4DTVESsxSpkJS9hmGgH9Ev7JdkRrJsebGAAIkzZ+5nqGNkeCmjefTX0+/w/7//wRdlVMk1rLlLo8cocKX3yqTRPLhaPkaZ0tJH87+PUThUZEcCxJ29fKqqod9JHUi25V6+JRfWBGkCuokWvzC2MQB/OpvWIlDQZHpGkrzLpmr1IBAAexUKKOxOOpBZJlHsC4tJ5vCjVuIZeJrCtg7BmuHGMLbamIUXTlUBNDf5chMFv4lW5F6VlXUBjiAMnCBztoTBnVbbuA5K+1iYwccb2FPj9RYqLGoN1RPXivBkoSXC6QNAaO79vH19xW7AEgaDx1Znzue1dLxUAtYW65Hwpc47ROWUaCB34+nww4dObM03KvUTVrqE+wdYruB4ItVpfhP3tzn44LA1H68BX8uaEK+F1wCoaQPsrEob7Qlj3uFEKn//0KtX+c80E5oD6n3gQd5nXHtJoEXcjmBF+EWqdmTVpLg8CnM/cLY2qUyZzoGcZNruWaHSVBrY5mzLxXPeQAaP104+NBVbU9raSxyAdMtjm+r9TS7E3Buslnwn38a2CSO44QfRE/4oeS6BSMuVQc41jEIdFnGuYBM5qXlQOwncV0hI5n/U3ElKPXf8wEZJAr0KMy1fQAVZeiaavOF77YPKDt3xVQvObMWYfpfDS6kNxSxCqOZxvN/vh/vJ0Lo8HidJEiNkE+GOpKFA0OwdHgqp8iJ0p52S+yf7gscEEhhP8UEp7rFGkUEq4wm5YJ8lnkXtHOa0ttq6i5x13kfD2VWosTuCV9QNKvVW8d0q09N0fQvyJbQtmibJpUws1NFaU44TRB/O70vY9/2impMj7Jg+Du1HfPUllBMaJ0iQ903G4nD5dF0ZPYPK6gMlDRVmHSjP8QhGMxi9g1ECMxiPrvAFNXzVbsGZMA2dmhlqfjjfRB1rAI6/qqy3K6dL1D6f+NZbXQcJyngZWNIsgcYtiGdJnz7SpK+5U7EpcLo1g2TKIKFTevd6i6HO95g1QuOSL4/XbT/BjjvFDTXWSyR9yt2hN7A9y2qt0du37qpdxK23a/tirKQrNlZZU2EnvGzVuv0JvLlNFZtcKV9MLvIMbZiXpdpanULDHV8CTYohpKwYzmV1pDvutIiLSeehujgoAxu3drSF5I08kVFzCaJVtepn273pR4hW7U/w9M/pJ8aeTsE2BwAA"
+}

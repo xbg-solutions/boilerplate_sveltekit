@@ -1,0 +1,32 @@
+{
+  "id": "headersection18",
+  "name": "HeaderSection18",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Illustration",
+  "description": "Header content left with an illustration or image placeholder right.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "illustration",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\timageAspect?: 'square' | 'video';\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New Solution',\n\t\ttitle = 'Transform Your Workflow',\n\t\tsubtitle = 'Discover how our innovative approach can streamline your operations',\n\t\tprimaryLabel = 'Learn More',\n\t\tonPrimary,\n\t\timageAspect = 'video'\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center\">\n\t\t\t<div>\n\t\t\t\t{#if eyebrow}\n\t\t\t\t\t<div class=\"mb-4 inline-flex items-center px-3 py-1 rounded-full border bg-muted/50 text-xs font-medium\">\n\t\t\t\t\t\t{eyebrow}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-5xl sm:text-6xl font-bold tracking-tight mb-6\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if subtitle}\n\t\t\t\t\t<p class=\"text-xl text-muted-foreground mb-8\">{subtitle}</p>\n\t\t\t\t{/if}\n\n\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\n\t\t\t<div>\n\t\t\t\t<div class={cn(\n\t\t\t\t\t'rounded-lg bg-gradient-to-br from-muted to-muted/50 border',\n\t\t\t\t\timageAspect === 'square' ? 'aspect-square' : 'aspect-video'\n\t\t\t\t)}>\n\t\t\t\t\t<div class=\"w-full h-full flex items-center justify-center text-muted-foreground\">\n\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t<svg class=\"w-16 h-16 mx-auto mb-4 opacity-50\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n\t\t\t\t\t\t\t\t<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\" />\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t<p class=\"text-sm\">Illustration or image</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:18736",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VWa47bNhC+ykANoF3AXD3qNRaOnSDbAm2B3SBAg6ZF3R+0REnMUqRKUn7ENdBD9IQ9SYaSbEu20cKGRM4M5/HxG1I7T9KSeVPv18cf4N+//4FP3BbwkxC1sZparqQ38izlYs1l6k2trtnIy7hgxpv+vvPstnKLnQDtOlfvqurOrJiwTrakhl2TJ0paJi268WYm0byyIKjM5wvPmoX3ZiEXlpeV0hZ2kEjYQ6ZVCf4rwZdBbbkwQSL91wOzx9padWaaKNRKFyioeWPvVmBondGEwQetKgM7J1zYRFBj3k4BK+cyf90K2ZYttVqfiy23gp0LTb28Kq80L6nePtElE+c6JT+0WlTc3ML8DawUTzslKnL2zlQssaj2zZ811cyHv8Bf8ZSptv59W5RgdlDIFJrXe8R+NCgF5uC/Z2v4WYnabbA/6pXklB81lSZTuoTfVK3hk9IvmVDrg92hSmf6PTeJWjENBfp1xlxKtULerBjQqtKKJgUkVLqaGS0Flwy2zk5VrKWXObjtg+RcPzGqJTwrLHh0BtXoAh23oIWkQWTabewcXlVucHOLSM2ClmeOW3JmcBWGb0Ga7xJ5469JVgsBy5wsafKSa1XLFKoNGUO1JdEETDnFQTz2Rydob/cNVWcpX3WuFl65IbS2Ckq6IWsy2YiOz2dmueYpuAdJlDAkApFPT9MYclqRKG6kbjQBbllpSMIce48uW6fHycLuvuEZdFu9P4nPc1xiWVy6DSGZYJuBc1f0t03R0IDA0g4ZpVPUIkBlbVka3Idg2caSjYEM25mULOV12Uuty+hqNsFZ2gHPOib36miINlxXRMcimuD3G+F2phkj1m0mSyVSwAMsecFOI5bnhQUseYK57Vqfs6CI/jf8gerDDKphAhizeTeYEOwb1lEHAz64gEcvs6D6r5Cz7gBTMhE8eZnvjoTfg+FfGAYU+Rm6u37b9NKcBa2zE0sOeF9nTY8crhf6IfwDB0Tutj7XNOVIE2IVWermrG1LBxQcedFS5dC57W/Qr/P56Tx7Cz5txOQgmR4lp65uf13DXSV118BF+7qk9We81Hi2PUyv7toFewcRmiUXHXg0Nau8lwy2bOEex/PA9ZyqaMLtltyHCw/w3hRoKvGGwhmekerF7XJSa40xvlNCYRhYcbZ+VBtUhBBCPMb/leCOmBTv7tYLcZ2d0AoXdWX1FZ8Vl5eaNU9tgeIYRSm+n8cQTcT47v5hQponjSHGDMIovnuIHyB8wuKiSUliEouoMYuumsUhROOSTMikuAuj5wnEYRHFB7MQl/9yXBQ6bz/2pxCv+sYQf8H8gkvwA0T/UnrWrMYdT/3PG1B4aTliDpvz2hF1KRnO+7PT+DDC/NorB8fumwqzab+n9n/svwJvF84fhgkAAA=="
+}

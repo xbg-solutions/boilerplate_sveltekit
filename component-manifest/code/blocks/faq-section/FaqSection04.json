@@ -1,0 +1,25 @@
+{
+  "id": "faqsection04",
+  "name": "FaqSection04",
+  "category": "blocks",
+  "group": "faq-section",
+  "title": "Q&A Table",
+  "description": "Question-answer pairs in a simple bordered table layout.",
+  "tags": [
+    "faq",
+    "accordion",
+    "landing-page",
+    "table"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface FaqItem {\n\t\tquestion: string;\n\t\tanswer: string;\n\t\tcategory?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\titems?: FaqItem[];\n\t\teyebrow?: string;\n\t}\n\n\tconst defaultFaqs: FaqItem[] = [\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui?',\n\t\t\tanswer:\n\t\t\t\t'Shadcn/ui is a popular, open-source UI component library for React that focuses on flexibility and customization. It provides a set of accessible, customizable components that you can use to build modern web applications.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui kit for Figma?',\n\t\t\tanswer:\n\t\t\t\t'The shadcn/ui kit for Figma is our comprehensive design kit that brings the shadcn/ui components into the Figma environment.'\n\t\t},\n\t\t{\n\t\t\tquestion: \"I'm not familiar with shadcn/ui. Can I still use this kit?\",\n\t\t\tanswer:\n\t\t\t\t'Absolutely! Our kit is intuitive and comes with documentation to help you get started, regardless of your familiarity with Figma or shadcn/ui.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'Can I create multi-brand design systems with this UI kit?',\n\t\t\tanswer:\n\t\t\t\t'Yes! Our kit is designed with multi-brand support in mind. You can easily create and manage multiple styles for different brands within a single design system using Figma variables.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How will this kit save me time?',\n\t\t\tanswer:\n\t\t\t\t'By providing pre-built, customizable components and templates, you can skip the repetitive setup work and focus on the unique aspects of your design.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How does this improve my collaboration with developers?',\n\t\t\tanswer:\n\t\t\t\t'Our components are built to closely match the shadcn/ui library, significantly reducing misinterpretations and implementation errors.'\n\t\t}\n\t];\n\n\tlet { class: className, title = 'Frequently Asked Questions', description = 'Find answers to your questions.', items = defaultFaqs, eyebrow = 'FAQ Section' }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl text-center\">\n\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">{eyebrow}</p>\n\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">{title}</h2>\n\t\t<p class=\"mt-3 text-muted-foreground\">\n\t\t\t{description}\n\t\t\t<a href=\"#\" class=\"underline hover:text-foreground\">Contact us.</a>\n\t\t</p>\n\t</div>\n\n\t<div class=\"mt-10 mx-auto max-w-4xl\">\n\t\t<div class=\"flex flex-col divide-y border-t\">\n\t\t\t{#each items as item (item.question)}\n\t\t\t\t<div class=\"grid grid-cols-1 gap-4 py-6 sm:grid-cols-2\">\n\t\t\t\t\t<h3 class=\"font-semibold text-sm\">{item.question}</h3>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground\">{item.answer}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:173895",
+  "playgroundUrl": null
+}

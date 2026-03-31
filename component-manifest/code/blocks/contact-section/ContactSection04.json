@@ -1,0 +1,26 @@
+{
+  "id": "contactsection04",
+  "name": "ContactSection04",
+  "category": "blocks",
+  "group": "contact-section",
+  "title": "Minimal Email Capture",
+  "description": "Simple single email input with submit — for newsletter-style contact.",
+  "tags": [
+    "contact",
+    "form",
+    "landing-page",
+    "minimal",
+    "email"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\temail?: string;\n\t\teyebrow?: string;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Get in touch',\n\t\temail = 'hello@example.com',\n\t\teyebrow = 'Get in touch'\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-24 px-4 text-center', className)}>\n\t<div class=\"mx-auto\">\n\t\t<p class=\"text-sm font-semibold text-muted-foreground uppercase tracking-wide\">{eyebrow}</p>\n\t\t<h2 class=\"mt-4 text-4xl sm:text-5xl font-bold\">{title}</h2>\n\t\t<a\n\t\t\thref=\"mailto:{email}\"\n\t\t\tclass=\"mt-4 text-2xl text-muted-foreground hover:text-foreground underline underline-offset-4 block transition-colors\"\n\t\t>\n\t\t\t{email}\n\t\t</a>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:172182",
+  "playgroundUrl": null
+}

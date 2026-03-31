@@ -1,0 +1,27 @@
+{
+  "id": "buttonlike",
+  "name": "ButtonLike",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Like Button",
+  "description": "Thumbs-up like button with count and toggle state.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "like",
+    "toggle",
+    "social"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tcount?: number;\n\t\tliked?: boolean;\n\t\tonlike?: () => void;\n\t}\n\n\tconst { class: className = '', count = 24, liked = false, onlike } = $props();\n\n\tlet likeCount = $state(count);\n\tlet isLiked = $state(liked);\n\n\tconst handleLike = () => {\n\t\tisLiked = !isLiked;\n\t\tlikeCount = isLiked ? likeCount + 1 : likeCount - 1;\n\t\tonlike?.();\n\t};\n</script>\n\n<button\n\ttype=\"button\"\n\tonclick={handleLike}\n\tclass={cn(\n\t\t'inline-flex items-center gap-2 rounded-md border bg-background px-3 py-1.5 text-sm hover:bg-muted transition-colors',\n\t\tisLiked && 'bg-muted',\n\t\tclassName\n\t)}\n>\n\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill={isLiked ? 'currentColor' : 'none'} stroke=\"currentColor\" stroke-width=\"2\">\n\t\t<path d=\"M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3\" />\n\t</svg>\n\t<span>Like</span>\n\t<span class=\"text-sm text-muted-foreground\">{likeCount}</span>\n</button>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:30231",
+  "playgroundUrl": null
+}

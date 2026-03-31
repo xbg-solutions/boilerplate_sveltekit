@@ -1,0 +1,26 @@
+{
+  "id": "logosection05",
+  "name": "LogoSection05",
+  "category": "blocks",
+  "group": "logo-section",
+  "title": "Logo-only Grid",
+  "description": "Minimal logo grid with no label text.",
+  "tags": [
+    "logos",
+    "social-proof",
+    "landing-page",
+    "minimal",
+    "grid"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Logo {\n\t\tname: string;\n\t\tlogoUrl?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tlogos?: Logo[];\n\t}\n\n\tconst defaultLogos: Logo[] = [\n\t\t{ name: 'Buzzsnap' },\n\t\t{ name: 'Dashstar' },\n\t\t{ name: 'Editly' },\n\t\t{ name: 'Geoaura' },\n\t\t{ name: 'Nanodea' },\n\t\t{ name: 'Orionbo' }\n\t];\n\n\tlet { class: className, logos = defaultLogos }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-8 px-4', className)}>\n\t<div class=\"mx-auto max-w-4xl\">\n\t\t<div class=\"grid grid-cols-2 sm:grid-cols-3 divide-x divide-y border border-border\">\n\t\t\t{#each logos as logo (logo.name)}\n\t\t\t\t<div class=\"flex items-center justify-center p-8\">\n\t\t\t\t\t<div class=\"flex items-center gap-2 font-semibold text-sm text-foreground\">\n\t\t\t\t\t\t{#if logo.logoUrl}\n\t\t\t\t\t\t\t<img src={logo.logoUrl} alt={logo.name} class=\"h-5 w-5 object-contain\" />\n\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t<div class=\"h-5 w-5 rounded bg-foreground/80\"></div>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t{logo.name}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:179006",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41UzW7UMBB+lZGptEVaNwiKVKW7VFSgXlDhgoTU9OA4Turi2JHtdLONIvEQPCFPwjg/3d2wBw6J7flmvplvPElLNCsFicmP6xv48+s3fDGFoUarLdxYmZEl8UyqjdQZib2txZLkUglH4ruW+G0VIoMB/Uaej1V15p6E8sGWMieO2bnRXmiPNGTluJWVB8V0sU6Idwn5kOjEy7Iy1kMLXEMHuTUlLE6UTKPaS+UirheX6BYckcrmjIu+dGiDLfEhawzOW6mLy8GkEP5u1dWBuZuTfLOmchMLV8y5qyM8wRjS3d3vs6As5yETOauVD7CbvGANd0N0C0Npi+v6+dlpVi2gW86gT8w9OM/sEehzJr3aHgFuhGG1ZUeQW6ZNJo4hX600OjWIBOB+bKgSfduD9HhYbtF9Cb1uFLKvD7p47NgaTqqwOX2NNKtouNVwk3rlBPeYaOBat1yfLjY0r5WCtKAp4z8La2qdQbWlF1A19Hyx3OV93fXjsMrk00iQkLKhrPYGStbQDT1v1DgzM7cCBxjCi3KjHH0Lrox3x3eAvjITtJk2W0iNzYQdFzosL9zYuFeC8YexEcz1GzgN7zPdlzo5zgrJlWhAelE6ykWYNHisnZf5djpW9GIvzX/EF6xCPTl+RtSJUqZGZeBFg6dyWHNjxdDWGXFQIfO+9LPxi+gOcUwuywKc5ev2wA2Y8qMpyO1e6nug72GDj0kf8app+LqZ1AmBaJ46FsqJf/Pti53I+uJFFmZkJya6eIN6VhEGzKkjmc+I90o9aO0s+vDcRuGOx4AdNO1wsodpxn34OWKvhx9jd9/9BbiIcg1MBQAA"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "headersection04",
+  "name": "HeaderSection04",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Split Header",
+  "description": "Headline left, descriptive text or image right.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"aspect-video w-full rounded-2xl bg-muted shadow-2xl flex items-center justify-center\"><svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 gap-12 sm:grid-cols-2 items-center\">\n\t\t\t<div>\n\t\t\t\t{#if eyebrow}\n\t\t\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t\t\t{eyebrow}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t\t\t{/if}\n\n\t\t\t\t<div class=\"flex flex-col sm:flex-row gap-4\">\n\t\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t\t{primaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t\t\t{secondaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div>\n\t\t\t\t{@html imagePlaceholder}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:176402",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VW227jNhD9lYG6gBPAXFmOHQReO23Th+1DsQiwRVGgLrCURMtsKFIgKV9qGOhH9LHP/bD9ks5IsmLJSQMENjmc+zkz8SHQPBfBLPj14SN8/etv+Fwo6eFHwVNhg2HguVRbqdNg5m0phsFKKuGC2W+HwO8LsiMB6jVevi+K924jlCdZzJ14SZ4Y7YX26CaYu8TKwoPiOlssA++Wwf1SL73MC2M9HCDRcISVNTkM3ikZh6WXyoWJHnzoqD2U3pueamLwVVOgsJSVPllgaLviiYBHawoHBxIufaK4c9/OwHkrdfahFoq9iK3Z9sVeeiX6wlTUlUij+0+FlTm3+594LFT/zQlsRvraq9GPtS0+XF3D4h42Rqbt4+eT8eXzsa5WCd+pcAbV1ycEZdipERYw+CS2YIUSiBp8/effwfCsXHr/eS0gN0gLDVu+B28gLqVKYWUseHzbivhkc9aN4WUTyNlHzMx5br1IT0bdXpDSLxJTSkVuTiptQ4YXPaiqnjWoLuBdQYer6wZ2VHIe0DQTjwrRXxuFhaDel3kqN3VXkH/cFSLxbCNTYWDLVqVSYE2pU5Gy8U5BnLG8xJTBrXlqtpVspcQOpBe5Y4kgdsEfpfNytW+uyOi522SwlalfY4yb8TKAtZDZ2p9uG6zzwezwOoIRjCf4h1KcLIUijRzGGxLDPAm8J6W16PgHo4xt5ezkPULRqRovdr7OlyFGIqsqCScjyshinUARb9Bg33y3Tu7OU6xulnQx1/B+nkibICMSkty9n1LAfXu0ZEAnVCyM2iupBRQGx44yGkcQTSG6hWgEUxhHlVqI3cFPxOH+C8KF94o7tAf0HElBLGpqOiT6atDggljEPHmqq4JixyZQ7Nl4BC6f0eFuMHxm+/WxWisdsPMd4yWyOOc7tmW3O9Xsnp5aZmUK9MESoxyLIOMFi8YU5lk67jCgdVS7ai9Lf/hGrqCZueOzuJ9ZzG5Bauodu6QXxR+3tKx7YSzR+UTPcDqihtxQQyKoaLBzZ0k1ubyYR9hLOJSrZpmcVVDthK7dOuryboKjgS2qzlMaE1z6LMaxA28RNlxyzBPBAItFtt8fap/zcB29Gf5svXSTKLo5qAxenAGKeUcxzx3Nw+L/AncAqkChD0KfyqzOtEcJnEmv1fPmv5PRiZLJ0+LQrrEjOPknDbXKLuE5X5k9jGqHbwVpd+MRNtxKrmmaTemJV7Q5Xg/dXcVvBe9ypr29MgHfrX2uLlbx8cK8cz6dcDnUCwHP9OsE0a1/mRx/P/4H4CTcIcsIAAA="
+}

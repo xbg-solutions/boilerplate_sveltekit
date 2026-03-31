@@ -1,0 +1,30 @@
+{
+  "id": "emptylp03",
+  "name": "EmptyLP03",
+  "category": "blocks",
+  "group": "empty-lp",
+  "title": "Coming Soon",
+  "description": "Coming soon message with optional countdown or email capture.",
+  "tags": [
+    "empty-state",
+    "landing-page",
+    "coming-soon"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tonNotify?: (email: string) => void;\n\t}\n\n\tlet email = $state('');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Something amazing is coming',\n\t\tdescription = 'Be the first to know when we launch.',\n\t\tonNotify\n\t}: Props = $props();\n\n\tfunction handleNotify() {\n\t\tif (onNotify && email) {\n\t\t\tonNotify(email);\n\t\t\temail = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-24 px-4 text-center', className)}>\n\t<div class=\"mx-auto max-w-lg\">\n\t\t<p class=\"text-sm font-semibold text-muted-foreground uppercase tracking-wide\">Coming soon</p>\n\t\t<h2 class=\"mt-4 text-4xl font-bold\">{title}</h2>\n\t\t<p class=\"mt-4 text-muted-foreground\">{description}</p>\n\n\t\t<div class=\"mt-12 flex justify-center gap-8\">\n\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t<p class=\"text-4xl font-bold\">12</p>\n\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">Days</p>\n\t\t\t</div>\n\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t<p class=\"text-4xl font-bold\">04</p>\n\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">Hours</p>\n\t\t\t</div>\n\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t<p class=\"text-4xl font-bold\">32</p>\n\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">Minutes</p>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-12 flex gap-2\">\n\t\t\t<input\n\t\t\t\ttype=\"email\"\n\t\t\t\tplaceholder=\"Enter your email\"\n\t\t\t\tbind:value={email}\n\t\t\t\tclass=\"flex-1 rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\tonkeydown={(e) => e.key === 'Enter' && handleNotify()}\n\t\t\t/>\n\t\t\t<Button onclick={handleNotify}>Notify me</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18192:33161",
+  "playgroundUrl": null
+}

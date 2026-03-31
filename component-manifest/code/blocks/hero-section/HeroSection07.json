@@ -1,0 +1,31 @@
+{
+  "id": "herosection07",
+  "name": "HeroSection07",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Gradient Hero",
+  "description": "Colourful gradient background hero with centred text.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "gradient"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Build your next big idea faster',\n\t\tsubtitle = 'A comprehensive toolkit that helps you design, develop, and ship production-ready products at lightning speed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t}: Props = $props();\n</script>\n\n<section\n\tclass={cn(\n\t\t'w-full bg-gradient-to-br from-background via-background to-muted px-4 py-20 sm:py-28 sm:px-6 lg:px-8',\n\t\tclassName\n\t)}\n>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<h1\n\t\t\t\tclass=\"bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight\"\n\t\t\t>\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-4 text-lg text-muted-foreground max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-3 justify-center\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>{secondaryLabel}</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178672",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VVzW7bMAx+FcIYkBaI6rbriiJNMrSX7lAMBXYZsOwg27KjRZYEiU6dBQH2EHvCPckoO3b+2otFU/z7PpL2OtK8FNEo+v74BP/+/IUnxzMpNMIX4Uw0jJBL9Sp1Fo3QVWIY5VIJH41+rCNc2eAYFGS3DfNg7YVfCoVBl3Av3tKnRiOloDDR2KdOWgTFdTGZRehn0XSmZyhLaxzCGlING8idKWHwQckkrlAqH6d6cH9g9lghmiPT1NCtDoniSjb2wYNSu5ynAl6csR7WQTnDVHHvP4/Ao5O6uG+VKFGJY6Wvkjf11smSu9UzT4Q68REEOXvv1uiX1pcuzs5hMoWlkVl/+a1zPr3etJiUwAMcI2iOr0T9cA8JTGDwWEmVwcpUDrSoERJZgMwEh5x7ImYwPAQZXB4gEOnEXGgvlwLQGLWQCDjnCHOhiESKB5nwstBDOqnNxg6B6wz8XFqwzmRVitJo5gTPVp3CAwVQspijJjLAWyGyi66CfTpDFU+E0SN3KLK+yANWg9Gz4E5DaZzobHpuhyd0NprNaDsHE/hgg3B2TsyO43YswyjqMeUJxQfzhtfJOtVnbbjBK8srpSApWLFdHIaGJa6ZQ5bwdFE4UxETS8n3X8morAgL2JrdgF2x60vw5SgId41Qs1tQRTjvOix9U8PrOfW+2ZRxJpdtv2l/yprxCg2UvGav7LZW23U6MkNqPUtFWIXegEzmV53YIZ1FR8i2wHKieIdk9xbfXgYuUiUtC0mgyYSOa2+5C5+VRnFTqwCykT+RTEAbmQqGnD4OLDE0peSWLmgyGIYZmUVdcdNdletmSjc9gnh+tYNjd7RQyjazKtqzIX8fRsvYNRWw5XCPGMrTLcReKrvLdNACZHeQK1E3D5aaBmojO/MKBbfsI/yqPMp8ddoDCrb9lHn5W1A4VcwiMJoYTReTdT/Om+l6f0M247h1eyPQkjvJNVIsU6GSWlDAd4L3u0HhD7frNME4JtTdcPVyJ9EGtVtDcviLEOftH2Tzc/MfvEz7+XQGAAA="
+}

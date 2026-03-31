@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/utils-sse",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "XBG SSE - Server-sent events client",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -1,0 +1,30 @@
+{
+  "id": "descriptionlist01",
+  "name": "DescriptionList01",
+  "category": "blocks",
+  "group": "description-list",
+  "title": "Description List 01",
+  "description": "Key-value data display blocks — stacked, inline, two-column, and with icons.",
+  "tags": [
+    "description-list",
+    "data",
+    "detail"
+  ],
+  "source": "<!--\n  DescriptionList01.svelte\n  Card with title + description + Edit button. Rows of label/value (read-only).\n  Last row can show downloadable file items.\n  Desktop: label left / value right. Mobile: stacked.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  interface DLFile { name: string; size?: string; }\n  interface DLRow { label: string; value?: string; files?: DLFile[]; }\n\n  let {\n    class: className = '',\n    title = 'Application information',\n    description = 'Personal details and general information',\n    rows = [\n      { label: 'Full name', value: 'Alex Thompson' },\n      { label: 'Address', value: '123 Main Street, City, Country' },\n      { label: 'Email address', value: 'alex@example.com' },\n      { label: 'Phone number', value: '+1 234 567 890' },\n      { label: 'About', value: 'A motivated professional with 5+ years of experience in software development.' },\n      { label: 'Documents', files: [{ name: 'CV.pdf', size: '2,51mb' }, { name: 'Portfolio.pdf', size: '11,24mb' }] }\n    ] as DLRow[],\n    onedit = () => {},\n    ondownload = (_: string) => {}\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    rows?: DLRow[];\n    onedit?: () => void;\n    ondownload?: (filename: string) => void;\n  } = $props();\n</script>\n\n<div class={cn('rounded-lg border bg-background', className)}>\n  <!-- Header -->\n  <div class=\"flex items-start justify-between p-4 sm:p-6\">\n    <div>\n      <h2 class=\"font-semibold\">{title}</h2>\n      {#if description}<p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>{/if}\n    </div>\n    <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n  </div>\n\n  <!-- Rows -->\n  <div class=\"border-t\">\n    {#each rows as row}\n      <div class=\"flex flex-col gap-1 border-b px-4 py-3 last:border-0 sm:flex-row sm:gap-4 sm:px-6\">\n        <dt class=\"w-40 shrink-0 text-sm font-medium text-muted-foreground\">{row.label}</dt>\n        <dd class=\"flex-1 text-sm\">\n          {#if row.files}\n            <div class=\"flex flex-col gap-2\">\n              {#each row.files as file}\n                <div class=\"flex items-center gap-2 rounded-md border px-3 py-2\">\n                  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"shrink-0 text-muted-foreground\"><path d=\"M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z\"/><polyline points=\"14 2 14 8 20 8\"/></svg>\n                  <span class=\"flex-1 font-medium\">{file.name}</span>\n                  {#if file.size}<span class=\"text-xs text-muted-foreground\">{file.size}</span>{/if}\n                  <Button variant=\"ghost\" size=\"sm\" onclick={() => ondownload(file.name)} class=\"hidden sm:inline-flex\">Download</Button>\n                  <Button variant=\"ghost\" size=\"icon\" class=\"h-7 w-7 sm:hidden\" onclick={() => ondownload(file.name)}>\n                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>\n                  </Button>\n                </div>\n              {/each}\n            </div>\n          {:else}\n            {row.value ?? ''}\n          {/if}\n        </dd>\n      </div>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "15003:162192",
+  "playgroundUrl": null
+}

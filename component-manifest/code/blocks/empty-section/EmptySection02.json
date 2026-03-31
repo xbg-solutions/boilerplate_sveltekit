@@ -1,0 +1,23 @@
+{
+  "id": "emptysection02",
+  "name": "EmptySection02",
+  "category": "blocks",
+  "group": "empty-section",
+  "title": "Empty Section 02",
+  "description": "Empty states for application sections — no data, no results, first-use prompts, and error states.",
+  "tags": [
+    "empty-state",
+    "app"
+  ],
+  "source": "<!--\n  EmptySection02.svelte\n  Empty state with action grid: title + description + 2x3 grid of action items\n  (icon + label + description + arrow button).\n  Desktop: 3-col grid. Mobile: single-col list. Flat and card variants.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface ActionItem {\n    icon?: string;\n    label: string;\n    description?: string;\n    href?: string;\n    onclick?: () => void;\n  }\n\n  let {\n    class: className = '',\n    variant = 'flat' as 'flat' | 'card',\n    title = 'Products',\n    description = 'Create your first project by selecting a template or starting from scratch.',\n    actions = [\n      { label: 'Create a list', description: 'Organize tasks into simple lists.' },\n      { label: 'Create a gallery', description: 'Showcase items visually and neatly.' },\n      { label: 'Create a calendar', description: 'Plan events with clear schedules.' },\n      { label: 'Create a board', description: 'Manage projects with visual boards.' },\n      { label: 'Create a team', description: 'Collaborate effectively with your team.' },\n      { label: 'Create a timeline', description: 'Track progress with chronological views.' }\n    ] as ActionItem[]\n  }: {\n    class?: string;\n    variant?: 'flat' | 'card';\n    title?: string;\n    description?: string;\n    actions?: ActionItem[];\n  } = $props();\n\n  const iconPaths: Record<string, string> = {\n    list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',\n    gallery: 'M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6zM4 14a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4z',\n    calendar: 'M3 4h18v18H3V4zM16 2v4M8 2v4M3 10h18',\n    board: 'M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z',\n    team: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',\n    timeline: 'M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z'\n  };\n\n  function getIconPath(label: string): string {\n    const key = label.toLowerCase();\n    if (key.includes('list')) return iconPaths.list;\n    if (key.includes('gallery')) return iconPaths.gallery;\n    if (key.includes('calendar')) return iconPaths.calendar;\n    if (key.includes('board')) return iconPaths.board;\n    if (key.includes('team')) return iconPaths.team;\n    if (key.includes('timeline')) return iconPaths.timeline;\n    return 'M12 5v14M5 12h14';\n  }\n</script>\n\n<div\n  class={cn(\n    variant === 'card' && 'rounded-lg border bg-background p-4 sm:p-6',\n    className\n  )}\n>\n  <h2 class=\"font-semibold\">{title}</h2>\n  {#if description}\n    <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n  {/if}\n\n  <div class=\"mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3\">\n    {#each actions as action}\n      <button\n        type=\"button\"\n        onclick={action.onclick}\n        class=\"flex items-center gap-3 rounded-lg border bg-background px-3 py-2.5 text-left transition-colors hover:bg-muted/50\"\n      >\n        <div class=\"flex h-8 w-8 shrink-0 items-center justify-center rounded-md border bg-muted\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d={getIconPath(action.label)} />\n          </svg>\n        </div>\n        <div class=\"flex-1 min-w-0\">\n          <p class=\"text-sm font-medium\">{action.label}</p>\n          {#if action.description}\n            <p class=\"text-xs text-muted-foreground truncate\">{action.description}</p>\n          {/if}\n        </div>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"shrink-0 text-muted-foreground\"><path d=\"m9 18 6-6-6-6\"/></svg>\n      </button>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "15004:20198",
+  "playgroundUrl": null
+}

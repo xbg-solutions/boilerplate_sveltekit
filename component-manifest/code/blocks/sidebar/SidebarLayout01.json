@@ -1,0 +1,30 @@
+{
+  "id": "sidebarlayout01",
+  "name": "SidebarLayout01",
+  "category": "blocks",
+  "group": "sidebar",
+  "title": "Sidebar Layout 01",
+  "description": "Sidebar components.",
+  "tags": [],
+  "source": "<!--\n  SidebarLayout01.svelte\n  Documentation sidebar with grouped nav links, search, and breadcrumb.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    sections = [],\n    breadcrumbs = [],\n    logo = 'Docs',\n    version = 'v1.0.0',\n    children\n  }: {\n    class?: string;\n    sections?: Array<{\n      title: string;\n      links: Array<{ label: string; href: string; active?: boolean }>;\n    }>;\n    breadcrumbs?: Array<{ label: string; href?: string }>;\n    logo?: string;\n    version?: string;\n    children?: Snippet;\n  } = $props();\n\n  let searchQuery = $state('');\n</script>\n\n<div class={cn('flex h-screen', className)}>\n  <!-- Sidebar -->\n  <aside class=\"flex w-64 flex-col border-r bg-background\">\n    <!-- Logo + Version -->\n    <div class=\"flex items-center gap-2 border-b px-4 py-3\">\n      <!-- Lucide: BookOpen -->\n      <span class=\"flex h-6 w-6 items-center justify-center rounded bg-primary text-xs text-primary-foreground\">D</span>\n      <span class=\"font-semibold\">{logo}</span>\n      <span class=\"ml-auto text-xs text-muted-foreground\">{version}</span>\n    </div>\n\n    <!-- Search -->\n    <div class=\"p-4\">\n      <Input\n        type=\"search\"\n        placeholder=\"Search documentation...\"\n        bind:value={searchQuery}\n      />\n    </div>\n\n    <!-- Nav Sections -->\n    <nav class=\"flex-1 overflow-y-auto px-3 pb-4\">\n      {#each sections as section}\n        <div class=\"mb-4\">\n          <h4 class=\"mb-1 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground\">\n            {section.title}\n          </h4>\n          <ul class=\"space-y-0.5\">\n            {#each section.links as link}\n              <li>\n                <a\n                  href={link.href}\n                  class={cn(\n                    'block rounded-md px-2 py-1.5 text-sm transition-colors',\n                    link.active\n                      ? 'bg-muted font-semibold text-foreground'\n                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'\n                  )}\n                >\n                  {link.label}\n                </a>\n              </li>\n            {/each}\n          </ul>\n        </div>\n      {/each}\n    </nav>\n  </aside>\n\n  <!-- Main Content -->\n  <main class=\"flex flex-1 flex-col overflow-hidden\">\n    <!-- Breadcrumb -->\n    {#if breadcrumbs.length > 0}\n      <div class=\"border-b px-6 py-3\">\n        <Breadcrumb>\n          {#each breadcrumbs as crumb, i}\n            <BreadcrumbItem>\n              {#if crumb.href}\n                <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>\n              {:else}\n                <span class=\"text-sm text-foreground\">{crumb.label}</span>\n              {/if}\n            </BreadcrumbItem>\n            {#if i < breadcrumbs.length - 1}\n              <BreadcrumbSeparator />\n            {/if}\n          {/each}\n        </Breadcrumb>\n      </div>\n    {/if}\n\n    <!-- Content Slot -->\n    <div class=\"flex-1 overflow-y-auto p-6\">\n      {@render children?.()}\n    </div>\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Input",
+        "Breadcrumb",
+        "BreadcrumbItem",
+        "BreadcrumbLink",
+        "BreadcrumbSeparator"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "5199:54221",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41X727bNhB/lZtawAlmSnGb5oOrOGtWYCjQdRgCDAPqfqAk2uZCiQJJOTEEA3uIPeGeZEeJ+kNbKeYvJo/H+/u7O6oOCpqzYBn8ef8L/Pv3P/DAM5ZQBZ/pQVYGrhbBPDCUiydeZMHSqIrNgw0XTAfLr3VgDqW9bAnI50R9KMtQ75kwlpZQzaboqSwMKwyKCeIfCFkX0KluNV8tHK89+SjTKkduargsQDsTn7jZwVbJqmQZFHQPghePeg6aUZXu5kCLDBLFaJaqKk/CdUHIal3EOlW8NCBosb1dB0avg5XVwfNSKgPWI6jhoeBlyQwcYaNkDrPWltn7EWcNadGfvxY8iSrDhY7S4oTtU1FWZg73vSnj9SfD8vH+M/ow3j+wkipqpPJVpRKlFzaAUcWtPqtRoMG1XQCkgmq9bP++YPjhFmazeXumWWrjqJH29ZujDXHyyEJupb2KCdDd9T1T2qYByftFeBVedQfpjotMscaU49Kz5G4J2ihebN/7JiD9g1L0EDtmAMONYCfc0Ga258XcJUz0TLBTbDPsKIreM5ScSCkYxRytnJx+MfL27rtSe7uHuzYkp+64kJySu4Ag3eGpOThi6F6XSpb64nKUuRa2v1dMHSyDRrSzi9nMssRRC9qV5Y4zvm+jelunxcVsI9gz7AhyMFbM5kPOL48NsG159WXdlADSqC0iJ2UdNCKeyM012BVJpcDgqYwpoiDZkoSmj7bOiszVihP62aLjR/jDAcLJxsPBQiebI8o1SRGvTMGWluRNpyCB8plcQ3kgb3vhnfgqRSOXcC/l428lGylABl1iZj0dO3JjffB1/VVpwzeHbts4gd0CnSoVzymG2rBnQ551+++IZCMV6z3+iOFHbS/pxkZGNMt5IoXlri1Ajt+9kgtCKyN91XllWOYrrh2ufGlxhOFdtbjpsttA54UElOR6HNmmG3U7aPodMrXgWwfDQSloynboE1N47jRk40YchuH4QoITYrmnomK39QjLx44jetn+L9i8H7quNHhhe/o4xWQBEkOyEfKJHNoQInjeQpl4LtavGEVb+zZHdbc+DtZ6Icp9Ac357np8vLCa3vQZ85IOFZa2SnHQgVFYKtgAyBMiV72Y2LEitNdZFza97+hZEe2ufbMq0ZuFmEgZBuIqfHcu04tB2PRPGwi7OPqsKFTw1SnN9ohzGjRd8ba2YkK7PJNlf0NzmjoFmCVCpo9dMZI8a4OLPWARvmuDpnMby0Jza75tSFL1A+j01xjTdv1pBoA71LltM3GSu0bbkJzZSxKWMJvMJuwsJJe99Hb7f6ReTsRuIg2Yy8bBZjpNXIkjenYrjs4yWkcWECfgqsSIq6vLCf44wlJsB0fUTA5Xvk3x/kp5AT+3z7l+vuSW6LVnV8D9gOkrecezDB8N3mQZ3j9DO6hf8c14coeCFVt8Aa7gqnfLq+rxhLk5nTDIOyjxYuVKZ/wiwsJxDzd+koHYf8mdZaIxun1/vlAusf/2cwU2urJymxYAceTzn2tcMqHZlCJvBvVV5iPVTh1fnTfHBjTxU1/Ghk2EogkEh3gqgwQW5z1p6gkcnYH6xIwzlI+tGmbgCOlOxAh7HZQfhDTfedNMDSNyMx5DP+HTz06B/hkYXlz2BdVZEEe2VOx3iSPZ7y3MSfutdfx2/A8g6uhQog0AAA=="
+}

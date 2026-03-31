@@ -1,0 +1,27 @@
+{
+  "id": "comparisonsection03",
+  "name": "ComparisonSection03",
+  "category": "blocks",
+  "group": "comparison-section",
+  "title": "Before / After Toggle",
+  "description": "Toggle switch revealing before and after states of a feature.",
+  "tags": [
+    "comparison",
+    "pricing",
+    "features",
+    "landing-page",
+    "before-after",
+    "toggle"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tbeforeTitle?: string;\n\t\tafterTitle?: string;\n\t\tbeforePoints?: string[];\n\t\tafterPoints?: string[];\n\t}\n\n\tlet showAfter = $state(false);\n\n\tconst {\n\t\tclass: className,\n\t\tbeforeTitle = 'Before',\n\t\tafterTitle = 'After',\n\t\tbeforePoints = [\n\t\t\t'Manual processes taking hours',\n\t\t\t'Scattered data across systems',\n\t\t\t'Limited visibility into progress'\n\t\t],\n\t\tafterPoints = [\n\t\t\t'Automated workflows save time',\n\t\t\t'Centralized data repository',\n\t\t\t'Real-time insights and reporting'\n\t\t]\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-2xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<h2 class=\"text-3xl font-bold\">See the difference</h2>\n\n\t\t\t<div class=\"mt-8 flex items-center justify-center gap-4\">\n\t\t\t\t<p class={cn('text-sm font-semibold', !showAfter ? 'text-foreground' : 'text-muted-foreground')}>\n\t\t\t\t\tBefore\n\t\t\t\t</p>\n\t\t\t\t<button\n\t\t\t\t\tonclick={() => (showAfter = !showAfter)}\n\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t'relative inline-flex h-8 w-14 items-center rounded-full transition-colors',\n\t\t\t\t\t\tshowAfter ? 'bg-foreground' : 'bg-muted'\n\t\t\t\t\t)}\n\t\t\t\t>\n\t\t\t\t\t<span\n\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t'inline-block h-6 w-6 transform rounded-full bg-background transition-transform',\n\t\t\t\t\t\t\tshowAfter ? 'translate-x-7' : 'translate-x-1'\n\t\t\t\t\t\t)}\n\t\t\t\t\t/>\n\t\t\t\t</button>\n\t\t\t\t<p class={cn('text-sm font-semibold', showAfter ? 'text-foreground' : 'text-muted-foreground')}>\n\t\t\t\t\tAfter\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"space-y-6\">\n\t\t\t{#if !showAfter}\n\t\t\t\t<div class=\"rounded-xl border border-red-200 bg-red-50/50 p-6\">\n\t\t\t\t\t<h3 class=\"font-semibold text-red-900\">{beforeTitle}</h3>\n\t\t\t\t\t<ul class=\"mt-4 space-y-2\">\n\t\t\t\t\t\t{#each beforePoints as point}\n\t\t\t\t\t\t\t<li class=\"flex items-start gap-3\">\n\t\t\t\t\t\t\t\t<svg class=\"h-5 w-5 text-red-600 flex-shrink-0 mt-0.5\" viewBox=\"0 0 24 24\">\n\t\t\t\t\t\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n\t\t\t\t\t\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t<span class=\"text-red-900\">{point}</span>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t{:else}\n\t\t\t\t<div class=\"rounded-xl border border-green-200 bg-green-50/50 p-6\">\n\t\t\t\t\t<h3 class=\"font-semibold text-green-900\">{afterTitle}</h3>\n\t\t\t\t\t<ul class=\"mt-4 space-y-2\">\n\t\t\t\t\t\t{#each afterPoints as point}\n\t\t\t\t\t\t\t<li class=\"flex items-start gap-3\">\n\t\t\t\t\t\t\t\t<svg class=\"h-5 w-5 text-green-600 flex-shrink-0 mt-0.5\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n\t\t\t\t\t\t\t\t\t<polyline points=\"20 6 9 17 4 12\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t<span class=\"text-green-900\">{point}</span>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t{/if}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18842:71161",
+  "playgroundUrl": null
+}

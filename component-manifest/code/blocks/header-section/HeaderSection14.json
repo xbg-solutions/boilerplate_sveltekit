@@ -1,0 +1,27 @@
+{
+  "id": "headersection14",
+  "name": "HeaderSection14",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Filter Tabs",
+  "description": "Header title plus a row of category filter tabs and search input.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "filters",
+    "tabs",
+    "search"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tfilters?: string[];\n\t\tonFilterChange?: (filter: string) => void;\n\t\tonSearch?: (query: string) => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Browse Resources',\n\t\tsubtitle = 'Explore our comprehensive collection',\n\t\tfilters = ['All', 'Articles', 'Guides', 'Tutorials', 'Case Studies'],\n\t\tonFilterChange,\n\t\tonSearch\n\t}: Props = $props();\n\n\tlet activeFilter = $state(filters[0]);\n\tlet searchQuery = $state('');\n\n\tfunction handleFilterClick(filter: string) {\n\t\tactiveFilter = filter;\n\t\tonFilterChange?.(filter);\n\t}\n\n\tfunction handleSearch(e: Event) {\n\t\tconst target = e.target as HTMLInputElement;\n\t\tsearchQuery = target.value;\n\t\tonSearch?.(searchQuery);\n\t}\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"mb-12\">\n\t\t\t{#if title}\n\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-3\">{title}</h1>\n\t\t\t{/if}\n\n\t\t\t{#if subtitle}\n\t\t\t\t<p class=\"text-lg text-muted-foreground\">{subtitle}</p>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div class=\"flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6\">\n\t\t\t<div class=\"flex flex-wrap gap-3\">\n\t\t\t\t{#each filters as filter}\n\t\t\t\t\t<button\n\t\t\t\t\t\tonclick={() => handleFilterClick(filter)}\n\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t'px-4 py-2 rounded-full text-sm font-medium transition border',\n\t\t\t\t\t\t\tactiveFilter === filter\n\t\t\t\t\t\t\t\t? 'bg-foreground text-background border-foreground'\n\t\t\t\t\t\t\t\t: 'bg-transparent text-foreground border-gray-300 hover:border-foreground'\n\t\t\t\t\t\t)}\n\t\t\t\t\t>\n\t\t\t\t\t\t{filter}\n\t\t\t\t\t</button>\n\t\t\t\t{/each}\n\t\t\t</div>\n\n\t\t\t<div class=\"flex-1 lg:flex-none lg:w-64\">\n\t\t\t\t<input\n\t\t\t\t\ttype=\"text\"\n\t\t\t\t\tplaceholder=\"Search resources...\"\n\t\t\t\t\tvalue={searchQuery}\n\t\t\t\t\tonchange={handleSearch}\n\t\t\t\t\tclass=\"w-full px-4 py-2 rounded-lg border border-input bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring\"\n\t\t\t\t/>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18876:21506",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VWbW7jNhC9ykBdQA5gWXGSzQ/F9iIbpNsCbdF2A7RAnB+URMnsUpRKUv6AYGAP0RP2JB2Ski3ZXhQG7BH5+IYz82bkxhOkoF7k/fnxE/z79R/4g+kVfM+4phJeSKy8sacJ4xsmUi/SsqZjL2OcKi96bTy9q8xZs4C4lumxqiZqTZEB12Ki6KX1pBSaCo003kwlklUaOBH5fOlptfQWS7HUrKhKqaGBRMAeMlkW4L/jLA5rzbgKE+E/IMwAkUpmJKHwqywrBY1ZXOqEE6U+RKC0ZCJ/cIuaaU5PF1UdX1zPbBqOHK9v7UYpXIaeVnhnc2zkoB3wCuYLWJcsPeA/UyKTlUH+XVO5uwzcu3g41YMYIrA/v2Aax70oYA7+R1luFIXfqSprmVDlj4cRGczztuKlpIAISMqiknRFhWJrik+c00SzUnTn2ojx2Kv/yLk/Bv9RapZwQw3+p5qlznqpdSkZ4fbhCYsMn3WdMtx8G1/K0XiYCBtt1NZrDu8qY4yuHo4JIHivNW2FiAiliaZtmtXr9ZvFWqSyjL+ZtB6Bvt+RZbWwIQLeI+Ut4xNnyZezorVJP3HtUJcrP2k5rvr1O/HoIh7RCJ7XKPmDG2wBpUETmWMQc6CT1iQKfnj5+acfRVXrZ04LPNPpdBCpg0/WhNf0VGeTUQ97uNwsdK1m2kvMlCu9E9e8ScTI3wRZzTnEeRCT5Esuy1qkUG2DO6h2wfQeVBGhcXOHRT9I8mpvu3WWsnVLtfSKbUBQIFCQbbAJ7re8belTWBxMbw5bS918xzKwut13S3hiNT0c0HSrg7stNxex9nu0MxwlQVzyFLTEW2MlA83ylQakv0X2xjHOwtX06ClkWVutg+OuZ/q+q6FrnoP9LWpN0yDDrnI5Ml4Ox2dhdebHcIUY+qLzOchDxukWzFeAHQk8j6yNrW1spmmhgoSaIWee/6qVZtkuiKneUCogJ1Vw30viN5g3klQWe9vDmsgpSVbQ9T1qz5m9JCBlXGvUVn/JaC0xTTRvRnaIfau7rvbDY0e1DdeX2u+EdgM2qSbDRo0246pwdS5oyurCVBpHmJVvXMqUym6AHT/DLp53fXwKW+oP4KPgj8V0DnsN4Dz0EP45SWRJ7LUqIrFYjqXH2rLkkuyC2+trWJVrnD3/xz1M32K42VyqVeiK1a9xaGp8QA2FeEEwwfSgQVEKah6wie8GupkxM576js1/gbZPll5/o+L4al5hf1KJ+25AgezeWJPJZAi382ze9ObXID6UnR2986Y/XQeQLpZ2mp3LCtvY5b0rig3mZOx1sutdP7rY/CjMpFZRWWvOBHUpc0vmrYJuew/mqx9uuDirysDuLJzcblqjbf6R4T3cv7H92/4/bOOgQ8MJAAA="
+}

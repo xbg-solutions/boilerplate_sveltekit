@@ -1,0 +1,24 @@
+{
+  "id": "notificationbadge",
+  "name": "NotificationBadge",
+  "category": "atoms",
+  "group": "notification-badge",
+  "title": "Notification Badge",
+  "description": "Small circular counter badge, typically overlaid on a bell icon or avatar.",
+  "tags": [
+    "badge",
+    "notification",
+    "count"
+  ],
+  "source": "<!--\n  src/lib/components/ui/notification-badge/NotificationBadge.svelte\n  Small circular count badge.\n\n  Usage:\n  <NotificationBadge count={5} />\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  let {\n    count,\n    class: className = '',\n    ...rest\n  }: {\n    count: number;\n    class?: string;\n    [key: string]: unknown;\n  } = $props();\n</script>\n\n<span\n  class={cn(\n    'inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold',\n    className\n  )}\n  {...rest}\n>\n  {count}\n</span>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

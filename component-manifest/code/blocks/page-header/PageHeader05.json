@@ -1,0 +1,30 @@
+{
+  "id": "pageheader05",
+  "name": "PageHeader05",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 05",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader05.svelte\n  Compact one-liner: title left + icon+label action buttons right. No breadcrumb.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    title = 'Project alpha',\n    onview = () => {},\n    onshare = () => {},\n    onedit = () => {},\n    onpublish = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    onview?: () => void;\n    onshare?: () => void;\n    onedit?: () => void;\n    onpublish?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('flex flex-wrap items-center justify-between gap-3 py-3', className)}>\n  <h1 class=\"text-xl font-bold\">{title}</h1>\n  <div class=\"flex items-center gap-2\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={onview} class=\"gap-1.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>\n      View\n    </Button>\n    <Button variant=\"ghost\" size=\"sm\" onclick={onshare} class=\"gap-1.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8\"/><polyline points=\"16 6 12 2 8 6\"/><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"15\"/></svg>\n      Share\n    </Button>\n    <Button variant=\"ghost\" size=\"sm\" onclick={onedit} class=\"gap-1.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\"/><path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\"/></svg>\n      Edit\n    </Button>\n    <Button size=\"sm\" onclick={onpublish} class=\"gap-1.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 19V5M5 12l7-7 7 7\"/></svg>\n      Publish\n    </Button>\n    <Button variant=\"ghost\" size=\"icon\" class=\"h-8 w-8\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n    </Button>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4769",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VW4Y7iNhB+lWl0Eru6dYID2WVZoOqeqt6P3mmlSqdKpT9MMMR7xo5sk8AipD5En7BP0nESYFm4trr2R6VVwLG/+TIezzdOvAkUW/CgH/x8/wP88dvv8MDmHN5zNuUG2klwFTgmZCnUNOg7s+RXwUxIboP+L5vArXP/pAeQ1/j5Ls9DW3DpPDZhlp/DU60cVw7dBINvCBkrqOatp20nDdHD7/QiZ6kDrTiRQnHTByec5CD5zMFbEOjqrWQTLgFpQiuYLJ3TyoIR88yF8FHDxKDf1CwXk3CsCBmN1cCmRuQOJFPz4ThwdhyM/GxikWvjYAOpgi3MjF5A640Uk2jphLRRqlp3R7T7aq5jaooRY7S4umgpPN8/ITnSfQcglczafn37iLmBIbRaV7WtXhoCD0Y/clw2k3nGdlatCsFLNF9cwnAEm+0etxkz/JyBT4U7h+fLiRQ2e2bylm3/KMhv+2CdEWp+9yy6l2AdFKK1o0KL6d1RWOdNPrDzlia0U+MWo32TG53bi0sEBlEt4shneDAVRR30cJOqi9ZM8hX4hpSG5SAcX1iSoihY1Y9L68RsTSbclZwrmLOcdCBfk07r6iDL5baqiEFGG79YJnzlyErCDKuXTLScYtVsqqRsB1FGa/4hkHFQRXE0t58rbooNyU39FMwIphw+Mc+0deMArHjiOLQL7GuVSpF+Hm7qVG/37r0zGiZ7d+jQFnNYLaTy5sy5vB9FZVmGZSfUZh7F7XY7Qgo6LcXUZUiiXRxk3O+V3chPcq9XOGxDG+Iu/hDFXS4RUiidj88Z/dlHmC6NwaW901KbPU523uMD5DdvynIEjV6q6bHhUQt1sIwGOXMZTBH5EAONbYfcAG1XDdQNCnZDqo7Hq+ZpHESjQSpMilso9eFTP3263vUMdjoVyedgn7NPuNxGjqjW42vVqcr9dcnTRXmKHoshhnZ1YS+j8XOAxAXpVWnPtVx7d5CjP+dzQK/hGj0guQfXFaeyr+hOszVtwlzFe6jqJadC/uTT/98o6d9Or0tISqH7vnvQjWCvoN2XynZfKntTK3vw0wsTiMOExSGNKdStZ1PoQOdH1JomkmDZAMX2NkwI/p9OxfweFfhLLb+gXPP1eGXiYVZvPyUfEtxL8gbfk3idpvShTs3X7RB/zvJv0yarGelB6bf1v8lqcpTV5P+R1b/5gNDTr8ztPyAlX+A8E+hIkUGE5wh/UG3u/hyOp4/6DL79dfsnyWzYkbcLAAA="
+}

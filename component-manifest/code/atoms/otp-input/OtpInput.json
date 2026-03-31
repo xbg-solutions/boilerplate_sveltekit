@@ -1,0 +1,25 @@
+{
+  "id": "otpinput",
+  "name": "OtpInput",
+  "category": "atoms",
+  "group": "otp-input",
+  "title": "OTP Input",
+  "description": "Segmented input boxes for OTP codes. Auto-advances on digit entry and handles paste.",
+  "tags": [
+    "form",
+    "auth",
+    "otp",
+    "input"
+  ],
+  "source": "<!--\n  src/lib/components/ui/otp-input/OtpInput.svelte\n  OTP code entry with auto-focus behavior.\n\n  Usage:\n  <OtpInput bind:value length={6} onComplete={handleComplete} />\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  let {\n    length = 6,\n    value = $bindable(''),\n    class: className = '',\n    onComplete,\n    onfocus,\n    onblur,\n    ...rest\n  }: {\n    length?: number;\n    value?: string;\n    class?: string;\n    onComplete?: (value: string) => void;\n    onfocus?: (e: FocusEvent) => void;\n    onblur?: (e: FocusEvent) => void;\n    [key: string]: unknown;\n  } = $props();\n\n  let inputs: HTMLInputElement[] = $state([]);\n  let digits: string[] = $state([]);\n\n  // Initialize digits from value\n  $effect(() => {\n    digits = value.split('').slice(0, length);\n    while (digits.length < length) digits.push('');\n  });\n\n  // Sync value from digits\n  function updateValue() {\n    value = digits.join('');\n    if (value.length === length && !digits.includes('')) {\n      onComplete?.(value);\n    }\n  }\n\n  function handleInput(index: number, e: Event) {\n    const target = e.target as HTMLInputElement;\n    const char = target.value.replace(/\\D/g, '').slice(-1);\n\n    digits[index] = char;\n    digits = digits;\n    updateValue();\n\n    if (char && index < length - 1) {\n      inputs[index + 1]?.focus();\n    }\n  }\n\n  function handleKeyDown(index: number, e: KeyboardEvent) {\n    if (e.key === 'Backspace') {\n      if (!digits[index] && index > 0) {\n        inputs[index - 1]?.focus();\n        digits[index - 1] = '';\n        digits = digits;\n        updateValue();\n      } else {\n        digits[index] = '';\n        digits = digits;\n        updateValue();\n      }\n    } else if (e.key === 'ArrowLeft' && index > 0) {\n      inputs[index - 1]?.focus();\n    } else if (e.key === 'ArrowRight' && index < length - 1) {\n      inputs[index + 1]?.focus();\n    }\n  }\n\n  function handlePaste(e: ClipboardEvent) {\n    e.preventDefault();\n    const pasted = (e.clipboardData?.getData('text') || '').replace(/\\D/g, '').slice(0, length);\n    for (let i = 0; i < length; i++) {\n      digits[i] = pasted[i] || '';\n    }\n    digits = digits;\n    updateValue();\n\n    const focusIndex = Math.min(pasted.length, length - 1);\n    inputs[focusIndex]?.focus();\n  }\n</script>\n\n<div class={cn('flex items-center gap-2', className)} {...rest}>\n  {#each Array(length) as _, i}\n    <input\n      bind:this={inputs[i]}\n      type=\"text\"\n      inputmode=\"numeric\"\n      maxlength=\"1\"\n      value={digits[i] || ''}\n      class=\"h-10 w-10 rounded-md border border-input bg-background text-center text-sm font-medium shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\"\n      oninput={(e) => handleInput(i, e)}\n      onkeydown={(e) => handleKeyDown(i, e)}\n      onpaste={handlePaste}\n      {onfocus}\n      {onblur}\n    />\n  {/each}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

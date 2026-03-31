@@ -1,0 +1,33 @@
+{
+  "id": "richtext04",
+  "name": "RichText04",
+  "category": "blocks",
+  "group": "rich-text",
+  "title": "Newsletter",
+  "description": "Email-newsletter-style article layout with author bio and subscribe prompt.",
+  "tags": [
+    "content",
+    "article",
+    "blog",
+    "docs",
+    "newsletter",
+    "email"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tbody?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Stay Updated',\n\t\tbody = 'Get the latest insights and updates delivered to your inbox.',\n\t\tctaLabel = 'Learn more',\n\t\tonCta\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-24 px-4', className)}>\n\t<div class=\"mx-auto max-w-xl text-center\">\n\t\t<div class=\"mb-8 flex justify-center\">\n\t\t\t<div class=\"h-12 w-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground\">\n\t\t\t\t<svg class=\"h-6 w-6\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n\t\t\t\t\t<path d=\"M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\" />\n\t\t\t\t\t<polyline points=\"13 2 13 9 20 9\" />\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<h2 class=\"text-2xl font-bold\">{title}</h2>\n\t\t<p class=\"mt-4 text-muted-foreground\">{body}</p>\n\n\t\t<div class=\"mt-8\">\n\t\t\t<Button onclick={onCta}>{ctaLabel}</Button>\n\t\t</div>\n\n\t\t<p class=\"mt-8 text-xs text-muted-foreground\">\n\t\t\tWe respect your privacy. Unsubscribe at any time.\n\t\t</p>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:183338",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VU3W7TMBR+laMIqZvUrFuYpq1rhxgXcAETEuJHolw4yWlr5tqWfZImRJV4CJ6QJ+E4aWkbDXGT2J+Pv/OdPzeRFiuMxtGX+9fw++cveMC1V0iELhpGJKRaS51HY3IFDqO5VOij8dcmotqGWwFguy3HS2vPfImKApYKj0/hmdGEmpgmmvjMSUughF5MZxH5WXQ30zOSK2scQQOZhg3MnVnB4JmS6aggqfwo04PbI7P7gsj0TDPDpzo4GhWytQ832LWbiwzhvTPWQxPAGWVKeP9iDJ6c1IvbDiRJCvtgavK6j2Uk3ooUVR83+hUJBk9OYXoHpZF5e7DppHAaPB0JGEP7e+CcDQ8kwBQGH0jU8NHmgjAfDPdSwtlrJKAlchIJmVFqLxdL8iB0DkV7xUOOSpboMAcyUJvCsVlqqrMd1y6EwPcWhdOwMg53p20grfTxNm9TeGbD4uSUQ5qMujKG0umJx4wkF6ONZdpk+mSwjueFUpAu4lRkjwtnCpZm6zi5BFvFl4PhPvDTTdsAk1yWW4ZZtKpiUbDulajidVwpIKwozjDUctsw/RtpfA1zhRV8LzzJed237tkv44sE1uHTasP8r+BVwRnvqCThym+JerydotY2nnPiuhAPvLE/Xy4O/F2xu6tZBKXE9b2pGDuHc+CEJJeM8lQphjT3L++4qcwj8j4rnGN/r4wy7oic6a2gJeRs9O7iOSRvrkQCCQTO85hX5cUBwP9keZEcAnHy6eYHuxr1SI2qldQI1vDkBOWBHPhzA8k53PRucCOUi32GR5ziXXV26263TP6mos1cwkWd87MQp0aFtDVt428mo2WyI7D74lJ8+c+EN2Eq+KLdOztqDIqvD5tg+3AYnSmZPU6bttM3d81uHpipM3k6jiNR152oyv+3Gz4jOPSWB6WbRetkKbL6DD5qX6RhmFIEQTzBNfAjh2c757Ybjq0ITnc3a7wObzV77d7pzbfNH900hQfXBQAA"
+}

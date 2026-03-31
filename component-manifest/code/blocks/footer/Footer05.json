@@ -1,0 +1,25 @@
+{
+  "id": "footer05",
+  "name": "Footer05",
+  "category": "blocks",
+  "group": "footer",
+  "title": "Minimal Footer",
+  "description": "Just copyright and essential links.",
+  "tags": [
+    "footer",
+    "landing-page",
+    "navigation",
+    "minimal"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t}\n\n\tlet { class: customClass = '' }: Props = $props();\n</script>\n\n<footer class={cn('w-full border-t bg-background py-6 px-4 text-center', customClass)}>\n\t<div class=\"flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground\">\n\t\t<a href=\"#\" class=\"hover:text-foreground transition-colors\">Privacy Policy</a>\n\t\t<span>•</span>\n\t\t<a href=\"#\" class=\"hover:text-foreground transition-colors\">Terms of Service</a>\n\t\t<span>•</span>\n\t\t<a href=\"#\" class=\"hover:text-foreground transition-colors\">Cookie Policy</a>\n\t</div>\n\t<p class=\"mt-4 text-sm text-muted-foreground\">© {new Date().getFullYear()} Acme Inc. All rights reserved.</p>\n</footer>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17878:7608",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE7VTzY7TMBB+lZFZKa3UNBfEIaRFZdEiDkiV4AAiHFxnkpp1bMue9EdRpH0InmBvvAaPsk+C3bQLQhw4wMUej+f7vpnxuGeat8hy9uHla3i4+wpvpZYtV3BjDKFjM0Zcqr3UFcvJdThjtVToWf6pZ3S0ERkdIe7Ms7J27neoKPo23OOf/MJoQk2BhhVeOGkJFNfNomTkS7YsdUmytcYR9CA0DFA700JypeQm60gqnwmdPA9hMTBQuZoLhLUz1kMfnSUJxb1/kYMnJ3UTY2kYAQpPtPE+B9F5Mu11PMACkgSG/MyzgCsbjck0gItsTDOmpov61JuRYtELPUn2ad0pBRvjKnQpwaZJN1zcNs50ugJ7TJ+BPaRPgfBAqcCYcjL7VXw6nKouKrk785asVniAuKR7xy1IwtafwfAlQGV9vBwbbi/svh33tiOs0to4HLM49zVocNg6rIPAk5I9im3NDl1+Qv7EADmuvSRpdCqMMi6+ztrJHRdHWBslxbHI+IXXW66XD3f3oVnR+jdq79G1HkwN79DtpMD/rXdtzK3E34orsvAuo2UfOVv6i5Z//wa9xj284oST6bxBugmD8hG5m0wHWIkW4Y0Wc1iF6XGy2ZIHhz6UitW8yOwyjt44bsGMvzHojD9x+Dz8AHLro5G9AwAA"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "cta05",
+  "name": "CTA05",
+  "category": "blocks",
+  "group": "cta",
+  "title": "Dark Card CTA",
+  "description": "Rounded dark card placed within a light page section.",
+  "tags": [
+    "cta",
+    "call-to-action",
+    "landing-page",
+    "dark",
+    "card"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tlet {\n\t\tclass: className = '',\n\t\teyebrow = 'CTA Section',\n\t\theadline = 'See it in action',\n\t\tdescription = 'Experience the power of our platform with an interactive demo.',\n\t\tctaLabel = 'Get started',\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\theadline?: string;\n\t\tdescription?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t} = $props();\n</script>\n\n<section class={cn('w-full bg-foreground py-8 px-4', className)}>\n\t<div class=\"mx-auto max-w-5xl rounded-xl bg-foreground border border-background/10 text-background overflow-hidden\">\n\t\t<div class=\"flex flex-col sm:flex-row\">\n\t\t\t<!-- Left: Content -->\n\t\t\t<div class=\"sm:w-1/2 p-6 sm:p-10 flex flex-col justify-center\">\n\t\t\t\t<p class=\"text-sm font-medium uppercase tracking-wide opacity-60 mb-2\">{eyebrow}</p>\n\t\t\t\t<h3 class=\"text-2xl sm:text-3xl font-bold mb-4\">{headline}</h3>\n\t\t\t\t<p class=\"text-sm opacity-70 mb-6\">{description}</p>\n\t\t\t\t<button\n\t\t\t\t\tonclick={onCta}\n\t\t\t\t\tclass=\"inline-flex items-center gap-2 w-fit rounded-md border border-background/30 bg-background/10 px-5 py-2.5 text-sm font-medium text-background hover:bg-background/20 transition-colors\"\n\t\t\t\t>\n\t\t\t\t\t{ctaLabel}\n\t\t\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\" />\n\t\t\t\t\t\t<polyline points=\"12 5 19 12 12 19\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t</div>\n\n\t\t\t<!-- Right: Image (Partially Hanging) -->\n\t\t\t<div class=\"sm:w-1/2 flex-shrink-0\">\n\t\t\t\t<div class=\"rounded-lg bg-muted flex items-center justify-center aspect-video h-64 sm:h-full\">\n\t\t\t\t\t<svg width=\"24\" height=\"24\" viewBox=\"0 0 20 20\" fill=\"currentColor\" class=\"opacity-60\">\n\t\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\" />\n\t\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" />\n\t\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\" stroke=\"currentColor\" stroke-width=\"1\" fill=\"none\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:173693",
+  "playgroundUrl": null
+}

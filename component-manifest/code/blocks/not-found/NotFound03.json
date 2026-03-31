@@ -1,0 +1,31 @@
+{
+  "id": "notfound03",
+  "name": "NotFound03",
+  "category": "blocks",
+  "group": "not-found",
+  "title": "Dark 404",
+  "description": "Dark background 404 with glowing or gradient type treatment.",
+  "tags": [
+    "404",
+    "error",
+    "not-found",
+    "dark"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonHome?: () => void;\n\t}\n\n\tconst { class: className, onHome }: Props = $props();\n</script>\n\n<section\n\tclass={cn(\n\t\t'w-full bg-foreground text-background min-h-[60vh] flex flex-col items-center justify-center px-4 text-center',\n\t\tclassName\n\t)}\n>\n\t<p class=\"text-9xl font-black opacity-10\">404</p>\n\t<h1 class=\"mt-4 text-3xl font-bold\">Page not found</h1>\n\t<p class=\"mt-2 opacity-60 max-w-sm\">\n\t\tThe page you're looking for doesn't exist or has been moved to another location.\n\t</p>\n\t<Button onclick={onHome} variant=\"secondary\" class=\"mt-8\">Go back home</Button>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:185137",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE21T0W7aMBT9lSurEiCRBraq2mhgWjWpe5r6sIdJTR+McYiH4xvZNxSEkPYR+8J9ya5jQF21F4hPfM65x8c5CCcbLWbix/0D/Pn1G75Iv4GbyY0YC5LGvhi3EjPynR6LylgdxOzpIGjfRk4EeN9J4XPbXoetthSxpQz6f7hCR9oRy4giKG9aAivdel4KCqVYlK4k07ToCQ6gHByh8tjA4MqaZd6RsSFXbnD3z7b7jgjfbFXIb100yjvT748MtvaVVBoePbYBDhEsSVkZwqcZBPLGre8SiO4rNprR4QjmC9iiWfVvjkmKY4R+xMidpb9vHHcMiQjH2clkDldtfBiOmF/kKXPM6YqgFRlMelFgflBumOwHL1nVWQvLdVah12uPnVsB6R1lS6k2p3VjXFZnT7eTbf0MldW7/idTaMGQbkKmdIwMP7tAptqfl+0uu0laCRiMXx1ETBGXI07a11G0KV6sKHI+7ixU3GK2tDwJYCuVoX02nXB9fG+KvE20enrhNXQ2fH8ho10x4VGuNTgkBjlQkdfTt57MfXcxuZ1AI3fZSxaa02Up6XutoY0ye+wGXoNF3HCPrOhhhTq4AYHeGa6LgVoGWGrtoMGt5gNFkOxe86FYVDK2cd37n0Oc7hY6ZY3azA+p3SNspTfSEc/HJaJbSb8vxeuZP/B8DwixLKiZUuRJatFfglQ8P8evjM8lfWHH5+Nfovg8pY8DAAA="
+}

@@ -1,0 +1,32 @@
+{
+  "id": "headersection15",
+  "name": "HeaderSection15",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Dark with Dot Grid",
+  "description": "Dark header with subtle CSS dot-grid background pattern.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "dark",
+    "pattern"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'Premium Features',\n\t\ttitle = 'Elevate Your Experience',\n\t\tsubtitle = 'Unlock powerful capabilities with our advanced platform',\n\t\tprimaryLabel = 'Start Free Trial',\n\t\tonPrimary\n\t}: Props = $props();\n</script>\n\n<section\n\tclass={cn('w-full bg-gray-950 px-4 py-24 sm:py-32 relative overflow-hidden', className)}\n\tstyle=\"background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px;\"\n>\n\t<div class=\"absolute inset-0 bg-gradient-to-b from-gray-950 via-transparent to-gray-950 pointer-events-none\"></div>\n\n\t<div class=\"mx-auto max-w-3xl text-center relative z-10\">\n\t\t{#if eyebrow}\n\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border border-gray-800 bg-gray-900/50 px-4 py-1.5 text-sm text-gray-300\">\n\t\t\t\t{eyebrow}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t{#if title}\n\t\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6\">{title}</h1>\n\t\t{/if}\n\n\t\t{#if subtitle}\n\t\t\t<p class=\"text-xl text-gray-400 mb-12 max-w-2xl mx-auto\">{subtitle}</p>\n\t\t{/if}\n\n\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t{primaryLabel}\n\t\t</Button>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:21487",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV247jNgz9FcJdIAkQjZ3MZNtmkim62MvLohhgW6BF0wdZVhwhsiRIdC4bBOhH9Av7JUvZzuTS6UNigaQPDw9J+ZAYXslkmvz+7hP8+/c/8J77NWwVruC9RfjkVZEME+RKb5Upkin6Wg6TpdIyJNM/DwnuXXw7Giiuw/rZubuwkRqjLedBvmYX1qA0SDDJLAivHILmppwvEgyL5GlhFqgqZz3CAYSBIyy9raD3Rqs8rVHpkArTe7wKe1cj2ptQYclrYqK0Vk18fINS+yUXEp69dQEO0bhAoXkIP00hoFemfGyNci9zb7e3ZlSo5a0x1PmrdudVxf3+M8+lvvVZ89x6ydEfwPwJNlYVjfPYstUSrxhOoXn8QqIOrzjCHHrPXlaqruCj5Fh7GXrDC74x4IOWG44S/rC1hw87J72SRshT3KmEGPqb0VaswdktqVVrENzxXGmFSoZ2RiIGLzacAApwmuPS+uoEdVl1hPuCnNr00UsJv3rF9SnuRYGm5mnXkzm8cfHQH5AWs7QdkTgWZhakQGUbbRol5gdh+r0tI44a8pKVnu/Zj5MM3I49gNuz8QOEakqH+zF4STTVRoLdUFXabtlKFYU0veFZ1kFUHgPutaR5zLlYl97WpmBEs5RT8Lwg/jFPQeJhXygvtByCL3PeH08mw9Mvu8vuBzByuyGg5yY47ik+GgaPcIEb1FeCfcjcrvl7XCQL06zArFCblhcR4XmwuqbeKRMksqyrteHA0LK8Gfxz+RvF2WVaCjlLY5slYHITd4MZ2hHaullK+Z7asbtKXe0Yr9FCxXdsy+53GlDukAkZQc6afmWjrFveBR6+U0voRvPYmm5Rc/aWitHKSLbUcgcKZRVOqCV3jPoVBZJF11zrC/K0j7aYH7Ls3PMsSy/aPrqbtDRD1T6boPvsTLGh+R+KJxGiM1XLbg27gprtOMeuRi/VNCkmJA3NWnN+S2ddtufv6bykK4/lVhdxGMSa7gCGqlxhS267ouohSkL0Dm2aWboa/S+T06qeybhrLqcuNWU/kE4EPhp3PRyTt+tqzPcCNkvdaxln3eVqjdBKrOeHl609QpxeyqnLC10Pl9vfMZylLUg72Z3KtNrtOtM5fmqIcPuZOf51/AY4Za36ngYAAA=="
+}

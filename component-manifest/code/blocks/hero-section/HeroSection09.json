@@ -1,0 +1,32 @@
+{
+  "id": "herosection09",
+  "name": "HeroSection09",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Hero + Logo Strip",
+  "description": "Standard hero with a 'trusted by' logo strip below the CTAs.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "logos",
+    "social-proof"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\tcompanies?: string[];\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Build your next big idea faster',\n\t\tsubtitle = 'A comprehensive toolkit that helps you design, develop, and ship production-ready products at lightning speed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\tcompanies = ['TechCorp', 'StartupAI', 'CloudScale', 'DataHub', 'DevTools'],\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<h1 class=\"text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-4 text-lg text-muted-foreground max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-3 justify-center\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>{secondaryLabel}</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-12 flex flex-wrap justify-center gap-6 opacity-50\">\n\t\t\t{#each companies as company}\n\t\t\t\t<div class=\"text-sm font-semibold text-muted-foreground whitespace-nowrap\">\n\t\t\t\t\t{company}\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178748",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV227bRhD9lQEbgDYqRrGbGIYiubBTIClgBAGchwKWH5bkiNx6ubvYHepSgkA/Il/YL+ksqbuUF3E4O3tmzpkZsYm0qDAaRX89fIb//v0BX9AZ+BUeTWHgiZy00SAiIdVC6jwakatxEM2kQh+NnpuIVjZcDg6OW0PdW/vWz1FR8KXC4zl/ZjShJoaJxj7jPARK6GIyjchPo7upnpKsrHEEDWQaWpg5U0H8Rsl0WJNUfpjp+ONB2ENNZI5CM8OnOiQa1rKLDzc4tZuJDOGbM9ZDE5xTypTw/vcReKati4+9kyQpPHb6Oj3rt05Wwq0eRYrq5A4y5fxnp0Z/6+/ywcUlTO5gbmS+PXzaXD53HDgKLXFX+/NLd9T2dBXSAcURdI+v3JXBHkmYQPxQS5XDytQONC4JUlmAzFHATHjWLB4c8g9X7iHkd1ii9nKOQMaoV0lApSAoUbG+jAc5elnoAT95AowdgNA5+FJasM7kdUbS6MShyFcbhwcGULIoSTMl8BYxf7upYF/pUMVn5uhJOMJ8W+SB4CHoEYXTUBmHm5it7IMTpQdH4jLAc/wds/KTcTYeQPwU0tX2/s/w8kmZOn/KhMLw9ocg8aVOOxPn31kRH790gO1oPXMTeGODcXHJrRoP+xUIY6/HXHhQo+/SpMn0RbxIZrVSkBZJKrLXwpma1bPL5D3YVXL9Dnw1CsZtZyyTG1BFeN5yBdteX7bdVo1zOV9DT6NqmYiaDFRimSySm6Var95RGPEsJBmGtdkGcEh5dRjxfqlCAZ39gW0uorMZF2a870lqeLrIMQXuaEKht3t4U2q6qWq3CYbl1S6b3VXNqaBDVkX/rGpufDLjzq616Qldc+I1xcM8mwHeS2V3mQ4UouQWZgqX3U+SmY5iZzuzgELY5Df4u/YkZ6tTiRhs/a/k5T/IcKqYRmB0pmT2Omm249feNfsT3Y6H/bUzQHPhpNDEWKYmJTUy4E/At7PM8IfbcJpgPGTWm95v7NNJYDmurvf0WDhhj+h3mtyAsSKTtEo+vNvTo/kFRVbCbqmEX7+s2j2qJ7Pnq36APFayH6KzXV+UktBzYky0CaUdtILTn8m1x5sDhqG+9kiGrcV72u8m2+G7yEX038T2pf0fo28nxEoHAAA="
+}

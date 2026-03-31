@@ -1,0 +1,32 @@
+{
+  "id": "headersection10",
+  "name": "HeaderSection10",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Phone Mockup",
+  "description": "Header with a phone device mockup image.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "mockup",
+    "mobile"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted flex items-center justify-center\"><svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 gap-12 sm:grid-cols-[3fr_2fr] items-center\">\n\t\t\t<div>\n\t\t\t\t{#if eyebrow}\n\t\t\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t\t\t{eyebrow}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t\t\t{/if}\n\n\t\t\t\t<div class=\"flex flex-col sm:flex-row gap-4\">\n\t\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t\t{primaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t\t\t{secondaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"mx-auto w-48 aspect-[9/19] rounded-[2rem] border-4 border-foreground bg-muted shadow-xl flex items-center justify-center overflow-hidden\">\n\t\t\t\t{@html imagePlaceholder}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:19478",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VWX2+jRhD/KiN6khPJHMaxI5/Pdtv04V7aU6Srqkpx1MOwwDbLLtpdjF3LUj/EPfa5H+w+SWcAE7BzjWTB7Oz8n98MPjgyyJgzd36/+wBf//4C96mSDH5R4VORO0PHBlyUXEbO3OqCDZ2YC2ac+cPBsfuc9IiBco2VH/P8rdkyYYm3CQx7iR8qaZm0aMZZmFDz3IIIZLJcO9asndVari3PcqUtHCCUcIRYqwwGbwTfeIXlwnihHLzvid0V1qoz0VDhrSRHXsEredJA1zoOQgb3WuUGDsRc21AExnw/B2M1l8n7msn2bKNVec623Ap2zoxYnQlX8vwq1zwL9P7nYMPE+Z1hWIzoW7dK3te6eHF1DcsVbBWP2stPJ+XL62OdrWC2l+EcqtdHbMqwlyMsYfCRlaCZYNg1+PrPv4NhJ126/zVlkKmIaQllsAerYFNwEUGsNFi8K9nmpNOpxvCyCGTsA0ZmbKAti05K/VqQ0G8cQ4pYpk4ibUGGFzWosp43XV3Cm5yIq+um7ShkLKBqwu4Fdj9VAhNBuc+LiG/rqiD+SjcuhIC0fm0SNyswQIgF2wG3LDNuyAhA8GdhLI/3zRFBuzDbBEoe2RTN3IzXDqSMJ6k9nbaYyp3a4XEEIxhP8IdcHB6BLIkwxRP2Xj0xPIeF1mj4JyWUbvnuybqPrFPAlu1sHaSLbWCJVoWMvMmIItIstEAeb1Bh37xbI7NuiNVJkyzG6q0WIdchNj0kzuztlBzuW1KTAlEomCuxFxwXRq5wsiiisQ/+FPxb8EcwhbFfiXlYHXxiqVefsSN4ruBBoy4X2HcCSpPTIZRXg7JtwCYIn+qsIN+5E8j37ngEJpsTMRsMnwF9faw2R6+f2c4NCgRqFuzc0r3diWa9nIklmkdADzdUwrg+JEHu+mNy88x9uIn1H+NYP/aQ0BqsTbaHtT18x2Noxuv4zD6PcOPeApdUQ/cSZhTHGKr0qcNVTZQm5J6w6U1HVJgbKowPFRx2phNUE8uLcXhnAXs8bvZGJ4Nq/Pt6qd/H32QnqFQVPUU6xv3ubnDCwGpsH+4z1xLQAJNF1K8Otc2Fl/qvuu9skn4QeT8GkcCLs0A+Z+Sza2jh5f/nuNegqin0IBRQmhVNK5OaMzkr9aL5ECkZCh4+LQ/txjqC4X/RcIvksj3d7XjWo9rga07aNXiEbaB5IGmqVWEJV7RBvu26v3Vfc97HTHvqTMDF7JXuZAaByXHK3Yd3nv/usQX0w1iz7LGBNA53Q3S6165gkwaRKl1C1yvLGNQWv/AChVMeRUz2Uj78kNpMXHwIjhcZ9egThXur3lVI038jBFz9v+j4ePwPy7Gq/EkJAAA="
+}

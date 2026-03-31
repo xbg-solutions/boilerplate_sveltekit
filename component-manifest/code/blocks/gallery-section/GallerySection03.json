@@ -1,0 +1,26 @@
+{
+  "id": "gallerysection03",
+  "name": "GallerySection03",
+  "category": "blocks",
+  "group": "gallery-section",
+  "title": "4-col Grid",
+  "description": "4-column equal image grid.",
+  "tags": [
+    "gallery",
+    "images",
+    "landing-page",
+    "grid",
+    "4-col"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\timages?: Array<{ src?: string; alt?: string; caption?: string }>;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Explore our gallery',\n\t\tdescription,\n\t\timages = Array.from({ length: 8 }, (_, i) => ({ alt: `Image ${i + 1}` }))\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted rounded-lg flex items-center justify-center overflow-hidden\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full px-4 py-16', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t{#if title || description}\n\t\t\t<div class=\"mb-8 text-center\">\n\t\t\t\t<p class=\"mb-2 text-sm font-medium text-muted-foreground\">Gallery Section</p>\n\t\t\t\t{#if title}\n\t\t\t\t\t<h2 class=\"mb-2 text-3xl font-bold tracking-tight sm:text-4xl\">{title}</h2>\n\t\t\t\t{/if}\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t<div class=\"mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4\">\n\t\t\t{#each images.slice(0, 8) as image}\n\t\t\t\t<div class=\"aspect-square\">\n\t\t\t\t\t{@html imagePlaceholder}\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18191:187326",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV247bNhD9lYGygG1UWl/iXRiK12lSFIu8FAH6EqAuujRFSUwoUiUpW4YioB/RL+yXZCjKa9m7fZE0w+GZM3OGVBNIUrAgDr58fIT//vkXlhFVAh41T4IwsISLA5dJEFtdsTBIuWAmiP9oAnss3S7nwLge40NZ3po9E9b5dsSw1/xUScukRZhgbajmpQVBZPawDazZBput3FpelEpbaIBKaCHVqoDRjeC7aWW5MFMqR+8wzAUilE4JZfBZq9JA45xbSwUx5n0Mxmous3feabkV7NqZME+BK3m9xAuSMYfyQWtyXDdgND3HABF2YFFyiQHtpoNpPU/B7AW3GLrXb9iecMAOHmD0a10KpRmoSkNGhGD6OApfkA2HHHFbx/HWdWrcgGAys3kMK2hDGP8VAp/AwwZwBUnH8PTJ7YKbhsNPMG+foJ1MOq5x38UHuCndx3jStxklMxa6ZJ8FdjtXImEa457WCd/7WlC/Q5RWQkDuX7ssKirLEtCqkglLIpFBKlgN3LLCRJQ57eBrZSxPjydT7VFPoQ5RzpOESZyHtdlncOCJzTHDYrkNIGc8y+3J2nN2+KhqNGcwg8USOi/OpUCXVJKhhZqobwxtWmmNiX5R2OJnf3RCn9/eofNUjWW19RVEKQqSdWVMlzPHSTNqweV8ixuO/fsZZjUk2VnaxS62wXSzplxTVJo6z8onPD5/6hMLDCyVOAouGZQKx9wxWsxhfgfze5jP4A4W8y5siv3BJ+qweUK50O5mxJ0juTbIE6elr6mhcjzqRSrraAnlMZrfj8LzME7a7vxdqFrUEamsgoLU0SG6r0V/SLe2ecNT8IP7/TsMprP169dAu2gFXVe92M84XWQ5jFv4OFNAirdFVLCEVwW8qgiiPPpjAr/7atfTcgB8JtmenZgvX7yS8G0tfMYdTjhYTeg3PMyRdVqCKeIuaNm1oPGY62m+GGab8rS9Sv5aY65K7nDxfPxfhc0Q46q+YUY/B706/YJ8KYRFITK84buHu+8NNiAjJT6xyLNzOZCoecMIzf0lYG6N4JSNZyGsJkCM9w6Ku0hHTInCRObvimh2ITqi/pzbQry4WoZQg5JcUY5Fv3xeOn3h9PsZwG/3+8J2+l9X+2f7A1O+pgXqBgAA"
+}

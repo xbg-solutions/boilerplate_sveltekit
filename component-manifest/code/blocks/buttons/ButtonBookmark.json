@@ -1,0 +1,26 @@
+{
+  "id": "buttonbookmark",
+  "name": "ButtonBookmark",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Bookmark Button",
+  "description": "Bookmark icon button with count and toggle state.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "bookmark",
+    "toggle"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tcount?: number;\n\t\tbookmarked?: boolean;\n\t\tonbookmark?: () => void;\n\t}\n\n\tconst { class: className = '', count = 24, bookmarked = false, onbookmark } = $props();\n\n\tlet bookmarkCount = $state(count);\n\tlet isBookmarked = $state(bookmarked);\n\n\tconst handleBookmark = () => {\n\t\tisBookmarked = !isBookmarked;\n\t\tbookmarkCount = isBookmarked ? bookmarkCount + 1 : bookmarkCount - 1;\n\t\tonbookmark?.();\n\t};\n</script>\n\n<button\n\ttype=\"button\"\n\tonclick={handleBookmark}\n\tclass={cn(\n\t\t'inline-flex items-center gap-2 rounded-md border bg-background px-3 py-1.5 text-sm hover:bg-muted transition-colors',\n\t\tisBookmarked && 'bg-muted',\n\t\tclassName\n\t)}\n>\n\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill={isBookmarked ? 'currentColor' : 'none'} stroke=\"currentColor\" stroke-width=\"2\">\n\t\t<path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\" />\n\t</svg>\n\t<span>Bookmark</span>\n\t<span class=\"text-sm text-muted-foreground\">{bookmarkCount}</span>\n</button>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:30230",
+  "playgroundUrl": null
+}

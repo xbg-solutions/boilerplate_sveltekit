@@ -1,0 +1,27 @@
+{
+  "id": "richtext02",
+  "name": "RichText02",
+  "category": "blocks",
+  "group": "rich-text",
+  "title": "Sidebar TOC",
+  "description": "Article body with a sticky table-of-contents sidebar.",
+  "tags": [
+    "content",
+    "article",
+    "blog",
+    "docs",
+    "toc",
+    "sidebar"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Section {\n\t\theading: string;\n\t\tcontent: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsections?: Section[];\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Documentation',\n\t\tsections = [\n\t\t\t{\n\t\t\t\theading: 'Introduction',\n\t\t\t\tcontent:\n\t\t\t\t\t'Welcome to our comprehensive guide. This document covers everything you need to get started.'\n\t\t\t},\n\t\t\t{\n\t\t\t\theading: 'Features',\n\t\t\t\tcontent:\n\t\t\t\t\t'Discover the powerful features that set our platform apart. Learn what you can achieve with our tools.'\n\t\t\t},\n\t\t\t{\n\t\t\t\theading: 'Getting Started',\n\t\t\t\tcontent:\n\t\t\t\t\t'Follow our step-by-step guide to set up your account and start using our platform immediately.'\n\t\t\t}\n\t\t]\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<h1 class=\"text-3xl font-bold\">{title}</h1>\n\t\t<div class=\"mt-12 grid grid-cols-1 gap-12 sm:grid-cols-[200px_1fr]\">\n\t\t\t<nav class=\"flex flex-col gap-0\">\n\t\t\t\t<ul class=\"space-y-2 text-sm\">\n\t\t\t\t\t{#each sections as section}\n\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t<a\n\t\t\t\t\t\t\t\thref=\"#{section.heading.toLowerCase().replace(/\\s+/g, '-')}\"\n\t\t\t\t\t\t\t\tclass=\"text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{section.heading}\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t{/each}\n\t\t\t\t</ul>\n\t\t\t</nav>\n\n\t\t\t<div class=\"space-y-8\">\n\t\t\t\t{#each sections as section}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h2\n\t\t\t\t\t\t\tid={section.heading.toLowerCase().replace(/\\s+/g, '-')}\n\t\t\t\t\t\t\tclass=\"text-2xl font-bold mb-4\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{section.heading}\n\t\t\t\t\t\t</h2>\n\t\t\t\t\t\t<p class=\"text-muted-foreground leading-7\">{section.content}</p>\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183259",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE51W/4rbOBB+lcEteJeL4k2ubI802eOupaVQ7gpbaGG9HIqt2OJkSUjyJsEY7iH6hH2SG/nHxnaObrl/bDGe+eabb2aEq0DSggWr4Mvv7+DbP1/hlqdsSw18+vN1MAsc5WLPZRqsnCnZLNhxwWywuqsCd9Q+zBvQrwP5Teu5fWDCeduWWvZf9kRJx6RDmGBtE8O1A0FltokDZ+PgJpax44VWxkEFiYQadkYVED4XfBuVjgsbJTJ8hW7eEaHMjiYMblniuJJQeXPsckZTLrMVWGfw/aq1dqlH1nqK9NEobXucRFBrf53AOO4EmxptS8A7d1zu7ocJMLd1I9gVNK8/UKPZABg2EL5RSVkgU+pxwtk4AzrctZbYVf1hUHL4Xjqj0jIZBg/LP1liF35mIlEFA6dAlQbwrA3LmbT8gUFW4jjM4VPOLaQdJ3R5YMYCw+fR5ZgSjqoEyVjqQTLmUBhqHEvnYZ+pnn2X8FtGXWmYfZLsG26b7IDBoNUeW1YK2HXhaKWYHAn4SrSgbqdMAVQjmzl8YNRI2HsXzzehEmiScywD9tzlTYxTStgfpv2OYcew/Nu23CfZv1VCqH2TyDqmyfZI/LtV2WvnqZfa0zPILVElqk1l2uoJpfXJRqXxomApp46J44B1e7hvhm/VzfMGnmt/uLjEoVxH7eL5ZZPrbq7aadxUibwI9wR1FbDNyJYmf2cGmaSgj2RxDfpAXoAtVvi+DmenEb6sm9Vdp/yhQ4qD4kBoiXUV9ED25Poguv1Gt3zx6OXYwZGfD9hHFI1slUjRrWp2oV5H+aIPGSE7slhCZnjaPEiCfSMLyKj2dqR3st4tr6704a/Fztw/pkc0SU9oO8EO4B8+ogG5GriiMw5Z72s1XhLkSJbQ8LbFyBMn5RnDsYLHZaW2P9dDNwQV/GZsQRudWnDeDNth3mdVBzPvBnDu1Ae/Aa/xnr24nBuGU5GwiyiO7U9RNoOQhJd1HJwDjnQvSpxcgsPEui7nfr9WzbeB1RmKN4JP7yVSxp4DnxWDWkwo12f1RnQSto4mslSR13MQuY5KcWpjhH28aW/YsyHpW/XLqEU/2CCPNOWWL6cF8HTz//oywRn1ZDncBSi25MVU7TOtn1Aa12g5LUbD9wdBtEjkpd/GHr6713Av9QhvHY3lmnRt+Pl07k94HbXwePY/HUin/eGo7+t/AZs3GL+hCAAA"
+}

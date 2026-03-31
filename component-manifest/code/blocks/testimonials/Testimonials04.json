@@ -1,0 +1,26 @@
+{
+  "id": "testimonials04",
+  "name": "Testimonials04",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "3-col Cards",
+  "description": "Three-column grid of testimonial cards with avatars.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page",
+    "3-col",
+    "cards"
+  ],
+  "source": "<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface Testimonial {\n    quote: string;\n    author: string;\n    role?: string;\n    company?: string;\n    avatarUrl?: string;\n    rating?: number;\n  }\n\n  const defaultTestimonials: Testimonial[] = [\n    {\n      quote: '\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"We absolutely love how the Shadcn UI Kit blends functionality and aesthetics seamlessly. It fits perfectly into our design workflow and gives us the flexibility to create stunning, professional and high-quality designs effortlessly.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"This UI kit has been a game changer for our team. The quality is outstanding and the time savings are incredible.\"',\n      author: 'Jane Smith',\n      role: 'Founder',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n  ];\n\n  let { class: className, testimonials = defaultTestimonials } = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4', className)}>\n  <div class=\"mx-auto max-w-6xl grid grid-cols-1 gap-6 sm:grid-cols-3\">\n    {#each testimonials as t}\n      <div class=\"rounded-lg border bg-background p-6\">\n        <div class=\"flex gap-1 mb-4\">\n          {#each Array(5) as _, i}\n            <svg class=\"{i < (t.rating ?? 5) ? 'text-yellow-400' : 'text-muted'}\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n              <polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\" />\n            </svg>\n          {/each}\n        </div>\n\n        <blockquote class=\"text-sm font-medium mb-4 line-clamp-3\">\n          {t.quote}\n        </blockquote>\n\n        <div class=\"flex items-center gap-3\">\n          <div class=\"h-10 w-10 rounded-full bg-muted overflow-hidden flex-shrink-0\">\n            <div class=\"h-full w-full bg-gradient-to-br from-muted-foreground/20 to-muted-foreground/10\"></div>\n          </div>\n          <div>\n            <div class=\"font-medium text-sm\">\n              {t.author}\n            </div>\n            {#if t.role || t.company}\n              <div class=\"text-xs text-muted-foreground\">\n                {t.role}{t.role && t.company ? ', ' : ''}{t.company}\n              </div>\n            {/if}\n          </div>\n        </div>\n      </div>\n    {/each}\n  </div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:184995",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81W227jNhD9lYG6WCeAKVte5+bNBdlgt0hbbB+aRQvEQUFJlESEIrUk5UuzBvoR/cJ+SYeUHMt20pe+FBBscUTOnDkzZ6SnQNKSBZPgtw/fw99//gXvSKIE3FCdmqAfWMrFnMs0mFhds36QccFMMLl/CuyycsecAfe1Tq6rKjQzJqyzxdSwl+yJkpZJi26Cc5NoXlkQVOYX08CaaXA5lQC8rJS28ASJhBVkWpXQeyN4PKgtF2aQyN77qfQb0ZXOaMLgjhnLSyU5FfDkHgF8rZVlEzBWc5m/b2y0toXSO0atBLvasSWqrKhc7prpjFqqv2ix+0BTiwu0yrqMmfbWVQMSEzYWUpbRWtgOTjPpor5/gAu4b5y1CTyn0JsGvxQ0RTa+3MKP3EKmNHzieUmhoMZjFcwysQSrqTT4tGQpqFpjVMNzCZVWCTMmhFs7nfYM8pZolvIYTyCFNbd8xoDKFAydMQO1AaOgrJMCEB4L4a5gPoqSrnJANYOYIZc8qwX6SDTNLEZ0HpLaWFXyP2gsWDgNev11Lmvqez/hNgWfldbcbB67IuDDm48/b2xtEdB8nZQMbmUSdg54xidw1FpW/VfJ+xWTi40StedIKEy2UHOwmNU2r4hZpgayWiaWK0kFt0ufFcVCFczyBJlhtEQVGLF0dELGkZAKu5AltqFTdZmfK/2YCQzmvOS8ZddFzgRb8Jj7EHgGC0Itw6aqpcS8+q5mGYbxMPzpgucF+Vo3oBr3BliG1bYtnv8J3XcFN47RR2TU9WfMmAQKOQ4DSArUOtO+gx1NFtls+mudGZ5VtTUWYWNAn7mjyzWia0+0NQ343MOvtNkPVGJ5S26Lvaw/qVqmTP+nzB/aEYTCc4NKUIN69n+fMc8+JrYROir7BfnjaLuAN1jmyhwcorfzQTMOL53jc8N8CzYuL54SedCbEyc3iHMS0+Qx1y4LqJYkOoZqQca9/ib+4coP0vOUz1oP06BcECQHdU0XZE6OFwJyzVP/44a+IRGWqCLHYMrJxviunclY6e8YdROhmwJW167WRG1F8+hYSkQOsdLI9i5ucvzsee+w04YHE0EZk/HWxmcg11rT5cHRoQPxex/4qrsHHZpZ/uzwicM5HNiwqSVcXQGeu4KeZQtLlkygQsl4OOzBpLWVOCvS3moawJyntkAXEeKFgqEI7Xo142z+QS1wOYQhjMZ4oRXfiQJNSa01TssbJZTeScDDq5RY5ljgSuHMcBijEYwgOgqHZ3Aajo5hNIKzcHQCEV7jMBpDdBpGpzCKwiHuw+skPDmBo/B01NrW+9pzp+FZ1HhynhHYYAcENtws32Z24JjtEHk+wLJcNp3eWmKhkkcv9md2PWOmRFFLZA5FWZe+biC4ZAR3lVWnj9pQNvROtoJtfG/H3OsNbllpSMLc+983yq77rSMFiYYwdz/rrlwLyZcZ8IWg3ZAmBU9TnFUuBDEFvt4fyXCvdjuuvauNNHNNU464iFUk1v7jpYlCcOSxpvkHoyGO/H1z5IKtKe/Wac+ya9jlqFOItjgvtCCWoJmWu8rZi+c0xzNA/eAAhW/f8K4dmau9vu7i8LEXBjaS6qT7AiKPycVYtf/w9u0mlhNsH7xGe27DqxBewj/g2erfSN1ed1cdUazNqJxmPOO9+0zG9JpP5NXD6h81f+NUUwsAAA=="
+}

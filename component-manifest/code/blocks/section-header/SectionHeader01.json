@@ -1,0 +1,23 @@
+{
+  "id": "sectionheader01",
+  "name": "SectionHeader01",
+  "category": "blocks",
+  "group": "section-header",
+  "title": "Section Header 01",
+  "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+  "tags": [
+    "section-header",
+    "heading"
+  ],
+  "source": "<!--\n  SectionHeader01.svelte\n  Minimal two-slot horizontal layout: wide left slot + narrow right slot.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  let {\n    class: className = '',\n    left,\n    right\n  }: {\n    class?: string;\n    left?: Snippet;\n    right?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex items-center gap-4 py-4', className)}>\n  <div class=\"flex-1\">\n    {#if left}\n      {@render left()}\n    {:else}\n      <div class=\"flex min-h-10 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n  <div class=\"w-44 shrink-0\">\n    {#if right}\n      {@render right()}\n    {:else}\n      <div class=\"flex min-h-10 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:4687",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VUSY7bMBD8SocZQDZijm3AJ3nJckkuycWXAFEOskRJzFAkQbZG4wgC8oi8cF4SUpS3TH4QXUgVq7qrmw12RKY1IzH5+uEjPP/6DXuWIVcSPrE0ZwYWSzIjmHLRcpmTGE3DZqTgglkSf+sIHrUXe8DxxlDvtb63j0ygxw6pZf/CMyWRSXRhyOYVpYmEU+qQebEcuf7kM5e8TgVgq6gVCqFShv90ERwm0qNqMIaW5wwEKxAGxhuQqTGqBcPLKmD3iaR0l8iNzQzX6JSy3CYEbUJ2PguvtTIIHWQSeiiMqiG6E/wwb5ALO89ktL6i+dIddy+51gzPgmDaMz1XuJPObwAykVobh+WLawhsIYpm4czbHreDXb/t4xvl2xgsGi7L9UXisDH9+kr8F9q7RHfaKG0nUwds5qH6nTe4yfljCL/tMjmJCsGegCOrLc3c5bj7L1NNV6CPdBXNLt6n/dCwK3lCvJYux1YCdK95MZjsw79D3hkm/Ux5dDId8S5mwrIz6UVIqLmkFV0ubn39aCzy4nj6NapxoXMqSjgo45OEheaprVgOh5Ie0uyhHHiA7AmprcNaN+iEhTIsnJ4r8N/ej9LEtql26d2IYQVu2gyM0zs9254736fK57wY6rmAN1W1dLUCW7m7fKCL234N9/eyYQP8P3XstPq3x2UM707/vf8DNs0X5q4EAAA="
+}

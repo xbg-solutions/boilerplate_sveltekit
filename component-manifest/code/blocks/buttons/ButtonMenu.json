@@ -1,0 +1,27 @@
+{
+  "id": "buttonmenu",
+  "name": "ButtonMenu",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Hamburger Toggle",
+  "description": "Animated hamburger / close toggle for mobile nav.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "hamburger",
+    "mobile",
+    "nav"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\topen?: boolean;\n\t\tonToggle?: (open: boolean) => void;\n\t}\n\n\tconst { class: className = '', open = false, onToggle } = $props();\n\n\tlet isOpen = $state(open);\n\n\tconst handleToggle = () => {\n\t\tisOpen = !isOpen;\n\t\tonToggle?.(isOpen);\n\t};\n</script>\n\n<button\n\ttype=\"button\"\n\tonclick={handleToggle}\n\tclass={cn('flex h-9 w-9 items-center justify-center rounded-md border bg-background hover:bg-muted transition-colors', className)}\n>\n\t{#if isOpen}\n\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n\t\t</svg>\n\t{:else}\n\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\" />\n\t\t\t<line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\" />\n\t\t\t<line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\" />\n\t\t</svg>\n\t{/if}\n</button>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:5208",
+  "playgroundUrl": null
+}

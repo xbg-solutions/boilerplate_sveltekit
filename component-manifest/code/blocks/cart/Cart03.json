@@ -1,0 +1,31 @@
+{
+  "id": "cart03",
+  "name": "Cart03",
+  "category": "blocks",
+  "group": "cart",
+  "title": "Empty Cart",
+  "description": "Centred empty state with shopping bag icon and continue shopping CTA.",
+  "tags": [
+    "cart",
+    "e-commerce",
+    "checkout",
+    "empty-state"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t}\n\n\tconst { class: className }: Props = $props();\n\n\tfunction ShoppingBagIcon() {\n\t\treturn `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"21\" r=\"1\"/><circle cx=\"20\" cy=\"21\" r=\"1\"/><path d=\"M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6\"/></svg>`;\n\t}\n</script>\n\n<div class={cn('flex flex-col items-center justify-center min-h-screen bg-background', className)}>\n\t<div class=\"text-center space-y-6 px-4\">\n\t\t<!-- Icon -->\n\t\t<div class=\"flex justify-center text-muted-foreground\">\n\t\t\t{@html ShoppingBagIcon()}\n\t\t</div>\n\n\t\t<!-- Heading -->\n\t\t<div>\n\t\t\t<h1 class=\"text-3xl font-bold mb-2\">Your cart is empty</h1>\n\t\t\t<p class=\"text-muted-foreground text-lg\">\n\t\t\t\tLooks like you haven't added anything yet. Start shopping to fill your cart!\n\t\t\t</p>\n\t\t</div>\n\n\t\t<!-- CTA Button -->\n\t\t<div class=\"pt-4\">\n\t\t\t<Button size=\"lg\">\n\t\t\t\tContinue shopping\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18931:146911",
+  "playgroundUrl": null
+}

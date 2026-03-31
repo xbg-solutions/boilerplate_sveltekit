@@ -1,0 +1,27 @@
+{
+  "id": "comparisonsection02",
+  "name": "ComparisonSection02",
+  "category": "blocks",
+  "group": "comparison-section",
+  "title": "Feature Table",
+  "description": "Full-width table with feature rows and per-tier checkmarks.",
+  "tags": [
+    "comparison",
+    "pricing",
+    "features",
+    "landing-page",
+    "table",
+    "features"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Feature {\n\t\tname: string;\n\t\tstarter: string | boolean;\n\t\tpro: string | boolean;\n\t\tenterprise: string | boolean;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tfeatures?: Feature[];\n\t}\n\n\tconst defaultFeatures: Feature[] = [\n\t\t{ name: 'Projects', starter: '5', pro: 'Unlimited', enterprise: 'Unlimited' },\n\t\t{ name: 'Storage', starter: '10GB', pro: '100GB', enterprise: 'Unlimited' },\n\t\t{ name: 'Support', starter: 'Email', pro: 'Priority', enterprise: 'Dedicated' },\n\t\t{ name: 'API', starter: false, pro: true, enterprise: true },\n\t\t{ name: 'Custom Domain', starter: false, pro: true, enterprise: true },\n\t\t{ name: 'SSO', starter: false, pro: false, enterprise: true }\n\t];\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Feature Comparison',\n\t\tfeatures = defaultFeatures\n\t}: Props = $props();\n\n\tfunction renderValue(value: string | boolean) {\n\t\tif (typeof value === 'boolean') {\n\t\t\tif (value) {\n\t\t\t\treturn `<svg class=\"h-4 w-4 text-foreground\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"><polyline points=\"20 6 9 17 4 12\" /></svg>`;\n\t\t\t} else {\n\t\t\t\treturn `<svg class=\"h-4 w-4 text-muted-foreground\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" /><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" /></svg>`;\n\t\t\t}\n\t\t}\n\t\treturn value;\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\t\t\t<p class=\"mt-4 text-muted-foreground\">Compare all features across plans.</p>\n\t\t</div>\n\n\t\t<div class=\"overflow-x-auto\">\n\t\t\t<table class=\"w-full mt-8 text-sm\">\n\t\t\t\t<thead class=\"border-b\">\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th class=\"text-left py-4 px-4 font-semibold\">Feature</th>\n\t\t\t\t\t\t<th class=\"text-center py-4 px-4 font-semibold\">Starter</th>\n\t\t\t\t\t\t<th class=\"text-center py-4 px-4 font-semibold\">Pro</th>\n\t\t\t\t\t\t<th class=\"text-center py-4 px-4 font-semibold\">Enterprise</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t{#each features as feature}\n\t\t\t\t\t\t<tr class=\"border-b hover:bg-muted/50\">\n\t\t\t\t\t\t\t<td class=\"py-4 px-4\">{feature.name}</td>\n\t\t\t\t\t\t\t<td class=\"py-4 px-4 text-center\">\n\t\t\t\t\t\t\t\t{#if typeof feature.starter === 'boolean'}\n\t\t\t\t\t\t\t\t\t<div class=\"flex justify-center\">\n\t\t\t\t\t\t\t\t\t\t{@html renderValue(feature.starter)}\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t\t\t{feature.starter}\n\t\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"py-4 px-4 text-center\">\n\t\t\t\t\t\t\t\t{#if typeof feature.pro === 'boolean'}\n\t\t\t\t\t\t\t\t\t<div class=\"flex justify-center\">\n\t\t\t\t\t\t\t\t\t\t{@html renderValue(feature.pro)}\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t\t\t{feature.pro}\n\t\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td class=\"py-4 px-4 text-center\">\n\t\t\t\t\t\t\t\t{#if typeof feature.enterprise === 'boolean'}\n\t\t\t\t\t\t\t\t\t<div class=\"flex justify-center\">\n\t\t\t\t\t\t\t\t\t\t{@html renderValue(feature.enterprise)}\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t\t\t{feature.enterprise}\n\t\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t{/each}\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18842:70435",
+  "playgroundUrl": null
+}

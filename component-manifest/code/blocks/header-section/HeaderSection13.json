@@ -1,0 +1,32 @@
+{
+  "id": "headersection13",
+  "name": "HeaderSection13",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Metadata Sidebar",
+  "description": "Large headline left with author, date, read-time, and tags card right.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "metadata",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tauthorName?: string;\n\t\tauthorImage?: string;\n\t\tpublishDate?: string;\n\t\treadTime?: string;\n\t\ttags?: string[];\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'Latest Article',\n\t\ttitle = 'The Future of Web Development',\n\t\tsubtitle = 'Explore emerging technologies and best practices shaping modern web development',\n\t\tprimaryLabel = 'Read Full Article',\n\t\tonPrimary,\n\t\tauthorName = 'Sarah Anderson',\n\t\tauthorImage = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',\n\t\tpublishDate = 'March 28, 2026',\n\t\treadTime = '8 min read',\n\t\ttags = ['Web Dev', 'Technology', 'Design']\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16\">\n\t\t\t<div class=\"lg:col-span-2\">\n\t\t\t\t{#if eyebrow}\n\t\t\t\t\t<div class=\"mb-4 inline-flex items-center px-3 py-1 rounded-full border bg-muted/50 text-xs font-medium\">\n\t\t\t\t\t\t{eyebrow}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-5xl sm:text-6xl font-bold tracking-tight mb-6\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if subtitle}\n\t\t\t\t\t<p class=\"text-xl text-muted-foreground mb-8\">{subtitle}</p>\n\t\t\t\t{/if}\n\n\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\n\t\t\t<div class=\"lg:col-span-1\">\n\t\t\t\t<div class=\"rounded-lg border bg-muted/50 p-6 sticky top-4\">\n\t\t\t\t\t<div class=\"flex items-center gap-4 mb-6\">\n\t\t\t\t\t\t<img\n\t\t\t\t\t\t\tsrc={authorImage}\n\t\t\t\t\t\t\talt={authorName}\n\t\t\t\t\t\t\tclass=\"w-12 h-12 rounded-full object-cover\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<div class=\"flex-1\">\n\t\t\t\t\t\t\t<p class=\"font-semibold text-sm\">{authorName}</p>\n\t\t\t\t\t\t\t<p class=\"text-xs text-muted-foreground\">{publishDate}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"space-y-1 mb-6 pb-6 border-b\">\n\t\t\t\t\t\t<p class=\"text-sm text-muted-foreground\">Reading time</p>\n\t\t\t\t\t\t<p class=\"font-semibold\">{readTime}</p>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t{#if tags && tags.length > 0}\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<p class=\"text-sm text-muted-foreground mb-3\">Tags</p>\n\t\t\t\t\t\t\t<div class=\"flex flex-wrap gap-2\">\n\t\t\t\t\t\t\t\t{#each tags as tag}\n\t\t\t\t\t\t\t\t\t<span class=\"inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground\">\n\t\t\t\t\t\t\t\t\t\t{tag}\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t{/each}\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/if}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:21151",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VXbW/bNhD+KwetqBvAsmLnZYFrp0iRdRjQDsUaoAPifKAkWuJCkQJJv80wsB+xX7hfsjvJsq2XNF8k6ni8e+7uuaO99RTLuDf2/vz4K/z3z7/wXbgUvnDHYuYYfBMxD5nx+p5jQq6Eir2xMwve9+ZCcuuNH7ee2+RkgASotzd3l+cDu+TSkSxklnfJI60cVw7NeBMbGZE7kEwl05nn7My7namZE1mujYMtRAp2MDc6g94bKcJg4YS0QaR672tqHxfO6YZqpHFXkaNgIQp9OoGuzZxFHL4anVvYknDmIsms/TAG64xQyftSyDc8NHrVFDvhJG8K7SLslOdGZMxsPrOQy+aeVl/LXdx4dwbTW1hqEe832cKl2vyO6WseK3d+y1jS9rYIpbDpPXOtLcNZ/CDa1hxLjoE/PhXSXZkryV0tP2MoXoSpX8sQTKH3GX1aB3fGiUjyXv8kV7T9kHL4tHALw0HP4TsP4Z4jH3SeYYEq7SqJdOCXdS41avOMmwShgeNRqrTUieAWmIohJH+5YRF6RJFNWU56mY65UbBCF3HbxWk9yM0fmBYEJmUT+aE4/WY96Ng3ZlgKdwpdWa16/VZlSCl1LrfjIEBcgxgxhpyZAbIy+HmwDtgSG40xYwO7TD5YzuNpYfQA9FhKsvWFmSiF0U0fRuej60qpKipp3EAmFJDkkHwsLe489vbp7vWxDlUWN/R1z61IVO+pKPp43xJTeJPT4t0ZkmESlB1KXakmlmOysc8KHky3kXrXW/lzyl6Y+CGLnhOjF1iafO1fQr7xh9dgszEuRpfo7sCes13R5JNYLPemZl629jF9GjK29lf+9VruJ0FDLTEiBnr4kZbWH4JMxsfPC0hY7g9HhZRW1wcrDTuogCd8mzPlj06UZm77k5jDnti7o7gJN8QIhZJCcX8u+RqE45n1I07zheK/KOKHIh883idJGyQM5SpbOB4HV+fI6rXz1xbmOBP9jMdikdXQFIg60QQI5xR2IOb7vj2Jo2in+rl0eAiicH61llSkYo1pL5GEWsbgsLeesaV8J5LUAYZM6dyWNidBOnzVfdXQdQR5HQD6LN5FTvw5Nv2eRejwhhwerEyC/EcuJ/tbQKtIiuh5uj308A6s+JsXZW9kd3s6EE5gToLS2JE9Vb5fY9Ow5qGmVpFBJl1UyH3sFpxBzxtwOvcvG0hrltqUI7pfVjWq82cisqQuwVFroun2ZF7tmgpMukqBWra1XyFZUbul9KhRXYd/4azArlxyM/Pqh4MmvmZkjRy2aFNQ1PJMlDQl8lhqm1O8da68wDzbzTwydTJ/O2w1u6/Nj1ZgSI6I+zQTqEiQ06NkgR+2S9ZAarMXkdINVtyPeA90AH0haxRidXu04uuKpRwndKO8fVu8B5KrBH803sL5rl3PV3P/UkSUnQtE94AuOmvYaoOCMSvD8qIHRh3UIfSc4f1Z4GeW3i1CF8apgw/WfzTeR4MrGvDn+KrxvmOeU5PjxalVjHNmz9bqs17KLkiI/UW0AcHtijagaFtn2qTtklVjtVPh9Ou4rlYIqPyBgGv674Chlv8bdk+7/wEZREF4cgwAAA=="
+}

@@ -1,0 +1,30 @@
+{
+  "id": "pageheader07",
+  "name": "PageHeader07",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 07",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader07.svelte\n  Title + description + Share/View/Edit/Publish right, tabs row below.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    title = 'Profile details',\n    description = 'Manage your profile details such as name, avatar, email and bio.',\n    tabs = ['Profile', 'Reports', 'Analytics', 'Notifications', 'Help Center'],\n    activeTab = 'Profile',\n    onshare = () => {},\n    onview = () => {},\n    onedit = () => {},\n    onpublish = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    tabs?: string[];\n    activeTab?: string;\n    onshare?: () => void;\n    onview?: () => void;\n    onedit?: () => void;\n    onpublish?: () => void;\n  } = $props();\n\n  let currentTab = $state(activeTab);\n</script>\n\n<div class={cn('', className)}>\n  <!-- Header row -->\n  <div class=\"flex flex-col gap-4 pb-4 sm:flex-row sm:items-start sm:justify-between\">\n    <div>\n      <h1 class=\"text-2xl font-bold\">{title}</h1>\n      {#if description}<p class=\"mt-1 text-sm text-muted-foreground\">{description}</p>{/if}\n    </div>\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <Button variant=\"outline\" size=\"sm\" onclick={onshare}>Share</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n      <Button size=\"sm\" onclick={onpublish}>Publish</Button>\n    </div>\n  </div>\n\n  <!-- Tabs below header -->\n  <div class=\"flex gap-0 overflow-x-auto border-b\">\n    {#each tabs as tab}\n      <button\n        type=\"button\"\n        onclick={() => (currentTab = tab)}\n        class={cn(\n          'shrink-0 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors',\n          currentTab === tab\n            ? 'border-foreground text-foreground'\n            : 'border-transparent text-muted-foreground hover:text-foreground'\n        )}\n      >{tab}</button>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4725",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE61W227jNhD9lak2gBzUipKgxQKK7cVuUXRfugjaoCgQ54GSaJtdihRIypcKAvoR/cJ+SWcoWZId56l9kci5z5mLVAeKFTxIgt8//QT//PU3PLI1h8+c5dzA7ftgGjgm5E6oPEicqfg0WAnJbZA814E7lKRJBJTr7Hwsyxu75dIRLWWWX6JnWjmuHJoJZt9E0VKB99u6vX3fCRL5STjJ4VvIuc2MKJ3QCm+/bpjh8W+C7+Ifc+HixyqVwm7AiPXGTcGx1ILRO0i51LubpYqixVLNWgsgmVrPl4Gzy2BBLkRRauOghkxBAyujCwivpEjjyglp40yFDydinyrn9JloppGrKKW4EiRPGpKjOB0AMsmsTdrXFwQE5hCG05bnfIpIeDSasMRcCXN75I9TR6mfmaISHXRloDzVAFtlG2AWCPMpsC1zzEyBF8gEpnJIhb7p3RJIc3g+ug2nEP7CKUdLx4+KyYMTmb980U6sRMYoBk/4zGUJP2C+3IQvnUGWObHlTywd5XJ0hmpUMuRMrmG+gLrpGVus4iU6x8JeopddrQcWcZrkBOoPCVhnhFo/jDA+J46AfSWP4PS055eHswzPxbv0kNzGtNUifxgneJlDKV7mdEm+ZjaY9xWWvbST61GbZZUxWI0W/CvrmOOTPloSnMVtrgvSmeVi2+I0rzM1wU4cOvO68UNBY3lcAzRJfoKQPGgug5Xke6BHlGkJa1ZG30GZ4sMWiSeTIp6F44WNMCgcH7z+UVnspkOUcrfjXHVT2NrujnjZ3PV+HN+76H4vYYVrI0q1zFGn9iVtZvHmrleq34nVuKrNrOyNFC66A2/JFu27qBzPo5U2fG10pbzRE+W4XNSxWDVdePEQ32sY7Abb4Wt0C22ymR8Nj8l9nyDqdbtjy4xgyqGyrpwUii8DsOJPjgRb4FmrTIrs67zuGqtZ+I03i1v9/2KPurFZ0Or8P6xRBzcL2sFvWntDs+vwZtHt7jP9Ae3jqe/KJ1pcfrPDpm3QN5uT8L8FveVmheLRPmKV05Bqg1pR2hemfscZLk6/EXF74rvps0h9VMcrbgb86KH5jhwMjD63dmInJyOJJq+bQXaYvYEGEPZNdIwwuodyT1N1iO5vvu/b189BgdhX2MqGKSuoYWkKtek/G52nURRzH8eYC/ABws7ZMAitn+EenqokvYr3XTJycHmkYEPYJ2/bG0DBgUbYZ3E67oI6psI04zY4vunPBM22fyXNS/Mvy1mSqskIAAA="
+}

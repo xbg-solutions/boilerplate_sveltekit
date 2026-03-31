@@ -1,0 +1,26 @@
+{
+  "id": "buttonstepper",
+  "name": "ButtonStepper",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Number Stepper",
+  "description": "Minus / number / plus stepper for quantity inputs.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "stepper",
+    "quantity"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tvalue?: number;\n\t\tmin?: number;\n\t\tmax?: number;\n\t\tstep?: number;\n\t\tonchange?: (value: number) => void;\n\t}\n\n\tconst { class: className = '', value = 22, min = 0, max, step = 1, onchange } = $props();\n\n\tlet count = $state(value);\n\n\tconst handleMinus = () => {\n\t\tconst newValue = Math.max(min, count - step);\n\t\tcount = newValue;\n\t\tonchange?.(newValue);\n\t};\n\n\tconst handlePlus = () => {\n\t\tconst newValue = max !== undefined ? Math.min(max, count + step) : count + step;\n\t\tcount = newValue;\n\t\tonchange?.(newValue);\n\t};\n</script>\n\n<div class={cn('inline-flex items-center rounded-md border bg-background', className)}>\n\t<button\n\t\ttype=\"button\"\n\t\tonclick={handleMinus}\n\t\tdisabled={count <= min}\n\t\tclass=\"h-8 w-8 flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed\"\n\t>\n\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\" />\n\t\t</svg>\n\t</button>\n\n\t<span class=\"px-3 text-sm font-medium min-w-[2rem] text-center\">{count}</span>\n\n\t<button\n\t\ttype=\"button\"\n\t\tonclick={handlePlus}\n\t\tdisabled={max !== undefined && count >= max}\n\t\tclass=\"h-8 w-8 flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed\"\n\t>\n\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\" />\n\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\" />\n\t\t</svg>\n\t</button>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:30235",
+  "playgroundUrl": null
+}

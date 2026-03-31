@@ -1,0 +1,32 @@
+{
+  "id": "cart02",
+  "name": "Cart02",
+  "category": "blocks",
+  "group": "cart",
+  "title": "Mini Cart Slide-over",
+  "description": "Right-side slide-over panel with compact item list and checkout CTA.",
+  "tags": [
+    "cart",
+    "e-commerce",
+    "checkout",
+    "slide-over",
+    "panel"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tisOpen?: boolean;\n\t\tonClose?: () => void;\n\t}\n\n\tconst { class: className, isOpen = true, onClose }: Props = $props();\n\n\tinterface CartItem {\n\t\tid: number;\n\t\tname: string;\n\t\tprice: number;\n\t\tquantity: number;\n\t}\n\n\tlet cartItems = $state<CartItem[]>([\n\t\t{ id: 1, name: 'Wireless Headphones', price: 129.99, quantity: 1 },\n\t\t{ id: 2, name: 'USB-C Cable', price: 19.99, quantity: 2 },\n\t\t{ id: 3, name: 'Phone Case', price: 24.99, quantity: 1 }\n\t]);\n\n\tlet subtotal = $derived(\n\t\tcartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)\n\t);\n\n\tfunction removeItem(id: number) {\n\t\tcartItems = cartItems.filter((item) => item.id !== id);\n\t}\n\n\tfunction XIcon() {\n\t\treturn `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>`;\n\t}\n\n\tfunction TrashIcon() {\n\t\treturn `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/><line x1=\"10\" y1=\"11\" x2=\"10\" y2=\"17\"/><line x1=\"14\" y1=\"11\" x2=\"14\" y2=\"17\"/></svg>`;\n\t}\n</script>\n\n{#if isOpen}\n\t<!-- Backdrop -->\n\t<div\n\t\tclass=\"fixed inset-0 bg-black/50 z-40\"\n\t\trole=\"presentation\"\n\t\tonclick={onClose}\n\t></div>\n\n\t<!-- Slide-over Panel -->\n\t<div class={cn('fixed right-0 top-0 bottom-0 w-full max-w-sm bg-white shadow-xl z-50 flex flex-col', className)}>\n\t\t<!-- Header -->\n\t\t<div class=\"flex items-center justify-between border-b px-6 py-4\">\n\t\t\t<h2 class=\"text-lg font-semibold\">Your cart ({cartItems.length})</h2>\n\t\t\t<button\n\t\t\t\tonclick={onClose}\n\t\t\t\tclass=\"p-2 hover:bg-gray-100 rounded transition\"\n\t\t\t\taria-label=\"Close cart\"\n\t\t\t>\n\t\t\t\t{@html XIcon()}\n\t\t\t</button>\n\t\t</div>\n\n\t\t<!-- Items List -->\n\t\t<div class=\"flex-1 overflow-y-auto px-6 py-4 space-y-4\">\n\t\t\t{#each cartItems as item (item.id)}\n\t\t\t\t<div class=\"flex gap-4 pb-4 border-b\">\n\t\t\t\t\t<div class=\"aspect-square w-16 h-16 bg-gray-100 rounded flex-shrink-0\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex-1 min-w-0\">\n\t\t\t\t\t\t<p class=\"font-medium text-sm\">{item.name}</p>\n\t\t\t\t\t\t<p class=\"text-sm text-gray-600\">Qty: {item.quantity}</p>\n\t\t\t\t\t\t<p class=\"font-semibold text-sm mt-1\">${(item.price * item.quantity).toFixed(2)}</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button\n\t\t\t\t\t\tonclick={() => removeItem(item.id)}\n\t\t\t\t\t\tclass=\"p-2 hover:bg-red-50 text-red-600 rounded transition flex-shrink-0\"\n\t\t\t\t\t\taria-label=\"Remove item\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{@html TrashIcon()}\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\n\t\t<!-- Footer -->\n\t\t<div class=\"border-t px-6 py-4 space-y-4\">\n\t\t\t<div class=\"flex justify-between font-semibold text-base\">\n\t\t\t\t<span>Subtotal</span>\n\t\t\t\t<span>${subtotal.toFixed(2)}</span>\n\t\t\t</div>\n\t\t\t<div class=\"grid grid-cols-2 gap-3\">\n\t\t\t\t<Button variant=\"outline\" class=\"w-full\">\n\t\t\t\t\tView cart\n\t\t\t\t</Button>\n\t\t\t\t<Button class=\"w-full\">\n\t\t\t\t\tCheckout\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "19154:72138",
+  "playgroundUrl": null
+}

@@ -1,0 +1,30 @@
+{
+  "id": "pageheader06",
+  "name": "PageHeader06",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 06",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader06.svelte\n  Avatar + name + email left, View/Share/Edit/Save action buttons right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    user = { name: 'John Doe', email: 'hi@example.com', avatar: '' },\n    onview = () => {},\n    onshare = () => {},\n    onedit = () => {},\n    onsave = () => {}\n  }: {\n    class?: string;\n    user?: { name: string; email: string; avatar?: string };\n    onview?: () => void;\n    onshare?: () => void;\n    onedit?: () => void;\n    onsave?: () => void;\n  } = $props();\n\n  function initials(name: string) {\n    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();\n  }\n</script>\n\n<div class={cn('flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between', className)}>\n  <!-- User info -->\n  <div class=\"flex items-center gap-3\">\n    <div class=\"relative h-10 w-10 shrink-0 overflow-hidden rounded-full\">\n      {#if user.avatar}\n        <img src={user.avatar} alt={user.name} class=\"h-full w-full object-cover\" />\n      {:else}\n        <div class=\"flex h-full w-full items-center justify-center bg-muted text-sm font-semibold\">\n          {initials(user.name)}\n        </div>\n      {/if}\n    </div>\n    <div>\n      <p class=\"font-semibold\">{user.name}</p>\n      <p class=\"text-sm text-muted-foreground\">{user.email}</p>\n    </div>\n  </div>\n\n  <!-- Actions -->\n  <div class=\"flex shrink-0 items-center gap-2\">\n    <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n    <Button variant=\"outline\" size=\"sm\" onclick={onshare}>Share</Button>\n    <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n    <Button size=\"sm\" onclick={onsave}>Save</Button>\n    <Button variant=\"ghost\" size=\"icon\" class=\"h-8 w-8\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n    </Button>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4787",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VW247jNgz9FdZdIAkax57sBdtMknZmW3TRh6LAYosCm31QbNrWjCwZkhzPNDCwH9Ev7JeUsuNL5oIWLRBYEkmRh9ShlKMnWY7eyvv9+if468uf8CtLEd4ji1FD+Mabe5ZxUXEZeyurS5x7CRdovNWno2fvC7fTCcju5OeqKBbmgMI62Z4ZfEoeKWlRWnLjrb/y/Z2EJm4bNnxzMnTiqwOzTMM34NzQgDnBAYGJncNvHKvgQ8Y0Bj/G3AYf2AGBRZYrCfvSWiUNaJ5mdrGTvr/dybWJNC8sCCbTzc6zZudtXRCeF0pbOEIkoYZEqxwmLwTfB6XlwgSRnFyemV03zs9NI0Va6ZIKSu7s3Q6BZO4mAJFgxqza4ReXywYmk3mrKw0Ve0OOXZIrmPysMgk/KJzM23xJlPHv8Y7lhcAFRSIFawpDmgnUJzdKHqgi5Gg6g80WjoPcuCI9pUCq25MbXCkHuRPXq7NUvluBsZrL9HLIgWRdDiddh79btqj7vVBfjqGTvI14UDy+PAP/tMrBf2YTJfBYU1NOLwqtCjOdnY4oKWXLGC655UyY6TiBWZezRltq2SS3MIXgdjqByWyRs2JauRDVp/DzbHGjuJxOSG4Ej3AazmE5W1j1sShQv6NeaKISDKJi0HJx61CsY35oq7o5RuQgEXgH7uNHSkDKCv8VFPf0MfmqEWtVuTm3mBs/ItIRf2h9UxrLk3t/j7ZClMSSnm6zumG66zb46OjGZaKg6QqSDvF3XhP8zLMD8PLUKg+MNQpmOXEl8y9CqNzHZFS4Wz8EdUCdCFX5GY9jlKBVKWOM/aQUovcGcPyaJw17Fi056k5BoXiegtHR5jjWAxP2JHHHUfdgssY1oWgGtb/ByFIFCcbOg2AIuEJhcBzmUfrnns6K0dX4tNynfl5ajMHinfVNDgldbb7BnO+ViEdpNpF7jvXoZ2McAQEZYAY8OSnHivXYZl0MuB/EHRVoHRRP7egQN2OThJ8ojWlzTr2HpoFHLgYs3azn1VXTSOZ5VvXUeESv5UCv0+V6YJozaWmrKq3gEukMDf8DSWBymisZUY/dbo7t1VFv3WuwDtrd/91Xc9nU2+ZV+f/e3P1Ub93j9Iyv51DQ7UUg6PuPGNJMGTsg4PS00mpoibfE4rcjHq7NIYW7XMhGbW2xCoKqqhbVy4XSabAMwzAgE/JR8dhmZHTxmhYZuoe0W7mKX6s7WoYQwvIV/UhKfwQEiaRqS2K1unWQolJrOul3Sijdy/3O+3IQuVpGrHDXSkvBscJdrYNmu464jgRC5EBcOCfRfTfTbrLzggdG3/4Lo9fP2LiS9A0wOpGuB7rR/V+idmr/K9Wf678BllId1F8JAAA="
+}

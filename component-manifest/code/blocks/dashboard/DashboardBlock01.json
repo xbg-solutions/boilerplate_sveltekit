@@ -1,0 +1,45 @@
+{
+  "id": "dashboardblock01",
+  "name": "DashboardBlock01",
+  "category": "blocks",
+  "group": "dashboard",
+  "title": "Dashboard Block 01",
+  "description": "Dashboard components.",
+  "tags": [],
+  "source": "<!--\n  DashboardBlock01.svelte\n  Full dashboard with stats cards, transactions table, and recent sales list.\n  Features top navigation, 4 stat cards, and a 2-column layout below.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    Input,\n    Table,\n    TableHeader,\n    TableBody,\n    TableRow,\n    TableHead,\n    TableCell,\n    Avatar\n  } from '$lib/components/ui';\n  import { DynamicIcon } from '$lib/components/ui/icon';\n\n  let {\n    class: className = '',\n    navItems = [\n      { label: 'Dashboard', href: '#', active: true },\n      { label: 'Orders', href: '#' },\n      { label: 'Products', href: '#' },\n      { label: 'Customers', href: '#' },\n      { label: 'Analytics', href: '#' }\n    ],\n    stats = [],\n    transactions = [],\n    recentSales = [],\n    onSearch = undefined,\n    onViewAllTransactions = undefined,\n    onNavClick = undefined\n  }: {\n    class?: string;\n    /** Navigation items for the top bar */\n    navItems?: Array<{ label: string; href: string; active?: boolean }>;\n    /** Stat cards data */\n    stats?: Array<{\n      title: string;\n      value: string;\n      change: string;\n      icon?: string;\n    }>;\n    /** Transactions table data */\n    transactions?: Array<{\n      name: string;\n      email: string;\n      amount: string;\n    }>;\n    /** Recent sales sidebar data */\n    recentSales?: Array<{\n      name: string;\n      email: string;\n      amount: string;\n      avatar?: string;\n    }>;\n    onSearch?: ((query: string) => void) | undefined;\n    onViewAllTransactions?: (() => void) | undefined;\n    onNavClick?: ((href: string) => void) | undefined;\n  } = $props();\n\n  let searchQuery = $state('');\n\n  /** Icon names mapped by keyword */\n  const iconMap: Record<string, string> = {\n    revenue: 'dollar-sign',\n    subscriptions: 'users',\n    sales: 'credit-card',\n    active: 'activity'\n  };\n\n  function getIconName(title: string): string {\n    const key = title.toLowerCase();\n    for (const [k, v] of Object.entries(iconMap)) {\n      if (key.includes(k)) return v;\n    }\n    return 'circle';\n  }\n</script>\n\n<div class={cn('flex min-h-screen flex-col', className)}>\n  <!-- Top Navigation -->\n  <header class=\"border-b\">\n    <div class=\"flex h-16 items-center px-4 gap-4\">\n      <nav class=\"flex items-center space-x-4 lg:space-x-6\">\n        {#each navItems as item}\n          <button\n            class={cn(\n              'text-sm font-medium transition-colors hover:text-primary',\n              item.active ? 'text-foreground' : 'text-muted-foreground'\n            )}\n            onclick={() => onNavClick?.(item.href)}\n          >\n            {item.label}\n          </button>\n        {/each}\n      </nav>\n      <div class=\"ml-auto flex items-center space-x-4\">\n        <Input\n          type=\"search\"\n          placeholder=\"Search...\"\n          class=\"w-[200px] lg:w-[300px]\"\n          bind:value={searchQuery}\n          oninput={() => onSearch?.(searchQuery)}\n        />\n        <!-- Settings icon -->\n        <Button variant=\"ghost\" size=\"icon\">\n          <DynamicIcon name=\"settings\" size={20} />\n        </Button>\n      </div>\n    </div>\n  </header>\n\n  <!-- Main Content -->\n  <main class=\"flex-1 space-y-4 p-4 pt-6 md:p-8\">\n    <!-- Stats Cards -->\n    <div class=\"grid gap-4 md:grid-cols-2 lg:grid-cols-4\">\n      {#each stats as stat}\n        <Card>\n          <CardHeader class=\"flex flex-row items-center justify-between space-y-0 pb-2\">\n            <CardTitle class=\"text-sm font-medium text-muted-foreground\">\n              {stat.title}\n            </CardTitle>\n            <span class=\"text-muted-foreground\" aria-hidden=\"true\">\n              <DynamicIcon name={stat.icon || getIconName(stat.title)} size={16} />\n            </span>\n          </CardHeader>\n          <CardContent>\n            <div class=\"text-2xl font-bold\">{stat.value}</div>\n            <p class=\"text-xs text-muted-foreground\">{stat.change}</p>\n          </CardContent>\n        </Card>\n      {/each}\n    </div>\n\n    <!-- Two Column Layout -->\n    <div class=\"grid gap-4 md:grid-cols-2 lg:grid-cols-7\">\n      <!-- Transactions Table -->\n      <Card class=\"lg:col-span-4\">\n        <CardHeader class=\"flex flex-row items-center justify-between\">\n          <div>\n            <CardTitle>Transactions</CardTitle>\n            <CardDescription>Recent transactions from your store.</CardDescription>\n          </div>\n          <Button variant=\"outline\" size=\"sm\" onclick={() => onViewAllTransactions?.()}>\n            View All\n          </Button>\n        </CardHeader>\n        <CardContent>\n          <Table>\n            <TableHeader>\n              <TableRow>\n                <TableHead>Customer</TableHead>\n                <TableHead class=\"text-right\">Amount</TableHead>\n              </TableRow>\n            </TableHeader>\n            <TableBody>\n              {#each transactions as tx}\n                <TableRow>\n                  <TableCell>\n                    <div class=\"font-medium\">{tx.name}</div>\n                    <div class=\"text-sm text-muted-foreground\">{tx.email}</div>\n                  </TableCell>\n                  <TableCell class=\"text-right font-medium\">{tx.amount}</TableCell>\n                </TableRow>\n              {/each}\n            </TableBody>\n          </Table>\n        </CardContent>\n      </Card>\n\n      <!-- Recent Sales -->\n      <Card class=\"lg:col-span-3\">\n        <CardHeader>\n          <CardTitle>Recent Sales</CardTitle>\n          <CardDescription>Your most recent sales activity.</CardDescription>\n        </CardHeader>\n        <CardContent>\n          <div class=\"space-y-6\">\n            {#each recentSales as sale}\n              <div class=\"flex items-center\">\n                <Avatar\n                  src={sale.avatar}\n                  fallback={sale.name}\n                  size=\"lg\"\n                />\n                <div class=\"ml-4 space-y-1\">\n                  <p class=\"text-sm font-medium leading-none\">{sale.name}</p>\n                  <p class=\"text-sm text-muted-foreground\">{sale.email}</p>\n                </div>\n                <div class=\"ml-auto font-medium\">{sale.amount}</div>\n              </div>\n            {/each}\n          </div>\n        </CardContent>\n      </Card>\n    </div>\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "Input",
+        "Table",
+        "TableHeader",
+        "TableBody",
+        "TableRow",
+        "TableHead",
+        "TableCell",
+        "Avatar"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "DynamicIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    }
+  ],
+  "figmaNodeId": "533:9413",
+  "playgroundUrl": null
+}

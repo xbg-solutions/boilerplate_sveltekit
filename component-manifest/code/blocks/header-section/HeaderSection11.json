@@ -1,0 +1,31 @@
+{
+  "id": "headersection11",
+  "name": "HeaderSection11",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Breadcrumb",
+  "description": "Breadcrumb navigation above title with action buttons.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "breadcrumb"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tbreadcrumbs?: { label: string; href?: string }[];\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tbreadcrumbs = [\n\t\t\t{ label: 'Home', href: '/' },\n\t\t\t{ label: 'Section', href: '#' },\n\t\t\t{ label: 'Current Page' }\n\t\t],\n\t\ttitle = 'Page Title',\n\t\tsubtitle = 'Descriptive subtitle for the page',\n\t\tprimaryLabel = 'Primary Action',\n\t\tsecondaryLabel = 'Secondary Action',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-5xl\">\n\t\t{#if breadcrumbs && breadcrumbs.length > 0}\n\t\t\t<nav class=\"mb-8 flex items-center gap-2 text-sm\">\n\t\t\t\t{#each breadcrumbs as crumb, i}\n\t\t\t\t\t<a href={crumb.href || '#'} class=\"text-muted-foreground hover:text-foreground transition\">\n\t\t\t\t\t\t{crumb.label}\n\t\t\t\t\t</a>\n\t\t\t\t\t{#if i < breadcrumbs.length - 1}\n\t\t\t\t\t\t<span class=\"text-muted-foreground\">/</span>\n\t\t\t\t\t{/if}\n\t\t\t\t{/each}\n\t\t\t</nav>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8\">\n\t\t\t<div class=\"flex-1\">\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-3\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if subtitle}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{subtitle}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\n\t\t\t<div class=\"flex flex-col sm:flex-row gap-3 lg:flex-col lg:items-end\">\n\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t\t{secondaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:20431",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31W4W7bNhB+lYNa1AkgRXObDoUqp2g2YPsxDAE6oAPi/KBkSmZDkQJJ2c5UAXuIPWGfZEdKpiXbyR/7eHe87/h9R9ptIEhFgyT4+/Y3+PHvf/CVmTXcKkpWuWqqLAgDQxjfMrEKEqMaGgYF41QHyX0bmKfabrUOzBsKfa7rK72h3FhfRjQ958+lMFQYLBOkOlesNsCJKBfLwOhlcLMUS8OqWioDLeQCOiiUrGD2mrMsbgzjOs7F7OMk7bYxRh6l5hKjwgLFDXP5dgdCq4LkFO6UrDW01rk0OSdaf0pAG8VE+bF3Zp4IG2qxyYxynwNrRQu/Bbr7h2GbYYbT41q6yc76a8Uqop7+sKVP9lBkavVcVIq7fi8GLi5hcQMbyVY++GW/+TTc9VRwaibHT8B9/YmKhScEwALue+fSeCZmv8uKzkLHBK7iGXThaRJ2YpgUh7xX5/N+aZRCteCOlBQz+oSHcEQqNjGzUfjLrmbhlFob/ZX2A8U2FLy/kArMmkJtC4envLuy/Ro+D72eU8DmeVqPMr0a4YkAjvJkmLcFvK6tcXGJUqRx360deZHqnqdehUWbi4vZNioaziEro4zkj6WSjVhBvYuuoX6K5j+DrhI03l4jt167y87doHTFNkOpZVDtItIYCRXZRdvo/Y4P1wzpf8UKGOv85s14ecWpKPFNuIGfur1iqSCjyln0AQpOd8AMrXSUU3vBoCR19BYM3ZlIVx6sB6QkX08giQZnhcC6QyICETcxSIWNXlkbvn+389N5fAdRNYauIpSZDhSt5YaqxMVGXqOI0MxyPOnIddVDuFGc9hCTSarji0F6jqQI5t20bKprIl7uFVuJcQ4wb4oTs2JUrI0tawcJYtRgr+CQ6RYT1Z0s9iPKJQdeJs5WcmvtiVy4/tZow4qnKKNmS6lwCn4Y8XRSOZof6YrEuPs25W89n57/esft2DobBxEvpzBRJrmTJ3/E9y0yrFwbwMl6hwhtXzON1/Mx2vjQHn5/46cd1NMGeAnPCdH6Amlcn0EbuEcmbg7YL1CO5/SUWz7feREGQXoRqAM/wKXDr5kUOWf546L1j0sHmv1DEYeXRyPcjh+00fnTuC/2cnn/VnWwIYoRYRBDNoYzQZfB86DT9/ElWM/axN5beAH6xw9t+6cD9en/cHQP3f/8CGYgpQgAAA=="
+}

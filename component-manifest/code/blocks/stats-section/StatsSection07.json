@@ -1,0 +1,26 @@
+{
+  "id": "statssection07",
+  "name": "StatsSection07",
+  "category": "blocks",
+  "group": "stats-section",
+  "title": "Left + 4-stat Grid",
+  "description": "Left heading with a 2×2 stat grid.",
+  "tags": [
+    "stats",
+    "metrics",
+    "landing-page",
+    "grid",
+    "2x2"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tlabel?: string;\n\t\tvalue: string;\n\t\tdescription?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{\n\t\t\tvalue: '256K',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '142%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '$34.7M',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '98.5%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t}\n\t];\n\n\tlet { class: className = '', title = 'Data-driven highlights that showcase impact', description = 'Add a concise value statement that explains how your metrics demonstrate success and growth. Focus on transformation and measurable outcomes.', stats = defaultStats }: Props = $props();\n</script>\n\n<section class={cn(\"w-full bg-background py-16 px-4 sm:px-6 lg:px-8\", className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 gap-8 sm:grid-cols-[1fr_2fr] sm:items-start\">\n\t\t\t<div>\n\t\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">Stats Section</p>\n\t\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t\t{title}\n\t\t\t\t</h2>\n\t\t\t\t<p class=\"mt-3 text-sm text-muted-foreground max-w-lg\">\n\t\t\t\t\t{description}\n\t\t\t\t</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"grid grid-cols-2 gap-x-8 gap-y-6\">\n\t\t\t\t{#each stats as stat (stat.value)}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<p class=\"text-4xl font-bold\">\n\t\t\t\t\t\t\t{stat.value}\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">\n\t\t\t\t\t\t\t{stat.description}\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183015",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81W244iNxD9lVJnImYUDBqGJROWSbRRkn3IRZH2JdL0KDJud2Ot2275MoBQS/mI/cL9kpRtLk0HnrMPtN1F+ZyqU1WGXaZozbN59teP7+HzP5/gN146+AamxDrq4L0RRTbMHBVyLVSRzZ3xfJiVQnKbzZ93mds24XQwoN8e613TjOwrly7YltTyS3amlePKIUy2sMyIxoGkqnrKM2fz7Ptc5U7UjTYOdsAUtFAaXcPgRorl2Dsh7ZipwVt0C44IZUrKOHwIUe+CLXeSLrn8YQ7WGaGqt8n4SqXnPVvBUwBCq3P3tg//p9GNPeAzSa3t4zvhJO8brxLkLsgcQELgzy9dVhTIOih4Sb104Wt78IIneE6n95Ec0xpM3sx+HQwP1g4vfvczZSuIZbUr7WUBQjHpCw4Ulhpfla+5EYxKKEXlDYdSS6nXvIDlNvgYwcshMF03XErMADrwo0HibIdXArufTr7+IgO7eZiOvv39iwztu8fRm/9XtLC87IdM8jiKoennafkDxxp7cTAYQmz7sP+JOkoKI165gpWoVhI/zoJbpUDXDK8DwMGmzOGxDmc4/K4oMDRsfCbQK8oQU+Q13hQJg28aSYWygFiw1d5AzXGemEWsOkyMQXewnjFuLVBVQGX02q1G8Itm3gISoYuypTY1jbzBp+bUekOXmIP2OHk1tyMMLw4nBtYdQmjn+2vgCW6asLm9Q4UW45RJuLjUwnIWsaNMTzumbvNsTUovJSwrsqTsI0blkbjZkvsZNBsyBVvPcZ2BrML6mGfDk8p3bbwQF4V43WPmWb0h1DsNNd2QNZlt5P7W7LlVeIVDeBCmpSX3UNGGPAa2k/H5vjR/T0rzEswC5bbh+jfuiJgwjy/42hwJHN84srHgm4abWF4UmH3EliJrgQXGwgWP2jteEJSdp9QRO+n5IWm1GDdd/NXklKgjk4TxsJEhwrif4r7E3xASu/1I6UK/deKOgxW7s+2gj1eTy8kg10PisvXluPd6y6pP0unlM6pTWovxXsSOptfqNIl1wj6I65bMzuh2X/HD+GOT23QP3IbnKE7NXdsNrVe7S/U7U7OXWSQ8Ybc9pLO6XcK+riQW9irXZTkvMR5lPZwfB3Ha/6h+tj/scG5T/+E+/NPBQNO/nPal/RcYwASIHQkAAA=="
+}

@@ -1,0 +1,43 @@
+{
+  "id": "authsplitscreen",
+  "name": "AuthSplitScreen",
+  "category": "blocks",
+  "group": "auth",
+  "title": "Auth Split Screen",
+  "description": "Reusable split-screen wrapper with brand panel left and form slot right.",
+  "tags": [
+    "auth",
+    "login",
+    "sign-up",
+    "otp",
+    "split",
+    "layout",
+    "wrapper"
+  ],
+  "source": "<!--\n  AuthSplitScreen.svelte\n  Split-screen auth layout with dark branded panel on left and form slot on right.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Input,\n    Label,\n    Separator\n  } from '$lib/components/ui';\n  import { BrandIcon } from '$lib/components/ui/icon';\n\n  let {\n    class: className = '',\n    brandName = 'Acme Inc.',\n    brandLogo = '',\n    testimonialQuote = '',\n    testimonialAuthor = '',\n    onEmailSubmit = undefined,\n    onGithubLogin = undefined,\n    onTermsClick = undefined,\n    onPrivacyClick = undefined,\n    children = undefined\n  }: {\n    class?: string;\n    brandName?: string;\n    brandLogo?: string;\n    testimonialQuote?: string;\n    testimonialAuthor?: string;\n    onEmailSubmit?: ((email: string) => void) | undefined;\n    onGithubLogin?: (() => void) | undefined;\n    onTermsClick?: (() => void) | undefined;\n    onPrivacyClick?: (() => void) | undefined;\n    children?: Snippet;\n  } = $props();\n\n  let email = $state('');\n\n  function handleEmailSubmit() {\n    onEmailSubmit?.(email);\n  }\n</script>\n\n<div class={cn('grid min-h-screen lg:grid-cols-2', className)}>\n  <!-- Left panel: dark branded area -->\n  <div class=\"relative hidden bg-primary lg:flex lg:flex-col lg:justify-between lg:p-10\">\n    <div class=\"flex items-center gap-2 text-primary-foreground\">\n      {#if brandLogo}\n        <img src={brandLogo} alt={brandName} class=\"h-6 w-6\" />\n      {:else}\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"h-6 w-6\">\n          <path d=\"M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3\" />\n        </svg>\n      {/if}\n      <span class=\"text-lg font-semibold\">{brandName}</span>\n    </div>\n\n    {#if testimonialQuote}\n      <div class=\"text-primary-foreground\">\n        <blockquote class=\"space-y-2\">\n          <p class=\"text-lg\">&ldquo;{testimonialQuote}&rdquo;</p>\n          {#if testimonialAuthor}\n            <footer class=\"text-sm text-primary-foreground/80\">{testimonialAuthor}</footer>\n          {/if}\n        </blockquote>\n      </div>\n    {:else}\n      <div></div>\n    {/if}\n  </div>\n\n  <!-- Right panel: auth form -->\n  <div class=\"flex items-center justify-center p-6 lg:p-8\">\n    <div class=\"w-full max-w-sm space-y-6\">\n      {#if children}\n        {@render children()}\n      {:else}\n        <!-- Default content if no children is provided -->\n        <div class=\"space-y-2 text-center\">\n          <h1 class=\"text-2xl font-semibold tracking-tight\">Create an account</h1>\n          <p class=\"text-sm text-muted-foreground\">Enter your email below to create your account</p>\n        </div>\n\n        <form onsubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }} class=\"space-y-4\">\n          <div class=\"space-y-2\">\n            <Label htmlFor=\"split-email\">Email</Label>\n            <Input\n              type=\"email\"\n              placeholder=\"m@example.com\"\n              bind:value={email}\n            />\n          </div>\n          <Button type=\"submit\" class=\"w-full\">Sign in with Email</Button>\n        </form>\n\n        <div class=\"relative\">\n          <Separator />\n          <span class=\"absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs uppercase text-muted-foreground\">\n            Or continue with\n          </span>\n        </div>\n\n        <Button variant=\"outline\" class=\"w-full\" onclick={onGithubLogin}>\n          <BrandIcon name=\"github\" size={16} class=\"mr-2\" />\n          GitHub\n        </Button>\n\n        <p class=\"text-center text-sm text-muted-foreground\">\n          By clicking continue, you agree to our\n          <button\n            type=\"button\"\n            class=\"underline underline-offset-4 hover:text-primary\"\n            onclick={onTermsClick}\n          >\n            Terms of Service\n          </button>\n          and\n          <button\n            type=\"button\"\n            class=\"underline underline-offset-4 hover:text-primary\"\n            onclick={onPrivacyClick}\n          >\n            Privacy Policy\n          </button>.\n        </p>\n      {/if}\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Input",
+        "Label",
+        "Separator"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "BrandIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    }
+  ],
+  "figmaNodeId": "15005:206266",
+  "playgroundUrl": null
+}

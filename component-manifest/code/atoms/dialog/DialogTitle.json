@@ -1,0 +1,24 @@
+{
+  "id": "dialogtitle",
+  "name": "DialogTitle",
+  "category": "atoms",
+  "group": "dialog",
+  "title": "Dialog Title",
+  "description": "Semantic h2 title inside a dialog.",
+  "tags": [
+    "modal",
+    "overlay",
+    "dialog"
+  ],
+  "source": "<!--\n  src/lib/components/ui/dialog/DialogTitle.svelte\n  SHADCN-Svelte Dialog Title Component\n\n  AI SYSTEMS: Use this component for dialog titles.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n\n  let { class: className = '', children }: { class?: string; children?: Snippet } = $props();\n</script>\n\n<h1 class={cn('text-lg font-semibold leading-none tracking-tight', className)}>\n  {@render children?.()}\n</h1>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

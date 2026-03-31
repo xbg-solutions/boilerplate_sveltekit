@@ -1,0 +1,29 @@
+{
+  "id": "sectionheader03",
+  "name": "SectionHeader03",
+  "category": "blocks",
+  "group": "section-header",
+  "title": "Section Header 03",
+  "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+  "tags": [
+    "section-header",
+    "heading"
+  ],
+  "source": "<!--\n  SectionHeader03.svelte\n  Title + Status badge + description left. View/Edit/Create New right. Segmented tabs below.\n  Mobile: dropdown select for tabs.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    title = 'Storage',\n    badge = 'Status',\n    description = 'Read and write directly to databases and stores from your projects.',\n    tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4'],\n    activeTab = 'Tab 1',\n    onview = () => {},\n    onedit = () => {},\n    oncreate = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    badge?: string;\n    description?: string;\n    tabs?: string[];\n    activeTab?: string;\n    onview?: () => void;\n    onedit?: () => void;\n    oncreate?: () => void;\n  } = $props();\n\n  let currentTab = $state(activeTab);\n</script>\n\n<div class={cn('py-4', className)}>\n  <!-- Top row: title/desc left, actions right -->\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <div>\n      <div class=\"flex items-center gap-2\">\n        <h2 class=\"text-lg font-semibold\">{title}</h2>\n        {#if badge}\n          <span class=\"inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium\">{badge}</span>\n        {/if}\n      </div>\n      {#if description}\n        <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n      <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n      <Button size=\"sm\" onclick={oncreate}>Create new</Button>\n      <Button variant=\"ghost\" size=\"icon\" class=\"h-8 w-8\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n      </Button>\n    </div>\n  </div>\n\n  <!-- Tabs: pill/segmented on desktop, select on mobile -->\n  <div class=\"mt-4\">\n    <!-- Desktop segmented tabs -->\n    <div class=\"hidden grid-flow-col grid-cols-[repeat(auto-fit,minmax(0,1fr))] overflow-hidden rounded-md border bg-muted p-1 sm:grid\">\n      {#each tabs as tab}\n        <button\n          type=\"button\"\n          onclick={() => (currentTab = tab)}\n          class={cn(\n            'rounded-sm px-4 py-1.5 text-sm font-medium transition-colors',\n            currentTab === tab\n              ? 'bg-background text-foreground shadow-sm'\n              : 'text-muted-foreground hover:text-foreground'\n          )}\n        >{tab}</button>\n      {/each}\n    </div>\n\n    <!-- Mobile select -->\n    <select\n      class=\"sm:hidden w-full rounded-md border bg-background px-3 py-1.5 text-sm\"\n      value={currentTab}\n      onchange={(e) => (currentTab = (e.target as HTMLSelectElement).value)}\n    >\n      {#each tabs as tab}\n        <option value={tab}>{tab}</option>\n      {/each}\n    </select>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4838",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VX627bNhR+lTO1gG3MshwnBTrHdrF2Rftj7Y8lGAbE+UFLtMxEIgWSspwZBvYQe8I9yc4RdbPjDAEGBBF57vzOhfTekyzl3tT74+MX+Oevv+GGh1YoCV85i7iG8aU39CwTSSFk5E2tzvnQW4uEG296t/fsU0bKREC5ytTPWTYyW55Yoq2Y4efooZKWS4tmvNkPvr+UULt2nseXlSxxboVNOPwIN5bZ3MCKRTFtI25CLbIy3oSv7Qh+F7wIPkfCBp80Z5bDd16AFvEGeTc8TtEjj8CyFRrhiSpGZP2bWmH8U4i0yiJVSDA8wVBgrXQpikK+v1jKmfMGCZPxfOlZs/QWpC/STGkLewglHGCtVQq9t4lYBbkViQlC2bs+EvuYW6tOREOFXEmABLkgedJIOIrTAiBMmDFT9/mOcMIcer2h49kSHSTcWKVZzGu6g6mkE2w1uYsaMn9DuIHJCAotELBIaDx78gRWQcTw+Jg/U/INWsdlGfSTyjVkWj2grBk1gRCuc7jr3bIVXPSGUC4m9eKyXlz17isNhhnfcqLNodZyHCW3mEsk9wcwX8D+0NA5pvccPXQZbznEOEyPEPwwxWNoIePrDnSnxBK3U2IHtWdG8NgN7e7++uRop+LuZEh1cW6ViK67ZzvPcad7zjvggd9iJjLTH3TKJsy1xmpyyL41WAC830REgrPAnWdBOrNIbB1A830o+73syb/CZDXVNjiUhU6NCrcqA62KqcMuIFzK5huWJ1bSuH6DsmVQpzW99NYJ3wH980OVQMwy/wpMOi0paJPWWIOp8TFgbBXcPuTGivWTv+K24FxWHefMVstzPpyVkNpdl34mjWapsJk08pbvrJ/E2O3S+oanYqWSCKX35fkOs2Az6Wju34i1K5BDS0SDJmOyMSlkIiT3n0eiVS4jHvnrPElgpTRN2GznTwABH4/eQRnLzrhYUiyGPKVInD/MGDrpxhKIdRPFLOgiUobZKdlOsLOsiTO1rVeTum+aWwoQWz0uoyX/XUOzIGu9tAF03T9Ph9lg/T/64//Oy6wajFumBZMWlVVuCcmlB0b8yZFgEA9qhkSEj/O966TDgqb+LHDa/8cadd9hQdfHi9Ze0HTdeVhUt458VTzxRhnbRiPwSsRdDdzGfw+F//64bs02hl2ayFLA2mwaBEVRjIrLkdJxMBmPxwGKoJVCRHaDQhfvcLPh1JH1jjD7qHa4HcMYJlf4h1S8whMkSeUAslo9UlDVHPmkEqUbul9bn7QkQjZkGRKrsukyHpSQLWcxC4UO8coKKYgLMhI+1StNi6UXnAj99Aqhdy/IECRtGo7z0tZtvWoHHY71KWSIS2CapwMmELvh0apsWD8TkJSWL4izIw977KqdWmT3F6cP5vg9UimfqG9EFHEJsRbYlPhgcYOTdrgw/p3mGVZcn+VW+Wthh6mQKdv1x8OLtR4M7kFtuS71KkP1BEqjev6sYtfzkPkXNHHJeKfo9m84CzcuRGbo250lqxLL7iSkFyHGXTG8LqvpF3eF9Y/uKDQ8OBqp7XXUpQL06iPgxMLZeUWz86IzxTqzE6xm0giaWwSX0s0bqHHSCWFeBnHMB/gAPURoxcJHNw+dn3Y+4mxj+GhEz71T1Sn0zo5U2FBWpieGjtS7UOBNhKDPgtXxPNkHlJiT8dspM/eqrYu0rS5HqK3UdYaJryqkcLfT2ULpwIDQX55A32Z7y5KcY+4adJvjYA1s8PmMzD4/UwV9PsKbP8YHDNba19tvv96U0X5OOLXKYFQarsF5ZY0q99StYiJmjajjvISoA+poNtRf+k2EZ3a/hw73h38BBX/TN0YNAAA="
+}

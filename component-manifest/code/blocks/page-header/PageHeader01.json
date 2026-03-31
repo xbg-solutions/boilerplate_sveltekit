@@ -1,0 +1,24 @@
+{
+  "id": "pageheader01",
+  "name": "PageHeader01",
+  "category": "blocks",
+  "group": "page-header",
+  "title": "Page Header 01",
+  "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+  "tags": [
+    "page-header",
+    "app",
+    "navigation"
+  ],
+  "source": "<!--\n  PageHeader01.svelte\n  Minimal two-slot horizontal layout: wide left slot + narrow right slot.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  let {\n    class: className = '',\n    left,\n    right\n  }: {\n    class?: string;\n    left?: Snippet;\n    right?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex items-start gap-4 py-4', className)}>\n  <div class=\"flex-1\">\n    {#if left}\n      {@render left()}\n    {:else}\n      <div class=\"flex min-h-14 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n  <div class=\"w-56 shrink-0\">\n    {#if right}\n      {@render right()}\n    {:else}\n      <div class=\"flex min-h-14 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:4626",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VUS47UMBC9SmFGSrdoT3dLDYv0h88GNiCk2SARFu7EScw4jmVXJtNEkTgEJ+Qk2HH6x3ADsrH9/F7Vq0rJHVGs4iQmX969h98/f8FnVnD4wFnGDSyWZEaQCdkKlZEYTcNnJBeSWxJ/7QgetFd6wPHGOG+1vrUPXKLH9szyf+FprZArdGHI5hmliYIhb0i7WI5ED38USlRMArY1tbJGKGsjfji5wyQ71A3G0IqMg+Q5wsB4AYoZU7dgRFEG7DZRlO4StbGpERqdUhXbhKBNyM5nEZWuDUIHqYIeclNXEN1IsZ83KKSdpypaX9B83Y57p4TWHE+CYNozPVe6m85vAFLJrI3D8sl1A7YQRbNw522P28Gu3/bxlfJ1DBaNUMX6LHHYmH59If4L7V2iG21qbSdTB2zmofqdN7jJxEMIv+1SNYlyyR9BIK8stchckQXTdAX6QFfR7Gx92g/9ulAnxEvpcuwkQPdc5IPHPpwd8sZw5efJo5PpiHcxl5afSE9CQiUULelyNdpK3cC4GN8biyI/HI+mblzojMoC9rXxScJCM2ZLnsG+oHuW3hcDD5A/IrVVWKsGnTCvDQ+3pwr8d+cnaWJbpl16N2FYghs2A+PkTk+25873sfK5yId6zuBVVS19+Qps6X7lPV1c92v4fU8bNsD/U8eOq393XMbw5vTf+j8G4EW0pwQAAA=="
+}

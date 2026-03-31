@@ -1,0 +1,32 @@
+{
+  "id": "checkout04",
+  "name": "Checkout04",
+  "category": "blocks",
+  "group": "checkout",
+  "title": "Order Confirmation",
+  "description": "Thank-you page with checkmark, order number, item summary, and track/continue CTAs.",
+  "tags": [
+    "checkout",
+    "e-commerce",
+    "form",
+    "confirmation",
+    "thank-you"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t}\n\n\tconst { class: className }: Props = $props();\n\n\tconst orderNumber = 'ORD-2024-789456';\n\tconst estimatedDelivery = 'April 5, 2026';\n\tconst orderDate = 'March 31, 2026';\n\n\tfunction CheckmarkIcon() {\n\t\treturn `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"80\" height=\"80\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg>`;\n\t}\n</script>\n\n<div class={cn('flex flex-col items-center justify-center min-h-screen bg-background px-4', className)}>\n\t<div class=\"w-full max-w-2xl text-center space-y-8\">\n\t\t<!-- Checkmark Circle -->\n\t\t<div class=\"flex justify-center\">\n\t\t\t<div class=\"w-32 h-32 rounded-full bg-green-100 flex items-center justify-center text-green-600\">\n\t\t\t\t{@html CheckmarkIcon()}\n\t\t\t</div>\n\t\t</div>\n\n\t\t<!-- Confirmation Message -->\n\t\t<div class=\"space-y-2\">\n\t\t\t<h1 class=\"text-4xl font-bold\">Order Confirmed</h1>\n\t\t\t<p class=\"text-muted-foreground text-lg\">Thank you for your purchase!</p>\n\t\t</div>\n\n\t\t<!-- Order Details -->\n\t\t<div class=\"rounded-lg border bg-background p-8 space-y-6 text-left\">\n\t\t\t<div class=\"grid grid-cols-2 gap-4\">\n\t\t\t\t<div>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mb-1\">Order number</p>\n\t\t\t\t\t<p class=\"text-lg font-semibold font-mono\">{orderNumber}</p>\n\t\t\t\t</div>\n\t\t\t\t<div>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mb-1\">Order date</p>\n\t\t\t\t\t<p class=\"text-lg font-semibold\">{orderDate}</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Items Summary -->\n\t\t\t<div class=\"border-t pt-6\">\n\t\t\t\t<h2 class=\"font-semibold mb-4\">Order Items</h2>\n\t\t\t\t<div class=\"space-y-3\">\n\t\t\t\t\t<div class=\"flex justify-between py-2\">\n\t\t\t\t\t\t<span>Wireless Headphones x 1</span>\n\t\t\t\t\t\t<span class=\"font-semibold\">$129.99</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex justify-between py-2\">\n\t\t\t\t\t\t<span>Phone Case x 1</span>\n\t\t\t\t\t\t<span class=\"font-semibold\">$24.99</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Totals -->\n\t\t\t<div class=\"border-t pt-6 space-y-2\">\n\t\t\t\t<div class=\"flex justify-between text-muted-foreground\">\n\t\t\t\t\t<span>Subtotal</span>\n\t\t\t\t\t<span>$154.98</span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"flex justify-between text-muted-foreground\">\n\t\t\t\t\t<span>Shipping</span>\n\t\t\t\t\t<span>FREE</span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"flex justify-between text-muted-foreground\">\n\t\t\t\t\t<span>Tax</span>\n\t\t\t\t\t<span>$15.01</span>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"flex justify-between font-semibold text-lg border-t pt-2 mt-2\">\n\t\t\t\t\t<span>Total paid</span>\n\t\t\t\t\t<span>$154.99</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Delivery Info -->\n\t\t\t<div class=\"bg-blue-50 border border-blue-200 rounded-lg p-4\">\n\t\t\t\t<p class=\"text-sm text-blue-900\">\n\t\t\t\t\t<span class=\"font-semibold\">Estimated delivery:</span> {estimatedDelivery}\n\t\t\t\t</p>\n\t\t\t\t<p class=\"text-sm text-blue-800 mt-1\">\n\t\t\t\t\tA tracking link will be sent to your email shortly.\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<!-- Action Buttons -->\n\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button size=\"lg\">\n\t\t\t\tTrack your order\n\t\t\t</Button>\n\t\t\t<Button variant=\"outline\" size=\"lg\">\n\t\t\t\tContinue shopping\n\t\t\t</Button>\n\t\t</div>\n\n\t\t<!-- Confirmation Email -->\n\t\t<p class=\"text-sm text-muted-foreground\">\n\t\t\tA confirmation email has been sent to <span class=\"font-semibold\">customer@example.com</span>\n\t\t</p>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

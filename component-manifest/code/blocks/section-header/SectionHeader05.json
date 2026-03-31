@@ -1,0 +1,23 @@
+{
+  "id": "sectionheader05",
+  "name": "SectionHeader05",
+  "category": "blocks",
+  "group": "section-header",
+  "title": "Section Header 05",
+  "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+  "tags": [
+    "section-header",
+    "heading"
+  ],
+  "source": "<!--\n  SectionHeader05.svelte\n  Title + description left. Labeled toggle switch right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  let {\n    class: className = '',\n    title = 'Storage',\n    description = 'Read and write directly to databases and stores from your projects.',\n    toggleLabel = 'Enabled',\n    enabled = false,\n    ontoggle = (_: boolean) => {}\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    toggleLabel?: string;\n    enabled?: boolean;\n    ontoggle?: (value: boolean) => void;\n  } = $props();\n\n  let isEnabled = $state(enabled);\n\n  function handleToggle() {\n    isEnabled = !isEnabled;\n    ontoggle(isEnabled);\n  }\n</script>\n\n<div class={cn('py-4', className)}>\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <!-- Left -->\n    <div>\n      <h2 class=\"text-lg font-semibold\">{title}</h2>\n      {#if description}\n        <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n\n    <!-- Right: toggle -->\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <span class=\"text-sm text-muted-foreground\">{toggleLabel}</span>\n      <button\n        type=\"button\"\n        role=\"switch\"\n        aria-checked={isEnabled}\n        onclick={handleToggle}\n        class={cn(\n          'relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n          isEnabled ? 'bg-foreground' : 'bg-input'\n        )}\n      >\n        <span\n          class={cn(\n            'pointer-events-none inline-block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform',\n            isEnabled ? 'translate-x-4' : 'translate-x-0'\n          )}\n        />\n      </button>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:4881",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31W3Y7qNhB+lTnpSgF1DQjtXjQLrFrpqL046sU556JSqSoncYIPjh3ZDixCkfoQfcI+ScfOn6GrckGcmfHMfJ+/MVwjSSsWJdFvP/0M//z1N3xhmeVKwi+M5kzD6jl6jCzl4sxlHiVWN+wxKrhgJkp+v0b2UrvNzoBxfaof63phTkxYZ0upYe/ZMyUtkxbTRJsPhOwlDKW7yqvnPtZ5vnIrGHwPOTOZ5rVvULDCLuATTZlgOVhVlhhiztxmB9C8PNjFXhKy28tNtwcEleV2H1mzj3YuKa9qpS1cIZPQQqFVBfGD4OmysVyYZSbjl710gYJhlFsAZIIak3SPXxEVbCGOHzuf9U2i4YtVmpZssIdNo/czwgMqczhrbhnkXCNscUEEkFNLHV/G+w2mwaVv7KIaDbVW3zDWLMaKHrSnwGX+KGmKXAxe1r2ip6DCsN6KtHdUbWH2ZwKpUoJROYftDq6tC2mTG7CvCTaiuSxfApT3xgDif+KnHu9dfYOvYxcvty2iY3aiomG3bZ4Uz31kixgekJTazObBUXHzcUT+YCy1bNZXGqKKRnYiPyDPgn311WbzAXeY4MP4ctfcbHTMu2ZQaMuOhZ2rssn5qWNwe83kLK4v5Cl+nJQzb70Ig7B9VAj2Bu6LZEpASWvyBKZKvEWrs1ujZCpDEBUqF1+/Ncby4kJSZs+MyV7ZmBZHCj7hhIAfAW/CSv0SXw7rsaplb5aIEgqERgyreKpEjpmu/qjbzfKwHvddv+NFeNrt4MCU9ZixsmS1eAaf2FTds2osy0mBki61aqQvECbaLOupypIXfebNsms7gPXZDXcyTPwNvlsmzQHFdiQr6EjL8LrBG83Ruh6Jwn2mpvKWjP/rOdAz9uz2TpnSxlolJ0rc7Yg5e3M0OTSqGR3dbRU6qOaUZAeWHVm+vY4SC2hWMhM8O26voXYD/yS5yQYQayao5ScGXAouGfEEHcgznMkPE1FZo43SpFbcU+VBOwYaIXAENV7LZD0srKYS4WtkFfyau3N0ylUaby2VNYacuOHYf6Ia66tKJdmdy90HmPQdo/t6z66KwjBL1sM9132moX2FOC2DU4sh8RYu68bG0575yNouULE70TDv+3wioz1JhJ3cz1gHrSc3FSo7IrtPyO7THYslSWl27DpD4mmuzm74PLJVSKRfIorqFucdUh+FR8vIG94vDmloWcXh1nkgk+Wk2mWnz93twE2r4en+COBUdH8C2j/afwE71tC4OwgAAA=="
+}

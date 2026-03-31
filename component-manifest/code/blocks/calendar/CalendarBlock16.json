@@ -1,0 +1,26 @@
+{
+  "id": "calendarblock16",
+  "name": "CalendarBlock16",
+  "category": "blocks",
+  "group": "calendar",
+  "title": "Calendar Block 16",
+  "description": "Calendar components.",
+  "tags": [],
+  "source": "<!--\n  CalendarBlock16.svelte\n  Single month calendar with Start Time and End Time inputs below.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    selectedDate = null,\n    startTime = '10:30',\n    endTime = '10:30',\n    month = new Date().getMonth(),\n    year = new Date().getFullYear()\n  }: {\n    class?: string;\n    selectedDate?: Date | null;\n    startTime?: string;\n    endTime?: string;\n    month?: number;\n    year?: number;\n  } = $props();\n\n  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];\n  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];\n\n  function getDim(y: number, m: number) { return new Date(y, m + 1, 0).getDate(); }\n  function getCalDays(y: number, m: number) {\n    const dim = getDim(y, m), fd = new Date(y, m, 1).getDay(), prev = getDim(y, m - 1);\n    const days: Array<{ day: number; cur: boolean }> = [];\n    for (let i = fd - 1; i >= 0; i--) days.push({ day: prev - i, cur: false });\n    for (let i = 1; i <= dim; i++) days.push({ day: i, cur: true });\n    while (days.length < 42) days.push({ day: days.length - dim - fd + 2, cur: false });\n    return days;\n  }\n\n  function isSelected(d: number) { return selectedDate?.getFullYear() === year && selectedDate?.getMonth() === month && selectedDate?.getDate() === d; }\n  function isToday(d: number) { const t = new Date(); return t.getFullYear() === year && t.getMonth() === month && t.getDate() === d; }\n\n  function prev() { if (month === 0) { month = 11; year--; } else month--; }\n  function next() { if (month === 11) { month = 0; year++; } else month++; }\n  let calDays = $derived(getCalDays(year, month));\n</script>\n\n<div class={cn('inline-flex flex-col rounded-md border p-4', className)}>\n  <div class=\"mb-4 flex items-center justify-between\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={prev}>&lt;</Button>\n    <h3 class=\"text-sm font-medium\">{MONTHS[month]} {year}</h3>\n    <Button variant=\"ghost\" size=\"sm\" onclick={next}>&gt;</Button>\n  </div>\n\n  <div class=\"grid grid-cols-7\">\n    {#each DAYS as d}\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground\">{d}</div>\n    {/each}\n    {#each calDays as { day, cur }}\n      <button\n        type=\"button\"\n        class={cn(\n          'flex h-8 w-8 items-center justify-center rounded-full text-sm transition-colors',\n          !cur && 'text-muted-foreground/40 pointer-events-none',\n          cur && 'hover:bg-muted',\n          cur && isToday(day) && !isSelected(day) && 'border border-primary text-primary',\n          cur && isSelected(day) && 'bg-primary text-primary-foreground hover:bg-primary'\n        )}\n        onclick={() => cur && (selectedDate = new Date(year, month, day))}\n        disabled={!cur}\n      >{day}</button>\n    {/each}\n  </div>\n\n  <!-- Time inputs -->\n  <div class=\"mt-4 grid grid-cols-2 gap-3\">\n    <div class=\"flex flex-col gap-1\">\n      <label class=\"text-xs font-medium text-muted-foreground\">Start Time</label>\n      <div class=\"flex items-center gap-1.5 rounded-md border px-3 py-2\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg>\n        <input\n          type=\"time\"\n          bind:value={startTime}\n          class=\"w-full bg-transparent text-sm outline-none\"\n        />\n      </div>\n    </div>\n    <div class=\"flex flex-col gap-1\">\n      <label class=\"text-xs font-medium text-muted-foreground\">End Time</label>\n      <div class=\"flex items-center gap-1.5 rounded-md border px-3 py-2\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg>\n        <input\n          type=\"time\"\n          bind:value={endTime}\n          class=\"w-full bg-transparent text-sm outline-none\"\n        />\n      </div>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17921:42044",
+  "playgroundUrl": null
+}

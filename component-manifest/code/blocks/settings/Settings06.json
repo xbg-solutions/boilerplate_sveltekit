@@ -1,0 +1,31 @@
+{
+  "id": "settings06",
+  "name": "Settings06",
+  "category": "blocks",
+  "group": "settings",
+  "title": "Notifications",
+  "description": "Grouped notification rows with All / Email / In-app / None radio controls.",
+  "tags": [
+    "settings",
+    "account",
+    "app",
+    "notifications"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\ttype NotifOption = 'All' | 'Email' | 'In app' | 'None';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonSave?: () => void;\n\t}\n\n\tconst { class: className, onSave }: Props = $props();\n\n\tlet generalSettings = $state<Record<string, NotifOption>>({\n\t\tnewMessages: 'All',\n\t\taccountActivity: 'All',\n\t\tmentions: 'All',\n\t\tappUpdates: 'All'\n\t});\n\n\tlet summarySettings = $state<Record<string, NotifOption>>({\n\t\tdailySummary: 'All',\n\t\tweeklyReport: 'All',\n\t\tmonthlyBilling: 'All',\n\t\teventReminder: 'All'\n\t});\n\n\tconst notificationOptions: NotifOption[] = ['All', 'Email', 'In app', 'None'];\n\n\tfunction handleSave() {\n\t\tonSave?.();\n\t}\n</script>\n\n<div class={cn('space-y-6', className)}>\n\t<!-- Header -->\n\t<div>\n\t\t<h2 class=\"text-2xl font-semibold\">Notifications</h2>\n\t\t<p class=\"text-sm text-muted-foreground mt-1\">\n\t\t\tStay informed with customizable notifications about your account and activities.\n\t\t</p>\n\t</div>\n\n\t<!-- General Notifications -->\n\t<div class=\"border rounded-lg p-6 space-y-4\">\n\t\t<div>\n\t\t\t<h3 class=\"text-lg font-semibold\">General notifications</h3>\n\t\t\t<p class=\"text-sm text-muted-foreground\">Choose how you receive general updates</p>\n\t\t</div>\n\n\t\t<div class=\"space-y-4\">\n\t\t\t{#each [\n\t\t\t\t{ key: 'newMessages', label: 'New messages' },\n\t\t\t\t{ key: 'accountActivity', label: 'Account activity' },\n\t\t\t\t{ key: 'mentions', label: 'Mentions in discussions' },\n\t\t\t\t{ key: 'appUpdates', label: 'Application updates' }\n\t\t\t] as item}\n\t\t\t\t<div class=\"flex items-center justify-between\">\n\t\t\t\t\t<label class=\"text-sm font-medium\">{item.label}</label>\n\t\t\t\t\t<div class=\"flex gap-1\">\n\t\t\t\t\t\t{#each notificationOptions as option}\n\t\t\t\t\t\t\t<button\n\t\t\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t\t\t'px-2.5 py-1 rounded text-sm border transition-colors',\n\t\t\t\t\t\t\t\t\tgeneralSettings[item.key] === option\n\t\t\t\t\t\t\t\t\t\t? 'bg-foreground text-background border-foreground'\n\t\t\t\t\t\t\t\t\t\t: 'border-muted-foreground/20 hover:border-muted-foreground/40'\n\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t\tonclick={() => (generalSettings[item.key] = option)}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{option}\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n\n\t<!-- Summary Notifications -->\n\t<div class=\"border rounded-lg p-6 space-y-4\">\n\t\t<div>\n\t\t\t<h3 class=\"text-lg font-semibold\">Summary notifications</h3>\n\t\t\t<p class=\"text-sm text-muted-foreground\">Receive digest summaries of your activity</p>\n\t\t</div>\n\n\t\t<div class=\"space-y-4\">\n\t\t\t{#each [\n\t\t\t\t{ key: 'dailySummary', label: 'Daily activity summary' },\n\t\t\t\t{ key: 'weeklyReport', label: 'Weekly progress report' },\n\t\t\t\t{ key: 'monthlyBilling', label: 'Monthly billing summary' },\n\t\t\t\t{ key: 'eventReminder', label: 'Event reminder summary' }\n\t\t\t] as item}\n\t\t\t\t<div class=\"flex items-center justify-between\">\n\t\t\t\t\t<label class=\"text-sm font-medium\">{item.label}</label>\n\t\t\t\t\t<div class=\"flex gap-1\">\n\t\t\t\t\t\t{#each notificationOptions as option}\n\t\t\t\t\t\t\t<button\n\t\t\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t\t\t'px-2.5 py-1 rounded text-sm border transition-colors',\n\t\t\t\t\t\t\t\t\tsummarySettings[item.key] === option\n\t\t\t\t\t\t\t\t\t\t? 'bg-foreground text-background border-foreground'\n\t\t\t\t\t\t\t\t\t\t: 'border-muted-foreground/20 hover:border-muted-foreground/40'\n\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t\tonclick={() => (summarySettings[item.key] = option)}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{option}\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n\n\t<!-- Save Button -->\n\t<div class=\"flex justify-end\">\n\t\t<Button onclick={handleSave}>Save preferences</Button>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:3429",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+1Y3W7bNhR+lTOtgBPAitu064Vru0i2ottFsyHBsAFxLiiJtrlQJCFSdjzPwB5iT7gn2eGfI8lqMAwbimGDLyQfnn9+5yPtXSJISZNx8uPle/j919/gShq2YDkxTAqdDBNDGN8wUSRjU9V0mCwYpzoZ3+4Ss1XW0ApQL7i5UOpMryk3VpYRTfvkuRSGCoNukonOK6YMcCKW03li9DyZzcXcsFLJysAOcgF7WFSyhMEzzrJRbRjXo1wM3rTULmtjZEc1l7gqbKBRzZw+WtisfZHfKlsjTGFwwfkAfoHBuxKLdW/fCCBKudcrdBGNGeZdLUhO4btKKg07K5ybnBOt345Bm4qJ5RsvlOKGrClKT05hOoO1ZIVb2XtX2APt6rO2Y/+4wl4NwRvCfhyCTOGZsi8npyELTg0sqaAV4TfUYFJLp6QNMXRyTXNZFROfyrBZ6Wx2EvIVdPOBak2WFCO76od+geS5rIW5yA1bM7NtL5bYSQuKjolS36sCI0e5q7GZqq7LklTbv5ZqgTuyvfEe2oE3lN7z7TW1AOgkivBa8e0l4xwdt9foGqu4piUimlZ9Gft9EY0p8ClheY0Eb++wjFvvOOJmeIDNMKDmLvhc1CJ3WFsRUXBqtxdBsWvh5Mxvr4XHZOSHwg6CmBRs7dEx3eXiZKAVwi/dpq8xygE0p3s3NJPP0hS+pgRLgzT1IjSf+UCT1XlwhHNGH0x6/sBhgb1KNfYjk7zA2WuN/2S0Oo/Gqm2rS3DPsja0SBeyossKoVNAadIXYYbt58aQLTCBCiUtYMPMCvJaG1myn0nGaavRGkgmawNbWVcQoAjYMXx3eGRUn4VsRspXNwrlxeLf+7Fos1izF4cqMoQetskljRXwJaj0NcTuvjqU0GigbeHLdhvQrNvBmILodPLlo5c/2Ut09uVKSk1hJTe2K1DRnDLkhjD9UPvJi+1oN6RT8HFpc7P7nJJ8BbfxO0rgntpBa1AEAo2TjHKUXtENlFEM++GxXYdBGrYXcUPjUq99JJmG4YcgQhhBwTTCRzuN/vgHOmqGVoqHnYgtQ+tofAcEfRta7h/dtTq34PTBKeg0p/YEgJ8QwmyxTTNqaUg0OuqMXdyjPXZAwSlgdYkGO+vwzGnuJyP3bDs5ymBJVGu0WlvYQ1i2LOle920TdJ6547IrDieZI5rjtbkZqIf0/OwLUNv0RZwciOWFgTIVEZrZqGkuuaz0YNjnqnN+3bpu4BYir06nIe0+u7l5C4Ns2WQcl0BG8vvw3SfS0Bj0O0JgBNXu4I3On+PIrfGA+JjCq+c9Tk+P+mzZPUfo3U93/hZw8kTdoepjL7Njt7uPbezI72wXJCMLkpb2gSl6v7cMHpeO+DaczJ+Sb2MKfwvfXgeCLRgyXLy64LkDchGPJc9e/wDlNq86DfL6yooPceNtqp/9mneihosfnBjwFrmskL3xGHEK/QTcujw1adgvQOZXnk6kdc1qOHln5RjfLzR8/E/Gn5CMOzf0/wwZP1H3v5KM7c/G8EO4j4IdcOO0UMd3wWcwOvTn8XfKfua8qoouaEVFbi+bl49VxRzi0/5hgAjwfxbs7/Z/AGTM90RfEAAA"
+}

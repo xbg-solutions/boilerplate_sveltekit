@@ -1,0 +1,30 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "category": "atoms",
+  "group": "dialog",
+  "title": "Dialog",
+  "description": "Root dialog wrapper that manages open/close state.",
+  "tags": [
+    "modal",
+    "overlay",
+    "dialog"
+  ],
+  "source": "<!--\n  src/lib/components/ui/dialog/Dialog.svelte\n  SHADCN-Svelte Dialog Component\n\n  AI SYSTEMS: Use this component for modal dialogs.\n  Provides proper focus management, keyboard navigation, and accessibility.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { X } from 'lucide-svelte';\n  import { cn } from '$lib/utils/cn';\n\n  // Component props\n  let {\n    open = $bindable(false),\n    closeOnEscape = true,\n    closeOnClickOutside = true,\n    preventScroll = true,\n    onOpenChange,\n    onClose,\n    children,\n  }: {\n    open?: boolean;\n    closeOnEscape?: boolean;\n    closeOnClickOutside?: boolean;\n    preventScroll?: boolean;\n    onOpenChange?: (detail: { open: boolean }) => void;\n    onClose?: () => void;\n    children?: Snippet;\n  } = $props();\n\n  let dialogElement: HTMLDivElement;\n  let contentElement: HTMLDivElement;\n  let previousActiveElement: Element | null = $state(null);\n  let isAnimating = $state(false);\n\n  // Handle open state changes\n  $effect(() => {\n    if (open) {\n      openDialog();\n    } else {\n      closeDialog();\n    }\n  });\n\n  function openDialog() {\n    if (isAnimating) return;\n\n    previousActiveElement = document.activeElement;\n    isAnimating = true;\n\n    if (preventScroll) {\n      document.body.style.overflow = 'hidden';\n    }\n\n    // Focus the dialog content after animation\n    setTimeout(() => {\n      contentElement?.focus();\n      isAnimating = false;\n    }, 150);\n  }\n\n  function closeDialog() {\n    if (isAnimating) return;\n\n    isAnimating = true;\n\n    if (preventScroll) {\n      document.body.style.overflow = '';\n    }\n\n    // Restore focus after animation\n    setTimeout(() => {\n      if (previousActiveElement instanceof HTMLElement) {\n        previousActiveElement.focus();\n      }\n      previousActiveElement = null;\n      isAnimating = false;\n    }, 150);\n  }\n\n  // Handle escape key\n  function handleKeydown(event: KeyboardEvent) {\n    if (event.key === 'Escape' && closeOnEscape) {\n      event.preventDefault();\n      handleClose();\n    }\n  }\n\n  // Handle backdrop click\n  function handleBackdropClick(event: MouseEvent) {\n    if (closeOnClickOutside && event.target === dialogElement) {\n      handleClose();\n    }\n  }\n\n  // Close dialog\n  function handleClose() {\n    open = false;\n    onOpenChange?.({ open: false });\n    onClose?.();\n  }\n\n  // Focus trap\n  function handleFocus(event: FocusEvent) {\n    if (!contentElement) return;\n\n    const focusableElements = contentElement.querySelectorAll(\n      'button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])'\n    );\n\n    const firstFocusable = focusableElements[0] as HTMLElement;\n    const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;\n\n    if (event.target === contentElement) {\n      firstFocusable?.focus();\n    }\n  }\n\n  // Trap focus within dialog\n  function trapFocus(event: KeyboardEvent) {\n    if (event.key !== 'Tab' || !contentElement) return;\n\n    const focusableElements = Array.from(\n      contentElement.querySelectorAll(\n        'button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])'\n      )\n    ) as HTMLElement[];\n\n    if (focusableElements.length === 0) return;\n\n    const firstFocusable = focusableElements[0];\n    const lastFocusable = focusableElements[focusableElements.length - 1];\n\n    if (event.shiftKey) {\n      if (document.activeElement === firstFocusable) {\n        event.preventDefault();\n        lastFocusable.focus();\n      }\n    } else {\n      if (document.activeElement === lastFocusable) {\n        event.preventDefault();\n        firstFocusable.focus();\n      }\n    }\n  }\n\n  // Cleanup on destroy\n  $effect(() => {\n    return () => {\n      if (preventScroll && open) {\n        document.body.style.overflow = '';\n      }\n    };\n  });\n</script>\n\n{#if open}\n  <!-- Backdrop -->\n  <div\n    bind:this={dialogElement}\n    class=\"fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\"\n    data-state={open ? 'open' : 'closed'}\n    onclick={handleBackdropClick}\n    onkeydown={handleKeydown}\n    role=\"dialog\"\n    aria-modal=\"true\"\n    tabindex=\"-1\"\n  >\n    <!-- Dialog Content -->\n    <div\n      bind:this={contentElement}\n      class=\"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg md:w-full\"\n      data-state={open ? 'open' : 'closed'}\n    >\n      {@render children?.()}\n    </div>\n  </div>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "X"
+      ],
+      "from": "lucide-svelte"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

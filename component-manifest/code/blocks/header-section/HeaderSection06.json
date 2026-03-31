@@ -1,0 +1,31 @@
+{
+  "id": "headersection06",
+  "name": "HeaderSection06",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Stats",
+  "description": "Header with inline stat pills showing key numbers.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "stats"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n\n\tconst stats = [\n\t\t{ value: '10K+', label: 'Active Users' },\n\t\t{ value: '99.9%', label: 'Uptime' },\n\t\t{ value: '4.9/5', label: 'Rating' }\n\t];\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-3xl\">\n\t\t<div class=\"text-center\">\n\t\t\t{#if eyebrow}\n\t\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t\t{eyebrow}\n\t\t\t\t</div>\n\t\t\t{/if}\n\n\t\t\t{#if title}\n\t\t\t\t<h1 class=\"text-4xl sm:text-6xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t\t{/if}\n\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t\t{/if}\n\n\t\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t\t{secondaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-12 grid grid-cols-3 gap-8 border-t pt-8\">\n\t\t\t{#each stats as stat}\n\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t<p class=\"text-3xl font-bold\">{stat.value}</p>\n\t\t\t\t\t<p class=\"mt-2 text-sm text-muted-foreground\">{stat.label}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:176416",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31WzY7bNhB+lYGawruotdofJ9h17BTJJYcWQdA0bYE4B0qiZDYUKZAj/9QQ0Ifosec+WJ6kQ0pWJNm7F3vM+f1mvhn4EChW8GAe/PHmLXz9+x/4XeAaPiBDG0wDZEJuhUqDOZqKT4NMSG6D+adDgPvSebkHsmtjvC7LK7vhEt1bzCw/955ohVxR+HmwsIkRJYJkKl+uArSr4NVKrVAUpTYIB0gU1JAZXcDkmRRxVKGQNkrU5OXA7E2FqEemiSatcomiSnh750GpTcYSDu+NLi0c3OMKE8ms/XEOFo1Q+cvmke95bPR2/IwCJR8/prxBIrQaq0ojCmb2P7OYy7HOcmpG+phWq/eNLykuLmH5CjZapJ3yw9H5VF03aCXHAcI5+K93NJTpACMsYfKOb8FwyWlq8PXf/ybTHlyn/3XNodApNwq2bA+oIa6ETCHTBpB0Wx4ffXrdmJ42wQV7S5VZZAZ5enQa9sIZ/SaopJQX+mjSNWR60gOPet5OdQnPSidcXLZjJyPrE6JTfmq8D7BhsuJzmNxc//TDZEospMT083WCYsPho+XGTqCejs0fHq4evu/ZfySkBT9nObt6iJ73LH9hxMCcLJ3hZypuETWdcqxXC2qB61kzpeUhUReTbZhVUkKchzFLvuRGVyqFchfOoNyHt9dgi7kT7ilJN9vL2i/RIhWbNtQqKHYhq2hmBduF2/BuJ9tNG5kh32GYcLclnQEB+k5k0FKlPj6OE8ThCxBKCsXDTPIdCOSFbWNBzsrwFnz1PG0haUNkcsiKimgQPb92uO4crhvwdexsrwZfx5kaIiriW6GRyFrud3V7Avc91jdDuLOddG308guSM7pPYayJ2mio5zSwEEW+RiCIM6ro0ERcROubJxP3tqCfvhxml3kD1jchpGXi7ZAp273L1g+ziMrHUg6G4QfgPsJEe3BedovuBjGDPyuLItufTpritLdUq0SK5Mvy0C1dDVb8xSm6zMdz6a/3YDhNsKfDdztc094YwRRSDl2ho9IqeDzp8GA8lbZPkk4+JX+B4c0t5Eak/sP1zhIhXcvuW7qGCCX6uXwbNWfJur0tzHrhsR05v13nWHHX56FjgQt75c/KgAQjX0Jw29DJFudp1cXyJ2kUa7xMDlk9alsn0elqzhXJ7p8CZWv+JdSf6/8B8257W1UIAAA="
+}

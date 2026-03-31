@@ -1,0 +1,24 @@
+{
+  "id": "testimonial02",
+  "name": "Testimonial02",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "Testimonial 02",
+  "description": "Customer testimonial sections in various layouts — single centred, card grids, split with image, dark, and masonry.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Testimonial {\n\t\tquote: string;\n\t\tname: string;\n\t\trole?: string;\n\t\tcompany?: string;\n\t\tavatarUrl?: string;\n\t\trating?: number;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttestimonials?: Testimonial[];\n\t}\n\n\tconst defaultTestimonial: Testimonial = {\n\t\tquote:\n\t\t\t'\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n\t\tname: 'Lando Norris',\n\t\trole: 'CEO',\n\t\tcompany: 'Acme Inc.'\n\t};\n\n\tlet { class: className, testimonials = [defaultTestimonial, defaultTestimonial] }: Props = $props();\n\n\tconst getInitials = (name: string): string => {\n\t\treturn name\n\t\t\t.split(' ')\n\t\t\t.map((w) => w[0])\n\t\t\t.join('')\n\t\t\t.toUpperCase();\n\t};\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-4xl grid grid-cols-1 gap-6 sm:grid-cols-2\">\n\t\t{#each testimonials as testimonial}\n\t\t\t<div class=\"rounded-lg border bg-background p-8 text-center\">\n\t\t\t\t<p class=\"text-base font-medium italic text-foreground\">\n\t\t\t\t\t{testimonial.quote}\n\t\t\t\t</p>\n\n\t\t\t\t<div class=\"mt-6 flex flex-col items-center\">\n\t\t\t\t\t{#if testimonial.avatarUrl}\n\t\t\t\t\t\t<img\n\t\t\t\t\t\t\tsrc={testimonial.avatarUrl}\n\t\t\t\t\t\t\talt={testimonial.name}\n\t\t\t\t\t\t\tclass=\"h-12 w-12 rounded-full object-cover\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t{:else}\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tclass=\"h-12 w-12 rounded-full bg-muted overflow-hidden flex items-center justify-center text-muted-foreground text-xs font-semibold\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{getInitials(testimonial.name)}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/if}\n\n\t\t\t\t\t<p class=\"font-semibold text-sm text-foreground mt-3\">{testimonial.name}</p>\n\t\t\t\t\t{#if testimonial.role || testimonial.company}\n\t\t\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">\n\t\t\t\t\t\t\t{testimonial.role}\n\t\t\t\t\t\t\t{#if testimonial.role && testimonial.company}\n\t\t\t\t\t\t\t\t·\n\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t{testimonial.company}\n\t\t\t\t\t\t</p>\n\t\t\t\t\t{/if}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t{/each}\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VW/2rjRhB+lUE9TjZY9iU9jsOJU65HW8KVa6EXKET5Y7VayZvuD3V35R/1CfoQfZf+30fpk3RWspKVnMAVgyzPzn4z8803gw+RIpJFy+jXb3+Af//8Cz4x67jUihMBr86jWeQIF1uu8mjpTM1mUcEFs9Hy9hC5feVvegP6HXHeVdXcbphw3pYRy56yU60cUw5hoktLDa8cCKLKVRo5m0ZXqUoxh0obBwegChoojJYQvxA8W9SOC7ugKr5AN++IUKYglA1SP/ij1P1ea8eWYJ3hqrzobD6hkclowb4Z2aiWFVH7sZlsiCPmxojxgSGYSolWVcuMmdbajFP82ejK9slRQawdw7jHIvxZUNPtXYiJFFoHOStILVzgNbgCqyER3Xvq4jT6ZU1ypPbmGj5wB4U28D0vJYE1seBLF8wxsQcsS1k8lSwHXRsMaHmpoDKaMmvncO3SNLbAFTUs5xnewGJr7viGAVE5WLJhFmoLVoOs6RowNTaHT2vWRtHKywCIYZAxgq0taoEY1JDCYUSPQGvrtOR/kEyweRrFs7CL8Y/oouGjNobb/sh3E4/ef/dTbzn2Eo3vqGRwreg8brk8agiL9Urz/Vh2Xx8RfgZhM5DL21O6Z0+04A6a5bHTK3hR+ZfJ9CJsW8nctUKSOthJqMhp/wKrq755hrnaKPBufQfnthLcTWKIpw8mSarJZDv1F7e3r+4eD+41V5M48HT6pqqYeY/j2WXWMnG56GbRz5+6tIw6rlVHx+pAEWGb+PZAViYZob+VRtfYn2qfnL2Bape8BiuX+P0GROm/38azRy6nTTvVlznfHBHTSO4SbDnqguySbfJ6J6A0PG8fCdXCJmdQkgrxEPfReH5cEKk7fMWIV1TYJFRv8LvpKx7EbfNmeSJKyLTJmRlXlLxFkJ1LKPOD+xCvBaoeYFoXv+FwepRLcEJ4LYE7Ijjt7uPcsA5zgIGZBznO29FsghCL6qoTyxO5S4d8FILt2odnBCMyaZ/K1TPEi5CP+cP2akI3jMFlObSkzhq6OnzJZVyKwg1dvVRPvPoa1snZOWz9o+9EKyud3aPksKSNr2N4eTEsa8mEHeN7mv5nRGy7rP2e8SELobfJmuc5Ux3BIa9wj1uIF/v+Z9ve9m7Q5M66s50eLJM80yIfl3I1TvIQbIPJmMTpuMoFljkkY8GLJtTLQKSDVLoErRyrE1BVX6N0Tlt41OLzgvK7Fj5/HtiO23ac+WhydvYZFjGZs5GOT2bGhz3R19PJvXz5Bcn5zz9/nwAeqX0+j2dKHbM2xBn2MPx1WPiN1rr2ZlzK3SLGd/9vDCnr/ok1d81//CjWor0JAAA="
+}

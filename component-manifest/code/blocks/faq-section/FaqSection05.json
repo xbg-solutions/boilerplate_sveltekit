@@ -1,0 +1,26 @@
+{
+  "id": "faqsection05",
+  "name": "FaqSection05",
+  "category": "blocks",
+  "group": "faq-section",
+  "title": "Tabbed Accordion",
+  "description": "Topic tabs (General, Features, License) each revealing an accordion list.",
+  "tags": [
+    "faq",
+    "accordion",
+    "landing-page",
+    "tabs",
+    "accordion"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface FaqItem {\n\t\tquestion: string;\n\t\tanswer: string;\n\t\tcategory?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\titems?: FaqItem[];\n\t\teyebrow?: string;\n\t}\n\n\tconst defaultFaqs: FaqItem[] = [\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui?',\n\t\t\tanswer:\n\t\t\t\t'Shadcn/ui is a popular, open-source UI component library for React that focuses on flexibility and customization. It provides a set of accessible, customizable components that you can use to build modern web applications.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui kit for Figma?',\n\t\t\tanswer:\n\t\t\t\t'The shadcn/ui kit for Figma is our comprehensive design kit that brings the shadcn/ui components into the Figma environment.'\n\t\t},\n\t\t{\n\t\t\tquestion: \"I'm not familiar with shadcn/ui. Can I still use this kit?\",\n\t\t\tanswer:\n\t\t\t\t'Absolutely! Our kit is intuitive and comes with documentation to help you get started, regardless of your familiarity with Figma or shadcn/ui.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'Can I create multi-brand design systems with this UI kit?',\n\t\t\tanswer:\n\t\t\t\t'Yes! Our kit is designed with multi-brand support in mind. You can easily create and manage multiple styles for different brands within a single design system using Figma variables.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How will this kit save me time?',\n\t\t\tanswer:\n\t\t\t\t'By providing pre-built, customizable components and templates, you can skip the repetitive setup work and focus on the unique aspects of your design.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How does this improve my collaboration with developers?',\n\t\t\tanswer:\n\t\t\t\t'Our components are built to closely match the shadcn/ui library, significantly reducing misinterpretations and implementation errors.'\n\t\t}\n\t];\n\n\tlet { class: className, title = 'Frequently Asked Questions', description = 'Get answers to your questions.', items = defaultFaqs, eyebrow = 'FAQ Section' }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl text-center\">\n\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">{eyebrow}</p>\n\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">{title}</h2>\n\t\t<p class=\"mt-3 text-muted-foreground\">{description}</p>\n\t</div>\n\n\t<div class=\"mt-10 mx-auto max-w-2xl flex flex-col gap-6\">\n\t\t{#each items as item (item.question)}\n\t\t\t<div class=\"rounded-lg border p-6\">\n\t\t\t\t<h3 class=\"font-semibold text-sm\">{item.question}</h3>\n\t\t\t\t<p class=\"mt-2 text-sm text-muted-foreground\">{item.answer}</p>\n\t\t\t</div>\n\t\t{/each}\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "19193:17452",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VWbW/bNhD+KzetgBvAitekCAY3aZAOaJcv7bp22Iq6HyjpLBOhSJWkYnuGgf2I/cL9kj0k5besCbIvlkwd757nuTseV5kWDWfj7I9Xb+ifv/6mj6IouKKrsjS2kkZnw8wLqeZSV9nY246H2VQqdtn48yrzyzbsDQuw6z1dte2xu2Xlw1ohHH9rvTTas/Zwk5270srWkxK6vphk3k2ylxM98bJpjfW0olLTmqbWNDR4omQx6rxUblTqwQuYBUO4slNRMr0WX689N7QKyxP/tWPnwWFMzlup6xdpWWg3Z3tnsRSea2OXlwfr67sRfrGmdRv/pRLOXd5x5KVXfHex4kQSYO5+kgAcnPTYP3/p13nJhTXzb+KBes5TxVPRKY+Nbm87XdDn5KFHua/D4PeZ8CQduZmoSj3q5OVguDHrddn8nfjBh41V2CKoNW2nhB2SaVnnznQWivx2TaVBqjTSSUiPFXZJU2PpVxalJx8CTk3ZOXZkNE0VL2QhlfRLEroifPCmkX+KAPCYrj211txKCIaAjj2ZKYmyZOdkoXi4s8e/XWCX4ixNR6XQhGDkDRWdVBU1pmKrac4FibZVsoyh3PEgEV0P/4dadCN9JPda1o14ULuPM75vX3AJ8SJ8yzPWTt4y0ulkraNlJFOErAdi+372GKMoTfyafLK+ldboBt8eQW2SXQ8a0gaoRINsCEtz6We7SMf0E4S8RvFJpZKgM8AGustJ9gDtq8IZ1XlWy+/oHTgGOjKC7aQPNGPSTYP8xoAVSiNgjkkJSZuxamMiayTfeWE9V0OyXAtb4dxxoSCWQb0N8FBJ0VXSASLvSDwix4lmaRkHADXoJ5mjhgGyz4dbutChKUTUABUfZHgo+Z/YHdBPvnCuRi/7UVzXxmNOampwxh7Tp76GWTiplhtgwbQRWtQ9xhbV7/wSgsSyquR0yjZ0YPSa0MIlWghFpPiQDNKJ1V6vWygYmulRDfGzmcM1CmJTDOQEctqgOmTDD0ryatl3dgiNss9Dd/r7GzowBtZWgb4bblvb3cg2Vr3lln0qKRwTXUtzY2/irnjahLMmmHVaAj8J13Lpd8WT9Hgs5cqwS5QxlEACjJEZo5QojE2Vm4qZMd9wOFr3oBTv+t7fMLUcjyofyr9UxqF5kGxfzu40f3+6Dilgl1OcZNrD1HLVlUHVRro4qaBu6qekIjAr3vUYW2vsLtvh8aWfpIrjvA1jbZwebzG7hxRnGgbL4LVlSBOjXrkb1PP7Xig3GNLekAu2b+AscXeBWJR9oyvCDylOPljuzbEh9WMvBrt6Tx+QNdgPaD3uZ+8FPWnDy9MjgD4fpZDhwqDPXTJOyC9WpX46mOfTDuVa1Hkhypvamg6CtMv82Rm1i/w5uWaM5xmpOjx/BKot7aN1vIacV/K29zjJmkUuOpBpxCKf52cLNAIvfF5ykL2/t2BLu90QPy8cocvZliIcoxZAkK18HoacTw4anJhVjk7mBBGuVr0S6/NRu/E7O9kh8flJ2nsKFKAR35/jfYqrVV4YTL5tKC/rmQ8+YyLhcXbyX6jweHo/mr3kbhGdj6DNy1Q6hzL5/NkPdCjWSYCG4R9/cjQP1aLNz7airb7HfWHWF4Vw8YWeht/jTdUcrTdNdBAtYgRgVRPaEcOe9v0m4U631lEex41MEgW+rgkMD0IFjU73PbTfUN419+sVvaXy38vgnmaB8ihQXu9LiYJORYz3cPWG+3TtXn9Z/wvwrAhlrAsAAA=="
+}

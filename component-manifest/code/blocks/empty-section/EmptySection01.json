@@ -1,0 +1,29 @@
+{
+  "id": "emptysection01",
+  "name": "EmptySection01",
+  "category": "blocks",
+  "group": "empty-section",
+  "title": "Empty Section 01",
+  "description": "Empty states for application sections — no data, no results, first-use prompts, and error states.",
+  "tags": [
+    "empty-state",
+    "app"
+  ],
+  "source": "<!--\n  EmptySection01.svelte\n  Empty state: centered icon + title + description + Create new / Learn more buttons.\n  Flat and card variants.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    variant = 'flat' as 'flat' | 'card',\n    title = 'No databases added',\n    description = 'Read and write directly to databases and stores from your projects.',\n    createLabel = 'Create new',\n    learnLabel = 'Learn more',\n    oncreate = () => {},\n    onlearn = () => {}\n  }: {\n    class?: string;\n    variant?: 'flat' | 'card';\n    title?: string;\n    description?: string;\n    createLabel?: string;\n    learnLabel?: string;\n    oncreate?: () => void;\n    onlearn?: () => void;\n  } = $props();\n</script>\n\n<div\n  class={cn(\n    'flex flex-col items-center justify-center py-12 text-center',\n    variant === 'card' && 'rounded-lg border bg-background px-4',\n    className\n  )}\n>\n  <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mb-3 text-muted-foreground\"><path d=\"M22 12h-4l-3 9L9 3l-3 9H2\"/></svg>\n  <p class=\"font-semibold\">{title}</p>\n  {#if description}\n    <p class=\"mt-1 max-w-xs text-sm text-muted-foreground\">{description}</p>\n  {/if}\n  <div class=\"mt-4 flex w-full max-w-xs flex-col gap-2 sm:flex-row sm:justify-center\">\n    <Button size=\"sm\" onclick={oncreate} class=\"sm:flex-1\">{createLabel}</Button>\n    <Button variant=\"outline\" size=\"sm\" onclick={onlearn} class=\"sm:flex-1\">{learnLabel}</Button>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "15004:20251",
+  "playgroundUrl": null
+}

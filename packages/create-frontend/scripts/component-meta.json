@@ -1,0 +1,4011 @@
+{
+  "_readme": "Curated metadata for the component manifest generator. Add figmaNodeId values (strings) as Figma node IDs become available. Variant descriptions and tags override the group-level fallbacks. Run with --update-meta to add stubs for any registry entries not yet listed here.",
+  "figmaFileKey": "2Yi23pr62TTBzTJmOUORvR",
+  "atoms": {
+    "icon": {
+      "title": "Icon",
+      "description": "Brand icons from Simple Icons and dynamic Lucide icons, both rendered as inline SVG via a name prop.",
+      "tags": [
+        "icon",
+        "svg",
+        "brand",
+        "lucide"
+      ],
+      "variants": {
+        "BrandIcon": {
+          "title": "Brand Icon",
+          "description": "Renders any Simple Icons brand logo by lowercase slug (e.g. \"github\", \"stripe\"). Defaults to the official brand hex colour.",
+          "tags": [
+            "brand",
+            "logo",
+            "simple-icons"
+          ],
+          "figmaNodeId": null
+        },
+        "DynamicIcon": {
+          "title": "Dynamic Icon",
+          "description": "Renders any Lucide icon by PascalCase name (e.g. \"Settings\", \"ChevronDown\"). Forwards size and strokeWidth props.",
+          "tags": [
+            "lucide",
+            "utility"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "otp-input": {
+      "title": "OTP Input",
+      "description": "One-time password input with individual digit boxes and auto-advance behaviour.",
+      "tags": [
+        "form",
+        "auth",
+        "otp",
+        "input"
+      ],
+      "variants": {
+        "OtpInput": {
+          "title": "OTP Input",
+          "description": "Segmented input boxes for OTP codes. Auto-advances on digit entry and handles paste.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "calendar": {
+      "title": "Calendar",
+      "description": "Date-picker calendar with month navigation and single/range selection modes.",
+      "tags": [
+        "date",
+        "picker",
+        "calendar",
+        "form"
+      ],
+      "variants": {
+        "Calendar": {
+          "title": "Calendar",
+          "description": "Month grid with prev/next navigation. Highlights today and selected dates.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "select": {
+      "title": "Select",
+      "description": "Accessible dropdown select built on Radix-style primitives with keyboard navigation.",
+      "tags": [
+        "form",
+        "dropdown",
+        "select",
+        "input"
+      ],
+      "variants": {
+        "Select": {
+          "title": "Select",
+          "description": "Accessible select with trigger button, scrollable option list, and keyboard support.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "dialog": {
+      "title": "Dialog",
+      "description": "Modal dialog with header, content, and footer slots. Supports closing via overlay click or Escape key.",
+      "tags": [
+        "modal",
+        "overlay",
+        "dialog"
+      ],
+      "variants": {
+        "Dialog": {
+          "title": "Dialog",
+          "description": "Root dialog wrapper that manages open/close state.",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "DialogHeader": {
+          "title": "Dialog Header",
+          "description": "Dialog title area with optional close button.",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "DialogTitle": {
+          "title": "Dialog Title",
+          "description": "Semantic h2 title inside a dialog.",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "DialogDescription": {
+          "title": "Dialog Description",
+          "description": "Muted description paragraph below the dialog title.",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "DialogFooter": {
+          "title": "Dialog Footer",
+          "description": "Action button row at the bottom of a dialog.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "statistic-card": {
+      "title": "Statistic Card",
+      "description": "KPI card showing a metric value, label, and optional delta badge.",
+      "tags": [
+        "dashboard",
+        "kpi",
+        "metric",
+        "card"
+      ],
+      "variants": {
+        "StatisticCard": {
+          "title": "Statistic Card",
+          "description": "Displays a number metric with label and percentage-change indicator.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "user-item": {
+      "title": "User Item",
+      "description": "Compact user row with avatar, name, role/email, and optional action.",
+      "tags": [
+        "user",
+        "avatar",
+        "list-item"
+      ],
+      "variants": {
+        "UserItem": {
+          "title": "User Item",
+          "description": "Avatar + name + secondary text row, used in dropdowns, sidebars, and user lists.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "notification-badge": {
+      "title": "Notification Badge",
+      "description": "Numeric badge overlay for count indicators on icons and avatars.",
+      "tags": [
+        "badge",
+        "notification",
+        "count"
+      ],
+      "variants": {
+        "NotificationBadge": {
+          "title": "Notification Badge",
+          "description": "Small circular counter badge, typically overlaid on a bell icon or avatar.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "sidebar-item": {
+      "title": "Sidebar Item",
+      "description": "Navigation list item for app sidebars with icon, label, and active state.",
+      "tags": [
+        "nav",
+        "sidebar",
+        "menu-item"
+      ],
+      "variants": {
+        "SidebarItem": {
+          "title": "Sidebar Item",
+          "description": "Icon + label nav link with active highlight. Supports nested indent level.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "nav": {
+      "title": "Nav Item",
+      "description": "Horizontal navigation link with active underline or pill highlight.",
+      "tags": [
+        "nav",
+        "link",
+        "menu"
+      ],
+      "variants": {
+        "NavItem": {
+          "title": "Nav Item",
+          "description": "Inline nav link with hover and active states for top-level navigation bars.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "menu": {
+      "title": "Menu Item",
+      "description": "Dropdown menu row with icon, label, and optional destructive variant.",
+      "tags": [
+        "menu",
+        "dropdown",
+        "action"
+      ],
+      "variants": {
+        "MenuItem": {
+          "title": "Menu Item",
+          "description": "Single action row for context menus and dropdown panels.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "message": {
+      "title": "Message",
+      "description": "Chat message bubble with sender avatar, text content, and timestamp.",
+      "tags": [
+        "chat",
+        "message",
+        "communication"
+      ],
+      "variants": {
+        "Message": {
+          "title": "Message",
+          "description": "Chat bubble with left/right alignment for sent vs. received messages.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "legend": {
+      "title": "Legend",
+      "description": "Colour-coded chart legend item with swatch and label.",
+      "tags": [
+        "chart",
+        "legend",
+        "data-viz"
+      ],
+      "variants": {
+        "Legend": {
+          "title": "Legend",
+          "description": "Coloured dot or line swatch with a label, used beside charts.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "settings-card": {
+      "title": "Settings Card",
+      "description": "Settings row with title, description, and a right-aligned control (toggle or button).",
+      "tags": [
+        "settings",
+        "form",
+        "toggle"
+      ],
+      "variants": {
+        "SettingsCard": {
+          "title": "Settings Card",
+          "description": "Label + description on the left with a control (switch/button) on the right.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "text-editor": {
+      "title": "Text Editor",
+      "description": "Rich text editing area with a formatting toolbar (bold, italic, lists, links).",
+      "tags": [
+        "editor",
+        "rich-text",
+        "form",
+        "wysiwyg"
+      ],
+      "variants": {
+        "TextEditor": {
+          "title": "Text Editor",
+          "description": "WYSIWYG editor with toolbar buttons for common formatting operations.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "uploader": {
+      "title": "Uploader",
+      "description": "File upload zone with drag-and-drop support, file type filtering, and progress display.",
+      "tags": [
+        "upload",
+        "file",
+        "drag-drop",
+        "form"
+      ],
+      "variants": {
+        "Uploader": {
+          "title": "Uploader",
+          "description": "Drag-and-drop file upload area with click-to-browse fallback and upload progress.",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    }
+  },
+  "advanced": {
+    "advanced": {
+      "title": "Advanced Components",
+      "description": "Complex, multi-feature components for data-heavy interfaces that combine multiple atoms into a single reusable unit.",
+      "tags": [
+        "advanced",
+        "data",
+        "complex"
+      ],
+      "variants": {
+        "ChartWrapper": {
+          "title": "Chart Wrapper",
+          "description": "Flexible chart container supporting line, bar, area, pie, and scatter types with legend, export, and loading states.",
+          "tags": [
+            "chart",
+            "data-viz",
+            "dashboard"
+          ],
+          "figmaNodeId": null
+        },
+        "DataTable": {
+          "title": "Data Table",
+          "description": "Feature-rich sortable table with column filtering, pagination, row selection, and bulk actions.",
+          "tags": [
+            "table",
+            "data",
+            "grid",
+            "dashboard"
+          ],
+          "figmaNodeId": null
+        },
+        "FormWizard": {
+          "title": "Form Wizard",
+          "description": "Multi-step form with step indicators, validation per step, and back/continue navigation.",
+          "tags": [
+            "form",
+            "wizard",
+            "multi-step"
+          ],
+          "figmaNodeId": null
+        },
+        "ImageUpload": {
+          "title": "Image Upload",
+          "description": "Image upload with drag-and-drop, crop preview, and base64 output.",
+          "tags": [
+            "upload",
+            "image",
+            "crop",
+            "form"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    }
+  },
+  "blocks": {
+    "account-section": {
+      "title": "Account Section",
+      "description": "User account management pages \u2014 dashboard overview, profile editing, saved addresses, payment methods, and wishlist.",
+      "tags": [
+        "account",
+        "profile",
+        "e-commerce",
+        "settings"
+      ],
+      "variants": {
+        "AccountSection01": {
+          "title": "Account Dashboard",
+          "description": "Sidebar nav with avatar/name + main area showing recent orders table and account summary stats.",
+          "tags": [
+            "dashboard",
+            "orders"
+          ],
+          "figmaNodeId": null
+        },
+        "AccountSection02": {
+          "title": "Profile Edit Form",
+          "description": "Personal information form with change-password section and communication preference checkboxes.",
+          "tags": [
+            "form",
+            "profile"
+          ],
+          "figmaNodeId": null
+        },
+        "AccountSection03": {
+          "title": "Saved Addresses",
+          "description": "Address cards with default badge, edit/delete actions, and a collapsible add-address form.",
+          "tags": [
+            "address",
+            "form"
+          ],
+          "figmaNodeId": null
+        },
+        "AccountSection04": {
+          "title": "Payment Methods",
+          "description": "Saved card entries (Visa, Mastercard) and linked PayPal account, with add-card form.",
+          "tags": [
+            "payment",
+            "billing"
+          ],
+          "figmaNodeId": null
+        },
+        "AccountSection05": {
+          "title": "Wishlist",
+          "description": "4-column product grid of saved items with 'Move to cart' and remove actions.",
+          "tags": [
+            "wishlist",
+            "products"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "app-shell": {
+      "title": "App Shell",
+      "description": "Full application layout shells combining sidebar, topbar, and content area for different navigation patterns.",
+      "tags": [
+        "layout",
+        "shell",
+        "sidebar",
+        "app"
+      ],
+      "variants": {
+        "AppShell01": {
+          "title": "Fixed Sidebar",
+          "description": "Fixed left sidebar with collapsible nav and scrollable main content area.",
+          "tags": [
+            "sidebar",
+            "fixed"
+          ],
+          "figmaNodeId": "11005:3814"
+        },
+        "AppShell02": {
+          "title": "Sidebar + Topbar",
+          "description": "Left sidebar combined with a sticky top navigation bar and breadcrumb trail.",
+          "tags": [
+            "sidebar",
+            "topbar"
+          ],
+          "figmaNodeId": "11005:3552"
+        },
+        "AppShell03": {
+          "title": "Mini Sidebar",
+          "description": "Icon-only collapsed sidebar that expands to full labels on hover.",
+          "tags": [
+            "sidebar",
+            "compact"
+          ],
+          "figmaNodeId": "11005:3825"
+        },
+        "AppShell04": {
+          "title": "Top Navigation Shell",
+          "description": "Horizontal top navbar layout with no sidebar, suitable for marketing-adjacent apps.",
+          "tags": [
+            "topbar",
+            "horizontal"
+          ],
+          "figmaNodeId": "11005:5051"
+        }
+      }
+    },
+    "auth": {
+      "title": "Auth Blocks",
+      "description": "Login, sign-up, and OTP verification screens in various layouts \u2014 centered card, split-screen, and full-page.",
+      "tags": [
+        "auth",
+        "login",
+        "sign-up",
+        "otp"
+      ],
+      "variants": {
+        "LoginBlock01": {
+          "title": "Centered Login Card",
+          "description": "Simple centered card with email/password fields, forgot password link, and social sign-in buttons.",
+          "tags": [
+            "login",
+            "centered",
+            "card"
+          ],
+          "figmaNodeId": "15005:202990"
+        },
+        "LoginBlock02": {
+          "title": "Split Login",
+          "description": "Left panel with brand imagery, right panel with login form.",
+          "tags": [
+            "login",
+            "split"
+          ],
+          "figmaNodeId": "15005:202905"
+        },
+        "LoginBlock03": {
+          "title": "Dark Login",
+          "description": "Dark background centered login with logo, form, and social buttons.",
+          "tags": [
+            "login",
+            "dark"
+          ],
+          "figmaNodeId": "15005:202822"
+        },
+        "LoginBlock04": {
+          "title": "Login with Announcement",
+          "description": "Centered login form with a dismissable announcement banner above.",
+          "tags": [
+            "login",
+            "announcement"
+          ],
+          "figmaNodeId": "15005:202946"
+        },
+        "LoginBlock05": {
+          "title": "Minimal Login",
+          "description": "Ultra-minimal login with just email and password on a white background.",
+          "tags": [
+            "login",
+            "minimal"
+          ],
+          "figmaNodeId": "15005:202867"
+        },
+        "SignupBlock01": {
+          "title": "Centered Sign-up Card",
+          "description": "Sign-up form with name, email, password fields and terms agreement checkbox.",
+          "tags": [
+            "sign-up",
+            "centered"
+          ],
+          "figmaNodeId": "18748:247757"
+        },
+        "SignupBlock02": {
+          "title": "Split Sign-up",
+          "description": "Split-screen sign-up with feature highlights on the left and form on the right.",
+          "tags": [
+            "sign-up",
+            "split"
+          ],
+          "figmaNodeId": "18751:256078"
+        },
+        "SignupBlock03": {
+          "title": "Multi-step Sign-up",
+          "description": "Step-by-step registration flow with progress indicator.",
+          "tags": [
+            "sign-up",
+            "multi-step"
+          ],
+          "figmaNodeId": "18751:256650"
+        },
+        "SignupBlock04": {
+          "title": "Dark Sign-up",
+          "description": "Dark background sign-up form with social auth options.",
+          "tags": [
+            "sign-up",
+            "dark"
+          ],
+          "figmaNodeId": "18751:258857"
+        },
+        "SignupBlock05": {
+          "title": "Sign-up with Social Proof",
+          "description": "Sign-up form with user testimonial or logo strip alongside it.",
+          "tags": [
+            "sign-up",
+            "social-proof"
+          ],
+          "figmaNodeId": "18751:258819"
+        },
+        "OtpBlock01": {
+          "title": "OTP Verification",
+          "description": "6-digit OTP input with resend timer on a centered card.",
+          "tags": [
+            "otp",
+            "centered"
+          ],
+          "figmaNodeId": "18751:264084"
+        },
+        "OtpBlock02": {
+          "title": "OTP \u2014 Split Screen",
+          "description": "Split layout with illustration left and OTP form right.",
+          "tags": [
+            "otp",
+            "split"
+          ],
+          "figmaNodeId": "18753:153336"
+        },
+        "OtpBlock03": {
+          "title": "OTP \u2014 Dark",
+          "description": "Dark background OTP verification screen.",
+          "tags": [
+            "otp",
+            "dark"
+          ],
+          "figmaNodeId": "18753:225647"
+        },
+        "OtpBlock04": {
+          "title": "OTP \u2014 Email Hint",
+          "description": "OTP screen showing the masked email address the code was sent to.",
+          "tags": [
+            "otp",
+            "email"
+          ],
+          "figmaNodeId": "18753:226051"
+        },
+        "OtpBlock05": {
+          "title": "OTP \u2014 Minimal",
+          "description": "Minimal OTP input with just digits and a verify button.",
+          "tags": [
+            "otp",
+            "minimal"
+          ],
+          "figmaNodeId": "18753:227137"
+        },
+        "AuthSplitScreen": {
+          "title": "Auth Split Screen",
+          "description": "Reusable split-screen wrapper with brand panel left and form slot right.",
+          "tags": [
+            "split",
+            "layout",
+            "wrapper"
+          ],
+          "figmaNodeId": "15005:206266"
+        }
+      }
+    },
+    "banner": {
+      "title": "Banner",
+      "description": "Announcement and notification banners for top-of-page alerts, cookie consent, and promotional messages.",
+      "tags": [
+        "banner",
+        "announcement",
+        "notification"
+      ],
+      "variants": {
+        "Banner01": {
+          "title": "Dark Announcement Banner",
+          "description": "Full-width dark bar with centred announcement text and CTA link.",
+          "tags": [
+            "dark",
+            "announcement"
+          ],
+          "figmaNodeId": "17006:181904"
+        },
+        "Banner02": {
+          "title": "Minimal Banner",
+          "description": "Light border banner with icon, message, and dismiss button.",
+          "tags": [
+            "minimal",
+            "dismissable"
+          ],
+          "figmaNodeId": "17006:181916"
+        },
+        "Banner03": {
+          "title": "Cookie Consent",
+          "description": "Bottom-fixed cookie consent bar with accept and manage buttons.",
+          "tags": [
+            "cookie",
+            "consent",
+            "fixed"
+          ],
+          "figmaNodeId": "17006:181928"
+        },
+        "Banner04": {
+          "title": "Social Proof Pill",
+          "description": "Floating pill badge showing recent activity or user count.",
+          "tags": [
+            "social-proof",
+            "pill"
+          ],
+          "figmaNodeId": "17006:184210"
+        },
+        "Banner05": {
+          "title": "Dark Rounded Box",
+          "description": "Rounded dark callout box for featured announcements or upgrade prompts.",
+          "tags": [
+            "dark",
+            "rounded",
+            "callout"
+          ],
+          "figmaNodeId": "17006:181943"
+        }
+      }
+    },
+    "bento-grid": {
+      "title": "Bento Grid",
+      "description": "Asymmetric feature showcase grids in a bento-box style layout for landing pages.",
+      "tags": [
+        "bento",
+        "grid",
+        "features",
+        "landing-page"
+      ],
+      "variants": {
+        "BentoGrid01": {
+          "title": "Asymmetric Bento",
+          "description": "Large featured cell with two smaller cells \u2014 highlights one primary feature.",
+          "tags": [
+            "asymmetric"
+          ],
+          "figmaNodeId": "17007:4744"
+        },
+        "BentoGrid02": {
+          "title": "2+1 Bento",
+          "description": "Two equal cells stacked above one wide cell.",
+          "tags": [
+            "2+1"
+          ],
+          "figmaNodeId": "17007:4815"
+        },
+        "BentoGrid03": {
+          "title": "4-col + Large",
+          "description": "Four compact cells with one large featured cell spanning two rows.",
+          "tags": [
+            "4-col"
+          ],
+          "figmaNodeId": "17007:4867"
+        },
+        "BentoGrid04": {
+          "title": "Equal 3-col",
+          "description": "Three equal-width cells in a single row.",
+          "tags": [
+            "equal",
+            "3-col"
+          ],
+          "figmaNodeId": "17007:4769"
+        },
+        "BentoGrid05": {
+          "title": "Dark Bento",
+          "description": "Dark background version with glowing or gradient card borders.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17007:4792"
+        },
+        "BentoGrid06": {
+          "title": "Stats Cells",
+          "description": "Bento grid where each cell displays a key statistic with large number.",
+          "tags": [
+            "stats",
+            "metrics"
+          ],
+          "figmaNodeId": "17007:4841"
+        }
+      }
+    },
+    "blog-section": {
+      "title": "Blog Section",
+      "description": "Blog post grid and list layouts for article listing pages.",
+      "tags": [
+        "blog",
+        "articles",
+        "content",
+        "landing-page"
+      ],
+      "variants": {
+        "BlogSection01": {
+          "title": "4-col Cards",
+          "description": "Four-column grid of blog cards with image, category badge, title, author, and date.",
+          "tags": [
+            "grid",
+            "4-col"
+          ],
+          "figmaNodeId": "17013:2637"
+        },
+        "BlogSection02": {
+          "title": "3-col No Image",
+          "description": "Three-column text-only cards with author avatar, title, and excerpt.",
+          "tags": [
+            "3-col",
+            "text-only"
+          ],
+          "figmaNodeId": "17013:2661"
+        },
+        "BlogSection03": {
+          "title": "3-col Image Above",
+          "description": "Three-column cards with large image above text.",
+          "tags": [
+            "3-col",
+            "image"
+          ],
+          "figmaNodeId": "17013:2685"
+        },
+        "BlogSection04": {
+          "title": "2\u00d72 with Image",
+          "description": "Two-by-two grid with one large featured post and three smaller ones.",
+          "tags": [
+            "featured",
+            "mixed"
+          ],
+          "figmaNodeId": "17013:2707"
+        },
+        "BlogSection05": {
+          "title": "Horizontal List",
+          "description": "Vertical list of horizontal blog rows with thumbnail, meta, and excerpt.",
+          "tags": [
+            "list",
+            "horizontal"
+          ],
+          "figmaNodeId": "17013:2737"
+        }
+      }
+    },
+    "buttons": {
+      "title": "Button Patterns",
+      "description": "Complex interactive button patterns \u2014 steppers, toggles, split buttons, social auth, and step indicators.",
+      "tags": [
+        "button",
+        "interactive",
+        "pattern"
+      ],
+      "variants": {
+        "ButtonStepper": {
+          "title": "Number Stepper",
+          "description": "Minus / number / plus stepper for quantity inputs.",
+          "tags": [
+            "stepper",
+            "quantity"
+          ],
+          "figmaNodeId": "11005:30235"
+        },
+        "ButtonLike": {
+          "title": "Like Button",
+          "description": "Thumbs-up like button with count and toggle state.",
+          "tags": [
+            "like",
+            "toggle",
+            "social"
+          ],
+          "figmaNodeId": "11005:30231"
+        },
+        "ButtonSplitDropdown": {
+          "title": "Split Dropdown Button",
+          "description": "Primary action button with a separate dropdown arrow for secondary options.",
+          "tags": [
+            "split",
+            "dropdown"
+          ],
+          "figmaNodeId": "11005:30233"
+        },
+        "ButtonsGroup": {
+          "title": "Button Toolbar",
+          "description": "Horizontal group of action buttons (New, Edit, Send, etc.).",
+          "tags": [
+            "toolbar",
+            "group"
+          ],
+          "figmaNodeId": "11005:30237"
+        },
+        "SocialButtonsVertical": {
+          "title": "Social Auth \u2014 Vertical",
+          "description": "Stacked full-text social sign-in buttons (Google, GitHub, etc.).",
+          "tags": [
+            "social",
+            "auth",
+            "vertical"
+          ],
+          "figmaNodeId": "11005:30229"
+        },
+        "SocialButtonsHorizontal": {
+          "title": "Social Auth \u2014 Horizontal",
+          "description": "Row of icon-only social auth buttons.",
+          "tags": [
+            "social",
+            "auth",
+            "horizontal"
+          ],
+          "figmaNodeId": "11005:30234"
+        },
+        "ButtonToggleGroup": {
+          "title": "Segmented Toggle",
+          "description": "Today / This week / This month / This year segmented control.",
+          "tags": [
+            "segment",
+            "toggle",
+            "filter"
+          ],
+          "figmaNodeId": "11005:30236"
+        },
+        "ButtonBookmark": {
+          "title": "Bookmark Button",
+          "description": "Bookmark icon button with count and toggle state.",
+          "tags": [
+            "bookmark",
+            "toggle"
+          ],
+          "figmaNodeId": "11005:30230"
+        },
+        "ButtonSteps": {
+          "title": "Step Breadcrumb",
+          "description": "Horizontal step indicator showing completed, current, and upcoming steps.",
+          "tags": [
+            "steps",
+            "breadcrumb",
+            "progress"
+          ],
+          "figmaNodeId": "11005:30232"
+        },
+        "ButtonMenu": {
+          "title": "Hamburger Toggle",
+          "description": "Animated hamburger / close toggle for mobile nav.",
+          "tags": [
+            "hamburger",
+            "mobile",
+            "nav"
+          ],
+          "figmaNodeId": "11005:5208"
+        }
+      }
+    },
+    "cart": {
+      "title": "Cart",
+      "description": "Shopping cart views \u2014 full cart page, mini slide-over panel, empty state, and cart with upsells.",
+      "tags": [
+        "cart",
+        "e-commerce",
+        "checkout"
+      ],
+      "variants": {
+        "Cart01": {
+          "title": "Full Cart Page",
+          "description": "Two-column cart with item rows (quantity steppers, remove) and order summary sidebar.",
+          "tags": [
+            "full-page",
+            "sidebar"
+          ],
+          "figmaNodeId": "18931:123201"
+        },
+        "Cart02": {
+          "title": "Mini Cart Slide-over",
+          "description": "Right-side slide-over panel with compact item list and checkout CTA.",
+          "tags": [
+            "slide-over",
+            "panel"
+          ],
+          "figmaNodeId": "19154:72138"
+        },
+        "Cart03": {
+          "title": "Empty Cart",
+          "description": "Centred empty state with shopping bag icon and continue shopping CTA.",
+          "tags": [
+            "empty-state"
+          ],
+          "figmaNodeId": "18931:146911"
+        },
+        "Cart04": {
+          "title": "Cart with Upsells",
+          "description": "Cart items above a 'You might also like' product carousel.",
+          "tags": [
+            "upsell",
+            "recommendations"
+          ],
+          "figmaNodeId": "19155:85027"
+        }
+      }
+    },
+    "checkout": {
+      "title": "Checkout",
+      "description": "Checkout flow pages \u2014 standard form, multi-step wizard, payment form, and order confirmation.",
+      "tags": [
+        "checkout",
+        "e-commerce",
+        "form"
+      ],
+      "variants": {
+        "Checkout01": {
+          "title": "Standard Checkout",
+          "description": "Two-column: contact/shipping/method form left, order summary right.",
+          "tags": [
+            "2-col",
+            "form"
+          ],
+          "figmaNodeId": "18958:271330"
+        },
+        "Checkout02": {
+          "title": "Multi-step Checkout",
+          "description": "Step indicators with Cart \u2192 Info \u2192 Shipping \u2192 Payment progression.",
+          "tags": [
+            "multi-step",
+            "wizard"
+          ],
+          "figmaNodeId": "19146:7300"
+        },
+        "Checkout03": {
+          "title": "Payment Form",
+          "description": "Credit card form with card number, expiry, CVV, and SSL trust badge.",
+          "tags": [
+            "payment",
+            "card",
+            "form"
+          ],
+          "figmaNodeId": "18960:117692"
+        },
+        "Checkout04": {
+          "title": "Order Confirmation",
+          "description": "Thank-you page with checkmark, order number, item summary, and track/continue CTAs.",
+          "tags": [
+            "confirmation",
+            "thank-you"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "comparison-section": {
+      "title": "Comparison Section",
+      "description": "Feature comparison layouts \u2014 card grids, feature tables, before/after toggles, and billing period toggles.",
+      "tags": [
+        "comparison",
+        "pricing",
+        "features",
+        "landing-page"
+      ],
+      "variants": {
+        "ComparisonSection01": {
+          "title": "3-col Comparison Cards",
+          "description": "Three tier cards side-by-side with feature bullet lists.",
+          "tags": [
+            "3-col",
+            "cards"
+          ],
+          "figmaNodeId": "18840:16632"
+        },
+        "ComparisonSection02": {
+          "title": "Feature Table",
+          "description": "Full-width table with feature rows and per-tier checkmarks.",
+          "tags": [
+            "table",
+            "features"
+          ],
+          "figmaNodeId": "18842:70435"
+        },
+        "ComparisonSection03": {
+          "title": "Before / After Toggle",
+          "description": "Toggle switch revealing before and after states of a feature.",
+          "tags": [
+            "before-after",
+            "toggle"
+          ],
+          "figmaNodeId": "18842:71161"
+        },
+        "ComparisonSection04": {
+          "title": "2-col Comparison",
+          "description": "Side-by-side two-tier comparison with highlighted differences.",
+          "tags": [
+            "2-col"
+          ],
+          "figmaNodeId": "18842:71719"
+        },
+        "ComparisonSection05": {
+          "title": "Dark Comparison",
+          "description": "Dark background comparison table with coloured tier headers.",
+          "tags": [
+            "dark",
+            "table"
+          ],
+          "figmaNodeId": "18842:71992"
+        },
+        "ComparisonSection06": {
+          "title": "Billing Toggle Comparison",
+          "description": "Comparison section with monthly/annual toggle that updates displayed prices.",
+          "tags": [
+            "billing",
+            "toggle",
+            "pricing"
+          ],
+          "figmaNodeId": "18844:72363"
+        }
+      }
+    },
+    "contact-section": {
+      "title": "Contact Section",
+      "description": "Contact form layouts for landing pages \u2014 centred form, info + form split, dark, minimal, map integration, and multi-step.",
+      "tags": [
+        "contact",
+        "form",
+        "landing-page"
+      ],
+      "variants": {
+        "ContactSection01": {
+          "title": "Centred Contact Form",
+          "description": "Single centred form with name, email, subject, and message fields.",
+          "tags": [
+            "centered",
+            "form"
+          ],
+          "figmaNodeId": "17014:172025"
+        },
+        "ContactSection02": {
+          "title": "Info + Form Split",
+          "description": "Contact details (address, email, phone) on the left, form on the right.",
+          "tags": [
+            "split",
+            "info"
+          ],
+          "figmaNodeId": "17014:172050"
+        },
+        "ContactSection03": {
+          "title": "Dark Contact Form",
+          "description": "Dark background contact section with light form fields.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:172117"
+        },
+        "ContactSection04": {
+          "title": "Minimal Email Capture",
+          "description": "Simple single email input with submit \u2014 for newsletter-style contact.",
+          "tags": [
+            "minimal",
+            "email"
+          ],
+          "figmaNodeId": "17014:172182"
+        },
+        "ContactSection05": {
+          "title": "Form + Map",
+          "description": "Contact form alongside an embedded map placeholder.",
+          "tags": [
+            "map",
+            "form"
+          ],
+          "figmaNodeId": "17014:172237"
+        },
+        "ContactSection06": {
+          "title": "Multi-step Contact",
+          "description": "Two-step contact flow: topic selection then detailed message form.",
+          "tags": [
+            "multi-step",
+            "form"
+          ],
+          "figmaNodeId": "17014:172280"
+        }
+      }
+    },
+    "cta": {
+      "title": "CTA Section",
+      "description": "Call-to-action sections for landing pages in dark and light variants \u2014 centred, split, with image, email capture, and minimal.",
+      "tags": [
+        "cta",
+        "call-to-action",
+        "landing-page"
+      ],
+      "variants": {
+        "CTA01": {
+          "title": "Dark Centred CTA",
+          "description": "Full-width dark section with centred headline, subtitle, and primary/secondary buttons.",
+          "tags": [
+            "dark",
+            "centered"
+          ],
+          "figmaNodeId": "17014:173623"
+        },
+        "CTA02": {
+          "title": "Dark Split CTA",
+          "description": "Headline left, CTA buttons right on a dark background.",
+          "tags": [
+            "dark",
+            "split"
+          ],
+          "figmaNodeId": "17014:173639"
+        },
+        "CTA03": {
+          "title": "Dark CTA with Image",
+          "description": "Dark section with text left and decorative image or screenshot right.",
+          "tags": [
+            "dark",
+            "image"
+          ],
+          "figmaNodeId": "17014:173653"
+        },
+        "CTA04": {
+          "title": "Light Email Capture",
+          "description": "Light background CTA with inline email input and submit button.",
+          "tags": [
+            "light",
+            "email",
+            "capture"
+          ],
+          "figmaNodeId": "17014:173672"
+        },
+        "CTA05": {
+          "title": "Dark Card CTA",
+          "description": "Rounded dark card placed within a light page section.",
+          "tags": [
+            "dark",
+            "card"
+          ],
+          "figmaNodeId": "17014:173693"
+        },
+        "CTA06": {
+          "title": "Dark Rounded CTA",
+          "description": "Rounded-corner dark section with centred text and button.",
+          "tags": [
+            "dark",
+            "rounded"
+          ],
+          "figmaNodeId": "17014:173717"
+        },
+        "CTA07": {
+          "title": "Dark Minimal CTA",
+          "description": "Minimal dark CTA with just a headline and single button.",
+          "tags": [
+            "dark",
+            "minimal"
+          ],
+          "figmaNodeId": "17014:173735"
+        }
+      }
+    },
+    "description-list": {
+      "title": "Description List",
+      "description": "Key-value data display blocks \u2014 stacked, inline, two-column, and with icons.",
+      "tags": [
+        "description-list",
+        "data",
+        "detail"
+      ],
+      "variants": {
+        "DescriptionList01": {
+          "title": "Description List 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:162192"
+        },
+        "DescriptionList02": {
+          "title": "Description List 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:162098"
+        },
+        "DescriptionList03": {
+          "title": "Description List 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:162123"
+        },
+        "DescriptionList04": {
+          "title": "Description List 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:162151"
+        }
+      }
+    },
+    "empty-lp": {
+      "title": "Empty State (Landing Page)",
+      "description": "Empty and no-results states for landing page sections \u2014 icon + CTA, email subscribe, coming soon, and no results.",
+      "tags": [
+        "empty-state",
+        "landing-page"
+      ],
+      "variants": {
+        "EmptyLP01": {
+          "title": "Icon + CTAs",
+          "description": "Centred icon with heading and two action buttons.",
+          "tags": [
+            "icon",
+            "cta"
+          ],
+          "figmaNodeId": "18192:33116"
+        },
+        "EmptyLP02": {
+          "title": "Dark Email Subscribe",
+          "description": "Dark empty state prompting the user to subscribe for updates.",
+          "tags": [
+            "dark",
+            "subscribe"
+          ],
+          "figmaNodeId": "18192:33006"
+        },
+        "EmptyLP03": {
+          "title": "Coming Soon",
+          "description": "Coming soon message with optional countdown or email capture.",
+          "tags": [
+            "coming-soon"
+          ],
+          "figmaNodeId": "18192:33161"
+        },
+        "EmptyLP04": {
+          "title": "No Results",
+          "description": "Search or filter returned no results with suggestion to adjust.",
+          "tags": [
+            "no-results",
+            "search"
+          ],
+          "figmaNodeId": "18877:19630"
+        }
+      }
+    },
+    "empty-section": {
+      "title": "Empty Section",
+      "description": "Empty states for application sections \u2014 no data, no results, first-use prompts, and error states.",
+      "tags": [
+        "empty-state",
+        "app"
+      ],
+      "variants": {
+        "EmptySection01": {
+          "title": "Empty Section 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15004:20251"
+        },
+        "EmptySection02": {
+          "title": "Empty Section 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15004:20198"
+        },
+        "EmptySection03": {
+          "title": "Empty Section 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15004:20141"
+        },
+        "EmptySection04": {
+          "title": "Empty Section 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15004:20260"
+        }
+      }
+    },
+    "faq-section": {
+      "title": "FAQ Section",
+      "description": "Frequently asked questions in various layouts \u2014 accordion, categorised, grid, table, and tabbed.",
+      "tags": [
+        "faq",
+        "accordion",
+        "landing-page"
+      ],
+      "variants": {
+        "FaqSection01": {
+          "title": "Accordion + Footer Card",
+          "description": "Vertical accordion with a contact support card at the bottom.",
+          "tags": [
+            "accordion",
+            "support"
+          ],
+          "figmaNodeId": "17014:173750"
+        },
+        "FaqSection02": {
+          "title": "2-col Categorised",
+          "description": "FAQ grouped by category with two-column accordion layout.",
+          "tags": [
+            "2-col",
+            "categorised"
+          ],
+          "figmaNodeId": "17014:173788"
+        },
+        "FaqSection03": {
+          "title": "Open 2-col Grid",
+          "description": "Always-expanded Q&A pairs arranged in a two-column grid.",
+          "tags": [
+            "grid",
+            "open"
+          ],
+          "figmaNodeId": "17014:173832"
+        },
+        "FaqSection04": {
+          "title": "Q&A Table",
+          "description": "Question-answer pairs in a simple bordered table layout.",
+          "tags": [
+            "table"
+          ],
+          "figmaNodeId": "17014:173895"
+        },
+        "FaqSection05": {
+          "title": "Tabbed Accordion",
+          "description": "Topic tabs (General, Features, License) each revealing an accordion list.",
+          "tags": [
+            "tabs",
+            "accordion"
+          ],
+          "figmaNodeId": "19193:17452"
+        }
+      }
+    },
+    "feature-section": {
+      "title": "Feature Section",
+      "description": "Product feature showcase sections \u2014 icon grids, alternating image+text, tabbed, numbered steps, sticky image, and more.",
+      "tags": [
+        "features",
+        "landing-page"
+      ],
+      "variants": {
+        "FeatureSection01": {
+          "title": "3-col Icon Grid",
+          "description": "Three-column icon + title + description grid.",
+          "tags": [
+            "grid",
+            "icons",
+            "3-col"
+          ],
+          "figmaNodeId": "17014:175468"
+        },
+        "FeatureSection02": {
+          "title": "Left Header + Grid",
+          "description": "Left-aligned section heading with feature grid to the right.",
+          "tags": [
+            "split",
+            "grid"
+          ],
+          "figmaNodeId": "17014:175491"
+        },
+        "FeatureSection03": {
+          "title": "Alternating Image+Text",
+          "description": "Features alternate left image/right text and right image/left text.",
+          "tags": [
+            "alternating",
+            "image"
+          ],
+          "figmaNodeId": "17014:175514"
+        },
+        "FeatureSection04": {
+          "title": "2-col Feature List",
+          "description": "Two-column list of features with check icons.",
+          "tags": [
+            "list",
+            "2-col"
+          ],
+          "figmaNodeId": "17014:175557"
+        },
+        "FeatureSection05": {
+          "title": "Dark Features",
+          "description": "Dark background 3-col feature grid.",
+          "tags": [
+            "dark",
+            "grid"
+          ],
+          "figmaNodeId": "17014:175608"
+        },
+        "FeatureSection06": {
+          "title": "4-col Compact",
+          "description": "Four-column compact icon + title only grid.",
+          "tags": [
+            "4-col",
+            "compact"
+          ],
+          "figmaNodeId": "17014:175677"
+        },
+        "FeatureSection07": {
+          "title": "Split Large+Small",
+          "description": "One large featured item alongside smaller supporting items.",
+          "tags": [
+            "split",
+            "featured"
+          ],
+          "figmaNodeId": "17014:175726"
+        },
+        "FeatureSection08": {
+          "title": "Tabbed Features",
+          "description": "Tab buttons switch the displayed feature content and screenshot.",
+          "tags": [
+            "tabs",
+            "interactive"
+          ],
+          "figmaNodeId": "17014:175749"
+        },
+        "FeatureSection09": {
+          "title": "Numbered Steps",
+          "description": "Features presented as numbered sequential steps.",
+          "tags": [
+            "steps",
+            "numbered"
+          ],
+          "figmaNodeId": "17014:175788"
+        },
+        "FeatureSection10": {
+          "title": "Sticky Image",
+          "description": "Right image stays fixed while feature list scrolls on the left.",
+          "tags": [
+            "sticky",
+            "scroll"
+          ],
+          "figmaNodeId": "17014:175853"
+        },
+        "FeatureSection11": {
+          "title": "Dark Comparison Table",
+          "description": "Dark feature comparison table across Free / Pro / Enterprise tiers.",
+          "tags": [
+            "dark",
+            "table",
+            "comparison"
+          ],
+          "figmaNodeId": "17014:175912"
+        },
+        "FeatureSection12": {
+          "title": "Icon Grid with Hover",
+          "description": "6-tile icon grid with card lift on hover.",
+          "tags": [
+            "grid",
+            "hover"
+          ],
+          "figmaNodeId": "17014:175967"
+        },
+        "FeatureSection13": {
+          "title": "Image + Numbered List",
+          "description": "Product screenshot left with numbered feature list right.",
+          "tags": [
+            "image",
+            "numbered"
+          ],
+          "figmaNodeId": "17014:176001"
+        },
+        "FeatureSection14": {
+          "title": "Dark with Code Block",
+          "description": "Dark section with feature bullets left and syntax-highlighted code snippet right.",
+          "tags": [
+            "dark",
+            "code"
+          ],
+          "figmaNodeId": "17014:176093"
+        },
+        "FeatureSection15": {
+          "title": "Feature Carousel Tabs",
+          "description": "Tab buttons toggle between feature details and screenshots.",
+          "tags": [
+            "tabs",
+            "carousel"
+          ],
+          "figmaNodeId": "17753:32704"
+        },
+        "FeatureSection16": {
+          "title": "Bento Feature Cards",
+          "description": "Asymmetric bento-grid of feature cards with varying sizes.",
+          "tags": [
+            "bento",
+            "grid"
+          ],
+          "figmaNodeId": "17878:34732"
+        },
+        "FeatureSection17": {
+          "title": "Vertical Timeline",
+          "description": "Numbered circles on a vertical line with alternating left/right content.",
+          "tags": [
+            "timeline",
+            "steps"
+          ],
+          "figmaNodeId": "17878:35255"
+        },
+        "FeatureSection18": {
+          "title": "Dark with Quotes",
+          "description": "Dark 3-col grid with feature + customer quote per column.",
+          "tags": [
+            "dark",
+            "testimonial"
+          ],
+          "figmaNodeId": "17878:35476"
+        },
+        "FeatureSection19": {
+          "title": "Split with Stat Cards",
+          "description": "Left text+CTA, right 2\u00d72 grid of stat cards.",
+          "tags": [
+            "split",
+            "stats"
+          ],
+          "figmaNodeId": "18191:182830"
+        },
+        "FeatureSection20": {
+          "title": "Full-width Alternating",
+          "description": "Three full-width sections alternating image side.",
+          "tags": [
+            "full-width",
+            "alternating"
+          ],
+          "figmaNodeId": "19125:23660"
+        }
+      }
+    },
+    "footer": {
+      "title": "Footer",
+      "description": "Site footer layouts \u2014 single row, multi-column, with newsletter, app store badges, dark gradient, and minimal.",
+      "tags": [
+        "footer",
+        "landing-page",
+        "navigation"
+      ],
+      "variants": {
+        "Footer01": {
+          "title": "Single Row Footer",
+          "description": "Logo + copyright + nav links in one compact row.",
+          "tags": [
+            "minimal",
+            "single-row"
+          ],
+          "figmaNodeId": "17014:176139"
+        },
+        "Footer02": {
+          "title": "Multi-column Footer",
+          "description": "Four-column footer with logo, product links, company links, and social icons.",
+          "tags": [
+            "multi-col"
+          ],
+          "figmaNodeId": "17014:176174"
+        },
+        "Footer03": {
+          "title": "Footer with Social",
+          "description": "Multi-column footer with prominent social media icons.",
+          "tags": [
+            "social"
+          ],
+          "figmaNodeId": "17014:176215"
+        },
+        "Footer04": {
+          "title": "Dark Footer",
+          "description": "Dark background multi-column footer.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:176262"
+        },
+        "Footer05": {
+          "title": "Minimal Footer",
+          "description": "Just copyright and essential links.",
+          "tags": [
+            "minimal"
+          ],
+          "figmaNodeId": "17878:7608"
+        },
+        "Footer06": {
+          "title": "Footer with Newsletter",
+          "description": "Multi-column footer with email newsletter signup at top.",
+          "tags": [
+            "newsletter",
+            "email"
+          ],
+          "figmaNodeId": "17878:9935"
+        },
+        "Footer07": {
+          "title": "2-col Footer",
+          "description": "Two-column footer with logo+description left and link columns right.",
+          "tags": [
+            "2-col"
+          ],
+          "figmaNodeId": "17878:10099"
+        },
+        "Footer08": {
+          "title": "Footer with App Badges",
+          "description": "Footer including App Store and Google Play download badges.",
+          "tags": [
+            "app-store",
+            "mobile"
+          ],
+          "figmaNodeId": "18829:291430"
+        },
+        "Footer09": {
+          "title": "Dark Gradient Footer",
+          "description": "Dark footer with a subtle gradient at the top edge.",
+          "tags": [
+            "dark",
+            "gradient"
+          ],
+          "figmaNodeId": "18829:291784"
+        }
+      }
+    },
+    "gallery-section": {
+      "title": "Gallery Section",
+      "description": "Image gallery layouts \u2014 grid, masonry, carousel, lightbox, banner+cards, and feature showcase.",
+      "tags": [
+        "gallery",
+        "images",
+        "landing-page"
+      ],
+      "variants": {
+        "GallerySection01": {
+          "title": "3-col Grid",
+          "description": "Uniform 3-column image grid.",
+          "tags": [
+            "grid",
+            "3-col"
+          ],
+          "figmaNodeId": "18174:10067"
+        },
+        "GallerySection02": {
+          "title": "Masonry Grid",
+          "description": "Variable-height masonry layout.",
+          "tags": [
+            "masonry"
+          ],
+          "figmaNodeId": "18174:10140"
+        },
+        "GallerySection03": {
+          "title": "4-col Grid",
+          "description": "4-column equal image grid.",
+          "tags": [
+            "grid",
+            "4-col"
+          ],
+          "figmaNodeId": "18191:187326"
+        },
+        "GallerySection04": {
+          "title": "Hero + Grid",
+          "description": "Large featured image above a smaller grid.",
+          "tags": [
+            "hero",
+            "featured"
+          ],
+          "figmaNodeId": "18191:187362"
+        },
+        "GallerySection05": {
+          "title": "Pinterest Columns",
+          "description": "Three unequal-height pinterest-style columns.",
+          "tags": [
+            "pinterest",
+            "columns"
+          ],
+          "figmaNodeId": "18191:187434"
+        },
+        "GallerySection06": {
+          "title": "Split Gallery",
+          "description": "Two equal halves with large images.",
+          "tags": [
+            "split"
+          ],
+          "figmaNodeId": "18191:187903"
+        },
+        "GallerySection07": {
+          "title": "Gallery with Captions",
+          "description": "Grid with title and description captions below each image.",
+          "tags": [
+            "captions"
+          ],
+          "figmaNodeId": "18191:188020"
+        },
+        "GallerySection08": {
+          "title": "Carousel Gallery",
+          "description": "Auto-advancing or arrow-controlled image carousel.",
+          "tags": [
+            "carousel",
+            "slider"
+          ],
+          "figmaNodeId": "18191:188250"
+        },
+        "GallerySection09": {
+          "title": "Banner + Cards",
+          "description": "Wide banner image above a row of smaller feature cards.",
+          "tags": [
+            "banner",
+            "cards"
+          ],
+          "figmaNodeId": "18191:188304"
+        },
+        "GallerySection10": {
+          "title": "Dark Gallery",
+          "description": "Dark background image grid with hover overlays.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "18191:188359"
+        },
+        "GallerySection11": {
+          "title": "Lightbox Gallery",
+          "description": "Grid that opens a fullscreen lightbox on image click.",
+          "tags": [
+            "lightbox",
+            "interactive"
+          ],
+          "figmaNodeId": "18191:188481"
+        },
+        "GallerySection12": {
+          "title": "Feature Showcase",
+          "description": "Large featured image with scrollable thumbnail strip.",
+          "tags": [
+            "featured",
+            "thumbnails"
+          ],
+          "figmaNodeId": "19193:17140"
+        }
+      }
+    },
+    "header-section": {
+      "title": "Header Section",
+      "description": "Page-level section headers \u2014 title, subtitle, and optional actions, stats, filters, breadcrumbs, and images.",
+      "tags": [
+        "header",
+        "page-header",
+        "section"
+      ],
+      "variants": {
+        "HeaderSection01": {
+          "title": "Centred + Eyebrow",
+          "description": "Centred section header with eyebrow label above the headline.",
+          "tags": [
+            "centered",
+            "eyebrow"
+          ],
+          "figmaNodeId": "17014:176343"
+        },
+        "HeaderSection02": {
+          "title": "Left-aligned",
+          "description": "Left-aligned headline and subtitle with CTA buttons.",
+          "tags": [
+            "left-aligned"
+          ],
+          "figmaNodeId": "17014:176357"
+        },
+        "HeaderSection03": {
+          "title": "With Screenshot",
+          "description": "Header with a browser/app screenshot mockup below.",
+          "tags": [
+            "screenshot"
+          ],
+          "figmaNodeId": "17014:176388"
+        },
+        "HeaderSection04": {
+          "title": "Split Header",
+          "description": "Headline left, descriptive text or image right.",
+          "tags": [
+            "split"
+          ],
+          "figmaNodeId": "17014:176402"
+        },
+        "HeaderSection05": {
+          "title": "Dark Header",
+          "description": "Dark background section header.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:176371"
+        },
+        "HeaderSection06": {
+          "title": "With Stats",
+          "description": "Header with inline stat pills showing key numbers.",
+          "tags": [
+            "stats"
+          ],
+          "figmaNodeId": "17014:176416"
+        },
+        "HeaderSection07": {
+          "title": "With Form",
+          "description": "Header with an inline email or search form.",
+          "tags": [
+            "form"
+          ],
+          "figmaNodeId": "18876:16881"
+        },
+        "HeaderSection08": {
+          "title": "BG + Offset Image",
+          "description": "Background colour with an image offset to one side.",
+          "tags": [
+            "image",
+            "offset"
+          ],
+          "figmaNodeId": "18876:20974"
+        },
+        "HeaderSection09": {
+          "title": "Announcement Style",
+          "description": "Header with a prominent announcement pill above the headline.",
+          "tags": [
+            "announcement"
+          ],
+          "figmaNodeId": "18876:16939"
+        },
+        "HeaderSection10": {
+          "title": "Phone Mockup",
+          "description": "Header with a phone device mockup image.",
+          "tags": [
+            "mockup",
+            "mobile"
+          ],
+          "figmaNodeId": "18876:19478"
+        },
+        "HeaderSection11": {
+          "title": "With Breadcrumb",
+          "description": "Breadcrumb navigation above title with action buttons.",
+          "tags": [
+            "breadcrumb"
+          ],
+          "figmaNodeId": "18876:20431"
+        },
+        "HeaderSection12": {
+          "title": "Dark Centred + Badge",
+          "description": "Dark header with badge/pill label above large centred headline.",
+          "tags": [
+            "dark",
+            "centered",
+            "badge"
+          ],
+          "figmaNodeId": "18876:20998"
+        },
+        "HeaderSection13": {
+          "title": "With Metadata Sidebar",
+          "description": "Large headline left with author, date, read-time, and tags card right.",
+          "tags": [
+            "metadata",
+            "split"
+          ],
+          "figmaNodeId": "18876:21151"
+        },
+        "HeaderSection14": {
+          "title": "With Filter Tabs",
+          "description": "Header title plus a row of category filter tabs and search input.",
+          "tags": [
+            "filters",
+            "tabs",
+            "search"
+          ],
+          "figmaNodeId": "18876:21506"
+        },
+        "HeaderSection15": {
+          "title": "Dark with Dot Grid",
+          "description": "Dark header with subtle CSS dot-grid background pattern.",
+          "tags": [
+            "dark",
+            "pattern"
+          ],
+          "figmaNodeId": "18876:21487"
+        },
+        "HeaderSection16": {
+          "title": "With Progress Indicator",
+          "description": "Header showing a step counter or circular progress (e.g. Step 2 of 5).",
+          "tags": [
+            "progress",
+            "steps"
+          ],
+          "figmaNodeId": "18876:21520"
+        },
+        "HeaderSection17": {
+          "title": "Minimal with Action Menu",
+          "description": "Ultra-minimal title + three-dot action menu, separated by a thin border.",
+          "tags": [
+            "minimal",
+            "menu"
+          ],
+          "figmaNodeId": "18876:22549"
+        },
+        "HeaderSection18": {
+          "title": "With Illustration",
+          "description": "Header content left with an illustration or image placeholder right.",
+          "tags": [
+            "illustration",
+            "split"
+          ],
+          "figmaNodeId": "18877:18736"
+        },
+        "HeaderSection19": {
+          "title": "Dark Gradient Text",
+          "description": "Dark header with a white-to-grey gradient text headline effect.",
+          "tags": [
+            "dark",
+            "gradient",
+            "text"
+          ],
+          "figmaNodeId": "18877:18717"
+        },
+        "HeaderSection20": {
+          "title": "With Inline Stats",
+          "description": "Title and subtitle left, three inline stat values right.",
+          "tags": [
+            "stats",
+            "split"
+          ],
+          "figmaNodeId": "18877:18750"
+        }
+      }
+    },
+    "hero-section": {
+      "title": "Hero Section",
+      "description": "Full-width hero sections for landing pages in a wide range of layouts \u2014 centred, split, dark, video, gradient, and more.",
+      "tags": [
+        "hero",
+        "landing-page",
+        "above-the-fold"
+      ],
+      "variants": {
+        "HeroSection01": {
+          "title": "Centred with Screenshot",
+          "description": "Light background, centred eyebrow + headline + subtitle, two CTAs, and a browser screenshot mockup below.",
+          "tags": [
+            "centered",
+            "screenshot",
+            "light"
+          ],
+          "figmaNodeId": "17014:178514"
+        },
+        "HeroSection02": {
+          "title": "Centred No Image",
+          "description": "Clean centred hero with headline, subtitle, and CTA buttons \u2014 no image.",
+          "tags": [
+            "centered",
+            "minimal"
+          ],
+          "figmaNodeId": "17014:178540"
+        },
+        "HeroSection03": {
+          "title": "Left + Social Proof",
+          "description": "Left-aligned content with an avatar row and user-count social proof.",
+          "tags": [
+            "left-aligned",
+            "social-proof"
+          ],
+          "figmaNodeId": "17014:178589"
+        },
+        "HeroSection04": {
+          "title": "Split Hero",
+          "description": "Text content left, large product screenshot right.",
+          "tags": [
+            "split",
+            "screenshot"
+          ],
+          "figmaNodeId": "17014:178612"
+        },
+        "HeroSection05": {
+          "title": "Dark Hero",
+          "description": "Dark background centred hero with badge and CTAs.",
+          "tags": [
+            "dark",
+            "centered"
+          ],
+          "figmaNodeId": "17014:178633"
+        },
+        "HeroSection06": {
+          "title": "Video Background",
+          "description": "Full-viewport video background with overlay and centred content.",
+          "tags": [
+            "video",
+            "full-viewport"
+          ],
+          "figmaNodeId": "17014:178654"
+        },
+        "HeroSection07": {
+          "title": "Gradient Hero",
+          "description": "Colourful gradient background hero with centred text.",
+          "tags": [
+            "gradient"
+          ],
+          "figmaNodeId": "17014:178672"
+        },
+        "HeroSection08": {
+          "title": "Dark Split",
+          "description": "Dark split hero \u2014 text left, screenshot right.",
+          "tags": [
+            "dark",
+            "split"
+          ],
+          "figmaNodeId": "17014:178693"
+        },
+        "HeroSection09": {
+          "title": "Hero + Logo Strip",
+          "description": "Standard hero with a 'trusted by' logo strip below the CTAs.",
+          "tags": [
+            "logos",
+            "social-proof"
+          ],
+          "figmaNodeId": "17014:178748"
+        },
+        "HeroSection10": {
+          "title": "Viewport Height",
+          "description": "Full-screen height hero with scroll indicator.",
+          "tags": [
+            "full-screen",
+            "scroll"
+          ],
+          "figmaNodeId": "18174:10183"
+        },
+        "HeroSection11": {
+          "title": "BG Overlay",
+          "description": "Hero with a background image and dark overlay for text contrast.",
+          "tags": [
+            "image",
+            "overlay"
+          ],
+          "figmaNodeId": "18831:16142"
+        },
+        "HeroSection12": {
+          "title": "Hero + Features Grid",
+          "description": "Hero section followed immediately by a three-column feature preview grid.",
+          "tags": [
+            "features",
+            "grid"
+          ],
+          "figmaNodeId": "18831:16327"
+        },
+        "HeroSection13": {
+          "title": "Dark + Announcement Pill",
+          "description": "Dark hero with animated announcement pill, headline, CTAs, and screenshot mockup.",
+          "tags": [
+            "dark",
+            "announcement",
+            "screenshot"
+          ],
+          "figmaNodeId": "18877:19662"
+        },
+        "HeroSection14": {
+          "title": "Split with Form Capture",
+          "description": "Left content with social proof, right white card with lead capture form.",
+          "tags": [
+            "split",
+            "form",
+            "lead-capture"
+          ],
+          "figmaNodeId": "18877:43468"
+        },
+        "HeroSection15": {
+          "title": "Video Background Hero",
+          "description": "Full-viewport looping video background with overlay, headline, and CTAs.",
+          "tags": [
+            "video",
+            "full-viewport"
+          ],
+          "figmaNodeId": "18877:43807"
+        },
+        "HeroSection16": {
+          "title": "Left + Floating Feature Cards",
+          "description": "Left text and CTAs with stacked floating feature cards on the right.",
+          "tags": [
+            "left-aligned",
+            "cards"
+          ],
+          "figmaNodeId": "18877:44234"
+        },
+        "HeroSection17": {
+          "title": "Gradient Blob + Email",
+          "description": "Pastel blob background, centred content with inline email capture and logo strip.",
+          "tags": [
+            "gradient",
+            "email",
+            "logos"
+          ],
+          "figmaNodeId": "18877:44487"
+        },
+        "HeroSection18": {
+          "title": "Dark Split Image Left",
+          "description": "Product image left, dark content panel right with bullet points.",
+          "tags": [
+            "dark",
+            "split",
+            "image"
+          ],
+          "figmaNodeId": "18880:44753"
+        },
+        "HeroSection19": {
+          "title": "Centred + Stats Bar",
+          "description": "Centred hero above a horizontal stats bar with three key metrics.",
+          "tags": [
+            "centered",
+            "stats"
+          ],
+          "figmaNodeId": "18880:45179"
+        },
+        "HeroSection20": {
+          "title": "Side-by-side Screenshots",
+          "description": "Headline and subtitle above two side-by-side app screenshot mockups.",
+          "tags": [
+            "screenshots",
+            "mockup"
+          ],
+          "figmaNodeId": "18880:45327"
+        },
+        "HeroSection21": {
+          "title": "Dark Glowing Grid",
+          "description": "Dark background with CSS grid-line pattern and glow, badge, headline, and CTA.",
+          "tags": [
+            "dark",
+            "grid-pattern",
+            "glow"
+          ],
+          "figmaNodeId": "19193:16964"
+        },
+        "HeroSection22": {
+          "title": "Left + Avatar Social Proof",
+          "description": "Left headline, CTA, and user avatar row with join-count; right rotated screenshot.",
+          "tags": [
+            "left-aligned",
+            "social-proof",
+            "screenshot"
+          ],
+          "figmaNodeId": "19193:17040"
+        }
+      }
+    },
+    "logo-section": {
+      "title": "Logo Section",
+      "description": "'Trusted by' logo strips for landing pages \u2014 grid layouts, scrolling marquees, dark, and bordered.",
+      "tags": [
+        "logos",
+        "social-proof",
+        "landing-page"
+      ],
+      "variants": {
+        "LogoSection01": {
+          "title": "Centred Wrap",
+          "description": "Centred heading above a wrapping row of greyscale logos.",
+          "tags": [
+            "centered"
+          ],
+          "figmaNodeId": "17014:178769"
+        },
+        "LogoSection02": {
+          "title": "Left + 2-col Grid",
+          "description": "Left label with a two-column grid of logos.",
+          "tags": [
+            "grid",
+            "2-col"
+          ],
+          "figmaNodeId": "17014:178819"
+        },
+        "LogoSection03": {
+          "title": "Bordered Grid",
+          "description": "Logo grid with cell borders creating a table-like layout.",
+          "tags": [
+            "grid",
+            "bordered"
+          ],
+          "figmaNodeId": "17014:178873"
+        },
+        "LogoSection04": {
+          "title": "Dark Bordered",
+          "description": "Dark background version of the bordered grid.",
+          "tags": [
+            "dark",
+            "bordered"
+          ],
+          "figmaNodeId": "17014:178939"
+        },
+        "LogoSection05": {
+          "title": "Logo-only Grid",
+          "description": "Minimal logo grid with no label text.",
+          "tags": [
+            "minimal",
+            "grid"
+          ],
+          "figmaNodeId": "17014:179006"
+        },
+        "LogoSection06": {
+          "title": "Dark Logo-only",
+          "description": "Dark background minimal logo grid.",
+          "tags": [
+            "dark",
+            "minimal"
+          ],
+          "figmaNodeId": "17014:179062"
+        },
+        "LogoSection07": {
+          "title": "Scrolling Marquee",
+          "description": "Infinite horizontally scrolling logo strip using CSS animation.",
+          "tags": [
+            "marquee",
+            "animated"
+          ],
+          "figmaNodeId": "18174:10420"
+        }
+      }
+    },
+    "lp-navbar": {
+      "title": "Landing Page Navbar",
+      "description": "Top navigation bars for marketing and landing pages \u2014 links + CTA, with dropdowns, slide panel, and sign-in variants.",
+      "tags": [
+        "navbar",
+        "navigation",
+        "landing-page"
+      ],
+      "variants": {
+        "LPNavbar01": {
+          "title": "Links + CTA",
+          "description": "Logo, nav links, and a single CTA button.",
+          "tags": [
+            "cta"
+          ],
+          "figmaNodeId": "17014:178385"
+        },
+        "LPNavbar02": {
+          "title": "Links + Sign-in/up",
+          "description": "Nav links with sign-in and sign-up button pair.",
+          "tags": [
+            "auth",
+            "sign-in"
+          ],
+          "figmaNodeId": "17014:178483"
+        },
+        "LPNavbar03": {
+          "title": "Compact Pill",
+          "description": "Pill-shaped compact navbar floating above the page.",
+          "tags": [
+            "pill",
+            "floating"
+          ],
+          "figmaNodeId": "17014:178447"
+        },
+        "LPNavbar04": {
+          "title": "With Dropdowns",
+          "description": "Nav with multi-column dropdown mega-menus on hover.",
+          "tags": [
+            "dropdown",
+            "mega-menu"
+          ],
+          "figmaNodeId": "17014:178416"
+        },
+        "LPNavbar05": {
+          "title": "Slide Panel",
+          "description": "Full-height slide-in menu panel for desktop.",
+          "tags": [
+            "slide-panel"
+          ],
+          "figmaNodeId": "17761:211085"
+        },
+        "LPNavbar06": {
+          "title": "Preview + Buy",
+          "description": "Navbar with preview badge and prominent purchase CTA \u2014 for template/product sites.",
+          "tags": [
+            "purchase",
+            "preview"
+          ],
+          "figmaNodeId": "17761:211577"
+        },
+        "LPNavbar07": {
+          "title": "Minimal Dark",
+          "description": "Dark minimal navbar with logo and essential links only.",
+          "tags": [
+            "dark",
+            "minimal"
+          ],
+          "figmaNodeId": "18825:289989"
+        }
+      }
+    },
+    "navbar": {
+      "title": "App Navbar",
+      "description": "Top navigation bars for web applications with search, notifications, user menus, and breadcrumbs.",
+      "tags": [
+        "navbar",
+        "navigation",
+        "app"
+      ],
+      "variants": {
+        "Navbar01": {
+          "title": "Standard App Topbar",
+          "description": "Logo, search input, notifications bell, and user avatar dropdown.",
+          "tags": [
+            "search",
+            "notifications"
+          ],
+          "figmaNodeId": "11005:4512"
+        },
+        "Navbar02": {
+          "title": "Topbar with Breadcrumb",
+          "description": "Page breadcrumb left, actions and user menu right.",
+          "tags": [
+            "breadcrumb"
+          ],
+          "figmaNodeId": "11005:4564"
+        },
+        "Navbar03": {
+          "title": "Dark App Topbar",
+          "description": "Dark background topbar with light icons.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "11005:4607"
+        }
+      }
+    },
+    "not-found": {
+      "title": "Not Found (404)",
+      "description": "404 and error page layouts \u2014 centred, split with image, and dark.",
+      "tags": [
+        "404",
+        "error",
+        "not-found"
+      ],
+      "variants": {
+        "NotFound01": {
+          "title": "Centred 404",
+          "description": "Large centred '404' with message and navigation CTAs.",
+          "tags": [
+            "centered"
+          ],
+          "figmaNodeId": "17014:185097"
+        },
+        "NotFound02": {
+          "title": "Split + Image",
+          "description": "404 text left with an illustration or image right.",
+          "tags": [
+            "split",
+            "illustration"
+          ],
+          "figmaNodeId": "17014:185114"
+        },
+        "NotFound03": {
+          "title": "Dark 404",
+          "description": "Dark background 404 with glowing or gradient type treatment.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:185137"
+        }
+      }
+    },
+    "order-history": {
+      "title": "Order History",
+      "description": "Order list, order detail, and shipment tracking pages for e-commerce account areas.",
+      "tags": [
+        "orders",
+        "e-commerce",
+        "account"
+      ],
+      "variants": {
+        "OrderHistory01": {
+          "title": "Orders List Table",
+          "description": "Filterable table of orders with status badges and view-details links.",
+          "tags": [
+            "table",
+            "list"
+          ],
+          "figmaNodeId": "19103:5758"
+        },
+        "OrderHistory02": {
+          "title": "Order Detail",
+          "description": "Single order page with item list, shipping address, and payment summary.",
+          "tags": [
+            "detail"
+          ],
+          "figmaNodeId": "19105:14245"
+        },
+        "OrderHistory03": {
+          "title": "Order Tracking",
+          "description": "Visual timeline showing order placed \u2192 processing \u2192 shipped \u2192 delivered.",
+          "tags": [
+            "tracking",
+            "timeline"
+          ],
+          "figmaNodeId": "19105:14535"
+        }
+      }
+    },
+    "page-header": {
+      "title": "Page Header",
+      "description": "App page-level headers with title, subtitle, breadcrumb, and action buttons.",
+      "tags": [
+        "page-header",
+        "app",
+        "navigation"
+      ],
+      "variants": {
+        "PageHeader01": {
+          "title": "Page Header 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4626"
+        },
+        "PageHeader02": {
+          "title": "Page Header 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4633"
+        },
+        "PageHeader03": {
+          "title": "Page Header 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4701"
+        },
+        "PageHeader04": {
+          "title": "Page Header 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4750"
+        },
+        "PageHeader05": {
+          "title": "Page Header 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4769"
+        },
+        "PageHeader06": {
+          "title": "Page Header 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4787"
+        },
+        "PageHeader07": {
+          "title": "Page Header 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4725"
+        },
+        "PageHeader08": {
+          "title": "Page Header 08",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4658"
+        }
+      }
+    },
+    "pricing-section": {
+      "title": "Pricing Section",
+      "description": "Pricing plan layouts \u2014 card grids, billing toggles, single featured plan, dark, and with comparison table.",
+      "tags": [
+        "pricing",
+        "plans",
+        "landing-page"
+      ],
+      "variants": {
+        "PricingSection01": {
+          "title": "3-col Pricing Cards",
+          "description": "Three pricing tier cards with feature list and CTA button each.",
+          "tags": [
+            "3-col",
+            "cards"
+          ],
+          "figmaNodeId": "17014:180596"
+        },
+        "PricingSection02": {
+          "title": "With Billing Toggle",
+          "description": "Monthly/annual toggle that updates displayed prices.",
+          "tags": [
+            "toggle",
+            "billing"
+          ],
+          "figmaNodeId": "17014:180780"
+        },
+        "PricingSection03": {
+          "title": "Single Featured Plan",
+          "description": "One highlighted plan with full feature breakdown.",
+          "tags": [
+            "featured",
+            "single"
+          ],
+          "figmaNodeId": "17014:181020"
+        },
+        "PricingSection04": {
+          "title": "Dark Pricing",
+          "description": "Dark background pricing cards.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:181160"
+        },
+        "PricingSection05": {
+          "title": "2-col + Comparison Table",
+          "description": "Two main tiers above a detailed feature comparison table.",
+          "tags": [
+            "2-col",
+            "table",
+            "comparison"
+          ],
+          "figmaNodeId": "19056:26343"
+        }
+      }
+    },
+    "product-card": {
+      "title": "Product Card",
+      "description": "E-commerce product cards in various layouts \u2014 standard, with badge/wishlist, horizontal, minimal, and colour swatches.",
+      "tags": [
+        "product",
+        "card",
+        "e-commerce"
+      ],
+      "variants": {
+        "ProductCard01": {
+          "title": "Standard Product Card",
+          "description": "Image, category, name, star rating, price, and add-to-cart button.",
+          "tags": [
+            "standard"
+          ],
+          "figmaNodeId": "18885:68877"
+        },
+        "ProductCard02": {
+          "title": "With Badge + Wishlist",
+          "description": "Sale/New badge overlay, wishlist heart button, and crossed-out original price.",
+          "tags": [
+            "badge",
+            "wishlist",
+            "sale"
+          ],
+          "figmaNodeId": "18940:38087"
+        },
+        "ProductCard03": {
+          "title": "Horizontal Card",
+          "description": "Thumbnail left, product details right \u2014 for list views.",
+          "tags": [
+            "horizontal",
+            "list"
+          ],
+          "figmaNodeId": "18956:262394"
+        },
+        "ProductCard04": {
+          "title": "Minimal Card",
+          "description": "Image and price only; 'Quick add' button appears on hover.",
+          "tags": [
+            "minimal",
+            "hover"
+          ],
+          "figmaNodeId": null
+        },
+        "ProductCard05": {
+          "title": "With Colour Swatches",
+          "description": "Colour dot swatches for variant selection with price and add-to-cart.",
+          "tags": [
+            "swatches",
+            "variants"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "product-detail": {
+      "title": "Product Detail",
+      "description": "Product detail page layouts \u2014 2-col, with tabs, full-width, dark, and sticky sidebar.",
+      "tags": [
+        "product",
+        "detail",
+        "e-commerce"
+      ],
+      "variants": {
+        "ProductDetail01": {
+          "title": "2-col Product Detail",
+          "description": "Image gallery with thumbnails left; breadcrumb, name, rating, size selector, quantity stepper, and CTAs right.",
+          "tags": [
+            "2-col",
+            "gallery"
+          ],
+          "figmaNodeId": "19135:10051"
+        },
+        "ProductDetail02": {
+          "title": "With Tabs",
+          "description": "Standard layout with Description / Specifications / Reviews tabs below.",
+          "tags": [
+            "tabs"
+          ],
+          "figmaNodeId": "19135:10736"
+        },
+        "ProductDetail03": {
+          "title": "Full-width Minimal",
+          "description": "Full-width image top; description, options, and actions in three columns below.",
+          "tags": [
+            "full-width",
+            "3-col"
+          ],
+          "figmaNodeId": "19135:12580"
+        },
+        "ProductDetail04": {
+          "title": "Dark Product Detail",
+          "description": "Dark background product page with white text and outlined CTAs.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "19135:29326"
+        },
+        "ProductDetail05": {
+          "title": "Sticky Sidebar",
+          "description": "Scrollable gallery and description left, sticky price/options/CTA card right.",
+          "tags": [
+            "sticky",
+            "sidebar"
+          ],
+          "figmaNodeId": "19135:31082"
+        }
+      }
+    },
+    "product-listing": {
+      "title": "Product Listing",
+      "description": "Product grid and search-results pages with filter sidebars, top filter bars, category banners, and wishlist view.",
+      "tags": [
+        "product",
+        "listing",
+        "e-commerce",
+        "search"
+      ],
+      "variants": {
+        "ProductListing01": {
+          "title": "Grid + Filter Sidebar",
+          "description": "Left sidebar filters (category, price, brand, colour) with 3-col product grid.",
+          "tags": [
+            "sidebar",
+            "filters",
+            "grid"
+          ],
+          "figmaNodeId": "19079:22886"
+        },
+        "ProductListing02": {
+          "title": "Top Filter Bar",
+          "description": "Horizontal filter chips, sort dropdown, and grid/list toggle above a 4-col grid.",
+          "tags": [
+            "filters",
+            "4-col"
+          ],
+          "figmaNodeId": "19079:42026"
+        },
+        "ProductListing03": {
+          "title": "Category Page",
+          "description": "Dark category hero banner above a grid with sidebar filters.",
+          "tags": [
+            "category",
+            "banner"
+          ],
+          "figmaNodeId": "19079:42436"
+        },
+        "ProductListing04": {
+          "title": "Search Results",
+          "description": "Search bar with results count, sponsored badges, filters, and pagination.",
+          "tags": [
+            "search",
+            "sponsored"
+          ],
+          "figmaNodeId": "19079:43809"
+        },
+        "ProductListing05": {
+          "title": "Wishlist / Saved Items",
+          "description": "4-col saved product grid with remove and add-to-cart per card.",
+          "tags": [
+            "wishlist",
+            "saved"
+          ],
+          "figmaNodeId": "19079:44434"
+        }
+      }
+    },
+    "product-reviews": {
+      "title": "Product Reviews",
+      "description": "Customer review sections \u2014 rating summary with distribution bars, write-a-review form, media reviews, and Q&A.",
+      "tags": [
+        "reviews",
+        "ratings",
+        "e-commerce",
+        "social-proof"
+      ],
+      "variants": {
+        "ProductReviews01": {
+          "title": "Rating Summary + Reviews",
+          "description": "Star distribution bar chart left, list of review cards right.",
+          "tags": [
+            "summary",
+            "list"
+          ],
+          "figmaNodeId": null
+        },
+        "ProductReviews02": {
+          "title": "Write a Review Form",
+          "description": "Clickable star rating selector, title, review text, recommendation radio, and image upload.",
+          "tags": [
+            "form",
+            "write"
+          ],
+          "figmaNodeId": null
+        },
+        "ProductReviews03": {
+          "title": "Reviews with Media",
+          "description": "Review cards showing attached photo thumbnails.",
+          "tags": [
+            "media",
+            "photos"
+          ],
+          "figmaNodeId": null
+        },
+        "ProductReviews04": {
+          "title": "Q&A Section",
+          "description": "Question-and-answer pairs with seller response labels and 'Ask a question' CTA.",
+          "tags": [
+            "q-and-a",
+            "faq"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "promo-section": {
+      "title": "Promo Section",
+      "description": "Promotional and marketing sections \u2014 flash sale banners, category promo cards, email sign-up, and deal spotlights.",
+      "tags": [
+        "promo",
+        "sale",
+        "marketing",
+        "e-commerce"
+      ],
+      "variants": {
+        "PromoSection01": {
+          "title": "Flash Sale Banner",
+          "description": "Dark or brand-colour section with 'Flash Sale' badge, discount headline, countdown timer, and CTA.",
+          "tags": [
+            "sale",
+            "countdown",
+            "dark"
+          ],
+          "figmaNodeId": "19089:73462"
+        },
+        "PromoSection02": {
+          "title": "Category Promo Cards",
+          "description": "3-col grid of category cards with background image overlays and 'Shop now' links.",
+          "tags": [
+            "categories",
+            "grid"
+          ],
+          "figmaNodeId": "19089:73914"
+        },
+        "PromoSection03": {
+          "title": "Email / Loyalty Sign-up",
+          "description": "Split section with value props left and email subscribe form right.",
+          "tags": [
+            "email",
+            "loyalty",
+            "split"
+          ],
+          "figmaNodeId": "19089:67418"
+        },
+        "PromoSection04": {
+          "title": "Deal of the Day",
+          "description": "Full-width dark section featuring a single discounted product with price and feature list.",
+          "tags": [
+            "deal",
+            "dark",
+            "featured"
+          ],
+          "figmaNodeId": "19089:68422"
+        }
+      }
+    },
+    "rich-text": {
+      "title": "Rich Text",
+      "description": "Long-form content layouts for articles, documentation, and newsletters \u2014 single column, sidebar TOC, header image, and more.",
+      "tags": [
+        "content",
+        "article",
+        "blog",
+        "docs"
+      ],
+      "variants": {
+        "RichText01": {
+          "title": "Single Column",
+          "description": "Centred single-column article layout with max-width prose.",
+          "tags": [
+            "single-col",
+            "article"
+          ],
+          "figmaNodeId": "17014:183224"
+        },
+        "RichText02": {
+          "title": "Sidebar TOC",
+          "description": "Article body with a sticky table-of-contents sidebar.",
+          "tags": [
+            "toc",
+            "sidebar"
+          ],
+          "figmaNodeId": "17014:183259"
+        },
+        "RichText03": {
+          "title": "Header Image",
+          "description": "Full-width header image above the article body.",
+          "tags": [
+            "header-image"
+          ],
+          "figmaNodeId": "17014:183294"
+        },
+        "RichText04": {
+          "title": "Newsletter",
+          "description": "Email-newsletter-style article layout with author bio and subscribe prompt.",
+          "tags": [
+            "newsletter",
+            "email"
+          ],
+          "figmaNodeId": "17014:183338"
+        },
+        "RichText05": {
+          "title": "Docs with Breadcrumb",
+          "description": "Documentation layout with breadcrumb navigation and prev/next page links.",
+          "tags": [
+            "docs",
+            "breadcrumb"
+          ],
+          "figmaNodeId": "17014:183374"
+        }
+      }
+    },
+    "section": {
+      "title": "Section",
+      "description": "Generic content section containers with various header, background, and spacing configurations.",
+      "tags": [
+        "section",
+        "layout",
+        "container"
+      ],
+      "variants": {
+        "Section01": {
+          "title": "Section 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4955"
+        },
+        "Section02": {
+          "title": "Section 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:5026"
+        },
+        "Section03": {
+          "title": "Section 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:5005"
+        },
+        "Section04": {
+          "title": "Section 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4980"
+        }
+      }
+    },
+    "section-footer": {
+      "title": "Section Footer",
+      "description": "Footer bars for individual content sections \u2014 pagination, load-more, and action links.",
+      "tags": [
+        "section-footer",
+        "pagination",
+        "load-more"
+      ],
+      "variants": {
+        "SectionFooter01": {
+          "title": "Section Footer 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4694"
+        },
+        "SectionFooter02": {
+          "title": "Section Footer 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4896"
+        },
+        "SectionFooter03": {
+          "title": "Section Footer 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4925"
+        },
+        "SectionFooter04": {
+          "title": "Section Footer 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4941"
+        },
+        "SectionFooter05": {
+          "title": "Section Footer 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4912"
+        }
+      }
+    },
+    "section-header": {
+      "title": "Section Header",
+      "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+      "tags": [
+        "section-header",
+        "heading"
+      ],
+      "variants": {
+        "SectionHeader01": {
+          "title": "Section Header 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4687"
+        },
+        "SectionHeader02": {
+          "title": "Section Header 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4812"
+        },
+        "SectionHeader03": {
+          "title": "Section Header 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4838"
+        },
+        "SectionHeader04": {
+          "title": "Section Header 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4865"
+        },
+        "SectionHeader05": {
+          "title": "Section Header 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4881"
+        }
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Application settings page layouts \u2014 billing, profile, API keys, integrations, invoices, notifications, and account management.",
+      "tags": [
+        "settings",
+        "account",
+        "app"
+      ],
+      "variants": {
+        "Settings01": {
+          "title": "Billing Settings",
+          "description": "Dark upgrade banner, card details form, and client details form.",
+          "tags": [
+            "billing",
+            "form"
+          ],
+          "figmaNodeId": "11005:3206"
+        },
+        "Settings02": {
+          "title": "Profile Settings",
+          "description": "Basic info, change password, and advanced settings with checkboxes.",
+          "tags": [
+            "profile",
+            "form"
+          ],
+          "figmaNodeId": "11005:3348"
+        },
+        "Settings03": {
+          "title": "API Settings",
+          "description": "Table of Public and Private API keys with status badges and copy actions.",
+          "tags": [
+            "api",
+            "table"
+          ],
+          "figmaNodeId": "11005:3522"
+        },
+        "Settings04": {
+          "title": "Integrations",
+          "description": "Filter tabs + search above 3-col integration cards with toggle switches.",
+          "tags": [
+            "integrations",
+            "toggles"
+          ],
+          "figmaNodeId": "11005:3563"
+        },
+        "Settings05": {
+          "title": "Billing / Invoices",
+          "description": "Current plan summary card and invoices table with pagination.",
+          "tags": [
+            "billing",
+            "invoices",
+            "table"
+          ],
+          "figmaNodeId": "11005:3620"
+        },
+        "Settings06": {
+          "title": "Notifications",
+          "description": "Grouped notification rows with All / Email / In-app / None radio controls.",
+          "tags": [
+            "notifications"
+          ],
+          "figmaNodeId": "11005:3429"
+        },
+        "Settings07": {
+          "title": "Account Profile",
+          "description": "Avatar upload, display name, teams table, and danger zone with delete account.",
+          "tags": [
+            "account",
+            "avatar",
+            "danger-zone"
+          ],
+          "figmaNodeId": "11005:3280"
+        }
+      }
+    },
+    "sign-in": {
+      "title": "Sign In",
+      "description": "Sign-in page variants from the Pro Blocks Application canvas \u2014 card, split, dark, with social auth, and more.",
+      "tags": [
+        "sign-in",
+        "auth",
+        "login"
+      ],
+      "variants": {
+        "SignIn01": {
+          "title": "Sign In 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3971"
+        },
+        "SignIn02": {
+          "title": "Sign In 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4121"
+        },
+        "SignIn03": {
+          "title": "Sign In 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4011"
+        },
+        "SignIn04": {
+          "title": "Sign In 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4172"
+        },
+        "SignIn05": {
+          "title": "Sign In 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4067"
+        },
+        "SignIn06": {
+          "title": "Sign In 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4217"
+        },
+        "SignIn07": {
+          "title": "Sign In 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4304"
+        },
+        "SignIn08": {
+          "title": "Sign In 08",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4393"
+        },
+        "SignIn09": {
+          "title": "Sign In 09",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4449"
+        },
+        "SignIn10": {
+          "title": "Sign In 10",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:4483"
+        }
+      }
+    },
+    "sign-up": {
+      "title": "Sign Up",
+      "description": "Sign-up page variants from the Pro Blocks Application canvas \u2014 card, split, dark, and multi-step.",
+      "tags": [
+        "sign-up",
+        "auth",
+        "register"
+      ],
+      "variants": {
+        "SignUp01": {
+          "title": "Sign Up 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:2952"
+        },
+        "SignUp02": {
+          "title": "Sign Up 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3108"
+        },
+        "SignUp03": {
+          "title": "Sign Up 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:2989"
+        },
+        "SignUp04": {
+          "title": "Sign Up 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3157"
+        },
+        "SignUp05": {
+          "title": "Sign Up 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3048"
+        },
+        "SignUp06": {
+          "title": "Sign Up 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3874"
+        },
+        "SignUp07": {
+          "title": "Sign Up 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "11005:3836"
+        }
+      }
+    },
+    "stats-section": {
+      "title": "Stats Section",
+      "description": "Key metric / statistics showcase sections for landing pages.",
+      "tags": [
+        "stats",
+        "metrics",
+        "landing-page"
+      ],
+      "variants": {
+        "StatsSection01": {
+          "title": "Left + Image + 2 Stats",
+          "description": "Left heading, central image, and two stat items.",
+          "tags": [
+            "split",
+            "image"
+          ],
+          "figmaNodeId": "17014:182983"
+        },
+        "StatsSection02": {
+          "title": "Left + 3 Stats",
+          "description": "Left heading and subtitle with three horizontal stat items.",
+          "tags": [
+            "left-aligned",
+            "3-stats"
+          ],
+          "figmaNodeId": "17014:183089"
+        },
+        "StatsSection03": {
+          "title": "Image + Right Stats",
+          "description": "Large image left with stat list right.",
+          "tags": [
+            "image",
+            "right"
+          ],
+          "figmaNodeId": "17014:183057"
+        },
+        "StatsSection04": {
+          "title": "Card Stats",
+          "description": "Four KPI stat cards in a row.",
+          "tags": [
+            "cards",
+            "kpi"
+          ],
+          "figmaNodeId": "17014:183124"
+        },
+        "StatsSection05": {
+          "title": "Dark Stats",
+          "description": "Dark background stat row.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:183190"
+        },
+        "StatsSection06": {
+          "title": "Centred Only",
+          "description": "Centred 3-stat row with no heading.",
+          "tags": [
+            "centered",
+            "minimal"
+          ],
+          "figmaNodeId": "17014:183165"
+        },
+        "StatsSection07": {
+          "title": "Left + 4-stat Grid",
+          "description": "Left heading with a 2\u00d72 stat grid.",
+          "tags": [
+            "grid",
+            "2x2"
+          ],
+          "figmaNodeId": "17014:183015"
+        }
+      }
+    },
+    "store-navbar": {
+      "title": "Store Navbar",
+      "description": "E-commerce top navigation with cart badge, search, user menu, category strip, and mega menu.",
+      "tags": [
+        "navbar",
+        "e-commerce",
+        "cart",
+        "navigation"
+      ],
+      "variants": {
+        "StoreNavbar01": {
+          "title": "Standard Store Nav",
+          "description": "Logo, category nav links, and right-side icons (search, wishlist, user, cart with badge).",
+          "tags": [
+            "standard"
+          ],
+          "figmaNodeId": "19192:10951"
+        },
+        "StoreNavbar02": {
+          "title": "With Search Bar",
+          "description": "Full-width search input centre, with category strip below the nav.",
+          "tags": [
+            "search",
+            "categories"
+          ],
+          "figmaNodeId": "19192:13368"
+        },
+        "StoreNavbar03": {
+          "title": "Dark Store Nav",
+          "description": "Dark background store navbar with white text and icons.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "19194:23332"
+        },
+        "StoreNavbar04": {
+          "title": "Mega Menu Nav",
+          "description": "Category hover triggers a 4-column mega menu dropdown with subcategory links.",
+          "tags": [
+            "mega-menu",
+            "dropdown"
+          ],
+          "figmaNodeId": "19194:24315"
+        },
+        "StoreNavbar05": {
+          "title": "Mobile Collapsible",
+          "description": "Mobile-first nav with hamburger toggle revealing full-screen menu.",
+          "tags": [
+            "mobile",
+            "hamburger"
+          ],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "table-header": {
+      "title": "Table Header",
+      "description": "Header bars for data tables \u2014 title+search, date range filters, export actions, and tab-based filters.",
+      "tags": [
+        "table",
+        "header",
+        "filters",
+        "app"
+      ],
+      "variants": {
+        "TableHeader01": {
+          "title": "Title + Search + Filters",
+          "description": "Title and description left, search input + filter button + new button right.",
+          "tags": [
+            "search",
+            "filters"
+          ],
+          "figmaNodeId": "11005:5077"
+        },
+        "TableHeader02": {
+          "title": "Title + Date Range",
+          "description": "Title left, date range picker + filters + new button right.",
+          "tags": [
+            "date-range",
+            "filters"
+          ],
+          "figmaNodeId": "11005:5097"
+        },
+        "TableHeader03": {
+          "title": "Title + Search (Stacked) + Export",
+          "description": "Title and search stacked left, export and new buttons right.",
+          "tags": [
+            "stacked",
+            "export"
+          ],
+          "figmaNodeId": "11005:5116"
+        },
+        "TableHeader04": {
+          "title": "Tabbed Filter + Search + Export",
+          "description": "Title with All/Sent/Paid/Unpaid filter tabs, plus search and export.",
+          "tags": [
+            "tabs",
+            "filters",
+            "export"
+          ],
+          "figmaNodeId": "11005:5138"
+        }
+      }
+    },
+    "team-section": {
+      "title": "Team Section",
+      "description": "Team member showcase sections for about and landing pages.",
+      "tags": [
+        "team",
+        "people",
+        "landing-page"
+      ],
+      "variants": {
+        "TeamSection01": {
+          "title": "3-col Grid",
+          "description": "Three-column team grid with avatar, name, and role.",
+          "tags": [
+            "grid",
+            "3-col"
+          ],
+          "figmaNodeId": "17014:184780"
+        },
+        "TeamSection02": {
+          "title": "3-col + Social Links",
+          "description": "Three-column grid with social media icon links per member.",
+          "tags": [
+            "social",
+            "3-col"
+          ],
+          "figmaNodeId": "17014:184840"
+        },
+        "TeamSection03": {
+          "title": "4-col Compact",
+          "description": "Four-column compact grid with smaller avatars.",
+          "tags": [
+            "4-col",
+            "compact"
+          ],
+          "figmaNodeId": "17014:184870"
+        },
+        "TeamSection04": {
+          "title": "Horizontal Rows",
+          "description": "Team members in horizontal rows with larger descriptions.",
+          "tags": [
+            "horizontal",
+            "list"
+          ],
+          "figmaNodeId": "17014:184810"
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "description": "Customer testimonial sections in various layouts \u2014 single centred, card grids, split with image, dark, and masonry.",
+      "tags": [
+        "testimonials",
+        "social-proof",
+        "landing-page"
+      ],
+      "variants": {
+        "Testimonials01": {
+          "title": "Single Centred",
+          "description": "One featured testimonial with large quote, avatar, name, and company.",
+          "tags": [
+            "centered",
+            "single"
+          ],
+          "figmaNodeId": "17014:184900"
+        },
+        "Testimonials02": {
+          "title": "2-col Cards",
+          "description": "Two-column grid of testimonial cards.",
+          "tags": [
+            "2-col",
+            "cards"
+          ],
+          "figmaNodeId": "17014:184919"
+        },
+        "Testimonials03": {
+          "title": "Split + Image",
+          "description": "Testimonial text left with customer photo right.",
+          "tags": [
+            "split",
+            "image"
+          ],
+          "figmaNodeId": "17014:184956"
+        },
+        "Testimonials04": {
+          "title": "3-col Cards",
+          "description": "Three-column grid of testimonial cards with avatars.",
+          "tags": [
+            "3-col",
+            "cards"
+          ],
+          "figmaNodeId": "17014:184995"
+        },
+        "Testimonials05": {
+          "title": "Dark Testimonials",
+          "description": "Dark background testimonials grid.",
+          "tags": [
+            "dark"
+          ],
+          "figmaNodeId": "17014:185053"
+        },
+        "Testimonials06": {
+          "title": "Header + 3-col",
+          "description": "Section heading above a three-column testimonial grid.",
+          "tags": [
+            "3-col",
+            "header"
+          ],
+          "figmaNodeId": "17761:210907"
+        },
+        "Testimonials07": {
+          "title": "Masonry Testimonials",
+          "description": "Variable-height masonry layout for testimonials of different lengths.",
+          "tags": [
+            "masonry"
+          ],
+          "figmaNodeId": "17761:211013"
+        },
+        "Testimonial01": {
+          "title": "Testimonial 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial02": {
+          "title": "Testimonial 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial03": {
+          "title": "Testimonial 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial04": {
+          "title": "Testimonial 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial05": {
+          "title": "Testimonial 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial06": {
+          "title": "Testimonial 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        },
+        "Testimonial07": {
+          "title": "Testimonial 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": null
+        }
+      }
+    },
+    "calendar": {
+      "title": "Calendar",
+      "description": "Calendar components.",
+      "tags": [],
+      "variants": {
+        "CalendarBlock01": {
+          "title": "Calendar Block 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18420:47018"
+        },
+        "CalendarBlock02": {
+          "title": "Calendar Block 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231468"
+        },
+        "CalendarBlock03": {
+          "title": "Calendar Block 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231469"
+        },
+        "CalendarBlock04": {
+          "title": "Calendar Block 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18385:217964"
+        },
+        "CalendarBlock05": {
+          "title": "Calendar Block 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231470"
+        },
+        "CalendarBlock06": {
+          "title": "Calendar Block 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18420:49152"
+        },
+        "CalendarBlock07": {
+          "title": "Calendar Block 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231471"
+        },
+        "CalendarBlock08": {
+          "title": "Calendar Block 08",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18385:218391"
+        },
+        "CalendarBlock09": {
+          "title": "Calendar Block 09",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231472"
+        },
+        "CalendarBlock10": {
+          "title": "Calendar Block 10",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18391:3441"
+        },
+        "CalendarBlock11": {
+          "title": "Calendar Block 11",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231473"
+        },
+        "CalendarBlock12": {
+          "title": "Calendar Block 12",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231474"
+        },
+        "CalendarBlock13": {
+          "title": "Calendar Block 13",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18421:7343"
+        },
+        "CalendarBlock14": {
+          "title": "Calendar Block 14",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18385:219764"
+        },
+        "CalendarBlock15": {
+          "title": "Calendar Block 15",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18385:220172"
+        },
+        "CalendarBlock16": {
+          "title": "Calendar Block 16",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "17921:42044"
+        },
+        "CalendarBlock17": {
+          "title": "Calendar Block 17",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18394:33336"
+        },
+        "CalendarBlock18": {
+          "title": "Calendar Block 18",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231475"
+        },
+        "CalendarBlock19": {
+          "title": "Calendar Block 19",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "17921:41439"
+        },
+        "CalendarBlock20": {
+          "title": "Calendar Block 20",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:231476"
+        },
+        "CalendarBlock21": {
+          "title": "Calendar Block 21",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "17921:42423"
+        },
+        "CalendarBlock22": {
+          "title": "Calendar Block 22",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18421:8117"
+        },
+        "CalendarBlock23": {
+          "title": "Calendar Block 23",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18421:8119"
+        },
+        "CalendarBlock24": {
+          "title": "Calendar Block 24",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18421:8121"
+        },
+        "CalendarBlock25": {
+          "title": "Calendar Block 25",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18421:8124"
+        },
+        "CalendarBlock26": {
+          "title": "Calendar Block 26",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:8128"
+        },
+        "CalendarBlock27": {
+          "title": "Calendar Block 27",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:19957"
+        },
+        "CalendarBlock28": {
+          "title": "Calendar Block 28",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:20575"
+        },
+        "CalendarBlock29": {
+          "title": "Calendar Block 29",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:20577"
+        },
+        "CalendarBlock30": {
+          "title": "Calendar Block 30",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18422:20578"
+        },
+        "CalendarBlock31": {
+          "title": "Calendar Block 31",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18399:36409"
+        },
+        "CalendarBlock32": {
+          "title": "Calendar Block 32",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "18415:35282"
+        }
+      }
+    },
+    "card": {
+      "title": "Card",
+      "description": "Card components.",
+      "tags": [],
+      "variants": {
+        "Card01": {
+          "title": "Card 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160044"
+        },
+        "Card02": {
+          "title": "Card 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160190"
+        },
+        "Card03": {
+          "title": "Card 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160065"
+        },
+        "Card04": {
+          "title": "Card 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160084"
+        },
+        "Card05": {
+          "title": "Card 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160201"
+        },
+        "Card06": {
+          "title": "Card 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160137"
+        },
+        "Card07": {
+          "title": "Card 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160228"
+        },
+        "Card08": {
+          "title": "Card 08",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15003:160245"
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Dashboard components.",
+      "tags": [],
+      "variants": {
+        "ChartsBlock01": {
+          "title": "Charts Block 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "579:15080"
+        },
+        "DashboardBlock01": {
+          "title": "Dashboard Block 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:9413"
+        },
+        "DashboardBlock02": {
+          "title": "Dashboard Block 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:9399"
+        },
+        "DashboardBlock03": {
+          "title": "Dashboard Block 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:9375"
+        },
+        "DashboardBlock04": {
+          "title": "Dashboard Block 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:9356"
+        },
+        "DashboardBlock05": {
+          "title": "Dashboard Block 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:8859"
+        },
+        "DashboardBlock06": {
+          "title": "Dashboard Block 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:8986"
+        },
+        "DashboardBlock07": {
+          "title": "Dashboard Block 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "533:9069"
+        }
+      }
+    },
+    "forms": {
+      "title": "Forms",
+      "description": "Forms components.",
+      "tags": [],
+      "variants": {
+        "SettingsBlock": {
+          "title": "Settings Block",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:205907"
+        }
+      }
+    },
+    "mail": {
+      "title": "Mail",
+      "description": "Mail components.",
+      "tags": [],
+      "variants": {
+        "MailBlock": {
+          "title": "Mail Block",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:214705"
+        }
+      }
+    },
+    "music": {
+      "title": "Music",
+      "description": "Music components.",
+      "tags": [],
+      "variants": {
+        "MusicBlock": {
+          "title": "Music Block",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:207011"
+        }
+      }
+    },
+    "playground": {
+      "title": "Playground",
+      "description": "Playground components.",
+      "tags": [],
+      "variants": {
+        "PlaygroundBlock01": {
+          "title": "Playground Block 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:206421"
+        },
+        "PlaygroundBlock02": {
+          "title": "Playground Block 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:206504"
+        }
+      }
+    },
+    "sidebar": {
+      "title": "Sidebar",
+      "description": "Sidebar components.",
+      "tags": [],
+      "variants": {
+        "SidebarLayout01": {
+          "title": "Sidebar Layout 01",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54221"
+        },
+        "SidebarLayout02": {
+          "title": "Sidebar Layout 02",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54247"
+        },
+        "SidebarLayout03": {
+          "title": "Sidebar Layout 03",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54273"
+        },
+        "SidebarLayout04": {
+          "title": "Sidebar Layout 04",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54299"
+        },
+        "SidebarLayout05": {
+          "title": "Sidebar Layout 05",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54326"
+        },
+        "SidebarLayout06": {
+          "title": "Sidebar Layout 06",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54352"
+        },
+        "SidebarLayout07": {
+          "title": "Sidebar Layout 07",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54378"
+        },
+        "SidebarLayout08": {
+          "title": "Sidebar Layout 08",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54404"
+        },
+        "SidebarLayout09": {
+          "title": "Sidebar Layout 09",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54432"
+        },
+        "SidebarLayout10": {
+          "title": "Sidebar Layout 10",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54458"
+        },
+        "SidebarLayout11": {
+          "title": "Sidebar Layout 11",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54488"
+        },
+        "SidebarLayout12": {
+          "title": "Sidebar Layout 12",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54514"
+        },
+        "SidebarLayout13": {
+          "title": "Sidebar Layout 13",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54218"
+        },
+        "SidebarLayout14": {
+          "title": "Sidebar Layout 14",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54540"
+        },
+        "SidebarLayout15": {
+          "title": "Sidebar Layout 15",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "5199:54560"
+        }
+      }
+    },
+    "tasks": {
+      "title": "Tasks",
+      "description": "Tasks components.",
+      "tags": [],
+      "variants": {
+        "TasksBlock": {
+          "title": "Tasks Block",
+          "description": "",
+          "tags": [],
+          "figmaNodeId": "15005:206683"
+        }
+      }
+    }
+  }
+}

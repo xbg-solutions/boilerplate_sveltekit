@@ -1,0 +1,33 @@
+{
+  "id": "headersection19",
+  "name": "HeaderSection19",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Dark Gradient Text",
+  "description": "Dark header with a white-to-grey gradient text headline effect.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "dark",
+    "gradient",
+    "text"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Unlock Your Potential',\n\t\tsubtitle = 'Join thousands of users who have transformed their business with our platform',\n\t\tprimaryLabel = 'Get Started',\n\t\tsecondaryLabel = 'View Demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-gray-950 px-4 py-24 sm:py-32', className)}>\n\t<div class=\"mx-auto max-w-3xl text-center\">\n\t\t{#if title}\n\t\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t{/if}\n\n\t\t{#if subtitle}\n\t\t\t<p class=\"text-xl text-gray-400 mb-12 max-w-2xl mx-auto\">{subtitle}</p>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\" class=\"border-gray-700 text-white hover:bg-gray-900\">\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:18717",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31V22rbQBD9lUENOAFv7Tg36tgpDYFAKSWQtrTUfVhJK2ub1a7YHflSI+hH9Av7JZ2VZMVykr7Yw9znzBntJtA8E8E4+Hp9C39//4Ebbh/g1vJYCo3wSaww6AfIpVpKHQdjtIXoB4lUwgXj75sA17mP9grya3K9y/PXbiEUel3InXhOHxmNVILSBBMXWZkjKK7n01mAbhZczfQMZZYbi7CBSEMJiTUZ9A6UDAcFSuUGke5ddtyuC0Sz5xoZsmpfaFDIyt9HUGmb8EjAnTW5g41XzjBS3Lm3Y3BopZ5f1kqUqMS+0hXhs/rcyozb9QceCvUkRtDI8UtWo+/qWDIcHsH0ChZGxq3xfhv81FzWMymBnTnGUP19JOj7O5PAFHqftTLRA3wzhYU747cguer1u6N5x/dGasDUFI7r2IFJoHDCOlimBlK+EICWa5cYm4mY/IS0EBZOauHIR2IKvkKuOHqXbYFdjHyRW2r8HrlFEbc9dKDyTl+kWMKNyMzWpcWr/wSiCpRxs9opHOReODwisCaDmmmeXXpCVVASXyqcpptIH/aWLCmUgnDO5pav2ZuzIeQrdgr5mo1OwWVjEk5Gvf4jtkdlRdVJLBdNolmQrRgv0EDGV2zJTlYKkO6IRcLTruH2DDevZAIV1GWtoCzpcZukCjmjWKpayeckq3ktX5Cc0AGx0KjYbyF6ICoxlPMUIQvZeTNCdcUMDbPVTbBlKlHAQvJ6vtFwCGSs5FOSKShSMme+Rt1zteCcW0rTNl41v9f4ID3ejjWQSUPJZsYtox698+6UW4DaPmiC41ED34isDaDUwaZNNhnkz1XsLCJRYgX+h0WmArKSrVnCnOe01p+FQ5ms9zdDWZpPidGER/Qw3bR0K8HJX4Jyq3kXkF1a7+BSJ/pf4pa3JSy4lVwjZTcFKrqjWbBbrp0rNDYWtsbrwu/Qo1fvNjULYcctgYfDbpfdy3qpz8mAUKx53Uh0OfW1kOwfBP8uVI9B+aP8B5lbyLxEBgAA"
+}

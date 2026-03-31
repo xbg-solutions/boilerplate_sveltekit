@@ -1,0 +1,31 @@
+{
+  "id": "navitem",
+  "name": "NavItem",
+  "category": "atoms",
+  "group": "nav",
+  "title": "Nav Item",
+  "description": "Inline nav link with hover and active states for top-level navigation bars.",
+  "tags": [
+    "nav",
+    "link",
+    "menu"
+  ],
+  "source": "<!--\n  src/lib/components/ui/nav/NavItem.svelte\n  Icon-based navigation item with states.\n\n  Usage:\n  <NavItem state=\"current\" href=\"/dashboard\">\n    {#snippet icon()}<HomeIcon />{/snippet}\n  </NavItem>\n-->\n<script lang=\"ts\">\n  import { tv, type VariantProps } from 'tailwind-variants';\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  const navItemVariants = tv({\n    base: 'inline-flex items-center justify-center h-8 w-8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n    variants: {\n      state: {\n        default: 'rounded-lg bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground',\n        hover: 'rounded-lg bg-accent text-accent-foreground',\n        current: 'rounded-full bg-primary text-primary-foreground',\n        focused: 'rounded-lg bg-accent text-accent-foreground ring-2 ring-ring ring-offset-2'\n      }\n    },\n    defaultVariants: {\n      state: 'default'\n    }\n  });\n\n  type State = VariantProps<typeof navItemVariants>['state'];\n\n  let {\n    state = 'default',\n    href = undefined,\n    class: className = '',\n    icon,\n    ...rest\n  }: {\n    state?: State;\n    href?: string | undefined;\n    class?: string;\n    icon?: Snippet;\n    [key: string]: unknown;\n  } = $props();\n\n  let classes = $derived(cn(navItemVariants({ state }), className));\n</script>\n\n{#if href}\n  <a\n    {href}\n    class={classes}\n    aria-current={state === 'current' ? 'page' : undefined}\n    {...rest}\n  >\n    {@render icon?.()}\n  </a>\n{:else}\n  <button\n    type=\"button\"\n    class={classes}\n    aria-current={state === 'current' ? 'page' : undefined}\n    {...rest}\n  >\n    {@render icon?.()}\n  </button>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "tv",
+        "type VariantProps"
+      ],
+      "from": "tailwind-variants"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

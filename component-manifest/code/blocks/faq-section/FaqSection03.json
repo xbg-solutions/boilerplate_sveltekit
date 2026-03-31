@@ -1,0 +1,32 @@
+{
+  "id": "faqsection03",
+  "name": "FaqSection03",
+  "category": "blocks",
+  "group": "faq-section",
+  "title": "Open 2-col Grid",
+  "description": "Always-expanded Q&A pairs arranged in a two-column grid.",
+  "tags": [
+    "faq",
+    "accordion",
+    "landing-page",
+    "grid",
+    "open"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface FaqItem {\n\t\tquestion: string;\n\t\tanswer: string;\n\t\tcategory?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\titems?: FaqItem[];\n\t\teyebrow?: string;\n\t}\n\n\tconst defaultFaqs: FaqItem[] = [\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui?',\n\t\t\tanswer:\n\t\t\t\t'Shadcn/ui is a popular, open-source UI component library for React that focuses on flexibility and customization. It provides a set of accessible, customizable components that you can use to build modern web applications.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui kit for Figma?',\n\t\t\tanswer:\n\t\t\t\t'The shadcn/ui kit for Figma is our comprehensive design kit that brings the shadcn/ui components into the Figma environment.'\n\t\t},\n\t\t{\n\t\t\tquestion: \"I'm not familiar with shadcn/ui. Can I still use this kit?\",\n\t\t\tanswer:\n\t\t\t\t'Absolutely! Our kit is intuitive and comes with documentation to help you get started, regardless of your familiarity with Figma or shadcn/ui.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'Can I create multi-brand design systems with this UI kit?',\n\t\t\tanswer:\n\t\t\t\t'Yes! Our kit is designed with multi-brand support in mind. You can easily create and manage multiple styles for different brands within a single design system using Figma variables.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How will this kit save me time?',\n\t\t\tanswer:\n\t\t\t\t'By providing pre-built, customizable components and templates, you can skip the repetitive setup work and focus on the unique aspects of your design.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How does this improve my collaboration with developers?',\n\t\t\tanswer:\n\t\t\t\t'Our components are built to closely match the shadcn/ui library, significantly reducing misinterpretations and implementation errors.'\n\t\t}\n\t];\n\n\tlet { class: className, title = 'Frequently Asked Questions', description = 'Find answers to common questions.', items = defaultFaqs.slice(0, 6), eyebrow = 'FAQ Section' }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 sm:gap-8\">\n\t\t\t<div class=\"flex-1\">\n\t\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">{eyebrow}</p>\n\t\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">{title}</h2>\n\t\t\t\t<p class=\"mt-3 text-muted-foreground\">{description}</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"hidden sm:flex gap-2 flex-shrink-0\">\n\t\t\t\t<Button variant=\"ghost\" size=\"sm\" class=\"gap-1\">\n\t\t\t\t\tContact us\n\t\t\t\t\t<svg\n\t\t\t\t\t\twidth=\"12\"\n\t\t\t\t\t\theight=\"12\"\n\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\" />\n\t\t\t\t\t\t<polyline points=\"15 3 21 3 21 9\" />\n\t\t\t\t\t\t<line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</Button>\n\t\t\t\t<Button variant=\"ghost\" size=\"sm\" class=\"gap-1\">\n\t\t\t\t\tView documentation\n\t\t\t\t\t<svg\n\t\t\t\t\t\twidth=\"12\"\n\t\t\t\t\t\theight=\"12\"\n\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\" />\n\t\t\t\t\t\t<polyline points=\"15 3 21 3 21 9\" />\n\t\t\t\t\t\t<line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-2\">\n\t\t\t{#each items as item (item.question)}\n\t\t\t\t<div>\n\t\t\t\t\t<h3 class=\"font-semibold text-sm\">{item.question}</h3>\n\t\t\t\t\t<p class=\"mt-2 text-sm text-muted-foreground\">{item.answer}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:173832",
+  "playgroundUrl": null
+}

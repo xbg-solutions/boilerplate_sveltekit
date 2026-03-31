@@ -1,0 +1,32 @@
+{
+  "id": "herosection16",
+  "name": "HeroSection16",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Left + Floating Feature Cards",
+  "description": "Left text and CTAs with stacked floating feature cards on the right.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "left-aligned",
+    "cards"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'Powerful Features',\n\t\ttitle = 'Build Everything You Need',\n\t\tsubtitle = 'Comprehensive tools designed to help you succeed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Schedule demo',\n\t\tonPrimary,\n\t\tonSecondary,\n\t}: Props = $props();\n\n\tconst features = [\n\t\t{\n\t\t\ttitle: 'Lightning Fast',\n\t\t\tdescription: 'Optimized performance for teams of any size',\n\t\t},\n\t\t{\n\t\t\ttitle: 'Secure & Reliable',\n\t\t\tdescription: 'Enterprise-grade security and 99.9% uptime',\n\t\t},\n\t\t{\n\t\t\ttitle: 'Easy Integration',\n\t\t\tdescription: 'Seamlessly connect with your favorite tools',\n\t\t},\n\t];\n</script>\n\n<section class={cn('w-full bg-white px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-2 gap-12 items-start\">\n\t\t\t<!-- Left Content -->\n\t\t\t<div>\n\t\t\t\t<p class=\"text-sm font-semibold text-blue-600 uppercase tracking-wide\">{eyebrow}</p>\n\t\t\t\t<h1 class=\"mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900\">\n\t\t\t\t\t{title}\n\t\t\t\t</h1>\n\t\t\t\t<p class=\"mt-6 text-lg text-gray-600 max-w-xl\">\n\t\t\t\t\t{subtitle}\n\t\t\t\t</p>\n\n\t\t\t\t<!-- CTA Buttons -->\n\t\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-4\">\n\t\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>\n\t\t\t\t\t\t{primaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>\n\t\t\t\t\t\t{secondaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Right Floating Feature Cards -->\n\t\t\t<div class=\"space-y-4\">\n\t\t\t\t{#each features as feature, i}\n\t\t\t\t\t<div\n\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t'rounded-xl border bg-white p-6 shadow-lg transition-transform hover:scale-105',\n\t\t\t\t\t\t\ti === 1 ? 'border-blue-200 lg:ml-8' : 'border-gray-200'\n\t\t\t\t\t\t)}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div class=\"flex items-start gap-4\">\n\t\t\t\t\t\t\t<div class=\"flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center\">\n\t\t\t\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" class=\"text-blue-600\">\n\t\t\t\t\t\t\t\t\t<path d=\"M12 2L15 10H23L17 15L19 23L12 18L5 23L7 15L1 10H9L12 2Z\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<h3 class=\"font-bold text-gray-900\">{feature.title}</h3>\n\t\t\t\t\t\t\t\t<p class=\"mt-1 text-sm text-gray-600\">{feature.description}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:44234",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VXbZPaNhD+K1s3LXdTdGDuJQeBZHI3l6QzNL1J+qFtyAdhC6yeLHkkGXAZZvoj+gv7S7ryC9iGm0wysFqtntWuHj3itp6kMfNG3u937+G/f/6FKVtY+AneCUUtl0t4x6hNNYN7qkPjdT1LuVhzGXojq1PW9RZcMOONvmw9myUOyDkwroR9myQXZsWEdb45NeyUP1DSMmkRxhubQPPEgqByOZl51sy81zM5szxOlLawhUDCDhZaxdB5Ifi8l1ouTC+QnVeNsLvUWtUKDRTOSpeol/I83q3A1HpBAwaPWiUGts45s4GgxrwZgbEau/CqcLKMzbVat92WW8HaTpPOT/oTzWOqsymdM3G0hmEnwudmlXws1uLE2TlMXsNK8XA/+blafDy9K0oVzDbKG0H+9RFPpNsoECbQeVRr7EsqKgKYTrdWrYu4S7kI4WHFdGYjR5U/VAofGQuryKoFLvgee69ZxKThKwZWKWEgZIYvJQtxCBETCWQIYNIgQIyLCqTeLwf0Hoswlmpby9Nomwv6HEQsTDFzyGJVhe371z1qWe7ZjUoKTOBF4oyz85IjGGUsLMpG4PyXAqFsZtmTEXSmfBlZmV8bamyVeGax0pzWXEmM+hWNmP+NhSfYYqVjKpF+aIBlNDagFkBlBgZDKohd95mMWIK7nT/CJyY4nQv2XNIHx3NspmFkqWnIwLiV3GaYK4Th8GL4A6RuY9/O+UBNBj8jHgI59OdSfsZqUByMyAA7KFlgYc1t5I5Zw4KuFKYvudDM+RX7Pu4VUO72yzFu1oEWhJ1sA3nWWRNkp4D5kqwjh5NsyBUkGRn0wcQjZ9zmxobcgFi679tO98D4812uK+OQr0rUmRdvCE2RjDHdkDV5uRGl+LTClpqH4D5IgFsnvoM/DAewpAnxB4Cbig3JubrHQaTvCClE9r5QPSDkMIlp9gMcJvuclm0sMTGyROI3i/lc4eXLvXORMnLT7+PxIZ8C1FiwmgZPSEOy5iHD5NvyYu/GvaSOH/mH2i22L8e72gjXuNy+Rhury+0btPP0ReoqhXWcL1YiHzIy7Pdr5eYEyomzq+XtRf7pMnEXNwWWWNYwXXXFodTOpASvVKaBn1d5GLue3//2tnwVTL3lbQpYcgsLwTb5hztR14vcdsLojvaqtYNx+da4+4oIYjnzQMlA8OBpst2Lzq6xBvddF7ZdA69XAJ5MsqKaU2kxj0qt4BJP97nEe3U7St0UzG8lH/fqrNyP6nz+lHPg9G+GNr/3rTYJvroka/Vz+z2jQXQQW2oquwu8uVUEaxZ2UIemf2Y7WqUyZCHyB+ZKh0zXhAMpZyIaqnVOOk3xjXJiQ3LT6TNECl+5kQmoYMTvXx8Er/rHYTKZgA9voFPAF7dygLzF6xML1B4Y7edyTuNcpwlz3iivdWiN1uUErenLSV6eXEVMhD8pnkgf1lgJRO6j6g1Wj03JN+7jxmtJAuZeD/grNZYvsnJ4Ih0mNKslqnxoI0w4QCXAl92RoxqtOFvfqQ0O+9CHwRX+Ry/+ZhTokqrgs9XqyTEaHyiNqe6VUJitqYWV6p3chdMUii9NiNG/oBQPpv41+P0Pg8up/xL866k/BGcPwL+dXjuz8LqYoXMP/sR8vVP19bDA4zb3msJ9aP4piOjycCQHPW0J6LZk/UUhbiiZl6ewGtLpQ/VMNKSzjlZ7oVuPwfOVHPvanm3PXdrdkUY07MrCFhavOdruDwrcavHHxO7r7n+ewp/CjwwAAA=="
+}

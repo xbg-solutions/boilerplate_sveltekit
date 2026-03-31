@@ -1,0 +1,33 @@
+{
+  "id": "herosection22",
+  "name": "HeroSection22",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Left + Avatar Social Proof",
+  "description": "Left headline, CTA, and user avatar row with join-count; right rotated screenshot.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "left-aligned",
+    "social-proof",
+    "screenshot"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\tuserCount?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Join Thousands Building Tomorrow',\n\t\tsubtitle = 'Collaborate, create, and ship faster than ever before.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Schedule demo',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\tuserCount = '50,000+',\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-white px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-2 gap-12 items-center\">\n\t\t\t<!-- Left Content -->\n\t\t\t<div>\n\t\t\t\t<h1 class=\"text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900\">\n\t\t\t\t\t{title}\n\t\t\t\t</h1>\n\t\t\t\t<p class=\"mt-6 text-lg text-gray-600 max-w-xl\">\n\t\t\t\t\t{subtitle}\n\t\t\t\t</p>\n\n\t\t\t\t<!-- CTA Buttons -->\n\t\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-4\">\n\t\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>\n\t\t\t\t\t\t{primaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>\n\t\t\t\t\t\t{secondaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\n\t\t\t\t<!-- Social Proof with Avatars -->\n\t\t\t\t<div class=\"mt-10 flex items-center gap-3 pt-8 border-t border-gray-200\">\n\t\t\t\t\t<div class=\"flex -space-x-3\">\n\t\t\t\t\t\t<div class=\"w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white flex items-center justify-center text-white text-sm font-bold\">\n\t\t\t\t\t\t\tA\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white flex items-center justify-center text-white text-sm font-bold\">\n\t\t\t\t\t\t\tB\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-white flex items-center justify-center text-white text-sm font-bold\">\n\t\t\t\t\t\t\tC\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white flex items-center justify-center text-white text-sm font-bold\">\n\t\t\t\t\t\t\tD\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<p class=\"text-sm font-semibold text-gray-900\">\n\t\t\t\t\t\t\tJoin <strong>{userCount}</strong> users\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t<p class=\"text-xs text-gray-600\">Already growing with us</p>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Right Screenshot -->\n\t\t\t<div class=\"relative\">\n\t\t\t\t<div class=\"relative rounded-2xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform\">\n\t\t\t\t\t<div class=\"aspect-square w-full rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border border-gray-300\">\n\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\twidth=\"64\"\n\t\t\t\t\t\t\theight=\"64\"\n\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\tstroke-width=\"1\"\n\t\t\t\t\t\t\tclass=\"text-gray-400\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n\t\t\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" />\n\t\t\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\" />\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<!-- Floating accent card -->\n\t\t\t\t<div class=\"absolute -bottom-6 -left-6 bg-white rounded-lg p-4 shadow-xl border border-gray-200\">\n\t\t\t\t\t<p class=\"text-xs font-semibold text-gray-900\">Featured by</p>\n\t\t\t\t\t<p class=\"text-sm text-gray-600 mt-1\">TechCrunch</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "19193:17040",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE71Y6W7jNhB+lamwQHaxZnzkaOp1UiQpdoFiUSya/ChQ9wdN0RIbilRJykcNA32IPmGfpENd0eEkBYoNElhDcjiXvjnsXaBowoNp8MvNJ/jnr7/hM186eA/XK+qogTvNBJXwxWi9DAaBo0KuhQqDqTMZHwRLIbkNpr/uArdNvRS/gXylzOs0PbYrLp3fW1DLD+0zrRxXDsUEM8uMSB1IqqLLeeDsPLiaq7kTSaqNgx0wBXtYGp3A0RspFsPMCWmHTB19aLHdZM7pDivTeKq8omEmcn5/A1WbJWXce5ha2PnNuWOSWvv9FKwzQkUfik0nnOTdTZstDu6nRiTUbD/TBZe9OxxdDp861epLcRcP3r6DyytYaRHWh3fV5UPHmeXmVmfKtYXuC2cldy0Hp5A/fsJ3Mmi4CJdw9KMWCu5jnVmqQovxFDJEaXCvE22MXh8N2u77O7daSrrQhjo+AGZ4/sTrYGORwpJaDDW4mCrgK6QWfKkNP64kNQPmpX1CYy0i0PGwVtaKm2e6YzEPM1Qf8kRXbHUAB72YDTph8jLORoPRaPS+uL2flkC4hDepJ96+wwjOhgUuPRbVDM1wAtGVB+9yx9TbozVZZlLCIiLrWDgO6YacQrolkxHYZOqJi5zYkHOQkX9eHA0eo/9un6N8FopVKXUeJBtCM6choRuyJt9uZJkKHbbIiBD8B2FaWjL24h+XE4hoSsYTQKMSSxj3cK8FoahvCCkS/rZIQiDk8RD11AtcxuNaq+MbR0430juV02dIo+acPkd6ieLIQssQnKHsAaFDnIhiBzlHZOiWfDcaNSzxf7scSvuGymE8blqQPkYH1RSyZNSQeT4alQFrxKsUXkG1JT+9KlKjEY7b++uyfthmNLqvx5ELWEq+yT98tH0schrTIw/7aceCWVmVrPiTowQZzQPQiknBHi53NWj3rTtodzMx9i15w0LgQSUragRVDvXozEmhOCp7QnGdHT3V7YR7SflsWAKmHc9mB4G1cHHZWl6I7nhUhLeJ3DysJ5D62GOhCbkhriLy9z/pYaolNhdIbIr1nmzISYe1w7z2JsT+w2CpCHlY5ziqCgUaRJwmC5P3GLKQGSenCD+/52kPxdK0SUUUxaHv1u+ZdWK5rZY5ngvenLTJYz71bJ67644Tw3be/k/H0syksnatXL2eczdf1zmhHmrXPP16jt1+Vcciw7mqPCsWr+faDy+5dmDngPdpu91USi1PRNFZnmkl/i+fYWY4BmkVXe3qnr/Hbl7sgd+zXWPTF+zY2HbDQc3XEqedcIt9WK/9lJRXucx2ZXXdbq+75TMvnj/nTfOO+TdoY93rz7VphkvqxIq34nCQo8bPBPu0xklsKfWaxCIMOfammIa48kfYuJXFES0B7GgOhzmETez5p+VyVLAIPwyRmvu5+kttirMTsX9k1HAoh6amOU+iGUM9rsBc1PmXUVtgvNUfTg4AZWZXURc6axG6GA0+xx7ePYu5fydPHK4EX9/oDZ6OYASTU/zvM+F3JIkcSvuu3D302HzwbZplxqAjOFVr8xQbqQwd9zlaoM29P/Xet9l6STMz+IbAO4DtEbbls1ZzgYs6APnKeN4JEsO+LCYMw+GceZaL4zNkYtuaNF5CTh24mWq59VMLpJjEzrsxGcP4DMbngBXwDCbjA/cwsVfRf8u49ojyUWpMDUxcyjx2gFETPjOd0IXVMsNiiAUQZ6AER1EicYjGZ/0NoEI1jqc4CVZ55SHeR+WBqaVfc56vfR/x21ZmeAiLba/q9OtoZ2DGYQtF3HMW35pMsbgt4Ykq1aIrCt9A8eUIaf9rAeopfinY/7b/FzpeGrBpEAAA"
+}

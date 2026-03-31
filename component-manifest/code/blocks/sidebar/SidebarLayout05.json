@@ -1,0 +1,32 @@
+{
+  "id": "sidebarlayout05",
+  "name": "SidebarLayout05",
+  "category": "blocks",
+  "group": "sidebar",
+  "title": "Sidebar Layout 05",
+  "description": "Sidebar components.",
+  "tags": [],
+  "source": "<!--\n  SidebarLayout05.svelte\n  Dashboard sidebar with main nav + footer actions (settings, help).\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import { DynamicIcon } from '$lib/components/ui/icon';\n  import Separator from '$lib/components/ui/Separator.svelte';\n\n  let {\n    class: className = '',\n    navItems = [],\n    footerItems = [],\n    title = 'Dashboard',\n    children\n  }: {\n    class?: string;\n    navItems?: Array<{\n      label: string;\n      href: string;\n      icon?: string;\n      active?: boolean;\n      badge?: string;\n    }>;\n    footerItems?: Array<{\n      label: string;\n      href: string;\n      icon?: string;\n    }>;\n    title?: string;\n    children?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex h-screen', className)}>\n  <!-- Sidebar -->\n  <aside class=\"flex w-64 flex-col border-r bg-background\">\n    <!-- Header -->\n    <div class=\"flex h-14 items-center gap-2 border-b px-4\">\n      <!-- Lucide: LayoutDashboard -->\n      <span class=\"flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground\">\n        D\n      </span>\n      <span class=\"font-semibold\">{title}</span>\n    </div>\n\n    <!-- Main Nav -->\n    <nav class=\"flex-1 overflow-y-auto p-3\">\n      <ul class=\"space-y-1\">\n        {#each navItems as item}\n          <li>\n            <a\n              href={item.href}\n              class={cn(\n                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',\n                item.active\n                  ? 'bg-muted font-medium text-foreground'\n                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'\n              )}\n            >\n              {#if item.icon}\n                <DynamicIcon name={item.icon} size={16} />\n              {/if}\n              <span class=\"flex-1\">{item.label}</span>\n              {#if item.badge}\n                <span class=\"rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground\">\n                  {item.badge}\n                </span>\n              {/if}\n            </a>\n          </li>\n        {/each}\n      </ul>\n    </nav>\n\n    <!-- Footer Actions -->\n    {#if footerItems.length > 0}\n      <div class=\"border-t p-3\">\n        <ul class=\"space-y-1\">\n          {#each footerItems as item}\n            <li>\n              <a\n                href={item.href}\n                class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground\"\n              >\n                {#if item.icon}\n                  <DynamicIcon name={item.icon} size={16} />\n                {/if}\n                {item.label}\n              </a>\n            </li>\n          {/each}\n        </ul>\n      </div>\n    {/if}\n  </aside>\n\n  <!-- Main Content -->\n  <main class=\"flex-1 overflow-y-auto\">\n    {@render children?.()}\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "DynamicIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    },
+    {
+      "specifiers": [
+        "Separator"
+      ],
+      "from": "$lib/components/ui/Separator.svelte"
+    }
+  ],
+  "figmaNodeId": "5199:54326",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE61X227jNhD9lal2AcdoaCWbZBdwHG/TBm0X2O5LXgqs94GSaJstRQok5cQVBPQj+oX9kg5FWVdnk6LNS+zh8Mxw5pwhXQSSpiyYB79+/xP8/edfcM8TFlENH+le5RbOroLTwFIuHrhMgrnVOTsN1lwwE8w/F4HdZ26zM6BfDXWbZTOzY8I6W0QNO2aPlbRMWoQJFt8QspJwCO0jn13Vvm7ljpptpKhOwNTpPXC7hZRyCZLu4FtYK2WZBhpbrqSBE8Os5XJjTmHLRDadrSQhy5VcmFjzzIKgcnOzCqxZBUsXgKeZ0hbccaCAe8mzjFkoYa1VChOfyOS641lALJv114JHYW65MGEsB253ezw9jz/gefv+sUIX6UoQ5jzkuN7bec8yqqlV+uk9jcusTdAhCEy9cB8AYkGNmft/n7ALcAOTyalfw8J9sCw1aPv8pbb5Mo7MlltR7W0acQCJt1wkmlVxy3kv7Ps5GKuxCdf9eGi/1ZruF7UzJkwjJgbeAFvN1iOjq9MQGKq27xjaI6UEo7JZiGiyYUP/cnk9Ou3/nlQTpKrdcPVQNrTXZKsWSqzx60yrzJxM0bAIPV2Xrq+LhO98YW+KWJ5M1oI9wpagB2Nyctr2eFpWlHaqatRckR9t1OmnRlkFFcQDeXsJ7hOJlcAC6oRpoiHakIjGv2+0ymVSq6QG/ZlR9DlgorHNrMbckvNL4K6uJEa2ovOGZuTNAT2C7JFcNqA17Mc8xuTm9eRpJd/EQT+TUTkM9Q6P8K4f7bfcWL7eH75WZ2AJERt3rEzzlOo9WPZoyaNBFkhLIiUSb6mXyVppNji9+7trcgldMk+l5jANS7nDxf1FxYKyt2cRYt2WXrJ1CX5xA+0TDrS2tm68dQ9MzkHtmF4L9UD2hOZWQUYuurXMRbMBo8UM3c57RyheMRpvW/1TU1WvbD0QRfBl97vjTv+718JN4bbO3MdyuN6SdbgC4Ok7oshFt1dIkgvI9sibqjEmBaupNNyNeEdWpc1hDHX/qoT8RBgvAryHCZIgzS1LfOtTlvA89THapk+O7Z3DpHKrdnecYet6Mm9w/dfnEKeDii2HDsUrvvbHcRNmVF/sSfd2cbds3Y7KHe/KP9Bw/raEcAwd8nHDxvKqmOMxq3lYDlg/zrSauMdS7WEfurzOhehqElv+xrX8bHbV6PMlquxk8vUsnkh/XI1FSHtui7CniCJ0GirbYZCLRtYorL6sf/SPk9v6cdKIu6pa5xKaCSY3+K5ZwlmL3B2u9fy0A8m/RPSN7LtX/DHlH9P+MfU/r3/oT+p/LfajShuNgBdpbxUMkztCnmfl9l8E94TkDoT16hpVfUDCEQ1HROxRsb1jevER1T0Dao62F88P/knePBaq5/XX756GYsV3+Jpxr4LmZTM7mdbRHI57e9e5uB8U2B3/Y6L8Uv4D5zRQhIMMAAA="
+}

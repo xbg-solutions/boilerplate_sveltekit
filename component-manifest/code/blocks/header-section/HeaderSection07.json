@@ -1,0 +1,31 @@
+{
+  "id": "headersection07",
+  "name": "HeaderSection07",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Form",
+  "description": "Header with an inline email or search form.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "form"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Sign up',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n\n\tlet formData = $state({\n\t\tname: '',\n\t\temail: '',\n\t\tpassword: ''\n\t});\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-4xl\">\n\t\t<div class=\"grid grid-cols-1 gap-12 sm:grid-cols-2 items-center\">\n\t\t\t<div>\n\t\t\t\t{#if eyebrow}\n\t\t\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t\t\t{eyebrow}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\n\t\t\t<div class=\"rounded-xl border bg-background p-6 shadow-lg\">\n\t\t\t\t<h2 class=\"text-2xl font-bold mb-6\">Create your account</h2>\n\n\t\t\t\t<form class=\"space-y-4\" onsubmit={(e) => { e.preventDefault(); onPrimary?.(); }}>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<label for=\"name\" class=\"block text-sm font-medium mb-2\">Full Name</label>\n\t\t\t\t\t\t<input\n\t\t\t\t\t\t\tid=\"name\"\n\t\t\t\t\t\t\ttype=\"text\"\n\t\t\t\t\t\t\tbind:value={formData.name}\n\t\t\t\t\t\t\tplaceholder=\"John Doe\"\n\t\t\t\t\t\t\tclass=\"w-full px-4 py-2 rounded-lg border bg-background border-muted focus:outline-none focus:ring-2 focus:ring-foreground\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<label for=\"email\" class=\"block text-sm font-medium mb-2\">Email</label>\n\t\t\t\t\t\t<input\n\t\t\t\t\t\t\tid=\"email\"\n\t\t\t\t\t\t\ttype=\"email\"\n\t\t\t\t\t\t\tbind:value={formData.email}\n\t\t\t\t\t\t\tplaceholder=\"you@example.com\"\n\t\t\t\t\t\t\tclass=\"w-full px-4 py-2 rounded-lg border bg-background border-muted focus:outline-none focus:ring-2 focus:ring-foreground\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<label for=\"password\" class=\"block text-sm font-medium mb-2\">Password</label>\n\t\t\t\t\t\t<input\n\t\t\t\t\t\t\tid=\"password\"\n\t\t\t\t\t\t\ttype=\"password\"\n\t\t\t\t\t\t\tbind:value={formData.password}\n\t\t\t\t\t\t\tplaceholder=\"••••••••\"\n\t\t\t\t\t\t\tclass=\"w-full px-4 py-2 rounded-lg border bg-background border-muted focus:outline-none focus:ring-2 focus:ring-foreground\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<Button type=\"submit\" class=\"w-full\">\n\t\t\t\t\t\t{primaryLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:16881",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE91X3YrjNhR+lYO7kAzE8SadLcXjpO12ugulLANb2kLTC9mWY7GyZCQ5P4TAPkQve9WLPtg8SY/8F9tJGHLZwjAjn3N0fr7vHElzcATJqOM7v719D8+f/4RfmUnhnVSZM3EMYXzLROz4RhV04iSMU+34vx8cs8/tJitAu9rFd3k+1RvKjZWFRNNL8kgKQ4VBN06gI8VyA5yI9WLlGL1yliuxMizLpTJwgEjAERIlMxi94iz0CsO49iIxeuiZvS2MkQPTSKJW2EBewUp7uwNDq4REFJ6UzDUcrHBlIk60/sYHbRQT64dKSPc0VHI7FBtmOB0KY1pVwqQYqnLFMqL2P5GQ8qFOUwQjvqaV4qnai4rxHSyWsJEsbpUfm83n6mNVLaemV6EP5Z8PSMqkVyMsYPSBbkFRTpE1eP7rn9GkU67V/5xSyGRMlYAt2YOREBaMx5BIBQZ1Wxo2ezpoTM5BsM4+srWAIm829HGwBr8wTCemmWxMWjAmZ/WXFfs1owt4ldvF+O7hBALmmD0SQ6xWG2LouIbF9qcPoyYIzbDfO985orWVKraiMop1GnhVdbZTRYCp2zorZBeHSIxHWzcpOIdw7YYk+rRWshAx5Dv3HvK9O38NOvPt4uvR5MTH3bFs/CBmm9rVysl2LikQ54zs3K17v+P1dAzM1orFYH+5keTancGa5O5sbsOcpHNgWJ12I2onoHVUuWo/VubwBUug7orjSTzMLHS/AiY4E9RNON31nJfx51CWTeMaCwQRNQhJVhgae29eW0C+tIDMwNCdcXe6k1Sdy8U8vEHCHkvqdu9UUHZtf186a9MvAyKeFqJy/QbXCR5Lbiixo41C2nAMXcPWqQEs9h5zO1Q+Ay+dvRi+MwD9JPJ+DnxdFV+C4mKX0qpbbLiuj8DLL8Ts49Hhsw3ScLDrMtBtSqRRpySWW0ylh3+QzvupznsQ2QZA++8VxWGCvSwUkChCn5hPOl92AQns8LW+dI6Hr7u3iIIUuggzZhaHMS3PrwPQaa7oBtvokSak4AanGE7H4NR+Ho/LYV8O+ibg5SmCcTGgnXCM1cQPuYw+VaDrrCooozErMlvSHEt6Z9vVTmTglW6GvpnIC9OX4bUSt5GGKntP1hieK0O8Wv0N4QVdHJozamr9HIeWOUfcUoSe2qJ+lKmAR3khXFNnfQa1p047jthyF1uhEladiLhEhfZlYcoJF3iN1iJ7O6Gzzke3afvJeMuLc3sDd+VxfAt5P9gNNxNXh7nC3BXtRepK2xe4w2H5lu5IlnM6xTfK/5zC5ga9hcWnes/NRJ6CXeHyusFFOhvzFxh9/vz3xZ//OrX1q7rGrjqrOzxWRZzf2t233uDqrjx2rxnPgn16jHQu99O6WeHDq3ps4dr+b4IdVP1fcvzj+C93O3OFxgwAAA=="
+}

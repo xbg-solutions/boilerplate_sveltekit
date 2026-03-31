@@ -1,0 +1,30 @@
+{
+  "id": "sectionfooter03",
+  "name": "SectionFooter03",
+  "category": "blocks",
+  "group": "section-footer",
+  "title": "Section Footer 03",
+  "description": "Footer bars for individual content sections — pagination, load-more, and action links.",
+  "tags": [
+    "section-footer",
+    "pagination",
+    "load-more"
+  ],
+  "source": "<!--\n  SectionFooter03.svelte\n  Save/Edit/View action buttons left. Description text center-right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    description = 'This feature is available in the Pro Plan for additional $10 per month.',\n    onview = () => {},\n    onedit = () => {},\n    onsave = () => {}\n  }: {\n    class?: string;\n    description?: string;\n    onview?: () => void;\n    onedit?: () => void;\n    onsave?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between', className)}>\n  <div class=\"flex shrink-0 items-center gap-2\">\n    <Button size=\"sm\" onclick={onsave}>Save</Button>\n    <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n    <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n  </div>\n  {#if description}\n    <p class=\"text-sm text-muted-foreground sm:text-right\">{description}</p>\n  {/if}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4925",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VU227UMBD9lcFU2lZabxbKU5oNouLyhiqBEBLhwZtMdk0dO7KdbEsUiY/gC/kSxvG27NLyxEvinLmcmTPjDEyLBlnKPl++g18/fsIHLL00Gt4a49HC8pzNmRdS7aSuWOpth3NWS4WOpV8G5m/bEBwA8tunetW2C9ej8gFbC4eP4aXRHrWnNCx7wnmh4Y46Mi/P976TRfSYvKmkTz5J3IGIJa477412oLD2C3iNrrSynSwebzyUlB4tt3Kz9YtCc54XOos+oITerArmXcHyQCCb1lgPA5QaRqitaWB2ouQ66bxULin17OLI7XKiPnYtDVl16CnpZPAPEQrJPRwASiWcS+PrPSkCK5jN5tFWHRRP8MetdFCj8J1FoKPoaQJireiDmtsiXFkDV9QE1MaCqEgZihQKTp4toaWxNaTudnGX3eg+yLaC0zNY5TCM9zhS5GO4I8EP8ACP6VEjL1Nw3kq9uXjQwd+mSE9oTNcbWV0cFvC4JZTw0DJSVSetNa07PSMgSyJrHtTOKtnH4lZDqU9ntcIbCA9eGgUb0fJzaG/5C3BNOsHW7MJZemwcj+sSvr91zsv6lq/R7xD1bP5nZmfjtC4HTAWbaNyWGr7mSzhKFjif71eMovZb4+R3pDjXFIz6LJUsr1dDbHjMw6pnSfT8K64XVgrtKdR0XkmNFP+PXEHWMQ835v9zheGNebh4R7myhESYTsNTWR/Of9xTtfcShfvIXTPdS950HitOi4sbazpdBcknw3RTSa3hMFeWtJEkkfUYBh5Zw1+JYuIfafw6/gbgezPyyAQAAA=="
+}

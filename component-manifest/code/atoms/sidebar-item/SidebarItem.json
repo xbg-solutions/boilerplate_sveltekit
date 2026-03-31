@@ -1,0 +1,31 @@
+{
+  "id": "sidebaritem",
+  "name": "SidebarItem",
+  "category": "atoms",
+  "group": "sidebar-item",
+  "title": "Sidebar Item",
+  "description": "Icon + label nav link with active highlight. Supports nested indent level.",
+  "tags": [
+    "nav",
+    "sidebar",
+    "menu-item"
+  ],
+  "source": "<!--\n  src/lib/components/ui/sidebar-item/SidebarItem.svelte\n  Sidebar navigation item with icon, text, and optional notification badge.\n\n  Usage:\n  <SidebarItem href=\"/inbox\" state=\"current\" notificationCount={5}>\n    {#snippet icon()}<InboxIcon />{/snippet}\n    Inbox\n  </SidebarItem>\n-->\n<script lang=\"ts\">\n  import { tv, type VariantProps } from 'tailwind-variants';\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  const sidebarItemVariants = tv({\n    base: 'flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n    variants: {\n      state: {\n        default: 'text-muted-foreground hover:bg-muted hover:text-foreground',\n        hover: 'bg-muted text-foreground',\n        current: 'bg-muted text-primary'\n      }\n    },\n    defaultVariants: {\n      state: 'default'\n    }\n  });\n\n  type State = VariantProps<typeof sidebarItemVariants>['state'];\n\n  let {\n    state = 'default',\n    notificationCount = undefined,\n    href = undefined,\n    class: className = '',\n    icon,\n    children,\n    ...rest\n  }: {\n    state?: State;\n    notificationCount?: number | undefined;\n    href?: string | undefined;\n    class?: string;\n    icon?: Snippet;\n    children?: Snippet;\n    [key: string]: unknown;\n  } = $props();\n\n  let classes = $derived(cn(sidebarItemVariants({ state }), className));\n</script>\n\n{#if href}\n  <a\n    {href}\n    class={classes}\n    aria-current={state === 'current' ? 'page' : undefined}\n    {...rest}\n  >\n    <span class=\"flex-shrink-0 w-4 h-4\">\n      {@render icon?.()}\n    </span>\n    <span class=\"flex-1 truncate\">\n      {@render children?.()}\n    </span>\n    {#if notificationCount !== undefined && notificationCount > 0}\n      <span class=\"flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold\">\n        {notificationCount}\n      </span>\n    {/if}\n  </a>\n{:else}\n  <button\n    type=\"button\"\n    class={classes}\n    {...rest}\n  >\n    <span class=\"flex-shrink-0 w-4 h-4\">\n      {@render icon?.()}\n    </span>\n    <span class=\"flex-1 truncate text-left\">\n      {@render children?.()}\n    </span>\n    {#if notificationCount !== undefined && notificationCount > 0}\n      <span class=\"flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold\">\n        {notificationCount}\n      </span>\n    {/if}\n  </button>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "tv",
+        "type VariantProps"
+      ],
+      "from": "tailwind-variants"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

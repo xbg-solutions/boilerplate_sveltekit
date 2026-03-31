@@ -1,0 +1,33 @@
+{
+  "id": "herosection21",
+  "name": "HeroSection21",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Dark Glowing Grid",
+  "description": "Dark background with CSS grid-line pattern and glow, badge, headline, and CTA.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "dark",
+    "grid-pattern",
+    "glow"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tbadge?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tbadge = 'Starting at just $29/month',\n\t\ttitle = 'The Future of Work is Here',\n\t\tsubtitle = 'Unlock your teams potential with powerful collaboration tools designed for modern businesses.',\n\t\tprimaryLabel = 'Start building',\n\t\tonPrimary,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-gray-950 px-4 py-20 sm:py-28 sm:px-6 lg:px-8 relative overflow-hidden', className)}>\n\t<!-- Grid Background Effect -->\n\t<div class=\"absolute inset-0 pointer-events-none\">\n\t\t<div class=\"absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent\" />\n\t\t<svg\n\t\t\tclass=\"absolute inset-0 w-full h-full opacity-10\"\n\t\t\twidth=\"100%\"\n\t\t\theight=\"100%\"\n\t\t>\n\t\t\t<defs>\n\t\t\t\t<pattern id=\"grid\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n\t\t\t\t\t<path d=\"M 40 0 L 0 0 0 40\" fill=\"none\" stroke=\"white\" stroke-width=\"0.5\" />\n\t\t\t\t</pattern>\n\t\t\t</defs>\n\t\t\t<rect width=\"100%\" height=\"100%\" fill=\"url(#grid)\" />\n\t\t</svg>\n\t</div>\n\n\t<!-- Glow Effects -->\n\t<div class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none\" />\n\n\t<div class=\"relative z-10 mx-auto max-w-4xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<!-- Badge -->\n\t\t\t<div class=\"inline-flex items-center gap-2 rounded-full border border-blue-900 bg-blue-950/50 px-4 py-2 mb-8\">\n\t\t\t\t<span class=\"text-sm font-medium text-blue-300\">{badge}</span>\n\t\t\t</div>\n\n\t\t\t<!-- Headline -->\n\t\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\n\t\t\t<!-- Subtitle -->\n\t\t\t<p class=\"mt-6 text-lg text-gray-400 max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\n\t\t\t<!-- Primary CTA -->\n\t\t\t<div class=\"mt-10\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary} class=\"bg-blue-600 hover:bg-blue-700\">\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\n\t\t\t<!-- Trust Text -->\n\t\t\t<p class=\"mt-8 text-sm text-gray-500\">\n\t\t\t\tNo credit card required. Start free for 14 days.\n\t\t\t</p>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "19193:16964",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VWbW/bNhD+KzetQxIgjOTUSRPXztB0W/qh6wokwQbM+0BJtMSFIjWS8ksNA/sR+4X7JTtSL5bVtEOAiDySd8/dPXfnbSBpwYJJ8NvtHfz79z/wA9VPcCfUissM7jRPg9PAUi5wnwYTqyt2Giy4YCaY/L4N7KZ0j50A7zWq3pTlmVkyYZ0spoY9J0+UtExaVBNMTaJ5aUFQmc3mgTXz4GYu55YXpdIWtpBI2MFCqwKOXggeh5XlwoSJPHp9cO22slYNriYKT6UzFFbc33cv0LRe0ITBR61KA1snnNtEUGO+n4CxGp1/XQtjmmZsKLTcis+EpoqflZeaF1Rv3tOYieGZkh/rUzw4PoHZDSwVT/3hrsYqmD3ANwH/+YAhPe0hhBkc3VuqrUsbtfBnZSy8OL8OC4xzfnTaw+2uPuQMfqpspRmoBfyqMOfcwDumWXu19cbdfpRCJU+wUZUGy2hhoFQueZwKWHGb43aFAa0EJEoIGitNLcdMWKWEgZQZnkmWwkJpKFTKtIS4MlwyY5g5aw32w9R5gxe5SNGn9lYXML/fTZoMzuBF6RbHJxi7aVgTypFITg1LPBgfttk2kcdHK4JYBcQZyTTdkOuLCMo1GUO5IecRmGLiFld+sSaXIDL3vQLNBPq1xJAt0VssEZLzNGXy6HSfk5Odp+70G0J89cAtTZ4yrSqZwo+LBWIBQuorKV82oOYBjY0SlWXApWGWIB7lSUrY0nGXSORwUxX/97L2KuX4jlhFYl8NxGoqTUk1SmHJKYlFxch1FIUXmKX+6TyAsLVjllm9arj3nLkmlnn9USVNuN2QUTQP2qcrntocn46i6Lu9NGc8y+1AfNOeTlO2MN0O9yW11hGHp/gkw8AizlbxGI1Bp8/vmuuPkluHujJM3yM09ot8NPtA7nXn4PT+DOMIIngPkf/zmrC1CTyqE+CKVz0x3K9ybvcC0kKJzi56AfTawwbL3rfwwLmpdqQ4DBIMotOiqLQ4/tZ5f9JPU4h5qikVIjNu6r5RMxBJ2tDOfJ13VpVkFJ6DYAvrFzUnkPCMrIeCjResyPUl5h3/IeU8ny6RT1hAnu0sbYpMVJq8XIvnGV07MUTVFdonJBIUa0Irq6Cga7Ii47V4vhAsW1uSMGejl2AfhlvfIRv/P3vIpcBeRBaCrQGTWphGC2S0JOcDb5TG/tV8uiLqAoCdJOw3EyhicnVAtymWmTzEbArsjFisBUt5VYCXeW0vIyTgzdb39x1mGV/2SdSluvPzHaOp8+XA1Xx0aO4Cc4Gdza8vcY3dza9f4drjiJVIAZOdPGHfJdYRsQbVcL7nzdaPiN0eVD4aYrpv50gfU9lBKhBErV1k9de35DEGtc73OcJqGHBouh1QPevl0HgzK+Dtw5svph8RuG7Vz1HzQ8LwT67URYY8VTIRPHmabbsBtOs09OgPuZsNk1byKooGzWbbH3O7fpuojX49wQ/ajfUHDNOXw3kFLav24bwY4PigINFINwsJ1SkOtr8qjvszqIfuQjPmp/VoDCndmLNBiPvwuhUStJ60uHa/GdF4/Xtx98fuPwbp0WpmCgAA"
+}

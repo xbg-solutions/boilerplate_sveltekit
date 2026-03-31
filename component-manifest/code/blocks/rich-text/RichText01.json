@@ -1,0 +1,27 @@
+{
+  "id": "richtext01",
+  "name": "RichText01",
+  "category": "blocks",
+  "group": "rich-text",
+  "title": "Single Column",
+  "description": "Centred single-column article layout with max-width prose.",
+  "tags": [
+    "content",
+    "article",
+    "blog",
+    "docs",
+    "single-col",
+    "article"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tparagraph1?: string;\n\t\tparagraph2?: string;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Article Title',\n\t\tsubtitle = 'A compelling subtitle that draws readers in...',\n\t\tparagraph1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',\n\t\tparagraph2 = 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-2xl\">\n\t\t<h1 class=\"text-3xl font-bold tracking-tight\">{title}</h1>\n\t\t<p class=\"mt-4 text-xl text-muted-foreground\">{subtitle}</p>\n\t\t<div class=\"mt-8 space-y-4 text-base leading-7 text-muted-foreground\">\n\t\t\t<p>{paragraph1}</p>\n\t\t\t<p>{paragraph2}</p>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183224",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VU3Y5TOQx+FesIqSD1tJpZBKh0WLGw4gYhpAEJiXKR5vi01uaPxJnpqKq0D7FPyJNgn9MyMyxcJXGcz58/29k3wXhsFs2nv97At3//g0sKG4fwKrrqQzNt2JC7ptA1C84Vp01PDkuz+Lxv+CbpQzWI3xHmZUqzcoWO1bY2BX9ltzEwBhaYZllspsTgTNhcrBouq+bFKqyYfIqZYQ82wAH6HD1MHjhazyuTK3MbJs/FTR0FKvfGIrzPMRXYq3HF1plS/lxA4SwJPR+NTOzwZ2Op61/ak8lmk03anv325vz+zWFkJNkVvsdjAcPyTqSY3mECFzB5mZmsbD+oYTK9T2lwABt9QuckCvy44K1h6LK5LpDRdJgLUJjNZieEW/KK8TZm9ECpVA9ddDFDIQZhw1NQtmgZuWYwHSUqViOhI57BJXbyAJBq8bEDRq2KRLLUUVcDQ9XKrQUekEdoBG82wYBx9LWaGXxkwEBesMGTbq7kaPwUvlYqEKLoVzvAHWZLbJhigOqc8TaOyOpEhTTSAElJnAGNyiKc4piAhOL/J3+uyb/WOKYyAuUq9EYBKIhwKeMWg6gnaojhSno+CQcUjpI+YCkIlpw7ySZZVujrhkT8oCxBQsmh5hn8vbOYGKtqK8JEaw1a8bM1UWdYX0hqKUfqpPWnUsowBLXVJaNiQOx7smSgw4JZb310SsOoaiQalaPY1c8mQ78tjj1/AQ+Sbh4+kj5czseR0jEKS62tajo04MXehoeT67YX7rDetGtj/9nkWEMH6aY9ewJp1z6G4heyPplMb7v20WEYymVHV0ekVeN3ragapdy79ro937nj5IqbdN3Ji3HH7R87B73MfLuOTrooS1jpsZZps2V5tR96+rCcb89OCOk2DAulAUVAhtVLLbu2l3KM3BXhNBgCkk4Y98hy+wxKkm+ivTnh6e8ETqZHuTz9LfaIppxe7G/H6k6gn67O73KYC4lRuuNOqjNWRPb6u0rQ8Wc9fDl8B3Z9ZiWMBQAA"
+}

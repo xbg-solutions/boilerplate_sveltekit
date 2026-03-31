@@ -1,0 +1,31 @@
+{
+  "id": "headersection09",
+  "name": "HeaderSection09",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Announcement Style",
+  "description": "Header with a prominent announcement pill above the headline.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "announcement"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-3xl text-center\">\n\t\t{#if eyebrow}\n\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-1.5 text-sm font-medium\">\n\t\t\t\t🎉 {eyebrow}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t{#if title}\n\t\t\t<h1 class=\"text-4xl sm:text-6xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t{/if}\n\n\t\t{#if description}\n\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:16939",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31VzWrbQBB+lUENOAErblI3BMdOSS65lFBIKYWqB/2M7G1Wu2J35J8KQa+99NRjobc+WJ6gj9BZSf6PiyEeZmbn++abmbj0VJihN/A+3t7B07efcKOULlSMGSqCB1pI9LoehULOhEq8AZkCu14qJFpv8Kn0aJG7187BeW2tmzw/tVOU5HxRaPE5f6wVMQaX8YY2NiInkKEajwKPbOBdByogkeXaEJQQK6ggNTqDzpEUUa8gIW0vVp2rrbTbgkjvpMaao8oB9QpR57sXDG3SMEZ4Z3RuoXTOgGIZWvtmAJaMUOOrxokLjIye7bpJkMRdZ4JNJ0Kr3VBuRBaaxdswQrkbs8hiJIeiWr1r3nLg+ARG1zDVIlkFH5aP98NV061E2upwAPXXPQ+lu9UjjKBzjzMwKJGnBk+//nS6G+26+PsJQqYTNApm4QJIQ1QImUCqDRDHZhgt32yo0d0XwRW7Y2aWQkOYLB9ta+GSPgimlGCmlykrQbp7GtRdD9qpjuAod8bxCasx7DVk3GKpIaM4Wo0QozJWx52ZnxZSQjT2ozB+HBu+ggTyud+HfOGfvwSbDZxx2emu5Tup6j0dJmLalgq8bO6HBcuShXN/5r+aSyCckx+j27l2sQMqX4gUWtmrxrVbJ/IvQCgpFPqpxDkIwsy2dWAc5v451CQxaZlrw2NxDWQFC7rifnb6uqFgM56SIj/DRBTZior7/P394zuUe3x6TGhJuCfSdp9a9vVKrHMnZyvqNVqfO2fNavuC7Ro60rwqZFhg3m+fxHhCwI32mUzZ1Bv2JmcHITc2ag2cb+PKcdNtLYLPa4ntLBnn0uFsFhn28ufAtgZRi+/++LGuW6ptdy5uCH34UlgS6WJ3wlyl/X+kVSxF/DgqV4tbgRVfkWvL8dYYys0D2RhDU+h/hVcXUME0NCJUxNV1QW59Au8Q3PaxHQJcr8HS4mNqDoht9/PAejc/DdXn6h8/u9V5UgYAAA=="
+}

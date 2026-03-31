@@ -1,0 +1,33 @@
+{
+  "id": "richtext05",
+  "name": "RichText05",
+  "category": "blocks",
+  "group": "rich-text",
+  "title": "Docs with Breadcrumb",
+  "description": "Documentation layout with breadcrumb navigation and prev/next page links.",
+  "tags": [
+    "content",
+    "article",
+    "blog",
+    "docs",
+    "docs",
+    "breadcrumb"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tbreadcrumbs?: string[];\n\t\tprevLabel?: string;\n\t\tnextLabel?: string;\n\t\tonPrev?: () => void;\n\t\tonNext?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Getting Started',\n\t\tbreadcrumbs = ['Home', 'Docs', 'Getting Started'],\n\t\tprevLabel = 'Previous',\n\t\tnextLabel = 'Next',\n\t\tonPrev,\n\t\tonNext\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-2xl\">\n\t\t<nav class=\"flex text-sm text-muted-foreground gap-2 items-center\">\n\t\t\t{#each breadcrumbs as crumb, i}\n\t\t\t\t<span>{crumb}</span>\n\t\t\t\t{#if i < breadcrumbs.length - 1}\n\t\t\t\t\t<span>/</span>\n\t\t\t\t{/if}\n\t\t\t{/each}\n\t\t</nav>\n\n\t\t<h1 class=\"mt-8 text-3xl font-bold tracking-tight\">{title}</h1>\n\t\t<p class=\"mt-4 text-muted-foreground\">This is the main content area. Add your documentation content here.</p>\n\n\t\t<div class=\"mt-8 space-y-4 text-base leading-7 text-muted-foreground\">\n\t\t\t<p>\n\t\t\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut\n\t\t\t\tlabore et dolore magna aliqua.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t\tUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea\n\t\t\t\tcommodo consequat.\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"mt-12 flex justify-between border-t pt-6\">\n\t\t\t<Button variant=\"outline\" onclick={onPrev}>← {prevLabel}</Button>\n\t\t\t<Button variant=\"outline\" onclick={onNext}>{nextLabel} →</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:183374",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VV34sbNxD+V4ZNwHfg9eJruBbHdslRSB9CCKSFwvkeZO3YnkYrbVYjn82y0Kc8l9K/8P6Sjrz22udzHgqGlTS/vu/TaFwnVhWYjJI/7t7D01//wi9Oe3gkXsFdhSrXVSjmST9hReaRbJ6MuArYTxZk0Cej+zrhbRnj44H47bO9K8uBX6PheDZXHi+da2cZLUuaZOx1RSWDUXY5mSXsZ8l0ZmdMRekqhhq0hQYWlSug99rQPAtMxmfa9t4+c7sLzO7MVTux2lgoC7TzjxFSuloojfCpcqWHOh7OWBvl/c8j8FyRXb5tD5nY4PnhvFPn6H//sDeWFa4/qDma8yiLG75ocPaTxMjp1TVMprB2lHeWjxL00tK0REREz8/gj2D3+SiK908IwAR671HWdgmfWVWMea//got43fd+dQX2+tCLvRC/52EP/TOaMXfETy74Q9KOajRGCgdDS7V/ym7HZ7S/igm8LuPi6lp4jrO2M2I32LFHzST3uyM4qbW96j2mi2AMzJfpXOkvy8oFm0O5TYe3UG7SN+CLkXxvhUanynWz661xTut9pllSbFIV2EGhNuljerMx+wYUN6uObguDG2BBnPqi/RZBFEkXrsJ97aUq0xsgxsKnGmObdalmXL9CpVdwKrjysFv1gZqDm1T1pbLTemdpRIS4O1rrV7QAgvFpooFBu5Rnm8LwJM8hU/YyR0aLzrHOIq79dpwJ5WnbXrJbDY8qcfpTS/uHjYGFvN907kwOXIn20iEp03LFwrfetZwAXw0PMpanWd5cFk8if1uRB/nxCuUySO66nRKghOoA3uU5bF2oIHc6FHKu2obYO62wwsE4K4/on11yhC8yaEy3BwhxOIERFSP8H78L6yDUuDyR8IN4FEClD4XgMa4CTwK0QO5HRLFbkQWrJC/J6/iE0BAP4DPmEgBIwRdO5MM4v4CsppzyIDwCH6sYNZc6gNzWiLIsrQJl6GtQgw5YVl4G+TsDWioEBBQUF2vZqqIPX4PIbJ2MoZADbrDStFdTHpQqtINd5ehEngRSW5JKcQZUxwoyYIWFaykLJr4AapzJRXz3VoY3sHtZfwbPtNimc+RHRAtSPscqZSg5vT29hf2cX6uKlGVJ4gIbsjhLwFltSH+Z1O2caaZP3/6GuhtV0pNt8P9NFudUM627sdbA07d/zpJ1LLuVPLt2Zsk6/o1KdPsX2jw0/wERO4iLfAcAAA=="
+}

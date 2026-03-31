@@ -1,0 +1,26 @@
+{
+  "id": "richtext03",
+  "name": "RichText03",
+  "category": "blocks",
+  "group": "rich-text",
+  "title": "Header Image",
+  "description": "Full-width header image above the article body.",
+  "tags": [
+    "content",
+    "article",
+    "blog",
+    "docs",
+    "header-image"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdate?: string;\n\t\treadTime?: string;\n\t\timageUrl?: string;\n\t\tparagraphs?: string[];\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Article Title',\n\t\tdate = 'Mar 15, 2024',\n\t\treadTime = '5 min read',\n\t\timageUrl,\n\t\tparagraphs = [\n\t\t\t'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',\n\t\t\t'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',\n\t\t\t'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'\n\t\t]\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-2xl\">\n\t\t<div class=\"aspect-[16/6] w-full rounded-xl bg-muted flex items-center justify-center overflow-hidden\">\n\t\t\t{#if imageUrl}\n\t\t\t\t<img src={imageUrl} alt={title} class=\"w-full h-full object-cover\" />\n\t\t\t{:else}\n\t\t\t\t<div class=\"text-muted-foreground\">Image placeholder</div>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div class=\"mt-8\">\n\t\t\t<h1 class=\"text-3xl font-bold tracking-tight\">{title}</h1>\n\t\t\t<div class=\"mt-4 flex items-center gap-4 text-sm text-muted-foreground\">\n\t\t\t\t<span>{date}</span>\n\t\t\t\t<span>·</span>\n\t\t\t\t<span>{readTime}</span>\n\t\t\t</div>\n\n\t\t\t<div class=\"mt-8 space-y-4 text-base leading-7 text-muted-foreground\">\n\t\t\t\t{#each paragraphs as paragraph}\n\t\t\t\t\t<p>{paragraph}</p>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183294",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41V72ojNxB/lWHvwHfgzTZpLi0+O+VKoS20pdA7KMT5IGu167nq30kjx2Ex9CH6Lv3eR+mTdLTrjR0nB/200sxofr/5jUbbFVYYVcyK37/9Hv798y/4QYlaBfjRiFYV04IE6ju0dTGjkNS0aFCrWMxuuoLufT6XDRy3z/LO+7O4UZqybSWies4unSVlidMU8ygDegItbLtYFhSXxfXSLgmNd4GgA2lhB01wBiYvNa6qRKhjJe3kLYflQE4VGiEV/Bqcj9Bl45KkFjF+M4NIAW37djASklanxlrQE1tgDd6jeWLHLMqHoE/tXgTRBuHXB8ib2963G1hyxZEecZtB//mF5ZkesYMFTN4FQsnL99kwmR5oZufPIsD5mylcfHFxOfpGutn/BgxayJbRO5KennLl8JvBtqTJTy4oA+hjMlA77QJEJGB2NIXMXklSlAKIGj1GyRWC0khn8Juq+QAoTNG4GkjlzgFaiTXWyRKk3N0VpwdFQ2oFTMkKEBo/JXE2EmUWHwiURcMouQxebHgrzBQ+JYxgHWubalBbFSSSIHQWktbCSDdg5CCMmDH75Og5GJTgEgyzc0MpDErHqN/l5CKxwBgSsxvq72X0Qa2V5YFgMdiwcTp5yq3Y5OpBxahAotajalxkgia1KAhspgasN29SOJsMeLf9tZjtr+sCXvq8ePWar8u8GqYhT4CdZ8lzgf09WXTSvprclQ3nhFVbroT8ow0u2Rr8fXl+BX5bXkI0M/5eTaaHy/V618/TvMbNPtOyMNuSq3XchW15V15s9X7oTsJE9EyhvDm/qq5uYY/dY6q63PY0DItWQ6NZZOTOx1KqPI/wMUXC5n7cug3PqHZ35RrrWtkHuCV1L7CB8YbuRisTQdNCDHLRPTi5o7To+inZPXDcs1oPH7f6mBnLjLcsoDrAzJSO6jj/caGktjSUUjbcwkFXJtm/geA1vy5rp/kSzCs+dkhaYbNP+eB4qqKh8uujgufr88e4X7KSDT+I5YohgAI3loerJGzXxOf2Bc+r9fkhx0n+y2c60ArP9h4hGvhchUeCRC/sdZefGQbrN6fOf/7+jKMbH6DTk49leUYY4HCpyvuRav5jgOZsWYKv/gft7oUScg1Hj5qIh91RwxncX3cHz7zyx2mqnGb3hPej9bjiIofR5HX+QzLJ4e+4u939BxJQMf1PBwAA"
+}

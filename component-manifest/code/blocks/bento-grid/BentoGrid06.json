@@ -1,0 +1,27 @@
+{
+  "id": "bentogrid06",
+  "name": "BentoGrid06",
+  "category": "blocks",
+  "group": "bento-grid",
+  "title": "Stats Cells",
+  "description": "Bento grid where each cell displays a key statistic with large number.",
+  "tags": [
+    "bento",
+    "grid",
+    "features",
+    "landing-page",
+    "stats",
+    "metrics"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t}\n\n\tlet { class: customClass = '', title = 'Build something amazing', description = '' }: Props = $props();\n\n\tconst stats = [\n\t\t{ value: '99.9%', label: 'Uptime', description: 'Industry-leading reliability' },\n\t\t{ value: '10ms', label: 'Latency', description: 'Lightning-fast response times' },\n\t\t{ value: '∞', label: 'Scale', description: 'Unlimited scalability' },\n\t\t{ value: 'Advanced', label: 'Security', description: 'Enterprise protection' },\n\t\t{ value: 'Yes', label: 'API', description: 'Full REST API included' },\n\t\t{ value: '24/7', label: 'Support', description: 'Round-the-clock assistance' }\n\t];\n</script>\n\n<section class={cn('w-full py-16 px-4 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-sm font-semibold text-foreground/60 mb-2\">Bento Grid</p>\n\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-4\">{title}</h2>\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground max-w-2xl mx-auto\">{description}</p>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3\">\n\t\t\t{#each stats as stat}\n\t\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t\t<div class=\"text-4xl font-bold text-foreground mb-2\">{stat.value}</div>\n\t\t\t\t\t<h3 class=\"font-semibold text-lg\">{stat.label}</h3>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">{stat.description}</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17007:4841",
+  "playgroundUrl": null
+}

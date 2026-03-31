@@ -1,0 +1,24 @@
+{
+  "id": "signin09",
+  "name": "SignIn09",
+  "category": "blocks",
+  "group": "sign-in",
+  "title": "Sign In 09",
+  "description": "Sign-in page variants from the Pro Blocks Application canvas — card, split, dark, with social auth, and more.",
+  "tags": [
+    "sign-in",
+    "auth",
+    "login"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tonsubmit?: (data: { email: string; password: string }) => void;\n\t\tonforgot?: () => void;\n\t\tonsignup?: () => void;\n\t}\n\n\tlet { onsubmit, onforgot, onsignup }: Props = $props();\n\n\tlet email = $state('');\n\tlet password = $state('');\n\n\tfunction handleSubmit() {\n\t\tif (onsubmit) {\n\t\t\tonsubmit({ email, password });\n\t\t}\n\t}\n</script>\n\n<div class=\"min-h-screen w-full bg-background flex items-center justify-center px-4\">\n\t<div class=\"w-full max-w-xs\">\n\t\t<!-- Logo -->\n\t\t<div class=\"flex justify-center mb-8\">\n\t\t\t<div class=\"flex h-8 w-8 items-center justify-center rounded bg-foreground text-background\">\n\t\t\t\t<svg\n\t\t\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t\t\twidth=\"16\"\n\t\t\t\t\theight=\"16\"\n\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\tfill=\"none\"\n\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\tstroke-width=\"2.5\"\n\t\t\t\t\tstroke-linecap=\"round\"\n\t\t\t\t\tstroke-linejoin=\"round\"\n\t\t\t\t>\n\t\t\t\t\t<path\n\t\t\t\t\t\td=\"m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z\"\n\t\t\t\t\t/>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<!-- Header -->\n\t\t<div class=\"text-center mb-8\">\n\t\t\t<h1 class=\"text-2xl font-bold text-foreground mb-2\">Sign in</h1>\n\t\t\t<p class=\"text-sm text-muted-foreground\">Access your account to continue</p>\n\t\t</div>\n\n\t\t<!-- Form -->\n\t\t<div class=\"space-y-4 mb-6\">\n\t\t\t<div>\n\t\t\t\t<label class=\"block text-sm font-medium text-foreground mb-2\">Email</label>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"email\"\n\t\t\t\t\tbind:value={email}\n\t\t\t\t\tplaceholder=\"you@example.com\"\n\t\t\t\t\tclass=\"rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full\"\n\t\t\t\t/>\n\t\t\t</div>\n\n\t\t\t<div>\n\t\t\t\t<label class=\"block text-sm font-medium text-foreground mb-2\">Password</label>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"password\"\n\t\t\t\t\tbind:value={password}\n\t\t\t\t\tplaceholder=\"••••••••\"\n\t\t\t\t\tclass=\"rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full\"\n\t\t\t\t/>\n\t\t\t</div>\n\n\t\t\t<Button onclick={handleSubmit} class=\"w-full\">Sign in</Button>\n\t\t</div>\n\n\t\t<!-- Forgot Password Link -->\n\t\t<div class=\"text-center mb-8\">\n\t\t\t<button onclick={onforgot} class=\"text-sm text-primary hover:underline\">\n\t\t\t\tForgot password?\n\t\t\t</button>\n\t\t</div>\n\n\t\t<!-- Sign Up Link -->\n\t\t<div class=\"text-center\">\n\t\t\t<p class=\"text-sm text-muted-foreground\">\n\t\t\t\tDon't have an account?\n\t\t\t\t<button onclick={onsignup} class=\"text-primary hover:underline font-medium\"\n\t\t\t\t\t>Sign up</button\n\t\t\t\t>\n\t\t\t</p>\n\t\t</div>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4449",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81Wa27jNhC+ylRYIAkQWraSbLOKk3TT7QvIjwUWBYrW/aEHbXFDkYRE+QFDwB6iJ+jR9iQdSqJNOXK6LVCggGBLnG+G880MZ7j1RJRTL/R+efgBPn/6Az6whYCfBIzfeOeejhhfMZF6oS4qeu7NGaelF/629fRGGS2zgLjOxlulRuWScm3W4qikQ+uJFJoKjWa8aZkUTGngkVjczjxdzry7mZhplitZaNjCQ6W1FFDDvJA5nLziLPYTiVJhLPgVO7lBvNFAm8U8Sii8L6QqYWsWZ6hbVnHO9H0Ip2mkoxBt0hxJhVDqgonFDaioLFeySO0K1GdwewdLydIba2Qui4VsjDyXlRivSj2X1a1jnBoe1o9zsMbMW6sKddg5fQuvlHk5PbvZKzfuGlGpI01PT04aYSOyrj+TonxeiUQzjF0WiZTTD8326GIXGDaHU+vUbnEfr9MuTOf7PeqzjnLdsZv6bfZMxsQ0ZUtIOIIxjzkTJCMopVTAiswrziFekDhKnhaFrEQKc07XwDTNS5JQkzr4WJXo1MZ+qjW57IqhZ7qzlkdrsiJrWy8I+ooQeJQLCYTYJVev2fBgjzwm1zsDQ/iMXKP71y862vChqeGHiaUdP03X2uHr7IL7lMvF/mum1zkXZstMaxX6/mq1Gq0uRlgkfjAej32D9lz8iqU6Q/zkdX89o2yR6QHBktHVg1yjZAxjCC7x6QPwEHOUCjxVfQGeCPlEUZRURYF8v5VcFkMQYp0KRleDcs4ETSKFiC4gRzAfJRNDoDsXP1WRztyFmU5N2U0CuCCT0Rv8vxpdTy6iAAIwnCe4Gnx9Bc3v4wVMAt4AoAHvYeDC0Eow4Q2CHJhrEa3Rx2Bi7LUQcmCQuEDj3q995r5bFybV+2r0sRxtJdv3fan/SKMUq2+42JvqO1Lk2aQPC9Yc5tiRSSx5V7dOHaN2gNrNTGB44rPJ3pLqGyrzVjuvNE0dG6j+NkloWcJGVgVESYKrGrQEMwiYqOjUV8eJfi+L/AjNUmG/Jxtyadx8fXCS3cDyKKZ8pxZzmTyB9bnhntOUVfkx9t+ZTjj1GyuuWSZUpd1smpmIGzSds5/nGGdouIx4RW+3jbh2pYojkQzjTwtUxzB9Q9dRrjgd4azrG7IkurZDcuw82J0x0f0Gi/3zAtSGBDuistLmgBFzypF1UpWhGXeIcD6aAdj2WHdf/3lZ/jehft9Nm38QbTugjgfcIl6I+edPfw4+//Pgd9cjKRLOkqfbrTvr64OZ6R7jVu/FQ4dXFLDZgEcmnv5Fr4kP3LN3n3q4c6iC5VGxgUwuaRGaEBcmaL3h2XlmU3q/D038N5wa8j+rL+Ti0vjyRrf3850UJxrvXksKkbBN794p5+exaW+DB7E5EhP3LPVrtE1ypWxABkboQL/dvdl/c/fH/dt7f/17/RexAmYIJwwAAA=="
+}

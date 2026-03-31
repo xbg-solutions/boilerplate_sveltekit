@@ -1,0 +1,39 @@
+{
+  "id": "sidebarlayout03",
+  "name": "SidebarLayout03",
+  "category": "blocks",
+  "group": "sidebar",
+  "title": "Sidebar Layout 03",
+  "description": "Sidebar components.",
+  "tags": [],
+  "source": "<!--\n  SidebarLayout03.svelte\n  Full sidebar with collapsible groups and user avatar at bottom.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import { Button, Avatar } from '$lib/components/ui';\n  import { DynamicIcon } from '$lib/components/ui/icon';\n  import Separator from '$lib/components/ui/Separator.svelte';\n\n  let {\n    class: className = '',\n    groups = [],\n    user = undefined,\n    children\n  }: {\n    class?: string;\n    groups?: Array<{\n      title: string;\n      items: Array<{ label: string; href: string; icon?: string; active?: boolean }>;\n    }>;\n    user?: {\n      name: string;\n      email: string;\n      avatar?: string;\n    };\n    children?: Snippet;\n  } = $props();\n\n  let collapsedGroups: Record<string, boolean> = $state({});\n\n  function toggleGroup(title: string) {\n    collapsedGroups[title] = !collapsedGroups[title];\n  }\n</script>\n\n<div class={cn('flex h-screen', className)}>\n  <!-- Sidebar -->\n  <aside class=\"flex w-64 flex-col border-r bg-background\">\n    <!-- Header -->\n    <div class=\"flex h-14 items-center gap-2 border-b px-4\">\n      <!-- Lucide: Layers -->\n      <span class=\"flex h-6 w-6 items-center justify-center rounded bg-primary text-xs text-primary-foreground\">A</span>\n      <span class=\"font-semibold\">Application</span>\n    </div>\n\n    <!-- Collapsible Groups -->\n    <nav class=\"flex-1 overflow-y-auto p-3\">\n      {#each groups as group}\n        <div class=\"mb-2\">\n          <button\n            type=\"button\"\n            class=\"flex w-full items-center justify-between rounded-md px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground\"\n            onclick={() => toggleGroup(group.title)}\n          >\n            {group.title}\n            <!-- Lucide: ChevronDown / ChevronRight -->\n            <span class=\"text-xs\">\n              {collapsedGroups[group.title] ? '>' : 'v'}\n            </span>\n          </button>\n          {#if !collapsedGroups[group.title]}\n            <ul class=\"mt-1 space-y-0.5\">\n              {#each group.items as item}\n                <li>\n                  <a\n                    href={item.href}\n                    class={cn(\n                      'flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors',\n                      item.active\n                        ? 'bg-muted font-medium text-foreground'\n                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'\n                    )}\n                  >\n                    {#if item.icon}\n                      <DynamicIcon name={item.icon} size={16} />\n                    {/if}\n                    {item.label}\n                  </a>\n                </li>\n              {/each}\n            </ul>\n          {/if}\n        </div>\n      {/each}\n    </nav>\n\n    <!-- User Section -->\n    {#if user}\n      <div class=\"border-t p-3\">\n        <Separator class=\"mb-3\" />\n        <div class=\"flex items-center gap-3 rounded-md px-2 py-1.5\">\n          <Avatar src={user.avatar} alt={user.name} class=\"h-8 w-8\" />\n          <div class=\"flex-1 overflow-hidden\">\n            <p class=\"truncate text-sm font-medium\">{user.name}</p>\n            <p class=\"truncate text-xs text-muted-foreground\">{user.email}</p>\n          </div>\n        </div>\n      </div>\n    {/if}\n  </aside>\n\n  <!-- Main Content -->\n  <main class=\"flex-1 overflow-y-auto\">\n    {@render children?.()}\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Avatar"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "DynamicIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    },
+    {
+      "specifiers": [
+        "Separator"
+      ],
+      "from": "$lib/components/ui/Separator.svelte"
+    }
+  ],
+  "figmaNodeId": "5199:54273",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41X747bNgx/FdYtkAsQxfevRZEm6a4t2g3o9qGHAQN690G2lUSrLBuSnFxmGNhD7An3JKNkxbEd57B8iU1RP1LkjxRdBpKmLJgFf3z4Av/+/Q/c84RFVMFXus8KA5c3wSQwlIsdl0kwM6pgk2DFBdPB7HsZmH1uN1sB6nmouzyf6i0TxsoiqtmQPM6kYdIgTDB/QciDhIPp2vLljde1K58LIUB7z3bcbCDOhKC55pFgsFZZkWugMoFCMwV0Sw3qUQNRZkyWTh8kIcsHOdex4rkBQeV68RAY/RAsLTpP80wZsGeBEu4lz3NmoIKVylIY1V6M3rU0S4hls/5K8CgsDBc6jGVP7UOB9uUE7mqPOlviDLWkDUFY8N6+T3sMGY9/wSA9synkuN7Zec9yqqjJ1Pk9jcr0eDCLIPDIpX0AiAXVelb//YapgwWMRpN6zcd6Ad8fvcSFfAGFTNiKS5Z4cbzhIlHMYVezDvT7GWijuFy/a2Oi9E4pup97VQDDjWA9XTyqYaludDGZERONEmwUWx3fbICO1oDGhm8ZCqIsE4xibJcetnmwp3nfuAtgqXviAkuxIE6kNe36h6vedeOB655hbqHC0L3KVZbri3ErE57eLPniYjODbyzOVDKvoSeHAyztbm2oYRdlddi/KiSeE5ljsvVaMIdw0YnluElH18x3p/WIoC+GV2qXsZLCupSW1uI84ds6sYsylhejlWBPsCGowZgcTY48Gleu3Gy5N23GFSbKqK1uj/IQOIgdeXML9omgM3hilTBFFERrEtH4hyWNTHwFe9CfGUWdAyYKj555zA25uq0ZRGKsCFRe05xcH9AjyJ/IbQPqYb8WMTo3sy2RKX2Ex2WdI4t6Ft5Yz7tG/iy04av94dW5zhJ7lFzxlKo9GPZkyJOu/72QrDLFmnPeYdDR2jnb2E6JZimPMuG081zwmFoedPbNQ4zJsiaKP97HViuts92KoKTdCJIryLZMrUS2I3tCC5NBTm5aEStfMhpvmp6s66fqsNxLShqR69Zmtx65ptkWgevNqO6Xgu5ijzUre1kMhj9iZoecPMSfpInN9zXke3I1fd3koBNLKLBWVYy3GBiFvMPyITtuaebU08Ig0DFRsLHhmbm1dvq6Hmcyxuz8WJQXY1gsO4XqwjV15Tau2ruWXYiypVh1lzqk/bhhW5XJT9lOQnh4+8bXG9Mm8hClfDh66XG2+92h5csjvIfRcgQzGG1Hfce6DK5FdU47wvIlX522oLaRPnAhjpQyyFG0EzMk6OX09ZD/LY5OHVMsUe1D1VdFbMFPAJycDknB3UCL0oJN7eMAov0d++XwOkDdRwd61XPs1allqdTcFr7tm5nSh6v79OecrC/Fcypg04l9yvG8royUJbxIoUfx0XkEpMJztdKgD5bOGdzxYFwHE+X55A5rB4IzGcGMtscue/H7NLpNOH7+hYKrNxWE58yE/Fy6ayA3qwxqzEM6ADoPB7hXhpa8J5VViG4JdX05tP0BiHmIPb57I/xuR7p7Vk8RTZdwUbTzUYPbaeX+CjW9+wC1jlNpq+2jTieQp3f1CfVvzlC/f4H4aVureFFaf6f1ZFYBFcZLbHarxtyGvMV7423PowGf2rffhicJjrf97jLPjw1U4SSGs1lTmq3ywX0tT+Zh/n9hDjNCv5gaQDecniB2CdB/b781zEFO2qHMU8MR41fKJc4L7sutGd1SK3x+RmiiVP6EI7C9PJtxeHox9tYsjv1K877Y7048aP3NWT1W/wFgIxHKqg4AAA=="
+}

@@ -1,0 +1,31 @@
+{
+  "id": "lpnavbar01",
+  "name": "LPNavbar01",
+  "category": "blocks",
+  "group": "lp-navbar",
+  "title": "Links + CTA",
+  "description": "Logo, nav links, and a single CTA button.",
+  "tags": [
+    "navbar",
+    "navigation",
+    "landing-page",
+    "cta"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Link {\n\t\tlabel: string;\n\t\thref?: string;\n\t\tchildren?: Link[];\n\t}\n\n\tlet {\n\t\tclass: className = '',\n\t\tlinks = [\n\t\t\t{ label: 'Products', href: '#' },\n\t\t\t{ label: 'Use Cases', href: '#' },\n\t\t\t{ label: 'Docs', href: '#' },\n\t\t\t{ label: 'Blog', href: '#' },\n\t\t\t{ label: 'FAQ', href: '#' }\n\t\t],\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\tlinks?: Link[];\n\t\tonCta?: () => void;\n\t} = $props();\n\n\tlet isOpen = $state(false);\n</script>\n\n<header class={cn('w-full border-b bg-background', className)}>\n\t<div class=\"mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6\">\n\t\t<!-- Logo -->\n\t\t<div class=\"h-8 w-8 rounded bg-foreground/10 flex items-center justify-center flex-shrink-0\">\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" fill=\"currentColor\" class=\"text-foreground/60\">\n\t\t\t\t<path d=\"M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z\" />\n\t\t\t</svg>\n\t\t</div>\n\n\t\t<!-- Desktop Nav -->\n\t\t<nav class=\"hidden sm:flex items-center gap-6\">\n\t\t\t{#each links as link}\n\t\t\t\t<a\n\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\tclass=\"text-sm text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t>\n\t\t\t\t\t{link.label}\n\t\t\t\t</a>\n\t\t\t{/each}\n\t\t</nav>\n\n\t\t<!-- Desktop CTA -->\n\t\t<div class=\"hidden sm:block\">\n\t\t\t<Button size=\"sm\" onclick={onCta}>Get started</Button>\n\t\t</div>\n\n\t\t<!-- Mobile Menu Toggle -->\n\t\t<button\n\t\t\tonclick={() => (isOpen = !isOpen)}\n\t\t\tclass=\"sm:hidden p-2 hover:bg-muted rounded-md transition-colors\"\n\t\t>\n\t\t\t{#if isOpen}\n\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n\t\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n\t\t\t\t</svg>\n\t\t\t{:else}\n\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t<line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\" />\n\t\t\t\t\t<line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\" />\n\t\t\t\t\t<line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\" />\n\t\t\t\t</svg>\n\t\t\t{/if}\n\t\t</button>\n\t</div>\n\n\t<!-- Mobile Menu -->\n\t{#if isOpen}\n\t\t<div class=\"border-t sm:hidden\">\n\t\t\t<nav class=\"flex flex-col py-4 px-4\">\n\t\t\t\t{#each links as link}\n\t\t\t\t\t<a\n\t\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\t\tclass=\"px-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{link.label}\n\t\t\t\t\t</a>\n\t\t\t\t{/each}\n\t\t\t</nav>\n\t\t\t<div class=\"px-4 pb-4\">\n\t\t\t\t<Button size=\"sm\" class=\"w-full\" onclick={onCta}>Get started</Button>\n\t\t\t</div>\n\t\t</div>\n\t{/if}\n</header>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178385",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81W3W7bNhR+lVO1gBMsrGI1yALHzpCkaHfRdBvQDQPiXFASJXGWSEGkbKeugT3EnnBPskNRkumfNB2wiwEJTB6e34/nO9TKE7Rg3sj7/eY9/P3nX/CBi5mC7+D207V34mnK8wUXsTfSVc1OvITnTHmj+5WnH0tjZgSo1zq5LsvXas5ybWQhVeyQPJJCM6HRjTdWUcVLDTkV6WTqaTX1rqZiqnlRykrDCiIBa0gqWcDgVc5Dv9Y8V34kBpdbaje11nJHNZJ4Kkwgv+aNvrHA0FVCI9bUCSsjm+qchiwfgdIVF+mllWUVS37YkUUZz+OKCZQb8/uHRr62rnOmO39RTpUaQfPzERGACQwGJ22sBt8J3NvtVK+gDT/4uZJxHWk1OAETHSUvB7A+2Vf8VTG4RXSf13wro+eVbnKZPqv07vqXbR2r8tCqSnGrKZZ1dAyTK1g1p+vRFiC7aDZIbEPZ+kGh9TOXPLYYo+tXZSVLdXR8ucGbq59KJsyZ0lSzo4TmihmFsW87y3STGGeMxqyy9zFZReJosCBJnecQygoPSAhhSkIazdJK1iLGOvurO143DTmO+by1n3rFktBaS0hytoSCLsmCfL/MgWtWKBIx02LwR600Tx5JyPSCYYrlkpxB+UjegCpGuDlvOx1dvyAEPshUAiGdyI2WkQtY4H+TGotNqomsmE3VH57aNA4Gb7dGgagMoZ+R0z4uhlHzFBY81hmGGWJGkDGeZrrbzTlb3Mglbk/hFALzh1JkfI6iqK6QCfpW5rJCaZetZkvt5nfuBsSQJdUZxKh4F8AZDSBAz6fDgATZMNhsIZg7W4KLH8+cLQl+O/uMQf1NKT7W0qHnI3xXtklaeN8yNdOyhI907qAsqIMyj2O8JrycfThTWjr3haR4yWiUgWUyVc1i7dRIN2s7RyYro/LaLOHLF0OftauyhZ0qoPktas1iB0nI5JxVox18QVdUKK65FCQyV4ETdOP6yo1ic2jo7Cbr001dvqlr3aGI8BxGEZ+Gp3q1RzHMZTRze60d0Yp/ZqioCrw+KaKcR7PJqiH9+uo9Mhp5XGHhY9/qP32ldzLEpwfumKjhk0xTXG9yChvjLnYfxw6Vo35qvLCr4x6Prg4soC2lxOazyCPvmjvpiEiKr6Dv9ApP2jHlou4yr2FVz7xmd5h5OD3ljO1zz8pJ72+LcRgML57BcmhofYHqj2Zl+L0M2sVj0J35T1me7xlaXwctXTYiBCOGU/l/UP2bvRqCYVfD+deK7w2Hwb5lI/sG04sDps8A5/OkZ2O44YPLhj0utCTY77storYPn4a+012uuoOxGYfNC4Idbl6ws+Yt20L5mYG4OxK/aShuyIjhAhM4gP98QO6MyKeG5PaY3BmUzqjUezjbZz/cwevQMOws7JfJv5qOTkdsrdv+Gfv2+wdl5ose8bFf8+uH9T/yg6nx/gsAAA=="
+}

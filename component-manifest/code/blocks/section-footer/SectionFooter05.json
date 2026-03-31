@@ -1,0 +1,30 @@
+{
+  "id": "sectionfooter05",
+  "name": "SectionFooter05",
+  "category": "blocks",
+  "group": "section-footer",
+  "title": "Section Footer 05",
+  "description": "Footer bars for individual content sections — pagination, load-more, and action links.",
+  "tags": [
+    "section-footer",
+    "pagination",
+    "load-more"
+  ],
+  "source": "<!--\n  SectionFooter05.svelte\n  Pagination row: ← Previous | 1–7 of 120 | Next →\n  Mobile: icon-only prev/next buttons flanking the count.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    page = 1,\n    pageSize = 7,\n    total = 120,\n    onprev = () => {},\n    onnext = () => {}\n  }: {\n    class?: string;\n    page?: number;\n    pageSize?: number;\n    total?: number;\n    onprev?: () => void;\n    onnext?: () => void;\n  } = $props();\n\n  const start = $derived((page - 1) * pageSize + 1);\n  const end = $derived(Math.min(page * pageSize, total));\n  const hasPrev = $derived(page > 1);\n  const hasNext = $derived(end < total);\n</script>\n\n<div class={cn('flex items-center justify-between gap-4 py-4', className)}>\n  <!-- Desktop Previous -->\n  <Button\n    variant=\"outline\"\n    size=\"sm\"\n    onclick={onprev}\n    disabled={!hasPrev}\n    class=\"hidden gap-1 sm:inline-flex\"\n  >\n    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 18-6-6 6-6\"/></svg>\n    Previous\n  </Button>\n\n  <!-- Mobile Previous (icon only) -->\n  <Button variant=\"outline\" size=\"icon\" class=\"h-8 w-8 sm:hidden\" onclick={onprev} disabled={!hasPrev}>\n    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 18-6-6 6-6\"/></svg>\n  </Button>\n\n  <!-- Count -->\n  <span class=\"text-sm text-muted-foreground\">{start}–{end} of {total}</span>\n\n  <!-- Desktop Next -->\n  <Button\n    variant=\"outline\"\n    size=\"sm\"\n    onclick={onnext}\n    disabled={!hasNext}\n    class=\"hidden gap-1 sm:inline-flex\"\n  >\n    Next\n    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>\n  </Button>\n\n  <!-- Mobile Next (icon only) -->\n  <Button variant=\"outline\" size=\"icon\" class=\"h-8 w-8 sm:hidden\" onclick={onnext} disabled={!hasNext}>\n    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>\n  </Button>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4912",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VWwY7bNhD9lYmwgO3GtGx3N0llWUU3QXvKYoFcAtQ90BItMyuRAklZu1UF5NRz0eYL90syFGXL3vqQAkUPKWBB5psZznDezFC1J2jOvMB7f/0TPH78BO9YbLgU8KOUhimYXnljz1CeVVwkXmBUycbehmdMe8HPtWceCmtsAdTrtvqhKCZ6xzJjsTXV7BweS2GYMLiNFz4jZCVg79p5nl51ulZyS1MuaBuXklUAj7//AbeK7bgsNfwGs8ePf70EuYHZfIrLG3ZvUOVPa/lWrjG2ADj6I1JkD1CgnS+syro0RgoNm4yKOy5SMFsGsSyFmawEIdFKhDpWvDCACuly5Rm98iK7K88LqQzUEAtoYKNkDoOLjK/90vBM+7EYLE7UrltPp6qxRKmwKfBLbvWtRcZQ3f4BiDOqdeBeN5hAWMJgMHaygqZ2PTtavuO/WuhlBxlpaGZV5tMOkcKeHKHhCJYR1M0Bb5PR4xZugpMwvg9AG4UpWvQOERNlvmZqcRrEU7yN5CnogkHUOd1JniyOw/m7pMEILwolCz0cdclCSrXBwKiy4V8kTPEdS4bDNjsEZiP4pk/Nc1wveismkmObt9RsJzkXzrY3G7vwR8emW6pvXSYP5q1VdOoB1W5cYg9q1mnY7Yiaoe/KK7LHCRO+c8le1rEYDjYZuwduWK5JjEWCrfih1IZvHsiamYoxASktyCUUD+RyMO7LZNS0FWp7Ct4wfWdk0bdKW9QodPXoEr6jilNhsLxlaTIu2MpzAo3nR1Tne0CKOOPx3bJ27DUOTbim64wly/pZl5nmqHJwgy1Pki7cGeg84MJ6IfaAbufI6Yd6l8J9nonWyJgi8P2qqibVtxOpUn8+nU59VFl5UPHEbFFpdomLLePp1uxXO86qa3mPyylMYX6JP0RxPmUICWlPZ0tZ3tmjxaVSmNvXMpPqgJP97vMesgHHtEBQ4XhITgUfJBe9JAoLrCVIEMlnVzB7RV6QF4DPyvOj0B6gO+6elJYQ3zESucJuyXOTq+duaEcY2BE2esLjOQr37FkjXB24IK+gwgdpcLSg7Cmt5xj9P1J0jpTX9nY4pF8XVBxSa7DZic6hfeelYQnZSMXSvdO6HVQNXlU1zoHGXld1OwoadIkbHbvZN247QP61prWD9WzT3vSCf9q01vRrrY3vsDRsWZAvKo2uX1vK/otebdk8R+RX26tfxEfo40WKb/vZitlwn6zNL81nZBTzi+kKAAA="
+}

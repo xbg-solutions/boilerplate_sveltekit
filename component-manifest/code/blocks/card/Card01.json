@@ -1,0 +1,26 @@
+{
+  "id": "card01",
+  "name": "Card01",
+  "category": "blocks",
+  "group": "card",
+  "title": "Card 01",
+  "description": "Card components.",
+  "tags": [],
+  "source": "<!--\n  Card01.svelte\n  Person card: avatar (circle) + name + badge + description + Email/Call action buttons.\n  Desktop: horizontal layout. Mobile: stacked.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    name = 'Title Text',\n    badge = 'Admin',\n    description = 'This is a card description.',\n    avatar = '',\n    onemail = () => {},\n    oncall = () => {}\n  }: {\n    class?: string;\n    name?: string;\n    badge?: string;\n    description?: string;\n    avatar?: string;\n    onemail?: () => void;\n    oncall?: () => void;\n  } = $props();\n\n  function initials(n: string) {\n    return n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();\n  }\n</script>\n\n<div class={cn('rounded-lg border bg-background p-4', className)}>\n  <!-- Header row -->\n  <div class=\"flex items-start gap-3\">\n    <div class=\"relative h-10 w-10 shrink-0 overflow-hidden rounded-full\">\n      {#if avatar}\n        <img src={avatar} alt={name} class=\"h-full w-full object-cover\" />\n      {:else}\n        <div class=\"flex h-full w-full items-center justify-center bg-muted text-xs font-semibold\">\n          {initials(name)}\n        </div>\n      {/if}\n    </div>\n    <div class=\"flex-1 min-w-0\">\n      <div class=\"flex items-center gap-2\">\n        <p class=\"font-semibold truncate\">{name}</p>\n        {#if badge}\n          <span class=\"shrink-0 rounded-full bg-foreground px-2 py-0.5 text-[10px] font-semibold text-background\">{badge}</span>\n        {/if}\n      </div>\n      {#if description}\n        <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n  </div>\n\n  <!-- Actions -->\n  <div class=\"mt-4 flex items-center gap-0 divide-x rounded-md border\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={onemail} class=\"flex-1 gap-1.5 rounded-r-none\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg>\n      Email\n    </Button>\n    <Button variant=\"ghost\" size=\"sm\" onclick={oncall} class=\"flex-1 gap-1.5 rounded-l-none\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>\n      Call\n    </Button>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "15003:160044",
+  "playgroundUrl": null
+}

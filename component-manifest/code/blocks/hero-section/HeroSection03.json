@@ -1,0 +1,32 @@
+{
+  "id": "herosection03",
+  "name": "HeroSection03",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Left + Social Proof",
+  "description": "Left-aligned content with an avatar row and user-count social proof.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "left-aligned",
+    "social-proof"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\ttrustCount?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Build your next big idea faster',\n\t\tsubtitle = 'A comprehensive toolkit that helps you design, develop, and ship production-ready products at lightning speed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\ttrustCount = 'Trusted by 10,000+ teams',\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div>\n\t\t\t<h1 class=\"text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-4 text-lg text-muted-foreground max-w-2xl\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-3\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>{secondaryLabel}</Button>\n\t\t\t</div>\n\n\t\t\t<div class=\"mt-6 flex items-center gap-3\">\n\t\t\t\t<div class=\"flex -space-x-2\">\n\t\t\t\t\t{#each Array(3) as _, i}\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tclass=\"h-8 w-8 rounded-full bg-gradient-to-br from-muted to-muted-foreground flex items-center justify-center text-xs font-bold text-background ring-2 ring-background\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{String.fromCharCode(65 + i)}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/each}\n\t\t\t\t</div>\n\t\t\t\t<span class=\"text-sm text-muted-foreground\">{trustCount}</span>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178589",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV227jNhD9lYG6gB2sGDvZ3SDw2imSPOxLUCyQPhSoi4KSKIkNRQrkyJcKBvoR/cL9kh1Ksi3ZDgJHo+HMmdvhqA40L0QwC/54+gY//vsfXkSK8BFeTSy5gu/WmDQIA+RSraVOghnaSoRBKpVwwezPOsBt6d29guw6sMeyvHYrodDrIu7EJX1sNAqNBBPMXWxliaC4zhbLAN0yeFjqJcqiNBahhljDDlJrChh9UDKaVCiVm8R69HVg9lQhmhPT2NCp9oEmlWzsvQeFtimPha+wdFB75RJjxZ37dQYOrdTZ11aJEpU4VboquqgvrSy43b7wSKgzH0ElJ++dGv299aWD8RUsHmBlZHI4fN07XzqmoTh8NpXGIequrVYJHFQ4g+bxGw0l7NUICxg9VVIlsDWVBS02CJHMQCaCQ8odtWwUDsv3Lo/gW2xFLrSTKwFojHqTCJhzhFwoai/hQSKczHRITyKAKUPgOgGXyxJKa5IqRmk0s4In273CAQEomeWoqSBwpRDJ9T6DfqN9Ft+oRofcokgOSQ767Y1eBLcaCmPF3ubQ9fCs0eFpbz3C7/5NJBBt4WYaTqfTj4CCF67F2806Pi3gQ+mF8RXNYT5p6e0preeUlS+1HcGijvV4tGZppRREGYt4/JZZCpZAuWGfodyy2ym4YuaF+0bYsDtQmX/ej8LjIK92zY2ZJ3LVQS+DYsN4hQYKvmFrdrdR3bVqzTqRXvKbgwvS0NnnjfKhGvkLyRSukQkBUrq1LDJEErSULA2GoR/RAdr/1Q05docAk/zmGK085kehoEFWWfssKmouS2lAXRfa1G97qTf4e/71QpTHCIMeILuHVIlN84/Fpimtka1ZQ8ZL9mmAPe+WiJP/CvJX2TIAo2Ml47dFfaDL7qHuM3A3n7RuF4BW3EqukbBMhUpqQYDvgB+4R/BD9p4HmE+6Gb5T9V1btURROBYLv/AuVdv3ahyYK2kvsg27HRhS038RPM7h0Vq+HX+6Au7g7xDkrm/TAg413dIh/JxGsaZfM1o/5471meWJpAwZGhbZZnm3TKBdck6J87L+oTsp0+3+tWHSxvWp6jW9u+UXJLttH0f1Mhgm/nBaR/3arNZrn+Bzzu2zScT47gt9LuXVaRsm/RvWOE98+3pmpyZzarweXkRXXL4WNJn6uJeIG971nBkDeS+RcbuBSPZfdsJvv+q7v3Y/AaKPM48OCAAA"
+}

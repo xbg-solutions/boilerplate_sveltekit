@@ -1,0 +1,31 @@
+{
+  "id": "emptylp02",
+  "name": "EmptyLP02",
+  "category": "blocks",
+  "group": "empty-lp",
+  "title": "Dark Email Subscribe",
+  "description": "Dark empty state prompting the user to subscribe for updates.",
+  "tags": [
+    "empty-state",
+    "landing-page",
+    "dark",
+    "subscribe"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tplaceholder?: string;\n\t\tctaLabel?: string;\n\t\tonSubmit?: (email: string) => void;\n\t}\n\n\tlet email = $state('');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Get started today',\n\t\tdescription = 'Join thousands of users and start your journey with us.',\n\t\tplaceholder = 'Enter your email',\n\t\tctaLabel = 'Get started',\n\t\tonSubmit\n\t}: Props = $props();\n\n\tfunction handleSubmit() {\n\t\tif (onSubmit && email) {\n\t\t\tonSubmit(email);\n\t\t\temail = '';\n\t\t}\n\t}\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-24 px-4 text-center', className)}>\n\t<div class=\"mx-auto max-w-lg\">\n\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\t\t<p class=\"mt-4 text-background/80\">{description}</p>\n\n\t\t<div class=\"mt-8 flex gap-2\">\n\t\t\t<input\n\t\t\t\ttype=\"email\"\n\t\t\t\tplaceholder={placeholder}\n\t\t\t\tbind:value={email}\n\t\t\t\tclass=\"flex-1 rounded-lg bg-background/10 px-4 py-2 text-background placeholder:text-background/40 focus:outline-none focus:ring-2 focus:ring-background/30\"\n\t\t\t\tonkeydown={(e) => e.key === 'Enter' && handleSubmit()}\n\t\t\t/>\n\t\t\t<Button onclick={handleSubmit} variant=\"secondary\">{ctaLabel}</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18192:33006",
+  "playgroundUrl": null
+}

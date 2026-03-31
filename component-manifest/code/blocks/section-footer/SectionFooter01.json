@@ -1,0 +1,24 @@
+{
+  "id": "sectionfooter01",
+  "name": "SectionFooter01",
+  "category": "blocks",
+  "group": "section-footer",
+  "title": "Section Footer 01",
+  "description": "Footer bars for individual content sections — pagination, load-more, and action links.",
+  "tags": [
+    "section-footer",
+    "pagination",
+    "load-more"
+  ],
+  "source": "<!--\n  SectionFooter01.svelte\n  Minimal two-slot horizontal layout: wide left slot + narrow right slot.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  let {\n    class: className = '',\n    left,\n    right\n  }: {\n    class?: string;\n    left?: Snippet;\n    right?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex items-center gap-4 py-4', className)}>\n  <div class=\"flex-1\">\n    {#if left}\n      {@render left()}\n    {:else}\n      <div class=\"flex min-h-10 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n  <div class=\"w-44 shrink-0\">\n    {#if right}\n      {@render right()}\n    {:else}\n      <div class=\"flex min-h-10 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:4694",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VUSY7bMBD8SocZQDZijm3AJ3nJckhOycWXAFEOskRJzFAkQbZG4wgC8oi8cF4SUpS3TH4QXZoqVnVXNwl2RKY1IzH5+uETPP/6DXuWIVcSPiqFzMBiSWYEUy5aLnMSo2nYjBRcMEvibx3Bo/ZiDzjemOq91vf2kQn02CG17F94piQyiS4N2byiNJFwKh0qL5Yj1+985pLXqQBsFbVCIVTK8J8ug8NEelQNxtDynIFgBcLAeAMyNUa1YHhZBew+kZTuErmxmeEanVKW24SgTcjOV+G1Vgahg0xCD4VRNUR3gh/mDXJh55mM1lc037rj7iXXmuFZEEx7pucKt9P5BUAmUmvjEL64gcAWomgW9rztcTnY9cs+vlG+jcGi4bJcXyQOG8uvr8R/ob0rdKeN0nYydcBmHrrfeYObnD+G9Nsuk5OoEOwJOLLa0swdjjv/MtV0BfpIV9Hs4n3aDwO7kifEa+lyHCVA95oXg8k+/DvknWEydzk9OpmOeBczYdmZ9CIl1FzSii4Xt75+NBZ5cTz9GtW41DkVJRyU8UVCoHlqK5bDoaSHNHsoBx4ge0Jq6xDrBp2wUIaF3XMH/tv7qzSxbapdeXfFsAJ32wyMt3d6tj13vk+dz3kx9HMBb7pq6WoFtnJn+UAXt/Mazu/lwAb4f5rYKfq3x1UM707/vf8DLvweyK4EAAA="
+}

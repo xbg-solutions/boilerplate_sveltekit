@@ -1,0 +1,26 @@
+{
+  "id": "gallerysection08",
+  "name": "GallerySection08",
+  "category": "blocks",
+  "group": "gallery-section",
+  "title": "Carousel Gallery",
+  "description": "Auto-advancing or arrow-controlled image carousel.",
+  "tags": [
+    "gallery",
+    "images",
+    "landing-page",
+    "carousel",
+    "slider"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\timages?: Array<{ src?: string; alt?: string; caption?: string }>;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Explore our gallery',\n\t\tdescription,\n\t\timages = Array.from({ length: 12 }, (_, i) => ({ alt: `Image ${i + 1}` }))\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted rounded-lg flex items-center justify-center overflow-hidden\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full px-4 py-16', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t{#if title || description}\n\t\t\t<div class=\"mb-8 text-center\">\n\t\t\t\t<p class=\"mb-2 text-sm font-medium text-muted-foreground\">Gallery Section</p>\n\t\t\t\t{#if title}\n\t\t\t\t\t<h2 class=\"mb-2 text-3xl font-bold tracking-tight sm:text-4xl\">{title}</h2>\n\t\t\t\t{/if}\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t<div class=\"mt-8 flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide\">\n\t\t\t{#each images.slice(0, 12) as image}\n\t\t\t\t<div class=\"snap-start shrink-0 w-72 aspect-[3/4]\">\n\t\t\t\t\t{@html imagePlaceholder}\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18191:188250",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE3VV4W7jNgx+FcJXIAlm14mbdoUvzXZ3GA77MxywPwMuh1WxZVurLBmSnDjwGdhD7An3JKMsJ3HS7o8lUhT5kR8pt54gJfVi74+Pn+Hfv/+BT0TJWlMOnwnnVB083zOE8T0TqRcbVVPfyxin2ou/tp45VPauVaDd4OlDVd3qHeXG6rZE07f0iRSGCoNuvJVOFKsMcCLyp41n9MZbb8TGsLKSykALiYAOMiVLmNxwtg1rw7gOEzF5j2bWEF2pjCQUvihZaWitcmMSTrT+KQZtFBP5e6c0zHB6rUypg8CkuD5iJcmp9fJBKXJYtaBVcrYBws1ISsilD+jWvZvO4eTUXGCLoV9+w/L4I3TwBJNfmopLRUHWCnJHxMR/BdYfY8RrPcZbW6lpC5yK3BQxLCLofJj+6QObwdMa8AhRx/D8q70GNy2DH2DRPUM3m/Vg46GMT3BT2c10NtQZOdMG+mhfOJa7kDylCu2eVynbuWSQwH2Q1ZxD4ZZtHpS1oSlgW4mUpgHPIeO0AWZoqYOEWvLgr1oblh2OotwhoVzug4KlKRXYECu9y2HPUlNghGi58aCgLC/MUdoxuv8oGxTnMIdoCb0WG5OjSkhBUUJS5AtFOamVwkCfJNb4pA+O3he396g8ZmNoY1wGQYaM5H0a4XJuMSmaGLAx7/DCYVhPbh7HIHtJWdto44XrVcJUglQnVvPoAh5OW3VEgYaV5AfOBIVKYp9bRNECFveweIDFHO4hWvRmIdYHv8jD+hnpQrlvEjtIYqURJ7bLkFObiOlkIKlqgiVUh2DxMPHP3Tjr+gG8YLVsAlIbCSVpgn3w0PBhSjemfccycJ37/TuM2rNz59eOtsEj9FV1ZJ/89JbV2C5ydrqEDJ+LoKQpq0t4kxH0MjxY8LvLdhVWI8dnkN1ZifGK6I2Adw13EbfY4WAUSV5wmgNjuQRdxr3Rsi9B63yuwiIaRwtZ1l0Ff6swVyn3fnE+/i/DduzjKr9xRNcHAzvDgXhNhEEi+lHMSYVtcBq6gelqi0ot8KxxS0lESozEEiMKyfmWKDugdMRg+46SpHBvhL7VnCV0OvfxDZoB0U49Sv4CTh9CG4JPvi7w9XwJ5rAPfozwYoWMBl/vwuW3i2bBcD8XpuSvnqRxiFEpbDEsvOH4fHTc4dS43sG9/e8hDe6f133r/gN1F6VgKQcAAA=="
+}

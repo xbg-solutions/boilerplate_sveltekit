@@ -1,0 +1,29 @@
+{
+  "id": "sectionheader04",
+  "name": "SectionHeader04",
+  "category": "blocks",
+  "group": "section-header",
+  "title": "Section Header 04",
+  "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+  "tags": [
+    "section-header",
+    "heading"
+  ],
+  "source": "<!--\n  SectionHeader04.svelte\n  Title + description left. Search + more (…) button right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    title = 'Storage',\n    description = 'Read and write directly to databases and stores from your projects.',\n    searchPlaceholder = 'Search',\n    onmore = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    searchPlaceholder?: string;\n    onmore?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('py-4', className)}>\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <!-- Left -->\n    <div>\n      <h2 class=\"text-lg font-semibold\">{title}</h2>\n      {#if description}\n        <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n\n    <!-- Right: search + more -->\n    <div class=\"flex shrink-0 items-center gap-2\">\n      <div class=\"flex items-center gap-2 rounded-md border bg-background px-3 py-1.5\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"text-muted-foreground\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>\n        <input type=\"text\" placeholder={searchPlaceholder} class=\"w-36 bg-transparent text-sm outline-none placeholder:text-muted-foreground\" />\n      </div>\n      <Button variant=\"ghost\" size=\"icon\" class=\"h-8 w-8\" onclick={onmore}>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n      </Button>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4865",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81WzW7jNhB+lam6gBM0tGzFLrZa20XTQ3soimK3hwJ1DzRFS0woUiApy64hYB+iz9AH2yfpUD+2lGSBAr0USGJyZvjNzDcfGZ8DRXMexMFvDz/Ap49/wQfOnNAKfuQ04QZmi+AucFTISqgkiJ0p+V2wF5LbIP79HLhT4Q97A8Z1UN8VxdQeuHTetqOWv2ZnWjmuHMIEqy8I2SroU7eZZ4su1nt+FU5y+AoSbpkRRVOg5Hs3xTPUsAxduTYcbj59/PsWdqVzGGBEmrnpVhGy2apVexAkVel6Gzi7DTYeWeSFNg7OwBTUsDc6h8kbKXZh6YS0IVOTd6OwhxZ7FMo0epVvJiyFj/cnJMdwvwBgklobtx8/IxWwhsnkrvW5pjM0fHDa0JT39mGn6H2PnABVCVRGOA6JMMiVPIHTkFBHPcm28VuEwWVT3UmXBgqjHzHWTntk2zD2i6SMZ1r6GfvsjbEP0aphcw03t7DewLn25joe9fNtjLmMUOm7QSPPjYMunrtelPE8oC0CrW0RBy2SxlNjXW+wq8Le3KJhFbYpNp72VSIObXnrM1M3k+JEFpO7K/O3dTP0Qdg22Et+BP+HMC0hpQVZgM3jxmJ05ddIeW6JdRQlgNvH0jqxP5EddxXnqlMSwqKO4SeUJTSSa0yYqVviJosuWR0/OiJT2OM1IJbnYockINK54bFehVl0OXf+UuyHVNa9AyGLC2LuyGy6hAbY5u1nXjqekD3ymBpdqibBEGgVFtcsodh3yKuwLXvQ1nt/meJuav11G7U5JtRmOMonMoOWO4a3A5Xm2Y0ufL127mU4NJVjG3kCO228YHcp2VH21PYExZHcA056Pl0OoBHcHlI45lJ58My5Ig7Dqqqm1f1UmzSMZrNZiCHbACqRuAyD5gvcZNy32u8OglcP+ojbGcwgWuAPWvG9k2hSeOtxh7LVTxz3rDQGK/9eS20udtKjR1eTFIozWqCxG8vQ8aiFGnhGinlloCsmDMM3hPki53N/4tSvDC7eboNwsyqoyyDxMonmEM3JYnrvfxufZ2HIm1BF6cA/7V1aRCquF3V9fnF360uVFbn/2s/HGapsQT0dF0nq0vn+iKdtCBh/pjUIr0IJRxepe4UP1Aiq/KzSTFtfphV/+qIF/ncZUJeRt1ARJAIfFSYFe1qf29el/m9yWY7ksvw/yOWZHKKLHKJODvNm5KOgb/5F0PIzMSPtrMJ2MJvxM3Jd9Z/+OwXOvP0+Uf9R/wO0CMIIhggAAA=="
+}

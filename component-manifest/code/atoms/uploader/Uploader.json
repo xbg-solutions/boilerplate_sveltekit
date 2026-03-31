@@ -1,0 +1,25 @@
+{
+  "id": "uploader",
+  "name": "Uploader",
+  "category": "atoms",
+  "group": "uploader",
+  "title": "Uploader",
+  "description": "Drag-and-drop file upload area with click-to-browse fallback and upload progress.",
+  "tags": [
+    "upload",
+    "file",
+    "drag-drop",
+    "form"
+  ],
+  "source": "<!--\n  src/lib/components/ui/uploader/Uploader.svelte\n  File upload drop zone with drag and drop support.\n\n  Usage:\n  <Uploader accept=\"image/*\" multiple onchange={handleFiles} />\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  let {\n    accept = '',\n    multiple = false,\n    disabled = false,\n    class: className = '',\n    icon,\n    children,\n    onchange,\n    ...rest\n  }: {\n    accept?: string;\n    multiple?: boolean;\n    disabled?: boolean;\n    class?: string;\n    icon?: Snippet;\n    children?: Snippet;\n    onchange?: (files: FileList) => void;\n    [key: string]: unknown;\n  } = $props();\n\n  let dragging = $state(false);\n  let fileInput: HTMLInputElement | undefined = $state(undefined);\n\n  function handleDragOver(e: DragEvent) {\n    e.preventDefault();\n    if (!disabled) dragging = true;\n  }\n\n  function handleDragLeave() {\n    dragging = false;\n  }\n\n  function handleDrop(e: DragEvent) {\n    e.preventDefault();\n    dragging = false;\n    if (disabled || !e.dataTransfer?.files.length) return;\n    onchange?.(e.dataTransfer.files);\n  }\n\n  function handleInputChange(e: Event) {\n    const target = e.target as HTMLInputElement;\n    if (target.files?.length) {\n      onchange?.(target.files);\n    }\n  }\n\n  function openFilePicker() {\n    if (!disabled) fileInput?.click();\n  }\n</script>\n\n<button\n  type=\"button\"\n  class={cn(\n    'flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-8 text-center transition-colors',\n    dragging ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-muted-foreground/50',\n    disabled && 'opacity-50 pointer-events-none cursor-not-allowed',\n    className\n  )}\n  ondragover={handleDragOver}\n  ondragleave={handleDragLeave}\n  ondrop={handleDrop}\n  onclick={openFilePicker}\n  {disabled}\n  {...rest}\n>\n  {#if icon}\n    {@render icon()}\n  {:else}\n    <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-8 w-8 text-muted-foreground\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5\" />\n    </svg>\n  {/if}\n  {#if children}\n    {@render children()}\n  {:else}\n    <span class=\"text-sm text-muted-foreground\">\n      Upload a file or drag and drop\n    </span>\n  {/if}\n</button>\n\n<input\n  bind:this={fileInput}\n  type=\"file\"\n  class=\"sr-only\"\n  {accept}\n  {multiple}\n  {disabled}\n  onchange={handleInputChange}\n/>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

@@ -1,0 +1,32 @@
+{
+  "id": "productcard03",
+  "name": "ProductCard03",
+  "category": "blocks",
+  "group": "product-card",
+  "title": "Horizontal Card",
+  "description": "Thumbnail left, product details right — for list views.",
+  "tags": [
+    "product",
+    "card",
+    "e-commerce",
+    "horizontal",
+    "list"
+  ],
+  "source": "<!--\n  ProductCard03.svelte\n  Horizontal product card layout for list views.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    category = 'Fashion',\n    name = 'Premium Linen Blazer',\n    rating = 4.6,\n    reviewCount = 92,\n    description = 'High-quality linen blend with classic tailoring.',\n    price = '$129.00',\n    onAddToCart = () => {}\n  }: {\n    class?: string;\n    category?: string;\n    name?: string;\n    rating?: number;\n    reviewCount?: number;\n    description?: string;\n    price?: string;\n    onAddToCart?: () => void;\n  } = $props();\n\n  function renderStars(rate: number) {\n    const stars = [];\n    for (let i = 1; i <= 5; i++) {\n      const isFilled = i <= Math.floor(rate);\n      stars.push({ isFilled });\n    }\n    return stars;\n  }\n</script>\n\n<div class={cn('rounded-lg border bg-background overflow-hidden', className)}>\n  <div class=\"flex flex-col sm:flex-row gap-4 p-4\">\n    <!-- Image -->\n    <div class=\"shrink-0 w-full sm:w-24 aspect-square bg-gray-100 rounded-lg flex items-center justify-center\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"text-gray-400\">\n        <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"/>\n        <circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/>\n        <polyline points=\"21 15 16 10 5 21\"/>\n      </svg>\n    </div>\n\n    <!-- Content -->\n    <div class=\"flex-1 flex flex-col\">\n      <!-- Category & Name -->\n      <div>\n        <p class=\"text-xs font-medium text-muted-foreground uppercase tracking-wider\">{category}</p>\n        <h3 class=\"mt-1 font-semibold\">{name}</h3>\n      </div>\n\n      <!-- Rating -->\n      <div class=\"mt-2 flex items-center gap-1\">\n        <div class=\"flex gap-0.5\">\n          {#each renderStars(rating) as star}\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill={star.isFilled ? 'currentColor' : 'none'} stroke=\"currentColor\" stroke-width=\"2\" class={star.isFilled ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}>\n              <polygon points=\"12 2 15.09 10.26 24 10.35 17.77 16.01 19.85 24.29 12 18.77 4.15 24.29 6.23 16.01 0 10.35 8.91 10.26\"/>\n            </svg>\n          {/each}\n        </div>\n        <span class=\"text-xs text-muted-foreground\">{rating} ({reviewCount})</span>\n      </div>\n\n      <!-- Description -->\n      <p class=\"mt-2 text-sm text-muted-foreground line-clamp-2\">{description}</p>\n\n      <!-- Price & Button -->\n      <div class=\"mt-3 flex items-center gap-3\">\n        <p class=\"text-lg font-bold\">{price}</p>\n        <Button size=\"sm\" onclick={onAddToCart}>Add to cart</Button>\n      </div>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18956:262394",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE51X727bNhB/lZtW1DZayZLspInjuFgydB2wDcW2DwPqfpAlWmIjkRpJxXENAXuIPeGeZHeU5EhOWwz7kIg8/nj/eL8jfXBEVDBn4fxx8wP889ff8FYq/kkKE+VwG6nEeemYiOc7LhJnYVTFXjpbnjPtLN4fHLMvaSsJENcq+q4sPX3PckOyTaTZ5+QxWmDCoBpn+Y3rrgXAOyWTKjZk1J+1SJL3HCobCMSIgTzay8rAVirIuTZwz9lOe2vhuqu1WOpY8dIgSKTXa8fotbMiZbwopTJwgFhADVslCxg9y/lmWhme62ksRlcD2E1ljDyBxhJXBXk/rTjhaUfOEE4DgDiPtF40n18wdriG0ehluxYZlkq1J9mbSGdcim5JtNB3ihW8KuAnjjbgJo8+MdVhVGS4SBE19847EaPAb2UlDMovw1acsCYDaICUvuVp5v5ZRTk3e0wXad7kTCSw4yZrXOUx0EljtkXqdQZLxWPr1bMgvPR8v5NL8V2S/C7xsMjqeALXKzjUtFYvBnl4vQBtSOXVMAGncor+VNZEi1JRFRumrp4EfLrUC/pUlw3kVNiLApeaKO4lT+xyjYE9w4or9XjSHvK2ErHNqMLUMfWbiZQeo5es82NyjF0KLElNAFTz/kNrkIp1TKXCURpc4Wd5DWf4ffHiuLXbzPUbnucsQaSF/RyZzNvmUiprcnLVwa0Vr6x0Nj487qo7QN2lzVRKNOAmPmTJtMnXisJbJvy+ObPrQyzGI4UZTlji5ilspMJwYZO6myi+S+0KyHum0J2dm/EkYVjGjxU/qS3ZehrXzjZnD0D/3FjmoIuFHSu5gzQq3TngX8tR3IgtAX4sopSBZbOV9ZXpDE/xzvVh526r3KrbueEcIl2y2LgaK10x8jdV0d4NfB960VhPuGGFdmNkMQb2sdKGb/ft9OgGGtX3KTwUuSCjmTHlYjrd7XbebuZJlU5D3/enCFk7yKPEZAia+zjJGNLNdDMq1xv5gFMffEAvQ4wUsGnmKBLYSXCGZSnvGM7jSmFxmVuJRDzK3U574J09ConGcVSi2AY3XPgoueitdIkz7ME0SZn7fi9QDFVh5oC8nCF+336Phi/6YdmZImxIg30zmPa1xVzFOYOYQBfW63h/HKoulMGWUuZ7ch1K9N2Qt2EAwRkE5xD4cAZh0N+wpMR3tTHF4lg1HG2r57a5YL5QP7b2AhjUZP/YrYauVT8H28WPmhpdA8+H+X3QSHRh3IIl1MitrKgMVh/yn7X0qcqSqRivRzAKSYVNiU7ZVt+ha5L1clr27WSzo6HCkP9kReN1sZF5Qhupi+KmbNZLUz81bWi/NtfISUR93eFnWEI8DYY184TghPHpZHsogMO3LIqz066JLkyQsbYl1X34/+FdEA4KNPw67w5k0zv2ytcw6vNuBAsYETFH9X8lZnjk2FPV9vz3LKdeiayzHvTm1tojL2coqVfDdLTkSPHmOXIjCCFEdnj+JbLDC88pQBzMkC+vvFevkDWej/S59C6QOXMvRBjiL2hp7gWd7NwLZy3Ub7dfeJdBo3LIz1PStUc7paPtHV9XcI9HWUbiCT8+ywmq4KYuahgfevd8PUHDqObrVf1978nTL+1yWNjWtP4SLakBuYgvSjckf3pPipaNA5vv7PvoefdO/AqjZl9g1GzIqJNWQtcVkbwjuH3GnLaF1rjmn6hQdYG1KEWc8/ju+tB74tQrHIKR9Hw2y2mz60lKh+Nu1H3p5wD61fwUqD/U/wKXnADnPwwAAA=="
+}

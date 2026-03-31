@@ -1,0 +1,25 @@
+{
+  "id": "footer02",
+  "name": "Footer02",
+  "category": "blocks",
+  "group": "footer",
+  "title": "Multi-column Footer",
+  "description": "Four-column footer with logo, product links, company links, and social icons.",
+  "tags": [
+    "footer",
+    "landing-page",
+    "navigation",
+    "multi-col"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface FooterLink {\n\t\tlabel: string;\n\t\thref?: string;\n\t}\n\n\tinterface FooterColumn {\n\t\theading: string;\n\t\tlinks: FooterLink[];\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t}\n\n\tlet { class: customClass = '' }: Props = $props();\n\n\tconst columns: FooterColumn[] = [\n\t\t{ heading: 'Product', links: [{label:'Features'},{label:'Pricing'},{label:'Changelog'},{label:'Docs'}] },\n\t\t{ heading: 'Company', links: [{label:'About'},{label:'Blog'},{label:'Careers'},{label:'Press'}] },\n\t\t{ heading: 'Legal', links: [{label:'Privacy'},{label:'Terms'},{label:'Cookie Policy'},{label:'Licenses'}] }\n\t];\n\n\tconst logoSvg = `<path d=\"m9 12 2 2 4-4\"/><path d=\"M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7z\"/>`;\n</script>\n\n<footer class={cn('w-full border-t bg-background px-4 py-16 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"grid grid-cols-2 gap-8 sm:grid-cols-4 mb-8\">\n\t\t\t<!-- Logo + Tagline Column -->\n\t\t\t<div>\n\t\t\t\t<div class=\"flex items-center gap-2 font-semibold mb-4\">\n\t\t\t\t\t<div class=\"h-7 w-7 rounded bg-foreground flex items-center justify-center\">\n\t\t\t\t\t\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"white\" stroke-width=\"2.5\">\n\t\t\t\t\t\t\t{logoSvg}\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</div>\n\t\t\t\t\tAcme Inc.\n\t\t\t\t</div>\n\t\t\t\t<p class=\"text-sm text-muted-foreground\">Building the future of technology.</p>\n\t\t\t</div>\n\n\t\t\t<!-- Link Columns -->\n\t\t\t{#each columns as column}\n\t\t\t\t<div>\n\t\t\t\t\t<h4 class=\"font-semibold mb-4\">{column.heading}</h4>\n\t\t\t\t\t<ul class=\"space-y-3\">\n\t\t\t\t\t\t{#each column.links as link}\n\t\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t\t<a href={link.href || '#'} class=\"text-sm text-muted-foreground hover:text-foreground transition-colors\">\n\t\t\t\t\t\t\t\t\t{link.label}\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\n\t\t<!-- Divider -->\n\t\t<div class=\"border-t pt-8\">\n\t\t\t<p class=\"text-sm text-muted-foreground text-center\">© {new Date().getFullYear()} Acme Inc. All rights reserved.</p>\n\t\t</div>\n\t</div>\n</footer>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:176174",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41WjW7bNhB+lZtaQAkWWrHnNK2rZEgcpCuQAgVWDBviAKUlyuJCkQJJ+aeqgD3EXmKvsUfZk+xoybZku0BhwyZPx+873n13dulJmjFv5P1++w7+++tv+FAIy0mkRJFJuFfKMu2deZZyseAy9kZWF+zMS7hgxhs9lp5d5e64M6BfA3aT5z0zZ8I625QadsweKWmZtAjjhSbSPLcgqJxdTTxrJt71RE4sz3KlLZQQSagg0SoD/6Xg06CwXJggkv5bdHOOCKUTGrEm5Acun6F0TyZW0CkTIzBWczl7W9tSzZKfO7bqONC4TkQDlTIa44E9MIFkZtRifnw6DvlRq9xssCJBjTkag2DrK7vnI4gKY1U2dhu4At+HatTgXMHL3C1OTpskYEKNhbp023jqCzw+oftjTVzC9ho+IsVFZP0zaC7xWNbp8u8ZtYVmxq/ONqaPmkd4rGUZp1gwJlTbdqciPPQE1dkh3VhlOZWrI3Q3U1XYFsptF3RMNWO6Gwwz3+R5YDMqjrDgDeY0WrVgPjGdtWHHSj1zrJQSvOP3wCMmDasZHeFTJ+kYrfp1PsMkfw5zalOIUcbZG+gPwL2GZDjxguvdow8XcBmdk36v33tD0IMM0v45da7n+Oq7Q/P+4JeL3y6/uIOfkSwM6iZxjSHDZF3cWiRXZSRP/AVJCiFgqnTMNLEwnZEpjZ5nWhUyhnxJhpCvSP8VmGyEu1eYnpa2Tqt1w4UxnzegGP+S0MIqyOiSLMjlUjRduec20zwG9+GmhsHbzGhOXjuanXEI2ZS83p5HhB8IgQfMGvwIn+gMC8Wg6TVCdl7Is93s0SaCLYFblhmCpXHJcLwDSHCsEMMyPlUidrTDFu0BSkouAe8G6yyx2GUtUZo1WTvk+BNTxpNVs91DRmyDIljw2KaI3UdmFCWfpXazm3O2uFVL3Lo6D4b4RisOT4EmqSTDHQ4E9cxwv0iRemsgG9hB7+KAF+XfSLDaCyjAiLrXD7pJndibKGPwXka9Vqb3nMJ8mzHLlpjfDNbfWWFZ3MoYBnZbcOHaEHBaQlK4IQIqQfcolQqDXPXCIN9VeEPU0YWb3rUaTFsO5QtGo3Qz4YCaZll1JdK9bjrcSeaYNMoao9dMjyoM0mEXoRBbBJPjHCcr8tNBBTqx9daDxwXoFtV+rULBD+qHVgruZ+mqdGd6bglfv4L/wq++L/eQqjnTo/WzltVqKg23XEnXikqbI+KpBeRo1+PuIGBXJ3pwKgwO7lEGLgtVV2+FuP6Wsjr+XS2slXDH5xzH2U4EnebdzrrcdofLd6q1tm5b+d9/oJRsAXfUspPT3ozZe5yofzCqT04r2HYJ3OCY1a6rDeCPENNzFrc0vbvgZhUG9bTGpfsrhZz136jqqfofscQUV38JAAA="
+}

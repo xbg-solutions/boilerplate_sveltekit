@@ -1,0 +1,32 @@
+{
+  "id": "pricingsection03",
+  "name": "PricingSection03",
+  "category": "blocks",
+  "group": "pricing-section",
+  "title": "Single Featured Plan",
+  "description": "One highlighted plan with full feature breakdown.",
+  "tags": [
+    "pricing",
+    "plans",
+    "landing-page",
+    "featured",
+    "single"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface PricingPlan {\n\t\tname: string;\n\t\tprice: string;\n\t\tperiod?: string;\n\t\tdescription?: string;\n\t\tfeatures: string[];\n\t\tctaLabel?: string;\n\t\thighlighted?: boolean;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tplans?: PricingPlan[];\n\t}\n\n\tconst defaultPlans: PricingPlan[] = [\n\t\t{\n\t\t\tname: 'Pro',\n\t\t\tprice: '$29',\n\t\t\tperiod: '/month',\n\t\t\tdescription: 'Everything you need to grow',\n\t\t\tfeatures: ['Unlimited projects', '1TB storage', 'Advanced analytics', 'Priority support', 'Custom integrations'],\n\t\t\tctaLabel: 'Start free trial',\n\t\t\thighlighted: true\n\t\t}\n\t];\n\n\tlet { class: customClass = '', title = 'Simple, transparent pricing', description = '', plans = defaultPlans }: Props = $props();\n\n\tconst checkIcon = `<polyline points=\"20 6 9 17 4 12\"/>`;\n\tconst proPlan = plans[0];\n</script>\n\n<section class={cn('w-full py-16 px-4 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-sm font-semibold text-foreground/60 mb-2\">Pricing Section</p>\n\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-4\">{title}</h2>\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground max-w-2xl mx-auto\">{description}</p>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<!-- Featured Plan Card -->\n\t\t{#if proPlan}\n\t\t\t<div class=\"mt-10 mx-auto max-w-lg\">\n\t\t\t\t<div class=\"rounded-xl border-2 border-foreground ring-2 ring-foreground bg-background p-8\">\n\t\t\t\t\t<div class=\"inline-flex items-center rounded-full bg-foreground px-3 py-1 text-xs font-semibold text-background mb-4\">\n\t\t\t\t\t\tMost popular\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<h3 class=\"text-2xl font-semibold mb-2\">{proPlan.name}</h3>\n\n\t\t\t\t\t<div class=\"mb-6\">\n\t\t\t\t\t\t<span class=\"text-5xl font-bold\">{proPlan.price}</span>\n\t\t\t\t\t\t{#if proPlan.period}\n\t\t\t\t\t\t\t<span class=\"text-muted-foreground ml-2\">{proPlan.period}</span>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<ul class=\"space-y-3 mb-8\">\n\t\t\t\t\t\t{#each proPlan.features as feature}\n\t\t\t\t\t\t\t<li class=\"flex items-start gap-3\">\n\t\t\t\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-foreground flex-shrink-0 mt-0.5\">\n\t\t\t\t\t\t\t\t\t{checkIcon}\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t<span class=\"text-sm\">{feature}</span>\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\n\t\t\t\t\t<Button class=\"w-full mb-6\">\n\t\t\t\t\t\t{proPlan.ctaLabel || 'Get started'}\n\t\t\t\t\t</Button>\n\n\t\t\t\t\t<p class=\"text-center text-sm text-muted-foreground\">30-day free trial, no credit card required.</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- Compare link -->\n\t\t\t<div class=\"mt-8 text-center\">\n\t\t\t\t<a href=\"#\" class=\"text-sm font-semibold text-foreground hover:underline\">\n\t\t\t\t\tCompare all plans →\n\t\t\t\t</a>\n\t\t\t</div>\n\t\t{/if}\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:181020",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VX4W7bNhB+lZtaQC0Qxo6dpq3jZGiCrRiwAQWyAQPiAKUlyuZCiRpJJTZcA/u1Bxj2hH2S3VGSTcnGhgEJIh7Ju+/u+3hkNlHBcxFNol9vPsLXP/6GO1kslIDvBXeVESl8UryITiLHpXqWRRpNnKnESZRJJWw0ud9Ebl3SfjLgusbbh7I8tU9CObLNuRXH7IkunCgcuommNjGydIDBFlezyNlZdD0rZk7mpTYONpAUsIXM6Bzil0rOB5WTyg6SIr7sLLupnNO9pYnG2YICDSrp19MODG0yngj4ZGSCOVOesKGpmSOwE7DOoP2yNpW46sAmjNTptz1rKupcpC76U1ldVNua7x+aicTxH/lcqP6GpVwsFf46QWHmWivBCz+3PUxDl7ZNIFHc2r4zJ50S/wNtiRUhJ0GBGsBNcOTPOkhFxivlaNr2FsMV3Ne+GlxtaWNEG5+0tqa28cvR+8Doi4vWQY4yWe4nAsQ4+92TMGusU7GAta6gEChZp2Fh9PN+y77u9/EvhZK5xIJCafRvInE2PoH47OcbTF4bvhA0/JA+8SLBNbzgau1k4hdhbtpItwZblaQ3st1WuC0H4mFhOIGy8cMucMsrAr1zHBWaGSEAi8zVHl1A8gTodNUTVGT30MhVCX8IiNYJJD7mLQ2wwjHC8NTS9x2eBCXQYJCNkhtUPZQ1JbgsKF2z0XOM3yGJsJ00arqClyV9vHp9GTKeLEXy+EPinXyellqtlSwElBqrYPH0joZwAe/h7C2cw9loFg2uP1/ud6NHf9au6uD3Q8pxOqiR0aEvphZpIYw+36tNUryKn1lWKQXlmp1dQLli52DzCf69wCSCerze+rYxTeVTs3sW5SvGK9REzlfsmb1dqaa39JY5sXIsEXSgIJ8zAn7dUjQtu8tsDhmqklmRy7lWKDmyZtqgCHRVpIOLIfkgF82BgLs6p+mg3HtdjrpuxytFafnvc/z2Mbx/dHaOzjae6O10sBztvGxeyCxkdttOHMJWixpoXqHWArhNaUYYsikWxQp9hrA3A5k1QaYDrOB1rQ0cfcNY9+KAW25SYKzZ66E2/O9gdrly7GwIXcbUImCit97Dx1wQ+VybVBg2aj+C9Kip4YT/E5jnCzbnyWMzKtm7TpxeJFmQyFmmxAqwfeS21UoLwetz3gmA+hx7ydZlX9ljqgkgNCyHGGbuJ02HRpeV4qaDrlP7VlHjLuOjVkW7mI0sNw0Np9SQSVDjvqsOLXN2cQBsig2m6IZ7E4o2jOJbPIahLT03oShO666/7a44GupQw6qbWOPqeMy9hP+lmJXahUQfiWBrpBNL0dcJ5SB4stxl0d43wJHx+vswJSV33gNRWX9NLHjJxgdR6ko8LeBZpm7pG+0sgqWgu6MdPUnxfKNXOBzCEEbn+INWfJwpNBX4DMIR3vL6UeA4qQzdELdaabOzs513NHVKHhSbEDO7xBP1yPC8OjY8fXMUL9Zmd10c1IDqjvkcTfOAcJsTu205j9JK/pQ84Jq46bFdqT7ZzcuxDdncN0eFv5NYe73Dly8Qf8Qr2rMn0rgXrfbdj1gevXra++WoyBHKeMhSvg4eEidQaEiw40q8mandGvF7JXF8GjbtQOJHBe979y2+lPHNANjpHvdd+7BFv4MAcbc5c1gakeGyF331/NedCUuNb7kJNVNDrbZX9hYbp1eAf6Z8/fOvMDt+mFt40lsjCqe+ifGb/q9BEPX/NNuH7T+msrKGDQ0AAA=="
+}

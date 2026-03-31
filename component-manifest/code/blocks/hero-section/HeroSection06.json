@@ -1,0 +1,32 @@
+{
+  "id": "herosection06",
+  "name": "HeroSection06",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Video Background",
+  "description": "Full-viewport video background with overlay and centred content.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "video",
+    "full-viewport"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\tonPlay?: () => void;\n\t\tvideoUrl?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Build your next big idea faster',\n\t\tsubtitle = 'A comprehensive toolkit that helps you design, develop, and ship production-ready products at lightning speed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\tonPlay,\n\t\tvideoUrl,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<h1 class=\"text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-4 text-lg text-muted-foreground max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-3 justify-center\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>{secondaryLabel}</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-16 relative\">\n\t\t\t<div class=\"mx-auto max-w-4xl\">\n\t\t\t\t<div class=\"relative aspect-video w-full rounded-xl bg-muted flex items-center justify-center shadow-2xl overflow-hidden\">\n\t\t\t\t\t{#if videoUrl}\n\t\t\t\t\t\t<video\n\t\t\t\t\t\t\tsrc={videoUrl}\n\t\t\t\t\t\t\tclass=\"w-full h-full object-cover\"\n\t\t\t\t\t\t\tcontrols\n\t\t\t\t\t\t></video>\n\t\t\t\t\t{:else}\n\t\t\t\t\t\t<div class=\"absolute inset-0 bg-muted\"></div>\n\t\t\t\t\t{/if}\n\n\t\t\t\t\t<button\n\t\t\t\t\t\tonclick={onPlay}\n\t\t\t\t\t\tclass=\"absolute inset-0 flex items-center justify-center hover:opacity-80 transition-opacity\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<div class=\"h-16 w-16 rounded-full bg-background/90 flex items-center justify-center shadow-lg hover:bg-background transition-colors\">\n\t\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\t\twidth=\"24\"\n\t\t\t\t\t\t\t\theight=\"24\"\n\t\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\t\tfill=\"currentColor\"\n\t\t\t\t\t\t\t\tclass=\"text-foreground ml-1\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<polygon points=\"5 3 19 12 5 21 5 3\" />\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178654",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41W247bNhD9lYEawLuAFa29F2wce4tsH/ISFAsELQrUfaAkSmKWJgVy5EsNAf2IfmG+pENK9kqW3fbFoofDuZxzONI+UGzFg1nw2/Nn+P7X3/CrSLmGZ5a85kZXKg3GATIhN4KWMzQVHweZkNwGs9/3Ae5Kd9YZyK+N9Kks39s1l+hsMbP8nD3RCrlCChPMbWJEiSCZyhfLAO0yeFqqJYpVqQ3CHhIFNWRGr2D0Too4qlBIGyVq9LHn9lwh6hPXRNOucomiSnh/d4JSm4wlHF6MLi3snXGJiWTW/jgDi0ao/GNjRIGSnxptFZ+1l0asmNl9YTGXgzOcWk4v7Wr10pyljatrWDzBWov0uPn1cPj89otkZ3fWjstfzEm2ukFBcux1PgP/+JnIGnd6hwWMnishU9jpyoDiW4RY5EChGWTMEpSjcR8Wd+QTOOgNL7iyYs0BtZavAgELhlBwSbBTPEi5Fbka05OEocsxMJWCLUQJpdFplaDQKjScpbuDwQIFkCIvUFFDYEvO0/eHCroEuCo+U48WmUGeHovs8eCcvnBmFKy04QefIxvjAQHjLubjPsz+bz1rVbWAd6VbXF0T6vOoEbkTtppTDa6xBvDFPlFXo02YVVJCnIfx8epBuQ3voNyF0xuwq5lbPPrFNnwAmbvn42j8Rtt17e/NPBXrNvQyWG1DVqGGFduGm/BhK9vLdeKGRGuYcHcxjg7kUkz6Hndb6Qrw63taUxF+TXEhoxsdxpqEgoZaIHJCdDR14i1x7wVSHxNExeQtW/lWNaUCH1nmzXNVEYdhRiS12DQNTSlx22I/z0GLnVTlW6YeQhg+Qib51v+EifYt+rXRG8hZGd7Ct8qiyHZDiChYO3es+JNTOJkvA9AqkSJ5XeyPSqqf9l1x1vOoOXYm0JoZwRRSLF2hFIpTwAvBj7Kk8H1hDxPMI+r6wP1hPVQCwTF5AMMlQ7q3XTFcltVdR1YD10MoYHRXEwz9bYFW755LInbrpe9JbrgQyFe2hfsEfZoPLNUN93pNk1zSn0KkKVe9KkgFP4gMDrez7u5Qjd7et9F0MMlif+FEOyeppbb4onno+JvrK3G1LIPBGboWRkvbtz/NI5+lX+6MS8tP6+xiyWKrJYEEQlmO4c0RNGq8y28bLxJZfSC5jRZ7UfRTdNVKU+2kgIu5/5OnwiEy0yVLBO7Cxxs3GOht4Gd6a+3j9fQvrRdOlhuvzVYzw4EZffgfVbXqocHS1NcfuZ0SaRJoY08k5euy6/zUtsSNSLGgQqd3QxEsseBuFl7cXgu+edZb2r+BG5jewXk3+tCS5JNUxlAzP7kCz7n1ZnZ3ZspwMvQf9OdGsZa7nGZRqeljyYW6h1uYfIDJFO5hOqGfW5pE0RCaiLA5pXEgzHkUD4Zfz+nsrDquKEnzAqW1+zylLptP0/qP+h+qItPN0AoAAA=="
+}

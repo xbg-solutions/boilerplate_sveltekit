@@ -1,0 +1,32 @@
+{
+  "id": "herosection19",
+  "name": "HeroSection19",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Centred + Stats Bar",
+  "description": "Centred hero above a horizontal stats bar with three key metrics.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "centered",
+    "stats"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'By the Numbers',\n\t\ttitle = 'Join Thousands of Happy Users',\n\t\tsubtitle = 'We help teams collaborate better and ship faster than ever before.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t}: Props = $props();\n\n\tconst stats = [\n\t\t{ value: '10K+', label: 'Active Users' },\n\t\t{ value: '99.9%', label: 'Uptime' },\n\t\t{ value: '150+', label: 'Integrations' },\n\t];\n</script>\n\n<section class={cn('w-full bg-white px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<!-- Main Content -->\n\t\t<div class=\"text-center\">\n\t\t\t<p class=\"text-sm font-semibold text-blue-600 uppercase tracking-wide\">{eyebrow}</p>\n\t\t\t<h1 class=\"mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-6 text-lg text-gray-600 max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\n\t\t\t<!-- CTA Buttons -->\n\t\t\t<div class=\"mt-10 flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t\t<Button size=\"lg\" onclick={onPrimary}>\n\t\t\t\t\t{primaryLabel}\n\t\t\t\t</Button>\n\t\t\t\t<Button variant=\"outline\" size=\"lg\" onclick={onSecondary}>\n\t\t\t\t\t{secondaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<!-- Stats Bar -->\n\t\t<div class=\"mt-16 border-t border-gray-200 pt-12\">\n\t\t\t<div class=\"grid grid-cols-1 md:grid-cols-3 gap-8\">\n\t\t\t\t{#each stats as stat, i}\n\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t<div class=\"text-4xl sm:text-5xl font-bold text-gray-900\">{stat.value}</div>\n\t\t\t\t\t\t<div class=\"mt-2 text-gray-600\">{stat.label}</div>\n\t\t\t\t\t\t{#if i < stats.length - 1}\n\t\t\t\t\t\t\t<div class=\"hidden md:block absolute top-1/2 right-0 w-px h-12 bg-gray-200 -translate-y-1/2\" />\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18880:45179",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41W247bNhD9lamSwruIubLdrLvr2Cl29yFpmwYBkqAF4jxQEmWxS1EESflSQUA/ol/YL+lQt5W83qAv9oicOUdz5mIXnqQp8xbeH7dv4N+//4E7Jq1mEbyAj5ZaA7dUe2PPUi52XEbewuqcjb2YC2a8xZfCswflwt0B+jVgN0pdmC0T1p0F1LBT52EmLZIhjLc0oebKgqBys1p71qy912u5tjxVmbZQQCihhFhnKYyeCx74ueXC+KEcvRq43ebWZkeuYYa30hH5Oa/8XQRS65iGDD7oTBko3OHahoIa89MCjNVcbl7Vh+zAAp3tjo8tt4IdH5o8OHmuNE+pPryjAROPYhgqET11m8kPdSxenJ3D6jVsMx51lx/b4MfXZZ2qYHaQ3gKqr/dYkfEgQVjB6PYANmHwPk8Dps1o3EvVXf+ScQmfkiw3VEYGshjeUqUO8Nn0vFsNXMDvDBImFFhGUwNhJgQNMk0tg4BZLAEgDpiEK4ipcc82oRLYFq2AxZlmFy1qX0GH/AbTMpZqy6KOeCCkc3rHqJaQIk7r08k5fqRgdVIumo5YwXPljLPzpmXQy1SU1l1+qcML2FKRswWMppNfX4zG2MFIjY83oeVb1ggD5fjY/fr64vr7nv9nhV3MTnlOLyd94J+xczeoIMfXad2/4isu/XqG3NzIJUrhPOpSr4pQno12JM6FgGBDdgnHAqg9eQnqQGYTMOnCGVeVsSdzEBv3fYW0Xa+cl9VELiO+bVDXXronNLcZpHRPdmS+F83Yott3hMBvFLvlrp5yIKS96iNYtrckZG4au1h0UUMHk0KMMMSwlAeZiKA6DVAfMp9MIFeK6RC3DFhNw3ucHbLjEUPAomntcumrB/Rk+pCBRREqtMu9cOlXNmbiJKjsH9GuyGvilsDyTWLrSKzGgVxPJr0EsH7VCJQdp59MT6WH/PMaRWx6aC6rWtQZ0jcyD/HbKetRVCm2T64Ad59umpVoHvQ/rqEl0wnEgu2rD4Iz6nSobLcUNlShRH/mxvL48LhUiNYsXcP/YognNmsPMhkKHt6vim7cyl4Evn1/mssell+DnYDfUs2ptMiQ5VZwieV9irKb6CPS4X74Fu3SR4nafm3th8bufhmf6Gqn6Rxw0UVME9saVWVnWFmF17N+u/djN5pH4D5cJQyZQhotHh5/qOpxNWyFZ4yGSbOZqKmMMfCyn/v/GLqnHF/2BuNyOAxH3V845otqb5V9BU9io0azYcd3CNWqO4lQPOMxcFjWyV4IJjc2AQLTcuh3xJXwKGLSKRmILLwHGphM5LgDbabI1J+BdtNMJrAjag8JVsetya5eBKdeGoG/WuTg3LHb/OMX83k8FPzo7QvfFan8ZoN1Fu7yen+j7f58oUr1H6/ya/kfGZibV7EJAAA="
+}

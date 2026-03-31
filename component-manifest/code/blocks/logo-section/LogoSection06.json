@@ -1,0 +1,26 @@
+{
+  "id": "logosection06",
+  "name": "LogoSection06",
+  "category": "blocks",
+  "group": "logo-section",
+  "title": "Dark Logo-only",
+  "description": "Dark background minimal logo grid.",
+  "tags": [
+    "logos",
+    "social-proof",
+    "landing-page",
+    "dark",
+    "minimal"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Logo {\n\t\tname: string;\n\t\tlogoUrl?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tlogos?: Logo[];\n\t}\n\n\tconst defaultLogos: Logo[] = [\n\t\t{ name: 'Buzzsnap' },\n\t\t{ name: 'Dashstar' },\n\t\t{ name: 'Editly' },\n\t\t{ name: 'Geoaura' },\n\t\t{ name: 'Nanodea' },\n\t\t{ name: 'Orionbo' }\n\t];\n\n\tlet { class: className, logos = defaultLogos }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-8 px-4', className)}>\n\t<div class=\"mx-auto max-w-4xl\">\n\t\t<div class=\"grid grid-cols-2 sm:grid-cols-3 divide-x divide-y border border-background/20\">\n\t\t\t{#each logos as logo (logo.name)}\n\t\t\t\t<div class=\"flex items-center justify-center p-8\">\n\t\t\t\t\t<div class=\"flex items-center gap-2 font-semibold text-sm text-background\">\n\t\t\t\t\t\t{#if logo.logoUrl}\n\t\t\t\t\t\t\t<img src={logo.logoUrl} alt={logo.name} class=\"h-5 w-5 object-contain brightness-0 invert\" />\n\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t<div class=\"h-5 w-5 rounded bg-background/80\"></div>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t{logo.name}\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:179062",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41UzU7cMBB+lZGLtFRaE0SphMJuUREVl4r2UqkS4eAkTtbg2JHHYbNEkfoQfcI+Se38QDbdQw9J7PlmvvlmPE5DFCs4CcnP61v48+s33DDzBF91rqlWckeWxDIht0KlJLSm4kuSCcmRhPcNsbvSR3qD8xt4PpflCT5zab0tZsgP2ROtLFfW0ZAVJkaUFiRT+ToiFiPyKVKRFUWpjYUGEgUtZEYXsDiSIg4qKyQGiVpcOjfv6KhMxhLeqYbG2yLrs4aA1giVX/Ym6eAfRl7tmds5yXejSxxZEskQrw7weKNPd/8wZXFloYWUZ6yS1sM4esEa7vvoBnppi+vq5QUVKxfQLmfQDcMNWmYOQF9SYeXuAHDLNasMO4DcMaVTfgj5ZoRWsXaIBx6Ghkretd2XHvafO+e+hK5uV8i0PmjDoWNrOCr94vi9o1kF/an6k1Qr5Il1iXqudZOo48WWZpWUEOc004bnRlcqBctrS2OWPA37ckcvoKzp+WL5puN9243HKhXPA2FEipqyymooWE239LyWwwzN3HIjUvAvmmiJ9AywCN+2H8D5ipTTelzsINYm5Wb4TKQFZ6evKVw/33GWbIb+MOwWcOzfJ6pTPDrO9GSS1yAsL5Am3A8gPFZoRbYbtyW9mKT5j/icla6szN0uirwQsZZDV7GYd3dG7KsQWSf9ZLgo7T7ukosiBzTJutlzAybtYPLltq/6NvQjbN2j40c3AdRfeiYUxEbkG6s4Ij0FoZ65sRGBYC4n5BL5vxqmDRgTdAXx1I/T5Iwu/BmtAhcwpw5ENiOeyN9r9yx6f98E/tyHgDdoXLlL0A++W/v/qOt//w9tH9q/XvEkjHcFAAA="
+}

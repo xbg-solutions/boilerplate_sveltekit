@@ -1,0 +1,34 @@
+{
+  "id": "tableheader04",
+  "name": "TableHeader04",
+  "category": "blocks",
+  "group": "table-header",
+  "title": "Tabbed Filter + Search + Export",
+  "description": "Title with All/Sent/Paid/Unpaid filter tabs, plus search and export.",
+  "tags": [
+    "table",
+    "header",
+    "filters",
+    "app",
+    "tabs",
+    "filters",
+    "export"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\ttabs?: string[];\n\t\tonTabChange?: (tab: string) => void;\n\t\tonExport?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Table name',\n\t\tdescription = 'Read and write directly to databases and stores from your projects.',\n\t\ttabs = ['All', 'Sent', 'Paid', 'Unpaid'],\n\t\tonTabChange,\n\t\tonExport\n\t}: Props = $props();\n\n\tlet activeTab = $state(tabs[0]);\n\tlet searchQuery = $state('');\n\n\tfunction handleTabChange(tab: string) {\n\t\tactiveTab = tab;\n\t\tonTabChange?.(tab);\n\t}\n\n\t// SVG Icons\n\tconst SearchIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.35-4.35\"></path></svg>`;\n\n\tconst ExportIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"7 10 12 15 17 10\"></polyline><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"></line></svg>`;\n</script>\n\n<div class={cn('flex flex-col gap-4', className)}>\n\t<!-- Row 1: Title + Description -->\n\t<div>\n\t\t<h2 class=\"font-semibold\">{title}</h2>\n\t\t<p class=\"text-sm text-muted-foreground\">{description}</p>\n\t</div>\n\n\t<!-- Row 2: Tab filters LEFT, Search + Export RIGHT (Desktop) -->\n\t<div class=\"flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between\">\n\t\t<!-- Tabs -->\n\t\t<div class=\"flex gap-1 overflow-x-auto pb-2 sm:pb-0\">\n\t\t\t{#each tabs as tab}\n\t\t\t\t<button\n\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t'px-3 py-1 rounded-full text-sm whitespace-nowrap transition-colors',\n\t\t\t\t\t\tactiveTab === tab\n\t\t\t\t\t\t\t? 'bg-foreground text-background'\n\t\t\t\t\t\t\t: 'text-muted-foreground hover:text-foreground'\n\t\t\t\t\t)}\n\t\t\t\t\tonclick={() => handleTabChange(tab)}\n\t\t\t\t>\n\t\t\t\t\t{tab}\n\t\t\t\t</button>\n\t\t\t{/each}\n\t\t</div>\n\n\t\t<!-- Desktop: Search + Export -->\n\t\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t\t<!-- Search Input -->\n\t\t\t<div class=\"relative w-56\">\n\t\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t\t{@html SearchIcon}\n\t\t\t\t</div>\n\t\t\t\t<input\n\t\t\t\t\ttype=\"text\"\n\t\t\t\t\tplaceholder=\"Search...\"\n\t\t\t\t\tbind:value={searchQuery}\n\t\t\t\t\tclass=\"w-full pl-8 pr-3 py-2 border rounded-md bg-background text-sm\"\n\t\t\t\t/>\n\t\t\t</div>\n\n\t\t\t<!-- Export Button -->\n\t\t\t<Button variant=\"outline\" size=\"sm\" onclick={onExport}>\n\t\t\t\t<span class=\"mr-1\">{@html ExportIcon}</span>\n\t\t\t\tExport\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n\n\t<!-- Mobile: Search + Export below tabs -->\n\t<div class=\"sm:hidden flex flex-col gap-2\">\n\t\t<!-- Search Input -->\n\t\t<div class=\"relative w-full\">\n\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t{@html SearchIcon}\n\t\t\t</div>\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\tplaceholder=\"Search...\"\n\t\t\t\tbind:value={searchQuery}\n\t\t\t\tclass=\"w-full pl-8 pr-3 py-2 border rounded-md bg-background text-sm\"\n\t\t\t/>\n\t\t</div>\n\n\t\t<!-- Export Button -->\n\t\t<Button variant=\"outline\" size=\"sm\" onclick={onExport} class=\"w-full justify-center\">\n\t\t\t<span class=\"mr-1\">{@html ExportIcon}</span>\n\t\t\tExport\n\t\t</Button>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:5138",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE91X/27bNhB+lZtWwAlqWbaSdIVru1u6/gLWoWuzYUAcoJRE22xoUqAoy55hYA+xJ9yT7EhJFmU72FBs/wwtQvJ4vDt+9/FO3nqCLKk39H69fg1//v4H3JAoogm8YlxTBY/hIyUqXuDk5TqVSntdTxPGCyYSb6hVTrvejHGaecPbrac3qTFlBKhXGf4uTXvZiqI5lEUko6fksRSaCo1mvFEWK5Zq4ETMx1NPZ1NvMhVTzZbGP2whFrCDmZJL6DziLApyzXgWxKLzrKV2nWstD1RjibvCOApyZvXNCXStZiSm8F7JNIOtEU51zEmWPR9CphUT82elUDPN6aEwoWXITIojfRI1Nm7vKqkUiPKLBV7Q2DpDpVrlHMYTWEmW7DVL2I1ae29XBo/AZboV8hDs8COi3HWChjF00CtODP6d7lHoRuEDJQkQkUChmKaQMEVjzTegJSQEw8TsZXY/01Lh1EK7kbmCVMnPqJv1asvm5mjytvMd550udD4i6mZ8T1hixp9FamZ33SNIuu2r28sOq9yM4VFqJmfnVfI41UBizVYUz5vtTBNNDaTZbf/OalmdzNL4p5yqTaPV6dRmZrmILQgYQcLpPpZ2biqYXX+4fyKpPXPu3M1TEMDHX17DW5OvJm/l4zJCNPVplK3msF5ykSHvF1qnwyAoiqJXXPSkmgdhv98PUGXqQcESvUClwRNcLCibL3S9WjFaXMs1LvvQh/AS/6MUnyRHkUDy4wrvI+8pruNcKczLC8ml2sv92nrYiDgTNCYpCpXMRdLe+CyZaHYmo5ipGHkWmyAGA9SNN/VM4eSp0QlKpckoJXoBCYqX4QDCgX/Zu7iyf6yW2cUBbz359MxlfMmN/xtyezDeIRiDq9UlCSEEE87Ax9mbK3fthyv/0kEplXxjjEKKVrVB4hsYoGaIlmBg5qVypTYZWeX1wNzfBLyxM8Qd1uFeZmYX9lx5Zp8KnNnKYWqzGCVsVZad8TYWZ50Zp2swf/xYcpiT1L/EN7+vS+c7W9FHX/k+fJAFDIZwY2vUY/jeKUi+X6qh8Un5xkaLsHIz9WbYMvyMLlkkuQFva8vcbhQswlo73StrukblJdhxmWua+DOsYPMa+a1TCNFEWjoOKs9urOHQtEhDC+waGfzw8tVN97BJwoe3r9/cwBle5l7L9Ny9SRP/EUYXkC2HVqLQEc6xBi8zP6amQZn15zzTbLbxI6oLSkXVGKvgbkzBrRydcmU8DECusNdxWfhrn+RY1tMIiYWmcezv7U319mtK8EK2iJPMjLt6C21HtrU2gqrz2Ny70qnupGu8VrpBzxZqg3vOOdT5KBZ4xyzF5usLWSiSglZEZMzkweAiVVY3lPqfU33Htv62t6f6OXSiuZPe0llE4vty3Tk8MITOSV7AwqA1tHuNtHX8fOeupIg5i+/H27JXn+glrv7EPbo9gDgoMW4SEpiEVBouMavsV1QbHlHxNCMWLEmoqPkGLaIZooQOF6z9yuxbkeaOzQOrinJikgOFf/XEsXCghqSSHLEGTmfaD3tX+H2B3AxC8G320Qj1N1bw0HttQfftQi+500tbODbFw66ZuYB72nyzVgVi6rkbKUdWLrC2UNO0Suu9Xq+tFOF38HBFeE7HW+cTY3f8NqZeUVI/5f5T/Fwqn0UIkVToYf86lgkgeRuy1i/FdRs06LeIUKWqSnz1/evmqhKtiGJEmL4nc23KumlK7DcDg3EEexrXn2A7F0F8rWKfyqXyB6Z8lilomjLWUKPnnGs+5srAr11+N2k6qrnvZIQ/J455HVGsYmWBOlVdkdkVx4/rbNgunKep/RCxTQ7dx/GfEfthWrdJfUjpBwj9D+j892T+l6kcHKa/ScoDJP5yCsNB7HUvLYuem9EvIrhL7xa567vVo/kBjTiUP553d7u/AI2ueO2BDwAA"
+}

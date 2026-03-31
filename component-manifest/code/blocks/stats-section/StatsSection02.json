@@ -1,0 +1,26 @@
+{
+  "id": "statssection02",
+  "name": "StatsSection02",
+  "category": "blocks",
+  "group": "stats-section",
+  "title": "Left + 3 Stats",
+  "description": "Left heading and subtitle with three horizontal stat items.",
+  "tags": [
+    "stats",
+    "metrics",
+    "landing-page",
+    "left-aligned",
+    "3-stats"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tlabel?: string;\n\t\tvalue: string;\n\t\tdescription?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{\n\t\t\tvalue: '124%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '88%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '25%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t}\n\t];\n\n\tlet { class: className = '', title = 'Data-driven highlights that showcase impact', description = 'Add a concise value statement that explains how your metrics demonstrate success and growth. Focus on transformation and measurable outcomes.', stats = defaultStats }: Props = $props();\n</script>\n\n<section class={cn(\"w-full bg-background py-16 px-4 sm:px-6 lg:px-8\", className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div>\n\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">Stats Section</p>\n\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h2>\n\t\t\t<p class=\"mt-3 text-sm text-muted-foreground max-w-lg\">\n\t\t\t\t{description}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3\">\n\t\t\t{#each stats as stat (stat.value)}\n\t\t\t\t<div>\n\t\t\t\t\t<p class=\"text-4xl font-bold\">\n\t\t\t\t\t\t{stat.value}\n\t\t\t\t\t</p>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">\n\t\t\t\t\t\t{stat.description}\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183089",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81V224bNxD9lcHWhWxUK9WyaxiK7MBB27wUQQC/BPD6geLOrohwyQUvlgxhgX5EvrBfkiGpy0qRn9MHa6nx8Jwzh4erdaZYg9k0+/LhI/z37zf4BysHv8EVPDrmbDbMHBNyKVSZTZ3xOMwqIdFm06d15l7bsDMUqG+D89C2I/uC0oXanFk8VedaOVQEP81mlhvROpBM1XdF5myR3ReqcKJptXGwBq6gg8roBgZnUszH3glpx1wN3lFbaCQoUzGOUTGsQ61wks1Rvp+CdUao+l0qvjDp8ahWYhIgtDps747hPxvd2i0+l8zaY3wnnMTj4psEhbPBYioG4U/PfVYyyDoosWJeungS2y64g6e0e6NkN9bgcnL962C4rfZ46X9/Mb6AwAd2ob0sQSgufYnAYK7pq/INGsGZhErU3iBUWkq9xBLmr6HHCKyGwHXTopQ0AfTgR4PE2Q3fEHZ7+//UNfnj5+oKj+dNjCXGsIdYTdPjE10cOu3BYAgxWGH9J3MsL414QQULUS8k/TkLbpGELjldOKCrw7ijbT3OsPmhLEkaRYsL6oomxBGxobuYMHDVSiaUBcKCV+0NNEiJ5ZawmpBJQ+1gPedoLTBVQm300i1G8Lfm3gIRUYuylTYNi7yhp0FmvWFzmkF7ynaDdkTyYvxJWD/m0E03F+0OztqwOL8gh2bjNEl4NaiZRR6xo013a67Oi2yZV15KmNf5nPGvpMoTcfuaX95Au8qvwTZTet6ArMPztsiGe5cvuvjKmZXiZYNZZM0qZ95paNgqX+Y3K7l5L6W2+21qZu1uh8OVy1cWfNuiiQdBVvCvdPj5UtBRkMWho/EOy5wMwiSScNPkj2mq2bjdoy8me0EunySEq5UM48T1Na0repvmMZU7QhdysVMcwx8z1O2Qx4vJqSGI5Sqx2Oa03o0jsj6E72WtR7IdZTbemLZzsM94+TvFSJTxI+da2vwSatbmt2HMffGqx7j+Bbc3lHJo01U9D5+jGOyLbq/t4MBOHdqBiQdjRao9aneA0juoU6hvG0gn+QbLKRd/5Nq5mXaOgxXdkdG7FV2dFCxah59zkpR+yrvn7jvYvL5w/gcAAA=="
+}

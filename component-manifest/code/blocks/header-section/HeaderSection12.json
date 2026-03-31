@@ -1,0 +1,33 @@
+{
+  "id": "headersection12",
+  "name": "HeaderSection12",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Dark Centred + Badge",
+  "description": "Dark header with badge/pill label above large centred headline.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "dark",
+    "centered",
+    "badge"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tbadge?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\ttertiaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\tonTertiary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tbadge = 'Featured',\n\t\ttitle = 'Achieve Your Goals',\n\t\tsubtitle = 'Discover powerful tools and features designed to help you succeed',\n\t\tprimaryLabel = 'Get Started',\n\t\tsecondaryLabel = 'Learn More',\n\t\ttertiaryLabel = 'View Pricing',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\tonTertiary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-gray-950 px-4 py-24 sm:py-32', className)}>\n\t<div class=\"mx-auto max-w-3xl text-center\">\n\t\t{#if badge}\n\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border border-gray-800 bg-gray-900/50 px-4 py-1.5 text-sm text-gray-300\">\n\t\t\t\t{badge}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t{#if title}\n\t\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6\">{title}</h1>\n\t\t{/if}\n\n\t\t{#if subtitle}\n\t\t\t<p class=\"text-xl text-gray-400 mb-12 max-w-2xl mx-auto\">{subtitle}</p>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onTertiary} variant=\"ghost\" size=\"lg\" class=\"text-white hover:text-white hover:bg-gray-900\">\n\t\t\t\t{tertiaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18876:20998",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VV247bNhD9lYEawLuoFXm9u2nj2CmyDbovaREgRZGg7gNNUTK7FCmQI19qGOhH9Av7JR2Kki3Z6wB9kQYzozNnzgypXaRZIaJJ9PnhEf79+x94z+wT/Cg0WpHCt/DA0lxEwwiZVGup02iCthLDKJNKuGjy+y7Cbem/9w7Ka9DeleVLtxIKvW/BnHjOz41GKkQw0dRxK0sExXQ+m0fo5tHbuZ6jLEpjEXbANewhs6aAwQslF0mFUrmE68GbXtpDhWhOUrmhqPaFkkrW+f4LKm0zxgV8tKZ0sPPOOXLFnPthAg6t1Pmb4Fx4DU6dKFGdOV21eNZfWlkwu/3AFkKdfSNIh/RSlFiivBQ0+mMApsDVNczewsrI9BD81CI/H/61gT6P7oNGSmBPlwnUr19olMOOMjCDwU+CYUUbMxh21PGBd3wpxUrAF1NZeDRMuTal1cpnvZeOm5WwUJo1jaVSgMYoB0ynkAVoB6lwMte0lWhgKVQJW1OBqzgXx7pdoT3wI7XwCZnFY0pfb5/0QTCr4WdjxYF+V3Wf8psUa9oUyUn8Numg/vBM8OGpxrWqk2bXZvCi9MbVNak9TcLq+3XXUyKHkha4Fnq24/pqsI5JDwWLPM4t28av70dQbuI7KLfx+A5cMSHjdjwYHodzva/PzjSVqwZoHhWbmFUkXME28Tq+3ZDCYoMxF/4cNIdtjrtvZAb1UPfBcYqyiF+B1EpqEWdKbECiKFyDAjkr4zFYU+lUpA1rY1OKhFdo4PvR6NjMaJR0+rl5eR9ouSK866Tb0ehAsCZ5QjAhhi3/RGbN8jbN1Ct2zF3eHHqpC9yTECRhbb8iW+XB/o7sjK6neGEULZxl/IkmH6PMlxiorZfUO3hBiNwulJkmy5uLTNp9P5Ip+1zamdRN35FKBH4zbiY2pmgzQ1/vADZNyucq9qZWT8o/Ym7qdmvbmnU9sTv4s3Ios+3pMhBKc50azZXkT7PdYeX34ORfgrBV3p9N9wB2RhSAvgZ8ODt7WDErmUZCNxX6XZtHl8r1D/P/KtgezW69fGkc9qv1ZxSmvvR31eTM0dnqPsvedXKJ5HGPW4uuhnAdkO1/wVQv/H73f+z/AzoBwWm4BwAA"
+}

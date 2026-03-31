@@ -1,0 +1,25 @@
+{
+  "id": "statssection05",
+  "name": "StatsSection05",
+  "category": "blocks",
+  "group": "stats-section",
+  "title": "Dark Stats",
+  "description": "Dark background stat row.",
+  "tags": [
+    "stats",
+    "metrics",
+    "landing-page",
+    "dark"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tlabel?: string;\n\t\tvalue: string;\n\t\tdescription?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{\n\t\t\tvalue: '124%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '88%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '25%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t}\n\t];\n\n\tlet { class: className = '', title = 'Data-driven highlights that showcase impact', description = 'Add a concise value statement that explains how your metrics demonstrate success and growth. Focus on transformation and measurable outcomes.', stats = defaultStats }: Props = $props();\n</script>\n\n<section class={cn(\"w-full bg-foreground text-background py-16 px-4 sm:px-6 lg:px-8\", className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div>\n\t\t\t<p class=\"text-xs uppercase tracking-widest opacity-70\">Stats Section</p>\n\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t{title}\n\t\t\t</h2>\n\t\t\t<p class=\"mt-3 text-sm opacity-60 max-w-lg\">\n\t\t\t\t{description}\n\t\t\t</p>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3\">\n\t\t\t{#each stats as stat (stat.value)}\n\t\t\t\t<div>\n\t\t\t\t\t<p class=\"text-4xl font-bold\">\n\t\t\t\t\t\t{stat.value}\n\t\t\t\t\t</p>\n\t\t\t\t\t<p class=\"text-sm opacity-60 mt-2\">\n\t\t\t\t\t\t{stat.description}\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183190",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81Vy27bMBD8lYXawglg2YmTpoHrpEjRx60okEuBKAeaomQiFCnwEdswBPQj+oX9ki5JWZZd59weYtGb5czs7qy8SSSpWDJNfnz8Cr9//oJPRD/BvSXWJMPEEi6WXObJ1GrHhknBBTPJ9GGT2HXtb/kA5rUYd3U9Ms9MWB+bE8OOxamSlkmEnyYzQzWvLQgiy5sssSZLbjOZWV7VSlvYAJXQQKFVBYPXgs/HznJhxlQO3mOaT0QoXRDKgmLY+FhmBZkz8WEKxmouy/cx+EyEYwexnEUBXMn99OYQ/rtWtdniU0GMOcS33Ap2GHyRILPGtxiDXvjDY58VG2Qs5KwgTtgwiW0W3MBDvN0q6coanE8u3wyG22iPF//3mdAFeD4wC+VEDlxS4XIGBOYKv0pXMc0pEVDw0mkGhRJCLVkO87XP0ZwVQ6CqqpkQWAH04EeDyNkMXxB2ff1/6pq8/be6/OOxtbFgwezeVtP4+IaLg9MeDIYQjOXPn4glaa75M5Ow4OVC4J81YBdR6JLiwgGuDqEWr/U4/eW7PEdpaC3KMSs0IZTIKtzFiMFWtSBcGkAsWCunoWLoWGoQq/Ke1JgOxlHKjAEicyi1WtrFCL4o6gwgEaZIUyhdkcDrcypGjNNkjjUoh96umBmhvGB/FNa3OTTTdtFu4HXtDyen2KHZOFbiXw1yZhgN2KFNNxsqT7JkmRZOCJiXKXIzVOWQ2LKVTeeEPrXf63V6fgX1Kr0EU03xeQWi9M/rLBnuun7ahFfQLOfPLUeWVKuUOKugIqt0mV6tRPueimm3WxfN6u5GIF8ZcHXNdBgMtoY+oRnSJcfRWFA4J27X6bszBIvl38fSZuN6B7mY7FTYdBKrulgJX0M4X+K5wFdqGqzZsVhvjk5m2IBgpKZDHi8mx5Qjy0VkMVUn8uqsrV2U+5g9l/WQt/pn47Y9Xa/6NOdnaCCeh4+UKmHScyhJnV772nbBix7j5hXb7iY60MQlPfGfo2Dp02anbW80x8az17m9sgLVDrXZQ+lN5xjqQddwZi9AH2vd3wRdC+PNsa+/Oehud8JNiRbCs//1Rj3xl7t5bP4AVNa+m+kHAAA="
+}

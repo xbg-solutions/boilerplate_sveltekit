@@ -1,0 +1,24 @@
+{
+  "id": "testimonial01",
+  "name": "Testimonial01",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "Testimonial 01",
+  "description": "Customer testimonial sections in various layouts — single centred, card grids, split with image, dark, and masonry.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Testimonial {\n\t\tquote: string;\n\t\tname: string;\n\t\trole?: string;\n\t\tcompany?: string;\n\t\tavatarUrl?: string;\n\t\trating?: number;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttestimonial?: Testimonial;\n\t}\n\n\tconst defaultTestimonial: Testimonial = {\n\t\tquote:\n\t\t\t'\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n\t\tname: 'Lando Norris',\n\t\trole: 'CEO',\n\t\tcompany: 'Acme Inc.'\n\t};\n\n\tlet { class: className, testimonial = defaultTestimonial }: Props = $props();\n\n\tconst getInitials = (name: string): string => {\n\t\treturn name\n\t\t\t.split(' ')\n\t\t\t.map((w) => w[0])\n\t\t\t.join('')\n\t\t\t.toUpperCase();\n\t};\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-2xl text-center\">\n\t\t<div class=\"mb-8 flex justify-center\">\n\t\t\t<span class=\"text-4xl text-muted-foreground/30 font-serif leading-none\">\"</span>\n\t\t</div>\n\n\t\t<p class=\"text-xl sm:text-2xl font-medium italic leading-relaxed text-foreground\">\n\t\t\t{testimonial.quote}\n\t\t</p>\n\n\t\t<div class=\"mt-10 flex flex-col items-center\">\n\t\t\t{#if testimonial.avatarUrl}\n\t\t\t\t<img\n\t\t\t\t\tsrc={testimonial.avatarUrl}\n\t\t\t\t\talt={testimonial.name}\n\t\t\t\t\tclass=\"h-16 w-16 rounded-full object-cover\"\n\t\t\t\t/>\n\t\t\t{:else}\n\t\t\t\t<div\n\t\t\t\t\tclass=\"h-16 w-16 rounded-full bg-muted overflow-hidden flex items-center justify-center text-muted-foreground text-sm font-semibold\"\n\t\t\t\t>\n\t\t\t\t\t{getInitials(testimonial.name)}\n\t\t\t\t</div>\n\t\t\t{/if}\n\n\t\t\t<p class=\"mt-4 font-semibold text-sm text-foreground\">{testimonial.name}</p>\n\t\t\t{#if testimonial.role || testimonial.company}\n\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">\n\t\t\t\t\t{testimonial.role}\n\t\t\t\t\t{#if testimonial.role && testimonial.company}\n\t\t\t\t\t\t·\n\t\t\t\t\t{/if}\n\t\t\t\t\t{testimonial.company}\n\t\t\t\t</p>\n\t\t\t{/if}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VW247bNhD9lYEaRDZg2bvtIgi86y3SoC0WKdICzQIFojxQFCVzy4tKUr7UEZCPyL/0vZ/SL+lQsqyLXQSFAYsaDmfOnDlD6BAoIlmwDH777kf459NneMes41IrTgRcXQezwBEutlylwdKZks2CjAtmg+X7Q+D2hT/pDeh3jPOqKOZ2w4TztoRYdslOtXJMOQwT3FlqeOFAEJWv4sDZOLiPVYwYCm0cHIAqqCAzWkL4TPBkUTou7IKq8BbdvCOGMhmhbAD94Ldi90epHVuCdYar/LaxeUAjk9GCfTuyUS0LovZjM9kQR8yjEeMNQxBKjlZVyoSZ2lqNIf5idGFbcFQQa8dhXFcEbvVK6gdE/qyDlGWkFK7nMzgAqyELzTp2YRz8uiYp8vr4AG+4g0wb+IHnksCaWPB1C+aY2APWpCzuSpaCLg0mtDxXUBhNmbVzeHBxHFrgihqW8gRPYKUld3zDgKgULNkwC6UFq0GWdA0Ijc3h3ZrVWbTyGgBiGCSMYF+zUmAMakjmMKOPQEvrtOR/kkSweRyEs34Lw5/QRcNbbQy37ZZvJW69/v7n1nJsJBpfUcngQdF5WHN5FBAW62Xmm7FsHm8x/AzcgMpzsqFaHvu5gmeFX0ymt/3+5Mw9KGSDCO8y6etu2i5gdd92yTBXGgXerW3V3BaCu0kI4fRkkqSYTLZTf3D7/upDt/GkuZqEPU+nH4uCmdc4hA2yuuS7RTNxfsrUnWXUca2aulcHihG2ke8DJHmUEPp7bnSJjSj20fULKHbRDVi5xOcLELl/vgxnHWnTqp7du5RvjhHjQO4i7C0KgOyibfT1TiCxOxdR5ofiOOzjI0n0EjLBdvCE/efZfuyN/hZ7ejpQR7xpQ8sS5ROhblkDfvHNFWpcucgywzMQjKTIfKRQfz5igIxgsBbIApHcN23Et2KYA1Ng+fXSV1JHxengpQTuiOD0FN0wQXao4tq3w9Ir4dAT2Lwe0aqFUHQABry46PqqIcb/RVQLTMukPefn8BVW2k9wureq1gWDc5l3b7Gzhq4OXzqEV6BwQzcv2YFHC3jtRbP1f3XxviteWjp5Qtkh/I3H3B1cdPCXTNh+TM/D/8iA4q1VAD5FJvQ2WvM0Zaohr8/ZSGKXFdRYrWxlJHmiRdqHft8Hd+hN/mRM1LRfVSu25tiCZ1Xb+IH2sPE3w9wnROf6Om/NUVCXheEvTPj4cWA7Xpl9pONBsP/BlNdoT4dnQvfpBlq5DOj58y8A8r+//xoEOtJ3Oe+FkvqsdGe7nrQrvB+aWxLX/oMI624+hqoP1b/fpQh4QAkAAA=="
+}

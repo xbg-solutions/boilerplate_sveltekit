@@ -1,0 +1,26 @@
+{
+  "id": "statssection06",
+  "name": "StatsSection06",
+  "category": "blocks",
+  "group": "stats-section",
+  "title": "Centred Only",
+  "description": "Centred 3-stat row with no heading.",
+  "tags": [
+    "stats",
+    "metrics",
+    "landing-page",
+    "centered",
+    "minimal"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tlabel?: string;\n\t\tvalue: string;\n\t\tdescription?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{\n\t\t\tvalue: '124%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '88%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '25%',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t}\n\t];\n\n\tlet { class: className = '', title, description, stats = defaultStats }: Props = $props();\n</script>\n\n<section class={cn(\"w-full bg-background py-12 px-4 sm:px-6 lg:px-8\", className)}>\n\t<div class=\"mx-auto max-w-4xl grid grid-cols-1 gap-8 text-center sm:grid-cols-3\">\n\t\t{#each stats as stat (stat.value)}\n\t\t\t<div>\n\t\t\t\t<p class=\"text-4xl font-bold\">\n\t\t\t\t\t{stat.value}\n\t\t\t\t</p>\n\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">\n\t\t\t\t\t{stat.description}\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t{/each}\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:183165",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81UXW/TMBT9K1dmKJsUr1oZqMraIUCIN0DiBWnpg+M4mcWNHdnO2qqKtB/BL+SXYOdjDdXKKyiSP66vzznOufaeKFYJkpDv7z/Br8ef8EEoZ0QOXxTuSEwck7iRKieJM42ISSFRWJLc7Ynb1WFfCPi8AeVdXV/aB4EuxDJmxXNxrpXzLB6GLC03snaATJWrlDibkttUpU5WtTYO9sAVtFAYXUF0hjKbNU6inXEV3fi0kOihTMG4gG+O+Q0hljpkmcC3CVhnpCpv+uADw0YcxXLRC5Ba/ZneHsN/Nbq2Iz5HZu0xvpMOxXHwJEHqrBccQILwu/WU1f8g6yAXBWvQhWU7ZsEK7vrdg5KnY0VX8+uXUTxGJ7x+7SPj9xD4wN7rBnOQimOTC2CQaT9VTSWM5AyhkGVjBBQaUW98GWS7kGOkKGLguqoFoj8BTOAvo56zjU8IWyz+T13z1/9WV+jWQxmj6Io9lFXSd5/9xfFuR1EMXWHFU4y4E2f9+rRIoE2GMl3BWR0G5xcefznr94WLpZZW8IDQk6z2XJ2nZEOLBhGykmaM/yiNblQO9Y5ezaHe0muwVeL7N4Bl6BcpiQ8aL9ruwi5z+TBgpqTaUtY4DRXb0g293iKURuZdQ7lGS6+gZDVdgBNbR7kIlyyQHBJeDe+At+2FGM2wwGzvynloLzsjL9rRwiDhdpz4af2kp6MJMgr/8tDg4BN8/+0PeO0EYVb/Bc9WvfyqcSKnhTZi+HGVo/Nn8ScGnmBZzg5n2M/CwbvEMeyd7N3z4/A2e/r+XW7X7W9uEFkryQUAAA=="
+}

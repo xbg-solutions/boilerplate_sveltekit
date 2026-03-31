@@ -1,0 +1,25 @@
+{
+  "id": "gallerysection06",
+  "name": "GallerySection06",
+  "category": "blocks",
+  "group": "gallery-section",
+  "title": "Split Gallery",
+  "description": "Two equal halves with large images.",
+  "tags": [
+    "gallery",
+    "images",
+    "landing-page",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\timages?: Array<{ src?: string; alt?: string; caption?: string }>;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Explore our gallery',\n\t\tdescription,\n\t\timages = Array.from({ length: 5 }, (_, i) => ({ alt: `Image ${i + 1}` }))\n\t}: Props = $props();\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted rounded-lg flex items-center justify-center overflow-hidden\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full px-4 py-16', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t{#if title || description}\n\t\t\t<div class=\"mb-8 text-center\">\n\t\t\t\t<p class=\"mb-2 text-sm font-medium text-muted-foreground\">Gallery Section</p>\n\t\t\t\t{#if title}\n\t\t\t\t\t<h2 class=\"mb-2 text-3xl font-bold tracking-tight sm:text-4xl\">{title}</h2>\n\t\t\t\t{/if}\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t<div class=\"mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2\">\n\t\t\t<div class=\"aspect-square sm:row-span-2\">\n\t\t\t\t{@html imagePlaceholder}\n\t\t\t</div>\n\n\t\t\t<div class=\"grid grid-cols-2 gap-3\">\n\t\t\t\t{#each images.slice(1, 5) as image}\n\t\t\t\t\t<div class=\"aspect-square\">\n\t\t\t\t\t\t{@html imagePlaceholder}\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18191:187903",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41VbW/bNhD+Kwc1gG3MjCPFCQLX8dYOQ7EvQ4F+GTAPC0NREleK1EjKL1AF7Ef0F/aX7CjKsey4wL5IvNPxuefuOVJNpGjJo0X0+/sP8O3fr/CpksLBByolN/toGjkq5FaoNFo4U/NplAnJbbT4o4ncvvIbvQPjeph3VXVtN1w673umll/yM60cVw5hoqVlRlQOJFX54zpydh2t1mrtRFlp46ABpqCFzOgSRldSPM9qJ6SdMTV6i2E+EKFMRhmHj0ZXFhrvXDsmqbU/LsA6I1T+NjidcJKfO1MeKAitzj+Jkubco7wzhu6XDVjDjjFApRtYjJ5iQLvqYNrAU3J3wm0B3es3bM90wA4eYfTLrpLacNC1gTwIMZq+IjsdcsRtHcdr36lxA5Kr3BULuIN2CuO/piAm8LgC/IKkF/D0q98FV42AHyBun6CdTDqui76Lj3BV+cV40rcZJbMOumQfJXa70DLlBuOelqnYhFpQvy3JaimhCK/nnJS14ykYXauUp0TmkEm+A+F4aQnjXjv4u7ZOZPuDqTeop9RbUog05QrnYWk3OWxF6grMkMzXERRc5IU7WBvBt+/1Ds0buIFkDp0X51KiS2nF0UJN9GeONquNwUQ/a2zxi58c0OPrO3QeqnF850IFJENB8q6M2fzGczKcOfA5b3HDvn+/wDwMSXaW8bHJOpqtlkwYhkoz73kICfcvS3NggYGVlnspFIdK45h7RkkM8R3E9xDfoLZJ3IXNsD/4RB1WTygX2t2M+HOklhZ54rT0NTVMjUe9SNWOzKHak/h+ND0O46Ttzt+JquWO0NppKOmObMn9TvaHdO2aNyKDMLhfvsBgOtvw/RzomTxA19Ug9gtOF1kN45IQZ0vI8LYgJU9FXcJFRRClv6/gU6h2OasGwEeS7dGJ+YrkQsLbnQwZn3HCwRnKPuNhJs5rCbZcdEHzrgVNwFzOimSYbSay9iz5pcacldzh4vn4XoXNEOOsvmHGMAe9Ov0H9VoIh0LkRqTdgzAtLYnxsqnIrS/y6EwGEp0gUFthr4n9p6Z4VeEeg0fWVlSdbEEOPxWulK9ujtd8LyU5Y5gEhqf4bzhlRcC311YKxsfxFO4mQG3wnnb8uzWcoP4f5ufdDh33bC6KcVwfVnhQw7ji2v9pUfnwl23/bP8D/RaoBpgHAAA="
+}

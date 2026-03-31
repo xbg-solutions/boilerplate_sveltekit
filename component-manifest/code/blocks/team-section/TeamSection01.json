@@ -1,0 +1,26 @@
+{
+  "id": "teamsection01",
+  "name": "TeamSection01",
+  "category": "blocks",
+  "group": "team-section",
+  "title": "3-col Grid",
+  "description": "Three-column team grid with avatar, name, and role.",
+  "tags": [
+    "team",
+    "people",
+    "landing-page",
+    "grid",
+    "3-col"
+  ],
+  "source": "<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface TeamMember {\n    name: string;\n    role?: string;\n    bio?: string;\n    avatarUrl?: string;\n    twitter?: string;\n    linkedin?: string;\n  }\n\n  const defaultMembers: TeamMember[] = [\n    {\n      name: 'Sarah Johnson',\n      role: 'CEO & Co-Founder',\n      bio: 'Passionate about building products that empower designers and developers to create better digital experiences.',\n    },\n    {\n      name: 'Marcus Chen',\n      role: 'CTO & Co-Founder',\n      bio: 'Full-stack engineer with 10+ years building design systems and developer tools.',\n    },\n    {\n      name: 'Priya Patel',\n      role: 'Head of Design',\n      bio: 'Former lead designer at top tech companies, passionate about accessible and beautiful interfaces.',\n    },\n    {\n      name: 'James Rivera',\n      role: 'Head of Engineering',\n      bio: 'Loves clean code, performance optimization, and mentoring engineers.',\n    },\n    {\n      name: 'Lena Schmidt',\n      role: 'Product Manager',\n      bio: 'Bridges design and engineering to ship products users love.',\n    },\n    {\n      name: 'Noah Williams',\n      role: 'Marketing Lead',\n      bio: 'Data-driven marketer focused on developer communities and content.',\n    },\n  ];\n\n  let { class: className, title = 'Meet our team', description = 'Our diverse team of experts is passionate about creating the best possible product for you.', members = defaultMembers } = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4', className)}>\n  <div class=\"mx-auto max-w-6xl\">\n    <div class=\"text-center mb-12\">\n      <p class=\"text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2\">Team Section</p>\n      <h2 class=\"text-2xl sm:text-3xl font-bold mb-4\">{title}</h2>\n      <p class=\"text-muted-foreground max-w-2xl mx-auto\">{description}</p>\n    </div>\n\n    <div class=\"grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3\">\n      {#each members as member}\n        <div class=\"flex flex-col items-center text-center\">\n          <div class=\"h-16 w-16 rounded-full bg-muted text-sm font-semibold flex items-center justify-center text-muted-foreground mb-4\">\n            {member.name\n              .split(' ')\n              .map((n) => n[0])\n              .join('')}\n          </div>\n\n          <h3 class=\"font-medium text-lg\">{member.name}</h3>\n\n          {#if member.role}\n            <p class=\"text-xs text-muted-foreground font-medium\">{member.role}</p>\n          {/if}\n\n          {#if member.bio}\n            <p class=\"mt-2 text-sm text-muted-foreground\">{member.bio}</p>\n          {/if}\n        </div>\n      {/each}\n    </div>\n  </div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:184780",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VW227bRhD9lQETVDYqWrEdBIUiuWicSxHYiVGnaAHbD0tyRG68F2J3aUkVCPQj+oX9ks4uKYui5PqFIneXM+ecOTPiKlJMYjSO/nz3Cf79+x84jVMt4JPhWTSMHONizlUWjZ2pcBjNuEAbjW9WkVuW/i2/QOfaGL+U5ZF9QOH8WsIs7ltPtXKoHIWJJjY1vHQgmMqnt5Gzt9HZrQLgstTGwQpSBTXMjJYweCl4MqocF3aUqsHbWxUOUigzYynCN2TyEmWCBlZ+B8DnHoN1hqv8bbNktMCfe2sJ1/0l9sAcM78b0d9wc+4oYX9ZcHWPGVfb63UDkehaBxnOWCVcg9COO3Bv7mAKN02gFvka++CaGVbAZ10oq9VguN71NGj3/MNX+AHOdfxRVypDszlAnGj/ilnLtWIOgSW6cpBUXBDMHEqjsyp1FlzBHCCpPSfdMrQ8VwQPmMroiQqmS//oNKQGfZwEPX/IeM4dE4AL2ueoUrRH6+z1cD+XS2bSysJ5gXuYfPt/Jh8rIWLrWHoPqHKukDBQKQo4fvUjLJERxkduDQuwS+tQ9qgQEy2eh3pl+JLBFREWO1B/RZaBnsH7kGYHqDaS0gh/aC0nkMROl+AwLcgNsmSKox1C2S8PS0lHyxOBAXWCjOw+q8TG5c9D/0w/Fn7jD2jYk9g/tBqSXH0CF/qB3k+JgCKsGRJMSk2sGBUZdOm45H8xR7iHAaSkTtY+0GNhnsd4QWMBrtNC8sztYLxqrAmXTLF81wnvaC7lhLCtsoeAGzbeqbbg5cbglfUGFsTqWVhfNPXaH1wIzqTdwUX2vUfnc1yQin1Y72lgxJkh2RXIcJLqPtNkeCTFVceBZABZKe7IAgF9Ow176O7a+SYwTEFBVhk3P18I7BAcd+SSKcFCOqErcjYNlMHQ6xJGKhXIb3+tfLOSGSyGE776oWlJGm53LRjaPAhZ+GanwVXq1pKtpMTKwFJXBJiKH6YZJdoebzSzp/CSXijtwSExmYwaUGee1MRiGuAFOtNVqg4G85hsLiDJ44R6PDd+CkC5jI/fQLmIX1OqR+6HdfiHmBCrNsJtJBcxtYom5RfxPH6zEO3fSO+Yw4WLU/TNBDKJj08ej9HBcvvYwhJR5WJJc72SENZk5TCLiT+2CKuSlEyZ19YQbtItnvOsie6D+yEP1w3dyajcJCtOtrOdLARYOQ73p3QfUidaZD7Sa4q0CgWvJ6Pi5EnIO/AaOXzsViAfqGOQeoNpMiKhzhrP9VTLqePAX/x3gY2PIWdl/JOHu1k8AZF3Hk87wq5eIKO5t7YKs+1tvT7QSzcTuAB/CZ8h3M/wdc069esk2IlQeNvM/SXI4DVpzRUUasJY2YhsUfIgdMi7le57ZWn8Lrey72rc1KcLhjg3FI/8YNneATiypeDuYACDw50tycqDA3UI0zNQN6/udg9815y6ZXBYb5Hfqt3aYacbRfs+Frk3Qgej99VpL8LqBZ+1pTryI7DeBrOnX/YL1MneyRoidlsipBzxWf00Cpq0T4OQ1ESPld2LpJPdR3oieV/U9aY3cb3dK5s7mm9Nk9O9/2im9M0Hc31X/wfxlrf4YAsAAA=="
+}

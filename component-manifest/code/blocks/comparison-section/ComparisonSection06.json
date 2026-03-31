@@ -1,0 +1,34 @@
+{
+  "id": "comparisonsection06",
+  "name": "ComparisonSection06",
+  "category": "blocks",
+  "group": "comparison-section",
+  "title": "Billing Toggle Comparison",
+  "description": "Comparison section with monthly/annual toggle that updates displayed prices.",
+  "tags": [
+    "comparison",
+    "pricing",
+    "features",
+    "landing-page",
+    "billing",
+    "toggle",
+    "pricing"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface PricingPlan {\n\t\tname: string;\n\t\tprice: string;\n\t\tperiod?: string;\n\t\tdescription?: string;\n\t\tfeatures: string[];\n\t\thighlighted?: boolean;\n\t\tctaLabel?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tplans?: PricingPlan[];\n\t\tannualDiscount?: number;\n\t}\n\n\tconst defaultPlans: PricingPlan[] = [\n\t\t{\n\t\t\tname: 'Starter',\n\t\t\tprice: '$0',\n\t\t\tperiod: '/month',\n\t\t\tdescription: 'Perfect for individuals and small projects.',\n\t\t\tfeatures: ['5 projects', '10GB storage', 'Basic analytics', 'Email support'],\n\t\t\tctaLabel: 'Get started free'\n\t\t},\n\t\t{\n\t\t\tname: 'Pro',\n\t\t\tprice: '$29',\n\t\t\tperiod: '/month',\n\t\t\tdescription: 'Best for growing teams and businesses.',\n\t\t\tfeatures: [\n\t\t\t\t'Unlimited projects',\n\t\t\t\t'100GB storage',\n\t\t\t\t'Advanced analytics',\n\t\t\t\t'Priority support',\n\t\t\t\t'Custom domain',\n\t\t\t\t'API access'\n\t\t\t],\n\t\t\thighlighted: true,\n\t\t\tctaLabel: 'Start free trial'\n\t\t},\n\t\t{\n\t\t\tname: 'Enterprise',\n\t\t\tprice: '$99',\n\t\t\tperiod: '/month',\n\t\t\tdescription: 'For large-scale operations.',\n\t\t\tfeatures: [\n\t\t\t\t'Everything in Pro',\n\t\t\t\t'Unlimited storage',\n\t\t\t\t'Dedicated support',\n\t\t\t\t'SLA guarantee',\n\t\t\t\t'Custom integrations',\n\t\t\t\t'SSO/SAML'\n\t\t\t],\n\t\t\tctaLabel: 'Contact sales'\n\t\t}\n\t];\n\n\tlet billing: 'monthly' | 'annual' = $state('monthly');\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Choose the right plan',\n\t\tplans = defaultPlans,\n\t\tannualDiscount = 0.8\n\t}: Props = $props();\n\n\tfunction getPrice(price: string): number {\n\t\treturn parseInt(price.replace('$', ''));\n\t}\n\n\tfunction formatPrice(price: string): string {\n\t\tif (price === '$0') return '$0';\n\t\tconst basePrice = getPrice(price);\n\t\tconst discountedPrice = Math.round(basePrice * annualDiscount);\n\t\treturn `$${discountedPrice}`;\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<h2 class=\"text-3xl font-bold\">{title}</h2>\n\n\t\t\t<div class=\"mt-8 flex items-center justify-center gap-4\">\n\t\t\t\t<p class={cn('text-sm font-semibold', billing === 'monthly' ? 'text-foreground' : 'text-muted-foreground')}>\n\t\t\t\t\tMonthly\n\t\t\t\t</p>\n\t\t\t\t<button\n\t\t\t\t\tonclick={() => (billing = billing === 'monthly' ? 'annual' : 'monthly')}\n\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t'relative inline-flex h-8 w-14 items-center rounded-full transition-colors',\n\t\t\t\t\t\tbilling === 'annual' ? 'bg-foreground' : 'bg-muted'\n\t\t\t\t\t)}\n\t\t\t\t>\n\t\t\t\t\t<span\n\t\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t\t'inline-block h-6 w-6 transform rounded-full bg-background transition-transform',\n\t\t\t\t\t\t\tbilling === 'annual' ? 'translate-x-7' : 'translate-x-1'\n\t\t\t\t\t\t)}\n\t\t\t\t\t/>\n\t\t\t\t</button>\n\t\t\t\t<p class={cn('text-sm font-semibold', billing === 'annual' ? 'text-foreground' : 'text-muted-foreground')}>\n\t\t\t\t\tAnnual <span class=\"ml-2 inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full\">Save 20%</span>\n\t\t\t\t</p>\n\t\t\t</div>\n\n\t\t\t<p class=\"mt-4 text-muted-foreground\">Choose a plan that fits your needs.</p>\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3\">\n\t\t\t{#each plans as plan}\n\t\t\t\t<div\n\t\t\t\t\tclass={cn(\n\t\t\t\t\t\t'rounded-xl border bg-background p-6',\n\t\t\t\t\t\tplan.highlighted ? 'border-foreground ring-2 ring-foreground' : ''\n\t\t\t\t\t)}\n\t\t\t\t>\n\t\t\t\t\t<h3 class=\"text-lg font-semibold\">{plan.name}</h3>\n\t\t\t\t\t<div class=\"mt-4\">\n\t\t\t\t\t\t<span class=\"text-4xl font-bold\">\n\t\t\t\t\t\t\t{billing === 'monthly' ? plan.price : formatPrice(plan.price)}\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span class=\"text-muted-foreground\">/{billing === 'monthly' ? 'month' : 'year'}</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<p class=\"mt-4 text-sm text-muted-foreground\">{plan.description}</p>\n\n\t\t\t\t\t<ul class=\"mt-6 space-y-3\">\n\t\t\t\t\t\t{#each plan.features as feature}\n\t\t\t\t\t\t\t<li class=\"flex items-center gap-2 text-sm\">\n\t\t\t\t\t\t\t\t<svg class=\"h-4 w-4 text-foreground\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n\t\t\t\t\t\t\t\t\t<polyline points=\"20 6 9 17 4 12\" />\n\t\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t\t{feature}\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\n\t\t\t\t\t<Button\n\t\t\t\t\t\tclass=\"w-full mt-6\"\n\t\t\t\t\t\tvariant={plan.highlighted ? 'default' : 'outline'}\n\t\t\t\t\t>\n\t\t\t\t\t\t{plan.ctaLabel}\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18844:72363",
+  "playgroundUrl": null
+}

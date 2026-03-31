@@ -1,0 +1,34 @@
+{
+  "id": "promosection04",
+  "name": "PromoSection04",
+  "category": "blocks",
+  "group": "promo-section",
+  "title": "Deal of the Day",
+  "description": "Full-width dark section featuring a single discounted product with price and feature list.",
+  "tags": [
+    "promo",
+    "sale",
+    "marketing",
+    "e-commerce",
+    "deal",
+    "dark",
+    "featured"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tproductName?: string;\n\t\toriginalPrice?: number;\n\t\tsalePrice?: number;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tproductName = 'Premium Wireless Headphones',\n\t\toriginalPrice = 299.99,\n\t\tsalePrice = 149.99,\n\t}: Props = $props();\n\n\tconst features = [\n\t\t'Active Noise Cancellation',\n\t\t'40-hour battery life',\n\t\t'Premium sound quality',\n\t\t'Comfortable fit for all-day wear',\n\t];\n</script>\n\n<section class={cn('w-full bg-gray-950 text-white px-4 py-16 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"grid grid-cols-1 gap-12 lg:grid-cols-2 items-center\">\n\t\t\t<!-- Left Content -->\n\t\t\t<div>\n\t\t\t\t<!-- Label -->\n\t\t\t\t<span class=\"inline-block bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4\">\n\t\t\t\t\tDeal of the Day\n\t\t\t\t</span>\n\n\t\t\t\t<!-- Product Name -->\n\t\t\t\t<h2 class=\"text-4xl sm:text-5xl font-bold mb-4\">{productName}</h2>\n\n\t\t\t\t<!-- Pricing -->\n\t\t\t\t<div class=\"mb-6 flex items-center gap-4\">\n\t\t\t\t\t<span class=\"text-lg line-through text-gray-400\">${originalPrice.toFixed(2)}</span>\n\t\t\t\t\t<span class=\"text-4xl font-bold text-red-500\">${salePrice.toFixed(2)}</span>\n\t\t\t\t\t<span class=\"text-lg font-semibold text-green-400\">\n\t\t\t\t\t\tSave {Math.round(((originalPrice - salePrice) / originalPrice) * 100)}%\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\n\t\t\t\t<!-- Features List -->\n\t\t\t\t<ul class=\"space-y-3 mb-8\">\n\t\t\t\t\t{#each features as feature}\n\t\t\t\t\t\t<li class=\"flex items-center gap-3\">\n\t\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\t\twidth=\"20\"\n\t\t\t\t\t\t\t\theight=\"20\"\n\t\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t\t\t\tclass=\"text-green-400 flex-shrink-0\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<polyline points=\"20 6 9 17 4 12\" />\n\t\t\t\t\t\t\t</svg>\n\t\t\t\t\t\t\t<span>{feature}</span>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t{/each}\n\t\t\t\t</ul>\n\n\t\t\t\t<!-- CTA -->\n\t\t\t\t<div class=\"flex flex-col sm:flex-row gap-3\">\n\t\t\t\t\t<Button size=\"lg\" class=\"bg-red-600 hover:bg-red-700\">Add to Cart</Button>\n\t\t\t\t\t<Button variant=\"outline\" size=\"lg\" class=\"border-white text-white hover:bg-white/10\">\n\t\t\t\t\t\tView Details\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\n\t\t\t\t<!-- Limited Time Notice -->\n\t\t\t\t<p class=\"text-sm text-gray-400 mt-4\">\n\t\t\t\t\tLimited stock available. Offer ends in 3 days.\n\t\t\t\t</p>\n\t\t\t</div>\n\n\t\t\t<!-- Right - Product Image Placeholder -->\n\t\t\t<div class=\"flex items-center justify-center\">\n\t\t\t\t<div class=\"w-full aspect-square bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl flex items-center justify-center\">\n\t\t\t\t\t<svg\n\t\t\t\t\t\twidth=\"120\"\n\t\t\t\t\t\theight=\"120\"\n\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\tstroke-width=\"1\"\n\t\t\t\t\t\tclass=\"text-gray-600\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n\t\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" />\n\t\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "19089:68422",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VX/27bNhB+lZvWwckQ2pbrpInrdEhTdBvQdcFWbAPq/kFLlMSVEjWS8o8ZBvYQe8I9yY6ULFs/GrRIENM88u7jx7uPl52X0ZR5M++Pl9/Df//8C68YFSAjMAmDV3TrXXiGcrHmWejNjCrYhRdxwbQ3e7/zzDa3W+0Erqsc3eX5UK+YMHZuSTXrmw9kZlhm0I0314HiuQFBs/h24Rm98F4ssoXhaS6VgR0EGewhUjKFwRPBl6PCcKFHQTZ43lj2sjBGtpYGEq2ZDTQquFtvd2BoFdGAwYOSuYadnVyYQFCtv5uBNopn8fNyMlcyLALzFo/QNknFY55R8aB4YI1ZkS6ZqoyaCtZj2JcIBDONqDNwHzbKRScu3MLgQbGUFyn8zhVD8jX8wGiYJ3g0PbjogYN7Jjc3w5ubixYcNPjT2rCfVRTcwpPcDs7OK47wfrSBiFFTKGbt70tHg7vA8BWDt5JrBvc0C5gQ1HCZHXAMpmOSyELBkhrkeQuCR6w2Hg6iZZGF8FdBBTfb2nov0wgvky4Fg4hjfKmACkFCuoU1o6pc+AExzkdl1thMyeaaBRZCyeLtLsjOBmsSFULAMiaxoltyczkGwzaGrBNuGOQbMoV8S/wr0OkMv12BiO3n9eDieBfne5eI85CvKtcLL90QWhgJKd2QNXm2EVW2tpbFiodg/5BACk18iGlO/ImNcpydAGJJNQmYzcjaEbr6ihB4wyID92WdACFHI8apvxzW0iUTp4twXuc0q/HwTPCMkaWQwUdLimIhuRo3OHHDjUbSM0OWUoSWpaeOJVD2unCL4zRdkukJWPvTEo0TFCML40WZVCeAH8r8BpfgTdzJpEbtIE03wl6SG1/i+IivArI7KZb9fJRM+sLxACu3Falxr0vMgUiwTeNO3LW1D9tk1uESMTh+TYJMxUnJpUu86XiM25/sGuU5NPI137DwbHK+PzL0WIBp4+Buyl7hZeW9ru8v94zQnWONhXl0HivGsgr8qYOF+ZVi+e9+oiYZuqw4OztrSg+BGs05jKBhPIdvwR+Pz/ffNFC1gc5HVY43b/H1QY7ecG1ad1mI+ljoLGBki7mLl3rdOsDua0aD5KhsVB/G++Y554LXHvvz4mmHG0vwKm7PLcyahyZBPxOks2tNGI8T80nzirP1S7lB+xjGMJnib98yfIQFrsnwTegz49MlPzJcEBRK4RnupZDq0wtJDblvTSOB6lRx5UN0gm/kR9JzlA5ZSFcuxdZWDuQSn2XtSIAruAH/GUzBx+gw6pI8QpZ7qLdJtDvcZk/2252CN9NhZNNhf5p6hehm3v27u0e0w6WHOzzKutUqN1Zy3Zsm86pR0fxvex8ixjMePJ0ocyJXTM2qiWeuEO9CrE6Jr65CmKWXXs8rqjjNbEbJwlh2MUJvNKlCpk7lvxzWod3Xkd8Vgd8wJ7FTtJ2hblZyB9YnavkNT9F3CO94arsJ45SjwXDe1CmdNlUVUtNR5oNTbewzR1cIz/YSQ/g5irBoWRZq4Bk8BWwo9PAUY358Xlt4HdpfbIXC8dn6MaUxto8ChSZBzUTfrQf6Een4s9CGR9vuq9/aWXUwVOfY3RCNvZJiVT8TctxLjCRL1+yWnFzb51xW7Q6OD2+2fTm+BESfiB3UwO9KVK1ePbbPkK5HZOuzJKslV37b3pIq5OZq3MLZ1giFfIMFjZUL2+qzDoAPChzPbL+pTamTHaWaB1wF2MoGdsH18NKW3rYeKrvfjTr7elTRB/8SsF31x3AJE7+zq62JdRp3vh3HhxHuLRtoHNv/95Cq8n+9/Yf9/3Mgl7AgDgAA"
+}

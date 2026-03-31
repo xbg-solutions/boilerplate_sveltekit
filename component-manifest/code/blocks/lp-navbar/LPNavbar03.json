@@ -1,0 +1,32 @@
+{
+  "id": "lpnavbar03",
+  "name": "LPNavbar03",
+  "category": "blocks",
+  "group": "lp-navbar",
+  "title": "Compact Pill",
+  "description": "Pill-shaped compact navbar floating above the page.",
+  "tags": [
+    "navbar",
+    "navigation",
+    "landing-page",
+    "pill",
+    "floating"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Link {\n\t\tlabel: string;\n\t\thref?: string;\n\t\tchildren?: Link[];\n\t}\n\n\tlet {\n\t\tclass: className = '',\n\t\tlinks = [\n\t\t\t{ label: 'Products', href: '#' },\n\t\t\t{ label: 'Use Cases', href: '#' },\n\t\t\t{ label: 'Docs', href: '#' },\n\t\t\t{ label: 'Blog', href: '#' },\n\t\t\t{ label: 'FAQ', href: '#' }\n\t\t],\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\tlinks?: Link[];\n\t\tonCta?: () => void;\n\t} = $props();\n\n\tlet isOpen = $state(false);\n</script>\n\n<header class={cn('w-full border-b bg-background', className)}>\n\t<div class=\"mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6\">\n\t\t<!-- Logo -->\n\t\t<div class=\"h-8 w-8 rounded bg-foreground/10 flex items-center justify-center flex-shrink-0\">\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" fill=\"currentColor\" class=\"text-foreground/60\">\n\t\t\t\t<path d=\"M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z\" />\n\t\t\t</svg>\n\t\t</div>\n\n\t\t<!-- Desktop Nav -->\n\t\t<nav class=\"hidden sm:flex items-center gap-6\">\n\t\t\t{#each links as link}\n\t\t\t\t<a\n\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\tclass=\"text-sm text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t>\n\t\t\t\t\t{link.label}\n\t\t\t\t</a>\n\t\t\t{/each}\n\t\t</nav>\n\n\t\t<!-- Desktop Auth Buttons -->\n\t\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t\t<Button variant=\"ghost\" size=\"sm\" onclick={onCta}>Sign in</Button>\n\t\t\t<Button size=\"sm\" onclick={onCta}>Sign up</Button>\n\t\t</div>\n\n\t\t<!-- Mobile Menu Toggle -->\n\t\t<button\n\t\t\tonclick={() => (isOpen = !isOpen)}\n\t\t\tclass=\"sm:hidden p-2 hover:bg-muted rounded-md transition-colors\"\n\t\t>\n\t\t\t{#if isOpen}\n\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\" />\n\t\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\" />\n\t\t\t\t</svg>\n\t\t\t{:else}\n\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t<line x1=\"3\" y1=\"6\" x2=\"21\" y2=\"6\" />\n\t\t\t\t\t<line x1=\"3\" y1=\"12\" x2=\"21\" y2=\"12\" />\n\t\t\t\t\t<line x1=\"3\" y1=\"18\" x2=\"21\" y2=\"18\" />\n\t\t\t\t</svg>\n\t\t\t{/if}\n\t\t</button>\n\t</div>\n\n\t<!-- Mobile Menu -->\n\t{#if isOpen}\n\t\t<div class=\"border-t sm:hidden\">\n\t\t\t<nav class=\"flex flex-col py-4 px-4\">\n\t\t\t\t{#each links as link}\n\t\t\t\t\t<a\n\t\t\t\t\t\thref={link.href || '#'}\n\t\t\t\t\t\tclass=\"px-2 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{link.label}\n\t\t\t\t\t</a>\n\t\t\t\t{/each}\n\t\t\t</nav>\n\t\t\t<div class=\"border-t my-4\"></div>\n\t\t\t<div class=\"px-4 pb-4 flex gap-2\">\n\t\t\t\t<Button variant=\"outline\" size=\"sm\" class=\"flex-1\" onclick={onCta}>Sign in</Button>\n\t\t\t\t<Button size=\"sm\" class=\"flex-1\" onclick={onCta}>Sign up</Button>\n\t\t\t</div>\n\t\t</div>\n\t{/if}\n</header>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:178447",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81X227jNhD9lVntAk6AcBVrjTRw4hRJFm0fNtstekGBOA+UREmsJVIQKV/Wa6Af0S/sl3QoyjJ9yToF+lAgjsnRXDhnZg7lpSdowbyh9/vd9/D3n3/BvSxKGmn4xPPcO/M05fmMi9gb6qpmZ17Cc6a84ePS04vS2BkB6rVebsvyrZqyXBtZSBU7JI+k0ExodONdq6jipYacinQ09rQaezdjMda8KGWlYQmRgBUklSyg9ybnoV9rnis/Er2rLbW7Wmu5oxphJlKYQH7NG31jgaGrhEYMPnAxgaWRjXVOQ5YPQemKi/TKyrKKJd/uyKKM53HFBMqN+eNTI19Z1znTa39RTpUaQvP1ERGAEfR6Z20sNFQoeLTbsV5CG773qZJxHWnVOwMTHSWve7A621f8VTG4R3SPa76X0XGlu1ymR5W+u/1pW8eqPLWqUtxrimmdnMLoBpbN09VwC5BdNBsktqFs/aDQ+plKHluM0fWbspKlOjm92uDN1Y8lE+aZ0lSzk4TmihmFa992lukmcZ0xGrPK1mO0jMRJb0aSOs8hlBU+ICGEKQlpNEkrWYsY8+xKd7pqGvI65tPWfuwVc0JrLSHJ2RwKOicz8s08B65ZoUjETIvBH7XSPFmQkOkZwyOWczKAckHegSqGuLloOx1dvyIEPshUAiFrkRstI5cww09zNBaboyayYvaofv/cHuNg8HZrFIjKEPoJOe/iYhg1TWHGY51hmD6eCDLG00yvd1POZndyjttzOIfA/KEUJz5HUVRXOAn6XuayQun6tJrNtXu+CzcghiypziBGxYcABjSAAD2f9wMSZP1gs4Vg6mwJLn4YOFsS/Db4jEH9TSo+5rJGz0f4bmyTtPC+Z2qiZQkf6dRBWVAHZR7HWCYszj6cKS2deuFQvGY0ysBOMlXNYuXkSDdryyOjpVF5a5bw5YsZn5WrsoWdKqD5LmrNYgdJyOSUVcMdfEFXVCiuuRQkMqVABt24vnGj2DM04+we1qebvHyT12qNIsJzGMXbGmtoKVc917RH4AzcNmzZe0orToXpvjSTSmN9Ff/McKsKXEsR5TyajJYNQ6xufuapAI6Dbq33vB21rcsd2wN98yBDvN/ggYkafpFpiutNvmFjvI7bxbDMddJR0yu7Ou1AX2OE4LQwIR5teXG4m8Kvp50UXymx05A8abnQLa073s3oduPd7A6PN1K0nLD9Abdy0vnbGmsMht3FYN433HGJ6guzMiQyD9rFIlg/85+zvNgztL4OWrojjxAMGVL//yD7d3s5BP11DhdfS74z7Af7lo3sBaaXB0yPAOfzpBv5cDMP7jTszUI7BPt9t0UC7e2qoet0d+pd9m1IormmsMPNNTloLswtlI+w7i7vvoh5N8OI4QITOID/nIV3ePg5Jt7m4h02dvhYP49zsWgw60q3r2pfQ0L810C+S8WHyFjW5k2N7dCxWznS/xf8fJihX+Zuj7KdNt1at0197ds3P5SZ3zJYNPs7ZvW0+gczqc1B+QwAAA=="
+}

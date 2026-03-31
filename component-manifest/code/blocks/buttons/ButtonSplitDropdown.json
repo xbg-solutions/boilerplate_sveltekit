@@ -1,0 +1,26 @@
+{
+  "id": "buttonsplitdropdown",
+  "name": "ButtonSplitDropdown",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Split Dropdown Button",
+  "description": "Primary action button with a separate dropdown arrow for secondary options.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "split",
+    "dropdown"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tlabel?: string;\n\t\tonclick?: () => void;\n\t\tonDropdown?: () => void;\n\t\topen?: boolean;\n\t}\n\n\tconst { class: className = '', label = 'Publish', onclick, onDropdown, open = false } = $props();\n\n\tlet isOpen = $state(open);\n\n\tconst handleDropdown = () => {\n\t\tisOpen = !isOpen;\n\t\tonDropdown?.();\n\t};\n</script>\n\n<div class={cn('inline-flex rounded-md border overflow-hidden', className)}>\n\t<button\n\t\ttype=\"button\"\n\t\tonclick={onclick}\n\t\tclass=\"flex items-center gap-2 px-3 py-1.5 text-sm bg-background hover:bg-muted transition-colors\"\n\t>\n\t\t<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\" />\n\t\t\t<path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\" />\n\t\t</svg>\n\t\t<span>{label}</span>\n\t</button>\n\n\t<div class=\"border-l\" />\n\n\t<button\n\t\ttype=\"button\"\n\t\tonclick={handleDropdown}\n\t\tclass=\"flex items-center px-2 py-1.5 bg-background hover:bg-muted transition-colors\"\n\t>\n\t\t<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t<path d=\"m6 9 6 6 6-6\" />\n\t\t</svg>\n\t</button>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:30233",
+  "playgroundUrl": null
+}

@@ -1,0 +1,34 @@
+{
+  "id": "promosection01",
+  "name": "PromoSection01",
+  "category": "blocks",
+  "group": "promo-section",
+  "title": "Flash Sale Banner",
+  "description": "Dark or brand-colour section with 'Flash Sale' badge, discount headline, countdown timer, and CTA.",
+  "tags": [
+    "promo",
+    "sale",
+    "marketing",
+    "e-commerce",
+    "sale",
+    "countdown",
+    "dark"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\theading?: string;\n\t\tsubtitle?: string;\n\t}\n\n\tlet { class: className, heading = 'Flash Sale', subtitle = 'Limited time offer - Save big today!' }: Props = $props();\n\n\tlet timeLeft = $state({\n\t\thours: 2,\n\t\tminutes: 34,\n\t\tseconds: 56,\n\t});\n</script>\n\n<section\n\tclass={cn(\n\t\t'w-full bg-gradient-to-r from-red-600 to-red-700 px-4 py-20 sm:px-6 lg:px-8 text-white',\n\t\tclassName\n\t)}\n>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"text-center\">\n\t\t\t<!-- Badge -->\n\t\t\t<div class=\"inline-block bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4\">\n\t\t\t\tFlash Sale\n\t\t\t</div>\n\n\t\t\t<!-- Heading -->\n\t\t\t<h2 class=\"text-5xl sm:text-6xl font-bold mb-4\">Up to 50% Off</h2>\n\n\t\t\t<!-- Subtitle -->\n\t\t\t<p class=\"text-lg sm:text-xl text-red-100 mb-8 max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\n\t\t\t<!-- Countdown Timer -->\n\t\t\t<div class=\"mb-8 inline-block\">\n\t\t\t\t<p class=\"text-sm text-red-100 mb-3\">Offer ends in:</p>\n\t\t\t\t<div class=\"flex gap-4 justify-center\">\n\t\t\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t\t\t<span class=\"text-4xl sm:text-5xl font-bold\">{String(timeLeft.hours).padStart(2, '0')}</span>\n\t\t\t\t\t\t<span class=\"text-xs sm:text-sm text-red-100 mt-1\">Hours</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t\t\t<span class=\"text-4xl sm:text-5xl font-bold\">:</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t\t\t<span class=\"text-4xl sm:text-5xl font-bold\">{String(timeLeft.minutes).padStart(2, '0')}</span>\n\t\t\t\t\t\t<span class=\"text-xs sm:text-sm text-red-100 mt-1\">Minutes</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t\t\t<span class=\"text-4xl sm:text-5xl font-bold\">:</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"flex flex-col items-center\">\n\t\t\t\t\t\t<span class=\"text-4xl sm:text-5xl font-bold\">{String(timeLeft.seconds).padStart(2, '0')}</span>\n\t\t\t\t\t\t<span class=\"text-xs sm:text-sm text-red-100 mt-1\">Seconds</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<!-- CTA Button -->\n\t\t\t<Button size=\"lg\" class=\"bg-white text-red-600 hover:bg-gray-100 font-semibold px-8\">\n\t\t\t\tShop Now\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "19089:73462",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81WwW7jNhD9lVlhCzmAGTtOnAaKs8VmgXYP290C3gIF6h5oiZLZUqQgjmK7hoF+RL+wX9IhJdmS46K9bJGLRI5m5r15MxK1CzTPRRAFPz1+B3/98Sd8q7hdwZwrAY9ca1EGwwC5VGupkyDCshLDIJVK2CD6eRfgtnDBzkB+Taq3RXFpn4RCZ1tyK87ZY6NRaKQ0wczGpSwQFNfZwyJAuwjeLPQCZV6YEmEHsYY9pKXJIXyt5HJUoVR2FOvwvuf2WCGaE9fY0FPtgEaV9P4ugqDLlMcCfihNYWHnjAuMqXT7TQQWS6mz+9q4Ejyh3anZVkuUqETfvq/zK+FZu3RRfftICgyhyQUPEB5lDofQJnMPPshcokiAyhJg0lSUwMjvScBSZoAm4dtXIeyjhvoDvC7cYnBxf8R2sR9Eiu6pRY5i0FS4MlVJlCbDeptLXaEgw/VNY7GC+pKQZXrrLXuXdjaqG+SaomfkgtJ4LF/awy7Wgzo6XLO0UgqWGctKKpVkZ2hY6RvCSpGw2/EYnIWWX9Oy2LAbKLZsMgabR7S7BZW5+x2g2CBbr0iLcNhpjxPSbS9Iaj8ks0Q+1RrT6OQbxis0kPMNW7PbjWom6cTN546Fm4KDA7m8YoxmPskEMHa0dgOlVlILtlQm/s1V6eqYupIOZOvlxkJK882WRiWuyGtX5BWUptIJhXiR8iW76aAv8DgSB+wRgb+p+3pg+L4Zoi7H1aRf23SjnKB+TSp0yDSoPxbUBpiOv4JPaTobrSanKPN2JLswRR9FZQcQwvB3J8gVCUIwd00XJvSs6Uuv3F079ftjucUpjXekGCZmreEzzXT5j43xeN3u9KBOidv8GdtrCvjk3zZB80+pooYNnkFLldhAxgsa3l8rizLdPp+m80HuwmKjgEYlt+ejKM4WXPcp33Q6Ou12lIJ3c/8FGrSv/aV/zS8uC57MkZc4mAwhHIcXe3qRKfG/g9H4tljPpEJ2RZDvHcKZdIeJ/b81iF4SmWcNaT60X7Ql39cYL0mHl92U5qz7ok2Z1xj/QYf+/uyX/93nt+0/Tvc72Jis/F0QMZUtggNLOqI6p1J7AK/Mkyij+pDeerZeJyty2R5Ydz215ytTwEezPrKrMduz9UC9XVG99V8Crd3/I6HX/477X/Z/A+8t0styCgAA"
+}

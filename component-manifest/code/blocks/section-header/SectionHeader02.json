@@ -1,0 +1,29 @@
+{
+  "id": "sectionheader02",
+  "name": "SectionHeader02",
+  "category": "blocks",
+  "group": "section-header",
+  "title": "Section Header 02",
+  "description": "In-page section headers with eyebrow labels, titles, subtitles, and optional filter tabs.",
+  "tags": [
+    "section-header",
+    "heading"
+  ],
+  "source": "<!--\n  SectionHeader02.svelte\n  Title + Status badge + description left. Search + View/Edit/Create New right.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    title = 'Storage',\n    badge = 'Status',\n    description = 'Read and write directly to databases and stores from your projects.',\n    searchPlaceholder = 'Search',\n    onview = () => {},\n    onedit = () => {},\n    oncreate = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    badge?: string;\n    description?: string;\n    searchPlaceholder?: string;\n    onview?: () => void;\n    onedit?: () => void;\n    oncreate?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('py-4', className)}>\n  <div class=\"flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n    <!-- Left: title + badge + description -->\n    <div>\n      <div class=\"flex items-center gap-2\">\n        <h2 class=\"text-lg font-semibold\">{title}</h2>\n        {#if badge}\n          <span class=\"inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium\">{badge}</span>\n        {/if}\n      </div>\n      {#if description}\n        <p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n\n    <!-- Right: search + actions -->\n    <div class=\"flex shrink-0 flex-col items-end gap-2 sm:flex-row sm:items-center\">\n      <div class=\"flex items-center gap-2 rounded-md border bg-background px-3 py-1.5\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"text-muted-foreground\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>\n        <input type=\"text\" placeholder={searchPlaceholder} class=\"w-36 bg-transparent text-sm outline-none placeholder:text-muted-foreground\" />\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n        <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n        <Button size=\"sm\" onclick={oncreate}>Create new</Button>\n      </div>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:4812",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE6VW4W7jNgx+Fc47IC2ujhO3Nwyuk2E9DLcfw2G4DsOAZT8UW0nUypIhyXGywMAeYk+4Jxlp2YnT5oYNA5paIiny40dS9iFQrOBBEvzy8AH++uNPeOSZE1rB95zl3MAkDm4Cx4SshcqDxJmK3wQrIbkNkl8PgduXdJgEaNe5+rYsx3bLpSPZkll+SZ5p5bhy6CZIvwjDhYI+tI88iTtb0vwknOTwFh4dc5WFJcvXtM25zYwoW7ySr9wYXTCTbVD1s+B19F0uXPTecOY4fOQ1GLHeuPFCheF8oVJ/FiRT69kicHYRzCmWKEptHBwgU9DAyugCRm+kWEaVE9JGmRrdn5k9VM7pF6aZRq2i9KJKkD2dkBzNaQGQSWZt4h8fkRyYwWh043WuzRUFj04btua93CfdyomEXjzkAJWfkDxgKofaCMw6FwZJlXtwGnLmGFXDtnqL3nHZgt7rykBp9BPa2nHv2bZc/ihZxjdaUjNQ8FbYm2i1RZ5RfnUNszkcmqOcI/WX5JmvxklDiiY5I+abBNEZodb3A0ZeCls6XgoHZLxUvcrmpYHPBaUe2VaL/H6YzWWNz+e1rsEU3yClpb26RkEaeWBzaoU0F1uf6eyQqatRuQ/vRjenbrhu2kYcmC2CleQ7oH9hpiWsWRnegS2SVmJ0TWusd2FD6xi2JW6fKuvEah8uuas5V113o1ucNvgBpyXpWu3txXlqZ6S1Rxjd8hImHzXDXscGIVzxMVJ7YBMf7R3fuVCuYYWjH1peiCUWAq0PLY4mjTbx4OThS7HyyJqTEB3akqmjS6GkUDx8jcToSuU8D1eVlLDUhtq33IUxINmT8Ttoseysx1JgfauCkPh4WC0MMsQSidURRRoNGWlhDogbgE3LI87CnaLawj+LyhFAHMN1i5biDx2lUXmKcgLQhx9U8xPda0nX4lhH1t6j9ryG52WzG2z953By6ilPH8eroa3i5e7y7A4q/G8a4liMIu9LsVyHS5Y9+8SpMLdUmOn43Xnz2O0adoVU5HzjXJlEUV3X4/p2rM06iieTSYQmiwBqkbsNGk3vcLPhxEe/o6l+0DvcTmAC8R3+oRTfWBJFCmcbd3gR6GeO+6wyBpG/11KbozzsvccnEbVdxkoUdrUbKp60UAPNWf9fqHqaCZPhIGYEcjqlE/t+ZXDx9SKI5mnJ3AZy6qV4CvE0vBvf0q/VEQtD3oQqKwf0cu7CoqfydPXNDq9uw+aIsg5vv6L6OMMUjgHRcexbXbl23oi2ocPkM6lBNL88Nf/9Hules1tmBFNU3A4LMS9+pzwtTjDdyFJkz7ODv86bOX0IpJE//f/80UugmdM3xT/4+8xZ/5po5t3HiLqAaUjQad2v+id9jSHX/kus+a35GxNqBbbACQAA"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "statssection01",
+  "name": "StatsSection01",
+  "category": "blocks",
+  "group": "stats-section",
+  "title": "Left + Image + 2 Stats",
+  "description": "Left heading, central image, and two stat items.",
+  "tags": [
+    "stats",
+    "metrics",
+    "landing-page",
+    "split",
+    "image"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tlabel?: string;\n\t\tvalue: string;\n\t\tdescription?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{\n\t\t\tvalue: '42,263',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t},\n\t\t{\n\t\t\tvalue: '$23M',\n\t\t\tdescription: 'Each stat should include a bold numerical figure followed by a brief, compelling description.'\n\t\t}\n\t];\n\n\tlet { class: className = '', title = 'Data-driven highlights that showcase impact', description = 'Add a concise value statement that explains how your metrics demonstrate success and growth. Focus on transformation and measurable outcomes.', stats = defaultStats }: Props = $props();\n</script>\n\n<section class={cn(\"w-full bg-background py-16 px-4 sm:px-6 lg:px-8\", className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 gap-8 sm:grid-cols-2 sm:items-start\">\n\t\t\t<div>\n\t\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">Stats Section</p>\n\t\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">\n\t\t\t\t\t{title}\n\t\t\t\t</h2>\n\t\t\t\t<p class=\"mt-3 text-sm text-muted-foreground max-w-lg\">\n\t\t\t\t\t{description}\n\t\t\t\t</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"aspect-video w-full rounded-lg bg-muted flex items-center justify-center\">\n\t\t\t\t<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground\">\n\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" />\n\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\" />\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"mt-8 grid grid-cols-2 gap-x-8 gap-y-6\">\n\t\t\t{#each stats as stat (stat.value)}\n\t\t\t\t<div>\n\t\t\t\t\t<p class=\"text-4xl font-bold\">\n\t\t\t\t\t\t{stat.value}\n\t\t\t\t\t</p>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">\n\t\t\t\t\t\t{stat.description}\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:182983",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE8VWwW7jNhD9lYEawAnWsmPZMQKv02K37RYFtkWBvRSIc6CpkcyGEgWSsmUYBvoR/cJ+SYeULMuKc+4hITkevjfzZob2IchZhsEi+PPzL/Dv3//AV0wsfIBfM5YirRF8s8yaYBhYJuRO5HGwsLrEYZAIiSZYPB8Cuy8cgjOQX4P3qShGZovSOtuaGbxm5yq3mBP8IlgarkVhQbI8fVoF1qyC71f5yoqsUNrCAXgOR0i0ymBwI8V6XFohzZjng4/k5hwJSieMo48YDs62spKtUf6wAGO1yNOPtXHLZIk9W4x1AELll+7HPvwfWhXmhM8lM6aPb4WV2De+S7CyxklMRhf480uXlQQyFmJMWCmtr8TJC57gub7dRNKmNZhFw2g+HQxP9g4zffoz4xtwjGA2qpQxiJzLMkZgsFZ0zMsMteBMQiLSUiMkSkq1wxjWe+ejBSZD4CorUErKATrwo0HNeRy+E9pNNP3tfw3MLS9Nx0j0feUquKiX36lHSdjBYAi+hm7/E7MsjLXYYg4bkW4k/VkDdlMHuuPU20Bdyrilax1Od/lTHFNoVEUuyMur4FPEjNq+xsCqkEzkBggL9qrUkCE1BzeElbnya3IHU3KOxgDLY0i12tnNCL4oXhogInLJTaJ0xjyv88mQmVKzNeWgSmqjDM2IwvOdRoF1OwqOi6ann+CmcJvbO1JoOa4zcVOYLw1yj+1lejrw/HYV7MKklBLWabhm/JWiKom42IeTORRVOAOTLWidg0zd+rgKhmeV745+upex2DaYqyCrQlZaBRmrwl04r2TzBPTcUi2cBiIOuZImnEDKivDRsZ2NkTsKktmElLK2LVKN1R7oWLTAFisbVgbKokDty0rC8ldqpXAnqLBUMOeRlRbjkOTGOmXCrnX8Vmu0HBdd/E10TtBSYB5jWkkXod/PaJ/QQxj6Lm8preuzTtx+nnxXHjvo4010PRnimtZcJrsed6OzTPsknR6+oDqntRw3InY0bZmZKUiIcEuSKWh6xBMSu0xdu/hIIJFYQV0jju51hb9KY0Wyb44XYS3NNgWqgt0QQzRbBbBBJ9DptBW4+6wqOt7DPUQz8Fb6SpJkylWOdKJRUq9IZ15qTRQ/Kql0aw9P6JPRAxkvmuJKybuKLTUlDI58Sjf3zdriPXaj9SftfCPajC9xuNCcJpa7jx/rMPbtVrex9W4VSu7pwUMoFH1LuaCjCUwegOZwcg8PEE16d2i0t+nbYr4p7OV0Whqy3uxFfvYq9wGt+3DeEebwHZ4edHq2TP2y37r/I/8O3nV763Im307lxYz01CeqM+rxAuViEt+ivj8ZNKjvsFwfjj5XV1O6OXZSHHsStzsqR/1y0N790KKQ6h9Zx5fjf1pJqYmgCQAA"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "sidebarlayout14",
+  "name": "SidebarLayout14",
+  "category": "blocks",
+  "group": "sidebar",
+  "title": "Sidebar Layout 14",
+  "description": "Sidebar components.",
+  "tags": [],
+  "source": "<!--\n  SidebarLayout14.svelte\n  Right-side table of contents: main content left, sticky TOC panel on right.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '$lib/components/ui';\n\n  type TocEntry = { label: string; href: string; level?: number; active?: boolean };\n  type TocSection = { title: string; items: TocEntry[] };\n\n  let {\n    class: className = '',\n    tocSections = [],\n    breadcrumbs = [],\n    showPanelToggle = true,\n    children\n  }: {\n    class?: string;\n    tocSections?: TocSection[];\n    breadcrumbs?: Array<{ label: string; href?: string }>;\n    showPanelToggle?: boolean;\n    children?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex h-screen', className)}>\n  <!-- Main content -->\n  <main class=\"flex flex-1 flex-col overflow-hidden\">\n    {#if breadcrumbs.length > 0}\n      <div class=\"flex items-center gap-2 border-b px-6 py-3\">\n        {#if showPanelToggle}\n          <button type=\"button\" class=\"text-muted-foreground hover:text-foreground\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 3v18\"/></svg>\n          </button>\n        {/if}\n        <Breadcrumb>\n          {#each breadcrumbs as crumb, i}\n            <BreadcrumbItem>\n              {#if crumb.href}<BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>\n              {:else}<span class=\"text-sm text-foreground\">{crumb.label}</span>\n              {/if}\n            </BreadcrumbItem>\n            {#if i < breadcrumbs.length - 1}<BreadcrumbSeparator />{/if}\n          {/each}\n        </Breadcrumb>\n        <!-- Right-side panel toggle -->\n        {#if showPanelToggle}\n          <div class=\"ml-auto\">\n            <button type=\"button\" class=\"text-muted-foreground hover:text-foreground\">\n              <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M15 3v18\"/></svg>\n            </button>\n          </div>\n        {/if}\n      </div>\n    {/if}\n    <div class=\"flex-1 overflow-y-auto p-6\">{@render children?.()}</div>\n  </main>\n\n  <!-- Right TOC panel -->\n  <aside class=\"flex w-56 flex-col border-l bg-background\">\n    <div class=\"overflow-y-auto px-4 py-4\">\n      {#each tocSections as section}\n        <div class=\"mb-4\">\n          <p class=\"mb-2 text-xs font-semibold text-foreground\">{section.title}</p>\n          <ul class=\"space-y-1\">\n            {#each section.items as item}\n              <li>\n                <a\n                  href={item.href}\n                  class={cn(\n                    'block text-sm transition-colors leading-snug',\n                    item.level && item.level > 1 ? 'pl-3' : '',\n                    item.active\n                      ? 'font-medium text-foreground'\n                      : 'text-muted-foreground hover:text-foreground'\n                  )}\n                >{item.label}</a>\n              </li>\n            {/each}\n          </ul>\n        </div>\n      {/each}\n    </div>\n  </aside>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Breadcrumb",
+        "BreadcrumbItem",
+        "BreadcrumbLink",
+        "BreadcrumbSeparator"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "5199:54540",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+1XzW7jNhB+lal2sU6A0IqTbNDaitPdRVEU2G2LJocCcQ6URNtsaFKgKP/AENCH6BP2STqkZIuytAF66K2BEYszo2/+Z+h9IOmKBePg948/wt9//gUPPGUx1fCZ7lRhYHQTXASGcrHhMg3GRhfsIphzwfJg/LQPzC6zL1sCytVQH7JsmK+ZMJYW05z10RMlDZMGYYLoG0JmEg6qK82jm1rWcn7ji6UhOfLB0FgwUHM4AIxhRbk8HEGwubmA3PDkZQePv3yCjEomQEnQFmQ4k4RMZzLKE80zFKdycTcLTD4LplYTX2VKG7B+wR4eJM8yZqCEuVYrGFQWDSae5B4SeeS/FTwOC8NFHibyROyjZjRNdLGKL7znnwxb+efPXL745weWUU2N0m0diUJYad0PC24VWVXO6EeV/CCN3sEd6hQ0ZmKM0dBcLiaw1GzenARDb+7HIFEN0xOgieFrhoRYKcEoejXxUR8Y8jGMFtdwI1iDxNEJzMNB9dOze9W+LDB4e/sAkAiao5D7+hkLAoEGg4uKZ47wOZKfnmtyfAxDi5wv1eZXm9VHtVgIC+TKslaz5CLVzGkvxy3l90eLO1rvx56LT8+Tjn4U+KA13UW9QT0iQzmd9BrZhHXSthMZdZU5RonevM20yvKzcyREYVWnUxvOKOXrypO7fSLPBnPBtrAkKMGYHFw0oT0vXS3bvoIvfnO40kdG1TEOaRY4GPuPjKqvRGG/rJmeC7UhS56mGM2qOwD2b/jcj8tQMLkwS5jCZVlJIHxjZ43uCoQkaALTsKAZucJo6JRpEkO2JbeQ7cj1UcdRz0kMy4aNSuLCGCxHW56opjrNgqNew7aGrArDUjJXmi20KmQKS+vX2PEaakuxw87XC9iuhLRAS2OycRhuNpvh5nqo9CK8ury8DFEEtW14apYoNLrFw5LZCXM4rTnbfFRbPF7CJVzd4AepOCkFkiQ2L56waNSLNT8pNNaC+aSE0kc6OaBfNSTBJUtohsTadJ/xh+Ky4UwjjfXcmPhty0R7ssZh2GFXf+ttpSycRhnFpKZ4/PIdXK+tNBKt061QRWEVdz9xIZ97iYqaUdZ6c/+G0WTZ6nCaQz0eeXmSj/a8PMlWXSyOPbTdWEbteepaFFumEZjWB9fKZRS25bv4YyZyVkY57pJ2geUr6BbTCbh9qwvZDlMVzFfddE5yiPq6j8DId7pZGuG0o2gf2sj7KQp7c+Smh7d4qz1qqpFbDxLPsld71R8IK0FoYVS36f7Dhv6/pVstPXr/Sk/3drUlYhK/1uc+02N0FgFumONi2bkygIzc2pb5HmOF+6BZi8Oz87KBjUK7sqbVpaKpTO+Cd1ht1BVra/tsyPvbZrPViwcfFiSmyctJybRs7hi7JTd2V914FVZPMv8Kg5Msr579Nms1QdzCcPzM515Vc2Wbwxx3N8nZisdKpH3TplY1dJcyjFnWhi3EERcnUcLQl1GnQWonDlBuX1s37EPZ6SXBO/1lI9+lQT16LUw1eftkmitNHxdgEAuVvMBx4Goqc27ttPlUOsdbJk3x8kVyWSwOV8rTP2eCu/LCu3f+aQojuIdBJsj1AMbNnbQXoLoj9wuAhXHZWrGUF53NMPjaa6j0Xwy3XpjznsBOq7Af1hDtzsSwk8jOcrBShfDXQmsOtOT9dnVtaH9n1TT7KxL9qH5Bls/lP9/oOid4DgAA"
+}

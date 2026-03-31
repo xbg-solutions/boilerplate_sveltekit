@@ -1,0 +1,26 @@
+{
+  "id": "headersection17",
+  "name": "HeaderSection17",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Minimal with Action Menu",
+  "description": "Ultra-minimal title + three-dot action menu, separated by a thin border.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "minimal",
+    "menu"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tonMenuClick?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Dashboard',\n\t\tonMenuClick\n\t}: Props = $props();\n\n\tlet showMenu = $state(false);\n</script>\n\n<section class={cn('w-full bg-background px-4 py-8 border-b', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"flex items-center justify-between\">\n\t\t\t{#if title}\n\t\t\t\t<h1 class=\"text-3xl font-bold\">{title}</h1>\n\t\t\t{/if}\n\n\t\t\t<div class=\"relative\">\n\t\t\t\t<button\n\t\t\t\t\tonclick={() => {\n\t\t\t\t\t\tshowMenu = !showMenu;\n\t\t\t\t\t\tonMenuClick?.();\n\t\t\t\t\t}}\n\t\t\t\t\tclass=\"p-2 rounded-lg hover:bg-muted transition\"\n\t\t\t\t\taria-label=\"Options menu\"\n\t\t\t\t>\n\t\t\t\t\t<svg class=\"w-5 h-5\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n\t\t\t\t\t\t<circle cx=\"12\" cy=\"5\" r=\"2\" />\n\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"2\" />\n\t\t\t\t\t\t<circle cx=\"12\" cy=\"19\" r=\"2\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\n\t\t\t\t{#if showMenu}\n\t\t\t\t\t<div class=\"absolute right-0 mt-2 w-48 rounded-lg border bg-background shadow-lg z-50\">\n\t\t\t\t\t\t<button class=\"w-full text-left px-4 py-2 hover:bg-muted first:rounded-t-lg last:rounded-b-lg transition text-sm\">\n\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t</button>\n\t\t\t\t\t\t<button class=\"w-full text-left px-4 py-2 hover:bg-muted first:rounded-t-lg last:rounded-b-lg transition text-sm\">\n\t\t\t\t\t\t\tShare\n\t\t\t\t\t\t</button>\n\t\t\t\t\t\t<button class=\"w-full text-left px-4 py-2 hover:bg-muted first:rounded-t-lg last:rounded-b-lg transition text-sm text-destructive\">\n\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18876:22549",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81VbW/TMBD+K0dA6ibV6zY2NLp2iDfxaYDEFyTCB8dxGoNjR/al6Ygq8SP4hfwSzklf0hak8W1qpVyeu3t8uedsN5HhhYzG0edX7+D3z19wq4wquIZaYQ4vBSpr4FaaKhpGyJWulUmjMbpKDqNMaemj8ZcmwrsycASA4laML8vyxM+lxoAl3Mu/4cIalAaJJpp44VSJoLmZTeMIfRzdxCZGVZTWITQgDCwhc7aAwROtklGFSvuRMINrCguBROUyLiR8dLb00AQwRqG59y/G4NEpM7vuQFSo5T5oTfjS11qJ7+Q6OobpDcytSlv3sltES9whHkP7eE/fNuxRwxQGb7jPE8tdOhge8LeM41WhU3hSBuPo+Hq7iM9tHcKD1yNHeZRx7WUImYy6VoX2mImXnUptHdNGmKNBzbJKa0hmLOHi+8zZyqRQLtgFlHfsChLrUulYMhhuiz9ets2epGq+YoqjYsF4hRYKvmA1e7bQK0X2wjItF6BQFp4JGTSAb5VHld2xRGItpdmkxdg8Vhm0HVquIWLLzzZkKBfIni40ZDQZLLE6peymy5iM8rMt00hlK00OKnJSc1Rz2VuYIpIKSYItEAQRQYxp02nd9H0x9hR4tLavd0P6E3PSybfxLZf9t3VpJTuHVg+ZMj2D3M6lG5NQRYUyBXTceBXkjKN+NneKM80TqYniQxkCPBS0dD/spp8x8fPZph81u4ScXcYR0BYNFKJyjqR6bbV1hM6VrF/ZBTlO4RTOL+i/07qWUCgnaLBFCDs7pyxxR1YgdfQMwOh+Ka31vznP/5lDu2E+6+s86oS+iXtat3O3FnFHmJ3B4Ym3mpQAp2Y5slMokPSq2cVVX7Ru/+xtL5/z1NbB/YNdnh62ryuqJ0m7Rdtx1zLDzfY835+JTDmP4/XyGFYgji2SBGQ7OB2lLw4qiPFtqnCvql6vHlixn3Lu5MOstnumki6PShycM93vjaRD/D71T0Y0gD1kfa4dOLf22qLJ785+ssP9TFV1d/Py6/IP+aq1A9kHAAA="
+}

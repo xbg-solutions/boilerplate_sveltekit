@@ -1,0 +1,32 @@
+{
+  "id": "cta02",
+  "name": "CTA02",
+  "category": "blocks",
+  "group": "cta",
+  "title": "Dark Split CTA",
+  "description": "Headline left, CTA buttons right on a dark background.",
+  "tags": [
+    "cta",
+    "call-to-action",
+    "landing-page",
+    "dark",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tlet {\n\t\tclass: className = '',\n\t\theadline = 'Ready to get started?',\n\t\tonLearnMore = () => {},\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\theadline?: string;\n\t\tonLearnMore?: () => void;\n\t\tonCta?: () => void;\n\t} = $props();\n</script>\n\n<section\n\tclass={cn('w-full bg-foreground text-background py-12 px-4', className)}\n>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\">\n\t\t\t<!-- Left: Headline -->\n\t\t\t<h2 class=\"text-2xl sm:text-3xl font-bold\">\n\t\t\t\t{headline}\n\t\t\t</h2>\n\n\t\t\t<!-- Right: Buttons -->\n\t\t\t<div class=\"flex items-center gap-3 sm:flex-shrink-0\">\n\t\t\t\t<Button\n\t\t\t\t\tvariant=\"ghost\"\n\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\tclass=\"text-background hover:bg-background/10\"\n\t\t\t\t\tonclick={onLearnMore}\n\t\t\t\t>\n\t\t\t\t\tLearn more\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\tclass=\"bg-background text-foreground hover:bg-background/90\"\n\t\t\t\t\tonclick={onCta}\n\t\t\t\t>\n\t\t\t\t\tGet started\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:173639",
+  "playgroundUrl": null
+}

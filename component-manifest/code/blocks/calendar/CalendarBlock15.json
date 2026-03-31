@@ -1,0 +1,26 @@
+{
+  "id": "calendarblock15",
+  "name": "CalendarBlock15",
+  "category": "blocks",
+  "group": "calendar",
+  "title": "Calendar Block 15",
+  "description": "Calendar components.",
+  "tags": [],
+  "source": "<!--\n  CalendarBlock15.svelte\n  Single month with ISO week numbers shown in a left column.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    selectedDate = null,\n    month = new Date().getMonth(),\n    year = new Date().getFullYear()\n  }: {\n    class?: string;\n    selectedDate?: Date | null;\n    month?: number;\n    year?: number;\n  } = $props();\n\n  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];\n  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];\n\n  function getWeekNumber(d: Date): number {\n    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));\n    date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));\n    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));\n    return Math.ceil(((date.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);\n  }\n\n  function getDim(y: number, m: number) { return new Date(y, m + 1, 0).getDate(); }\n  function getCalRows(y: number, m: number) {\n    const dim = getDim(y, m), fd = new Date(y, m, 1).getDay(), prev = getDim(y, m - 1);\n    const days: Array<{ day: number; cur: boolean; date: Date }> = [];\n    for (let i = fd - 1; i >= 0; i--) {\n      const d = new Date(y, m - 1, prev - i);\n      days.push({ day: prev - i, cur: false, date: d });\n    }\n    for (let i = 1; i <= dim; i++) days.push({ day: i, cur: true, date: new Date(y, m, i) });\n    while (days.length < 42) {\n      const extra = days.length - dim - fd + 1;\n      days.push({ day: extra, cur: false, date: new Date(y, m + 1, extra) });\n    }\n    // Split into weeks\n    const rows: typeof days[] = [];\n    for (let i = 0; i < days.length; i += 7) rows.push(days.slice(i, i + 7));\n    return rows;\n  }\n\n  function isSelected(d: number) { return selectedDate?.getFullYear() === year && selectedDate?.getMonth() === month && selectedDate?.getDate() === d; }\n  function isToday(d: number) { const t = new Date(); return t.getFullYear() === year && t.getMonth() === month && t.getDate() === d; }\n\n  function prev() { if (month === 0) { month = 11; year--; } else month--; }\n  function next() { if (month === 11) { month = 0; year++; } else month++; }\n  let rows = $derived(getCalRows(year, month));\n</script>\n\n<div class={cn('inline-flex flex-col rounded-md border p-4', className)}>\n  <div class=\"mb-4 flex items-center justify-between\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={prev}>&lt;</Button>\n    <h3 class=\"text-sm font-medium\">{MONTHS[month]} {year}</h3>\n    <Button variant=\"ghost\" size=\"sm\" onclick={next}>&gt;</Button>\n  </div>\n\n  <!-- Header row: week# + days -->\n  <div class=\"grid grid-cols-8\">\n    <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground/50\"></div>\n    {#each DAYS as d}\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground\">{d}</div>\n    {/each}\n  </div>\n\n  <!-- Week rows -->\n  {#each rows as week}\n    <div class=\"grid grid-cols-8\">\n      <!-- Week number -->\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs text-muted-foreground/50\">\n        {getWeekNumber(week[0].date)}\n      </div>\n      {#each week as { day, cur }}\n        <button\n          type=\"button\"\n          class={cn(\n            'flex h-8 w-8 items-center justify-center rounded-full text-sm transition-colors',\n            !cur && 'text-muted-foreground/40 pointer-events-none',\n            cur && 'hover:bg-muted',\n            cur && isToday(day) && !isSelected(day) && 'border border-primary text-primary',\n            cur && isSelected(day) && 'bg-primary text-primary-foreground hover:bg-primary'\n          )}\n          onclick={() => cur && (selectedDate = new Date(year, month, day))}\n          disabled={!cur}\n        >{day}</button>\n      {/each}\n    </div>\n  {/each}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18385:220172",
+  "playgroundUrl": null
+}

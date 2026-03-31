@@ -1,0 +1,26 @@
+{
+  "id": "testimonials01",
+  "name": "Testimonials01",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "Single Centred",
+  "description": "One featured testimonial with large quote, avatar, name, and company.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page",
+    "centered",
+    "single"
+  ],
+  "source": "<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface Testimonial {\n    quote: string;\n    author: string;\n    role?: string;\n    company?: string;\n    avatarUrl?: string;\n    rating?: number;\n  }\n\n  const defaultTestimonials: Testimonial[] = [\n    {\n      quote: '\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"We absolutely love how the Shadcn UI Kit blends functionality and aesthetics seamlessly. It fits perfectly into our design workflow and gives us the flexibility to create stunning, professional and high-quality designs effortlessly.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"This UI kit has been a game changer for our team. The quality is outstanding and the time savings are incredible.\"',\n      author: 'Jane Smith',\n      role: 'Founder',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n  ];\n\n  let { class: className, testimonial = defaultTestimonials[0] } = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:py-24', className)}>\n  <div class=\"mx-auto max-w-2xl text-center\">\n    <blockquote class=\"text-xl sm:text-2xl font-medium leading-relaxed\">\n      {testimonial.quote}\n    </blockquote>\n\n    <div class=\"mt-8 flex flex-col items-center gap-2\">\n      <div class=\"h-12 w-12 rounded-full bg-muted overflow-hidden\">\n        <div class=\"h-full w-full bg-gradient-to-br from-muted-foreground/20 to-muted-foreground/10\"></div>\n      </div>\n      <div class=\"font-medium text-sm\">\n        {testimonial.author}\n        {#if testimonial.role || testimonial.company}\n          <span class=\"text-muted-foreground\">\n            · {testimonial.role}{testimonial.role && testimonial.company ? ',' : ''} {testimonial.company}\n          </span>\n        {/if}\n      </div>\n    </div>\n  </div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:184900",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81WzY7bNhB+lYEaRAlg2btGUhSOvUEaNMW2RXrIBi2w3gNFjSxiKVIhKf/UEZCH6Lv03kfpk3RIaW3J65x66R680pAz833f/Nj7SLESo1n0+/c/wj9f/oQPQq0kwltUzmAWjSLHhNwIlUUzZ2ocRbmQaKPZ7T5yu8p7egPd6+K8qaqxXaN03pYyi+fsXCtHCShMNLfciMqBZGq1WEbOLqOrpQIQZaWNgz1wBQ3kRpcQP5EindROSDvhKn61VOEihTI54wg3aJ0otRJMwt4fAXyqtcMZWGeI1qvWxmpXaHNiNFri6xMb12XF1O7UzNbMMfPRyNMDwxy9kFXVZYomWJsWJBG2DjLMWS1dD6ed9VHf3sECbttgHYEDhXgZfShYRmp8vIafhYNcG3gnViWDgtmAVaJDuQNnmLJ0WmIGujaU1YqVgspojtaO4dotl7El3TgVWKTkQRLWwok1AlMZWLZGC7UFq6GseQEED8dwU2DIopWvHDCDkCJpKfJaUgxuWO4oo4/Aa+t0Kf5gqcTxMopHD1wepI9/oWsa3mtjhD0e+yLQ4dsffj3auiKQ+Q0vEa4VH/ccguIzeNlZmtFXxfuNyKVWyzpoJDWRLfQGHLEa6kqYVWYhrxV3QismhdsFVowKVaATnJRBVtIUWLnzckIuSJCKuhC5a+XUfeU32tznkpL5KCvRqesz5xK3IhUhBflQQZhDaqpaKeI18jXLKU2AEbwLsSqST3ULqg1vAXOqtuvw/E/kvimE9Yrek6K+P1NEBQxWtAyAFzTraEIHe5kcqdn21wMz8tW1s45gU8LA3MvlG9G3J9naBjz08Ffa7CemqLylcMUj1u90rTI0/4n5XbeCaPD8opLM0jyHf++J54iIHRfS4tz0317c0XJbwBMqdGWfPad480m7EK986LnF0IRt0MWeq2fxJvEDB+kqSRm/XxnPA6pdcvktVNvkBdhyRm/TF/HoCOV5E3bqPBPrLtQyKrcJ6UQjzrbJJpluJcHduoSj36fdEiaXVGp+H+p68Az36D5lCo/eN6eNntDGEXVJcjBftsSgZFvMDrGoUXqKjEPQpkszOea5akU9heuS78K8hI+EawnCYWk7wNRZVTLtpRo4F8nlFDb+I8iF2UHDsvZLi7aB8ROaFCLLUPXCPAoUHI81WBniSggSp5PUhO+pNmZC3Y1tdSbTC5rux+bLC0o0n1D8I+rhWz91X+Eguy0HOAfathPQ9E6/EXm/H8d+DODz54GtG4GeG2GwZBqW/pTIAIb/+/uvIRqfq3lkgadPz2WH1xCPYqA5jJthmLPwJh5fX4aJyJtzch6fH57Itx0vevY/dIhb+yOnuWv+Bfq8hbQYCQAA"
+}

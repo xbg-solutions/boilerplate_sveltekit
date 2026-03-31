@@ -1,0 +1,25 @@
+{
+  "id": "featuresection13",
+  "name": "FeatureSection13",
+  "category": "blocks",
+  "group": "feature-section",
+  "title": "Image + Numbered List",
+  "description": "Product screenshot left with numbered feature list right.",
+  "tags": [
+    "features",
+    "landing-page",
+    "image",
+    "numbered"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Feature {\n\t\tnumber: number;\n\t\ttitle: string;\n\t\tdescription: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tfeatures?: Feature[];\n\t}\n\n\tconst defaultFeatures: Feature[] = [\n\t\t{\n\t\t\tnumber: 1,\n\t\t\ttitle: 'Lightning Fast Setup',\n\t\t\tdescription: 'Get started in minutes with our intuitive onboarding process.',\n\t\t},\n\t\t{\n\t\t\tnumber: 2,\n\t\t\ttitle: 'Powerful Analytics',\n\t\t\tdescription: 'Track performance metrics and gain actionable insights.',\n\t\t},\n\t\t{\n\t\t\tnumber: 3,\n\t\t\ttitle: 'Seamless Integration',\n\t\t\tdescription: 'Connect with your favorite tools and platforms.',\n\t\t},\n\t\t{\n\t\t\tnumber: 4,\n\t\t\ttitle: 'Expert Support',\n\t\t\tdescription: 'Get help from our experienced support team anytime.',\n\t\t},\n\t\t{\n\t\t\tnumber: 5,\n\t\t\ttitle: 'Enterprise Security',\n\t\t\tdescription: 'Bank-level encryption and compliance standards.',\n\t\t},\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'How It Works',\n\t\tsubtitle = 'A simple workflow designed for success',\n\t\tfeatures = defaultFeatures,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-white py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-2 gap-12 items-center\">\n\t\t\t<!-- Left Column: Screenshot Placeholder -->\n\t\t\t<div class=\"flex items-center justify-center\">\n\t\t\t\t<div class=\"w-full aspect-video bg-gray-200 rounded-lg shadow-lg\"></div>\n\t\t\t</div>\n\n\t\t\t<!-- Right Column: Feature List -->\n\t\t\t<div>\n\t\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-4\">\n\t\t\t\t\t{title}\n\t\t\t\t</h2>\n\t\t\t\t<p class=\"text-lg text-gray-600 mb-8\">\n\t\t\t\t\t{subtitle}\n\t\t\t\t</p>\n\n\t\t\t\t<div class=\"space-y-6\">\n\t\t\t\t\t{#each features as feature}\n\t\t\t\t\t\t<div class=\"flex gap-4\">\n\t\t\t\t\t\t\t<div class=\"flex-shrink-0\">\n\t\t\t\t\t\t\t\t<div class=\"flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold\">\n\t\t\t\t\t\t\t\t\t{feature.number}\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<h3 class=\"text-lg font-semibold text-gray-900\">{feature.title}</h3>\n\t\t\t\t\t\t\t\t<p class=\"mt-1 text-gray-600 text-sm\">{feature.description}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/each}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:176001",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41W/27bNhB+lZtWwC1mxomTBZ2bbEiLtQsQFMEyYAPi/EFLJ4kLRQokFdswBOwh9oR9kh71w5ZlJe0/EnU6fvzu7ruTNoHiGQaz4J/3n+DLf//DdcYThJ/gc5Et0GAEN8K6YBw4LuRSqCiYOVPgOIiFRBvM7jeBW+cewBvIr4G7yvMj+4TSeduCWxyyh1o5VI5gggsbGpE7kFwll/PA2Xnw61zNnchybRxsIFRQQmx0BqNXUiwmhRPSTkI1ekdu3pGgTMxDhI/IXWEQNt48d6oKZAb1/V1tdMJJnIF1RqiksUVYcxBa7b0p+wfcGp3bFj6U3NrfelAVfN9oi8WgPa75epCG+v1D92DKknUQYcwL6RoP2/GFS7ivkRpKu5hPxq2lCXh0I5LUKTocPnJCvUNX5KOt114KRp/QEVNuHKlAKMiEKhxaWAqXgi4M2VwhnHhC0GqhuYk8bG50iNYetaDl+Blu0wNut3pJGS4kXCku106E9jlmfxkePkJO3tpkXFFNMqSUhha4iiDhxJaH3pcvJBJP66P+Dk6nB5zukGckdAvXVP7EcA/6HKsPWikMXZ2gtc9QzJ+0EQ7BaS1rcrnkzrP+DjZnB2x+X1HMVLUi913xUt1SlHndLp4H+n0CKVER2HozOIqMGFGeM/w2l58Pufh+yI2wSCoKCwpz/Ryh91w9MonU9kAczLqyV9kIdZZLUVWQlKYiElE/MQ9Ng0uKqttzM6hun2mujDtdR90w+kMv4drB39o8biXUdp9/fwWW5gqtl+QRS/ImviJRlB0qDWUo9BJud7b9STt7TVg5lLNmIFzCq9wvXr8hxheTOgF+iKkLi5Uaa8aXm1C9Hi0ZKV3CImHL1CskX7OTc8hX7AxsNqP7OcjE39+OxrtI35TVVLyIxFMDNg+yFeOF05DxFVuy85VsRmfPLTGCWoMuLCQtshMPv3ucUtfk7GQKxCWzLERf3S0QQf3AGNxg7OCDlkVGVb0LDaKyqXZwK2ksplpGaICx3Z7u8bHE1R44/FtYJ+L14Vm9nU2muM0pi+xJRKh92qgZ12x6fAxGFyrCiMkEbMojvaQVoV1MCGTHpX3qxvOnHwvbgNrvhv/g9cPockunW2oOV46drqQvWbU+o3VMXzW2oGyA82OKhiJz1UGVR0X7F6KdLdjZXtDUdZVCy85Zk3TaPTrfP5ki3mGe15hv+5it8Pdg804qeum2ORWTEV4f6EfkYQrbbuC2XZddt6Gye2n1Yx30ZDalD+MjOx5wHgJO2ckxLP3lBWVtBdI23EIWSHuO6+RVTz5527oNHk4JaMI9qmdiOUBwsi+VF61DRq+u04MaV8QsZqIWVVdFRHVLq64ySeZ0CHcnncxR8+/rpnqyWRetM8HLRi/fjOrQtpl40exJb7Ar99btimZoPTdp7f9AiWT991k+lF8BXawQEbgKAAA="
+}

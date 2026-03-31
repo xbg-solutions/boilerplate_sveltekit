@@ -1,0 +1,26 @@
+{
+  "id": "headersection16",
+  "name": "HeaderSection16",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Progress Indicator",
+  "description": "Header showing a step counter or circular progress (e.g. Step 2 of 5).",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "progress",
+    "steps"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tcurrentStep?: number;\n\t\ttotalSteps?: number;\n\t\tprogressPercent?: number;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Your Journey',\n\t\tsubtitle = 'Track your progress through the onboarding process',\n\t\tcurrentStep = 2,\n\t\ttotalSteps = 5,\n\t\tprogressPercent = (currentStep / totalSteps) * 100\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-5xl\">\n\t\t<div class=\"flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8\">\n\t\t\t<div class=\"flex-1\">\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-3\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if subtitle}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{subtitle}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\n\t\t\t<div class=\"flex flex-col items-center gap-6 lg:items-end\">\n\t\t\t\t<div class=\"relative w-32 h-32\">\n\t\t\t\t\t<svg class=\"w-full h-full transform -rotate-90\" viewBox=\"0 0 120 120\">\n\t\t\t\t\t\t<circle\n\t\t\t\t\t\t\tcx=\"60\"\n\t\t\t\t\t\t\tcy=\"60\"\n\t\t\t\t\t\t\tr=\"54\"\n\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\tstroke-width=\"8\"\n\t\t\t\t\t\t\tclass=\"text-muted\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<circle\n\t\t\t\t\t\t\tcx=\"60\"\n\t\t\t\t\t\t\tcy=\"60\"\n\t\t\t\t\t\t\tr=\"54\"\n\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\tstroke-width=\"8\"\n\t\t\t\t\t\t\tstroke-dasharray={`${(progressPercent / 100) * 339.29} 339.29`}\n\t\t\t\t\t\t\tclass=\"text-foreground transition-all duration-500\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</svg>\n\t\t\t\t\t<div class=\"absolute inset-0 flex items-center justify-center\">\n\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t<p class=\"text-3xl font-bold\">{currentStep}</p>\n\t\t\t\t\t\t\t<p class=\"text-xs text-muted-foreground\">of {totalSteps}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"text-center lg:text-right\">\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground\">Progress</p>\n\t\t\t\t\t<p class=\"text-2xl font-bold\">{Math.round(progressPercent)}%</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18876:21520",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE91W647jNBR+laMwqDOont5mRjvddhHLDwQSaCWQAFGkdVInMevYkX3Si6JKPARPyJNwnKRtkrb7APxoY59z/J2rv6QMNM9EMA9+e/8d/Pv3P/CrxBQ+WJNY4Rx8r9cy4mhsMAyQS7WVeh3M0RZiGMRSCRfM/ygD3OcewgvIrgH8Js8f3UYo9LKQO3FNHhmNQiPBBAsXWZkjKK6T5SpAtwrerfQKZZYbi1BCpOEAsTUZDO6UDEcFSuVGkR68JTNvSFA25pHw4ecOSi9cYaS4c1/PwaGVOnlbC1GiEn2hK8Kr8qiwloL8GUVOKl1kobBHHINceYXra/KmhB+EjehwV32oI1YCO1HOoXr8RIUatuKEJQx+N4WFH+hPi/1g2I3X63+xPPoEe2919AyYWlMkKT0FGB0abteUlNdHpD6itLIjoOmwnxgJn4dXcyLNffv0CM6nHuArmIzHVbLzpiFLuMv94v6BirAY1f32PdYLJyKURtf5L8tI3w+2LC6UgjBhIaWWUCp6DfmOPUG+Z5MXcNmcFtOnwfBctYdDNTKLtdw0UKsg2zFeoIGM79iWPe9UM1c9s1iJHfg/FhkFKplXa2u2fi1RZI75nIX1+78KhzLes1DgVggNCc/ZmxPuFWQ2aWlXWH4hY6h6dzgL6Vg6OZ1CsUP2tFM+z2pNkUNM14WFRq0Bfb+pmwxlkiJkIZuRh7LGXIzSSdvbSMbNxLXcH6enG0HeDUAlUD2zAsWaxcaKuhHe1wlgMcqveKvxRlSJd2ffnyl5p8a+oC/nyovK49lHB8YKxVFuBGzZbAop/XVsydptkpN1M1Zp/aAyakdpZUCtRo6CvY5XAWyk2L43OzIfwxgm0+rXQyXcSNpIia6QLpQ/90LmF4r9DYUl+fPTpZwIVZFKGy0ulURR5pMgdXMFvzXK2FtmbCvXmJLxmythtRteNbpvM/p/Jt5YrLlLubV8vyw/3pX3fZIbeR7zdDabvT5OXw/N8+Phs3U8X5V6xqSnN8Zp5NaF5dXmeXxRkW6hiSI3SVfSnnseOqOoXSC1E8jG1VXqXqMjT9XbywFuw1Vh3zC8JIZZm408G7ReBD1CuA6wczeZxcRQnt8kV9BOrHJT0ued27l6kqm21hNpnzl6QbvsZtDHT6Z+tH2Iab9wP3JMHyuU/ug9HL7sonWzbO/O6+OKhqd+p9Laf7yR7/rD7fDn4T/i367V9QkAAA=="
+}

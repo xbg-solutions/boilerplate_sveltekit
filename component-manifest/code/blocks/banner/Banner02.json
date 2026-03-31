@@ -1,0 +1,26 @@
+{
+  "id": "banner02",
+  "name": "Banner02",
+  "category": "blocks",
+  "group": "banner",
+  "title": "Minimal Banner",
+  "description": "Light border banner with icon, message, and dismiss button.",
+  "tags": [
+    "banner",
+    "announcement",
+    "notification",
+    "minimal",
+    "dismissable"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tmessage?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tmessage = 'New update · Pro blocks are now available in shadcn/ui kit for Figma!',\n\t\tctaLabel,\n\t\tonCta\n\t}: Props = $props();\n\n\tlet visible = $state(true);\n\n\tconst handleClose = () => {\n\t\tvisible = false;\n\t};\n\n\tconst handleCta = () => {\n\t\tif (onCta) {\n\t\t\tonCta();\n\t\t}\n\t};\n</script>\n\n{#if visible}\n\t<!-- Desktop -->\n\t<div class=\"hidden sm:flex w-full bg-foreground text-background text-sm px-6 py-3 items-center justify-between\">\n\t\t<p class=\"text-center flex-1\">{message}</p>\n\t\t<button\n\t\t\tonclick={handleClose}\n\t\t\tclass=\"text-background/70 hover:text-background transition-colors flex-shrink-0\"\n\t\t\taria-label=\"Close banner\"\n\t\t>\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line>\n\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line>\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n\n\t<!-- Mobile -->\n\t<div class=\"sm:hidden rounded-lg bg-foreground text-background p-4 text-sm flex items-start justify-between gap-3\">\n\t\t<p class=\"flex-1\">{message}</p>\n\t\t<button\n\t\t\tonclick={handleClose}\n\t\t\tclass=\"text-background/70 hover:text-background transition-colors flex-shrink-0 mt-0.5\"\n\t\t\taria-label=\"Close banner\"\n\t\t>\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line>\n\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line>\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17006:181916",
+  "playgroundUrl": null
+}

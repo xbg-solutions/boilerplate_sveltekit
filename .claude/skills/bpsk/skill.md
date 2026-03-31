@@ -31,6 +31,7 @@ A production-ready SvelteKit 5 foundation for **agentic, AI-assisted development
 | `components` | `components/` | Three-tier components: basic atoms (code), extended atoms + blocks (`npx xbg-frontend add`) |
 | `packages` | `packages/` | npm distribution, dependency graph, import path mapping |
 | `security_hardening` | `security_hardening/` | CSP/headers, Firebase security rules, App Check, CSRF, rate limiting |
+| `contributing` | `contributing/` | Extend the boilerplate: add atoms/blocks, update registry, maintain component manifest |
 
 ---
 

@@ -1,0 +1,48 @@
+{
+  "id": "signupblock03",
+  "name": "SignupBlock03",
+  "category": "blocks",
+  "group": "auth",
+  "title": "Multi-step Sign-up",
+  "description": "Step-by-step registration flow with progress indicator.",
+  "tags": [
+    "auth",
+    "login",
+    "sign-up",
+    "otp",
+    "sign-up",
+    "multi-step"
+  ],
+  "source": "<!--\n  SignupBlock03.svelte\n  Create account form with terms checkbox.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    CardFooter,\n    Input,\n    Label,\n    Checkbox\n  } from '$lib/components/ui';\n  import { BrandIcon } from '$lib/components/ui/icon';\n\n  let {\n    class: className = '',\n    onSubmit = undefined,\n    onGoogleSignup = undefined,\n    onSignIn = undefined,\n    onTermsClick = undefined,\n    onPrivacyClick = undefined\n  }: {\n    class?: string;\n    onSubmit?: ((data: { name: string; email: string; password: string; acceptedTerms: boolean }) => void) | undefined;\n    onGoogleSignup?: (() => void) | undefined;\n    onSignIn?: (() => void) | undefined;\n    onTermsClick?: (() => void) | undefined;\n    onPrivacyClick?: (() => void) | undefined;\n  } = $props();\n\n  let name = $state('');\n  let email = $state('');\n  let password = $state('');\n  let acceptedTerms = $state(false);\n\n  function handleSubmit() {\n    onSubmit?.({ name, email, password, acceptedTerms });\n  }\n</script>\n\n<div class={cn('flex min-h-screen items-center justify-center p-4', className)}>\n  <Card class=\"w-full max-w-md\">\n    <CardHeader>\n      <CardTitle class=\"text-2xl\">Create an account</CardTitle>\n      <CardDescription>Enter your information below to create your account</CardDescription>\n    </CardHeader>\n    <CardContent>\n      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class=\"space-y-4\">\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup03-name\">Full name</Label>\n          <Input\n            type=\"text\"\n            placeholder=\"John Doe\"\n            bind:value={name}\n          />\n        </div>\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup03-email\">Email</Label>\n          <Input\n            type=\"email\"\n            placeholder=\"m@example.com\"\n            bind:value={email}\n          />\n        </div>\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup03-password\">Password</Label>\n          <Input\n            type=\"password\"\n            bind:value={password}\n          />\n          <p class=\"text-xs text-muted-foreground\">Must be at least 8 characters long.</p>\n        </div>\n        <div class=\"flex items-start space-x-2\">\n          <Checkbox bind:checked={acceptedTerms} />\n          <label class=\"text-sm text-muted-foreground leading-none\">\n            I agree to the\n            <button\n              type=\"button\"\n              class=\"text-primary underline-offset-4 hover:underline\"\n              onclick={onTermsClick}\n            >\n              Terms of Service\n            </button>\n            and\n            <button\n              type=\"button\"\n              class=\"text-primary underline-offset-4 hover:underline\"\n              onclick={onPrivacyClick}\n            >\n              Privacy Policy\n            </button>\n          </label>\n        </div>\n        <Button type=\"submit\" class=\"w-full\">Create Account</Button>\n        <Button variant=\"outline\" type=\"button\" class=\"w-full\" onclick={onGoogleSignup}>\n          <BrandIcon name=\"google\" size={16} colored class=\"mr-2\" />\n          Sign up with Google\n        </Button>\n      </form>\n    </CardContent>\n    <CardFooter class=\"justify-center\">\n      <p class=\"text-sm text-muted-foreground\">\n        Already have an account?\n        <button\n          type=\"button\"\n          class=\"text-primary underline-offset-4 hover:underline\"\n          onclick={onSignIn}\n        >\n          Sign in\n        </button>\n      </p>\n    </CardFooter>\n  </Card>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "CardFooter",
+        "Input",
+        "Label",
+        "Checkbox"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "BrandIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    }
+  ],
+  "figmaNodeId": "18751:256650",
+  "playgroundUrl": null
+}

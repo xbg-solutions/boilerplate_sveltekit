@@ -1,0 +1,26 @@
+{
+  "id": "calendarblock06",
+  "name": "CalendarBlock06",
+  "category": "blocks",
+  "group": "calendar",
+  "title": "Calendar Block 06",
+  "description": "Calendar components.",
+  "tags": [],
+  "source": "<!--\n  CalendarBlock06.svelte\n  Single-month range picker with minimum-days validation message.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    startDate = null,\n    endDate = null,\n    minDays = 5,\n    validationMessage = `A minimum of ${5} days is required`,\n    month = new Date().getMonth(),\n    year = new Date().getFullYear()\n  }: {\n    class?: string;\n    startDate?: Date | null;\n    endDate?: Date | null;\n    minDays?: number;\n    validationMessage?: string;\n    month?: number;\n    year?: number;\n  } = $props();\n\n  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];\n  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];\n\n  function getDim(y: number, m: number) { return new Date(y, m + 1, 0).getDate(); }\n  function getCalDays(y: number, m: number) {\n    const dim = getDim(y, m), fd = new Date(y, m, 1).getDay(), prev = getDim(y, m - 1);\n    const days: Array<{ day: number; cur: boolean }> = [];\n    for (let i = fd - 1; i >= 0; i--) days.push({ day: prev - i, cur: false });\n    for (let i = 1; i <= dim; i++) days.push({ day: i, cur: true });\n    while (days.length < 42) days.push({ day: days.length - dim - fd + 2, cur: false });\n    return days;\n  }\n\n  function makeTs(y: number, m: number, d: number) { return new Date(y, m, d).getTime(); }\n  function inRange(d: number) {\n    const n = makeTs(year, month, d), s = startDate?.getTime(), e = endDate?.getTime();\n    if (!s || !e) return false;\n    const [lo, hi] = s <= e ? [s, e] : [e, s];\n    return n >= lo && n <= hi;\n  }\n  function isEdge(d: number) {\n    const n = makeTs(year, month, d);\n    return n === startDate?.getTime() || n === endDate?.getTime();\n  }\n\n  function handleClick(d: number) {\n    const clicked = new Date(year, month, d);\n    if (!startDate || endDate) { startDate = clicked; endDate = null; }\n    else endDate = clicked;\n  }\n\n  let rangedays = $derived(() => {\n    if (!startDate || !endDate) return 0;\n    return Math.round(Math.abs(endDate.getTime() - startDate.getTime()) / 86400000) + 1;\n  });\n\n  let showError = $derived(endDate !== null && rangedays() < minDays);\n\n  function prev() { if (month === 0) { month = 11; year--; } else month--; }\n  function next() { if (month === 11) { month = 0; year++; } else month++; }\n  let calDays = $derived(getCalDays(year, month));\n</script>\n\n<div class={cn('inline-flex flex-col rounded-md border p-4', className)}>\n  <div class=\"mb-4 flex items-center justify-between\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={prev}>&lt;</Button>\n    <h3 class=\"text-sm font-medium\">{MONTHS[month]} {year}</h3>\n    <Button variant=\"ghost\" size=\"sm\" onclick={next}>&gt;</Button>\n  </div>\n  <div class=\"grid grid-cols-7\">\n    {#each DAYS as d}\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground\">{d}</div>\n    {/each}\n    {#each calDays as { day, cur }}\n      <button\n        type=\"button\"\n        class={cn(\n          'flex h-8 w-8 items-center justify-center text-sm transition-colors',\n          !cur && 'text-muted-foreground/40 pointer-events-none',\n          cur && inRange(day) && !isEdge(day) && 'bg-muted',\n          cur && isEdge(day) && 'rounded-full bg-primary text-primary-foreground',\n          cur && !inRange(day) && 'rounded-full hover:bg-muted'\n        )}\n        onclick={() => cur && handleClick(day)}\n        disabled={!cur}\n      >{day}</button>\n    {/each}\n  </div>\n  {#if showError}\n    <p class=\"mt-3 text-center text-xs text-muted-foreground\">{validationMessage}</p>\n  {/if}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18420:49152",
+  "playgroundUrl": null
+}

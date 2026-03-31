@@ -1,0 +1,30 @@
+{
+  "id": "useritem",
+  "name": "UserItem",
+  "category": "atoms",
+  "group": "user-item",
+  "title": "User Item",
+  "description": "Avatar + name + secondary text row, used in dropdowns, sidebars, and user lists.",
+  "tags": [
+    "user",
+    "avatar",
+    "list-item"
+  ],
+  "source": "<!--\n  src/lib/components/ui/user-item/UserItem.svelte\n  Avatar + name + email row component.\n\n  Usage:\n  <UserItem name=\"John Doe\" email=\"john@example.com\" avatarSrc=\"/avatar.jpg\">\n    {#snippet value()}$1,999.00{/snippet}\n  </UserItem>\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import Avatar from '$lib/components/ui/Avatar.svelte';\n  import type { Snippet } from 'svelte';\n\n  let {\n    name,\n    email,\n    avatarSrc = undefined,\n    class: className = '',\n    value,\n    ...rest\n  }: {\n    name: string;\n    email: string;\n    avatarSrc?: string | undefined;\n    class?: string;\n    value?: Snippet;\n    [key: string]: unknown;\n  } = $props();\n</script>\n\n<div class={cn('flex items-center gap-3', className)} {...rest}>\n  <Avatar src={avatarSrc} alt={name} fallback={name} size=\"lg\" />\n  <div class=\"flex-1 min-w-0\">\n    <p class=\"text-sm font-medium text-foreground truncate\">{name}</p>\n    <p class=\"text-sm text-muted-foreground truncate\">{email}</p>\n  </div>\n  {@render value?.()}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Avatar"
+      ],
+      "from": "$lib/components/ui/Avatar.svelte"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

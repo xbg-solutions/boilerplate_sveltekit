@@ -1,0 +1,26 @@
+{
+  "id": "card05",
+  "name": "Card05",
+  "category": "blocks",
+  "group": "card",
+  "title": "Card 05",
+  "description": "Card components.",
+  "tags": [],
+  "source": "<!--\n  Card05.svelte\n  Billing/account card: icon circle + title + more-menu, then key-value rows\n  (last invoice date + amount).\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  interface KVRow { label: string; value: string; }\n\n  let {\n    class: className = '',\n    title = 'Title Text',\n    rows = [\n      { label: 'Last invoice', value: 'December 13, 2024' },\n      { label: 'Amount', value: '$45' }\n    ] as KVRow[],\n    onmore = () => {}\n  }: {\n    class?: string;\n    title?: string;\n    rows?: KVRow[];\n    onmore?: () => void;\n  } = $props();\n</script>\n\n<div class={cn('rounded-lg border bg-background', className)}>\n  <!-- Header -->\n  <div class=\"flex items-center gap-3 p-4\">\n    <div class=\"flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground text-background text-xs font-bold\">\n      {title[0]?.toUpperCase()}\n    </div>\n    <p class=\"flex-1 font-semibold\">{title}</p>\n    <Button variant=\"ghost\" size=\"icon\" class=\"h-7 w-7\" onclick={onmore}>\n      <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/></svg>\n    </Button>\n  </div>\n\n  <!-- Key-value rows -->\n  {#if rows.length}\n    <div class=\"border-t\">\n      {#each rows as row, i}\n        <div class={cn('flex items-center justify-between px-4 py-2.5 text-sm', i > 0 && 'border-t')}>\n          <span class=\"text-muted-foreground\">{row.label}</span>\n          <span class=\"font-medium\">{row.value}</span>\n        </div>\n      {/each}\n    </div>\n  {/if}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "15003:160201",
+  "playgroundUrl": null
+}

@@ -1,0 +1,26 @@
+{
+  "id": "calendarblock02",
+  "name": "CalendarBlock02",
+  "category": "blocks",
+  "group": "calendar",
+  "title": "Calendar Block 02",
+  "description": "Calendar components.",
+  "tags": [],
+  "source": "<!--\n  CalendarBlock02.svelte\n  Single month calendar view with navigation and date selection.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    selectedDate = null,\n    month = selectedDate ? selectedDate.getMonth() : new Date().getMonth(),\n    year = selectedDate ? selectedDate.getFullYear() : new Date().getFullYear()\n  }: {\n    class?: string;\n    selectedDate?: Date | null;\n    month?: number;\n    year?: number;\n  } = $props();\n\n  const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];\n  const MONTHS = [\n    'January', 'February', 'March', 'April', 'May', 'June',\n    'July', 'August', 'September', 'October', 'November', 'December'\n  ];\n\n  function getDaysInMonth(y: number, m: number): number {\n    return new Date(y, m + 1, 0).getDate();\n  }\n\n  function getFirstDayOfMonth(y: number, m: number): number {\n    return new Date(y, m, 1).getDay();\n  }\n\n  function getCalendarDays(y: number, m: number): Array<{ day: number; current: boolean }> {\n    const daysInMonth = getDaysInMonth(y, m);\n    const firstDay = getFirstDayOfMonth(y, m);\n    const daysInPrevMonth = getDaysInMonth(y, m - 1);\n    const days: Array<{ day: number; current: boolean }> = [];\n\n    for (let i = firstDay - 1; i >= 0; i--) {\n      days.push({ day: daysInPrevMonth - i, current: false });\n    }\n    for (let i = 1; i <= daysInMonth; i++) {\n      days.push({ day: i, current: true });\n    }\n    const remaining = 42 - days.length;\n    for (let i = 1; i <= remaining; i++) {\n      days.push({ day: i, current: false });\n    }\n    return days;\n  }\n\n  function isSelected(d: number): boolean {\n    if (!selectedDate) return false;\n    return selectedDate.getFullYear() === year &&\n           selectedDate.getMonth() === month &&\n           selectedDate.getDate() === d;\n  }\n\n  function isToday(d: number): boolean {\n    const today = new Date();\n    return today.getFullYear() === year &&\n           today.getMonth() === month &&\n           today.getDate() === d;\n  }\n\n  function selectDay(d: number) {\n    selectedDate = new Date(year, month, d);\n  }\n\n  function prevMonth() {\n    if (month === 0) {\n      month = 11;\n      year--;\n    } else {\n      month--;\n    }\n  }\n\n  function nextMonth() {\n    if (month === 11) {\n      month = 0;\n      year++;\n    } else {\n      month++;\n    }\n  }\n\n  let calendarDays = $derived(getCalendarDays(year, month));\n</script>\n\n<div class={cn('inline-flex flex-col rounded-md border p-4', className)}>\n  <!-- Header -->\n  <div class=\"mb-4 flex items-center justify-between\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={prevMonth}>\n      <!-- Lucide: ChevronLeft -->\n      &lt;\n    </Button>\n    <h3 class=\"text-sm font-medium\">{MONTHS[month]} {year}</h3>\n    <Button variant=\"ghost\" size=\"sm\" onclick={nextMonth}>\n      <!-- Lucide: ChevronRight -->\n      &gt;\n    </Button>\n  </div>\n\n  <!-- Day headers -->\n  <div class=\"grid grid-cols-7 gap-0\">\n    {#each DAYS as day}\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground\">\n        {day}\n      </div>\n    {/each}\n\n    <!-- Calendar days -->\n    {#each calendarDays as { day, current }}\n      <button\n        type=\"button\"\n        class={cn(\n          'flex h-8 w-8 items-center justify-center rounded-full text-sm transition-colors',\n          !current && 'text-muted-foreground/40',\n          current && 'hover:bg-muted',\n          current && isToday(day) && !isSelected(day) && 'border border-primary text-primary',\n          current && isSelected(day) && 'bg-primary text-primary-foreground hover:bg-primary'\n        )}\n        onclick={() => current && selectDay(day)}\n        disabled={!current}\n      >\n        {day}\n      </button>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18422:231468",
+  "playgroundUrl": null
+}

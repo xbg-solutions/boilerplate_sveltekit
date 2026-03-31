@@ -1,0 +1,26 @@
+{
+  "id": "bentogrid03",
+  "name": "BentoGrid03",
+  "category": "blocks",
+  "group": "bento-grid",
+  "title": "4-col + Large",
+  "description": "Four compact cells with one large featured cell spanning two rows.",
+  "tags": [
+    "bento",
+    "grid",
+    "features",
+    "landing-page",
+    "4-col"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t}\n\n\tlet { class: customClass = '', title = 'Build something amazing', description = '' }: Props = $props();\n</script>\n\n<section class={cn('w-full py-16 px-4 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-sm font-semibold text-foreground/60 mb-2\">Bento Grid</p>\n\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-4\">{title}</h2>\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground max-w-2xl mx-auto\">{description}</p>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4\">\n\t\t\t<!-- Large feature card (2x2) -->\n\t\t\t<div class=\"rounded-xl border bg-background p-6 sm:col-span-2 sm:row-span-2\">\n\t\t\t\t<div class=\"aspect-video w-full rounded-lg bg-muted/60 flex items-center justify-center mb-4\">\n\t\t\t\t\t<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\">\n\t\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/>\n\t\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/>\n\t\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<h3 class=\"text-lg font-semibold\">Featured Solution</h3>\n\t\t\t\t<p class=\"text-muted-foreground mt-2\">Our flagship product designed for maximum impact.</p>\n\t\t\t</div>\n\n\t\t\t<!-- 4 smaller cells -->\n\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t<div class=\"flex items-center justify-center h-10 w-10 rounded-lg bg-foreground/10 mb-3\">\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-foreground\">\n\t\t\t\t\t\t<path d=\"M12 2v20m-8-8h16\"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<h3 class=\"font-semibold text-sm\">Feature One</h3>\n\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">Quick description here.</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t<div class=\"flex items-center justify-center h-10 w-10 rounded-lg bg-foreground/10 mb-3\">\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-foreground\">\n\t\t\t\t\t\t<path d=\"M12 2v20m-8-8h16\"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<h3 class=\"font-semibold text-sm\">Feature Two</h3>\n\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">Quick description here.</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t<div class=\"flex items-center justify-center h-10 w-10 rounded-lg bg-foreground/10 mb-3\">\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-foreground\">\n\t\t\t\t\t\t<path d=\"M12 2v20m-8-8h16\"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<h3 class=\"font-semibold text-sm\">Feature Three</h3>\n\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">Quick description here.</p>\n\t\t\t</div>\n\n\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t<div class=\"flex items-center justify-center h-10 w-10 rounded-lg bg-foreground/10 mb-3\">\n\t\t\t\t\t<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"text-foreground\">\n\t\t\t\t\t\t<path d=\"M12 2v20m-8-8h16\"/>\n\t\t\t\t\t</svg>\n\t\t\t\t</div>\n\t\t\t\t<h3 class=\"font-semibold text-sm\">Feature Four</h3>\n\t\t\t\t<p class=\"text-xs text-muted-foreground mt-1\">Quick description here.</p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17007:4867",
+  "playgroundUrl": null
+}

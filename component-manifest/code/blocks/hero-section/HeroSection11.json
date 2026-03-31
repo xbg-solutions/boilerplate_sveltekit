@@ -1,0 +1,32 @@
+{
+  "id": "herosection11",
+  "name": "HeroSection11",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "BG Overlay",
+  "description": "Hero with a background image and dark overlay for text contrast.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "image",
+    "overlay"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t\timageUrl?: string;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Build your next big idea faster',\n\t\tsubtitle = 'A comprehensive toolkit that helps you design, develop, and ship production-ready products at lightning speed.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Learn more',\n\t\tonPrimary,\n\t\tonSecondary,\n\t\timageUrl,\n\t}: Props = $props();\n</script>\n\n<section\n\tclass={cn('relative w-full min-h-[600px] bg-foreground overflow-hidden flex items-center px-4 py-20 sm:px-6 lg:px-8', className)}\n>\n\t<div class=\"absolute inset-0 bg-foreground/70\"></div>\n\n\t{#if imageUrl}\n\t\t<img src={imageUrl} alt=\"Hero background\" class=\"absolute inset-0 w-full h-full object-cover\" />\n\t{:else}\n\t\t<div class=\"absolute inset-0 bg-muted\"></div>\n\t{/if}\n\n\t<div class=\"relative z-10 mx-auto max-w-6xl w-full\">\n\t\t<div class=\"text-center\">\n\t\t\t<h1 class=\"text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-background\">\n\t\t\t\t{title}\n\t\t\t</h1>\n\t\t\t<p class=\"mt-4 text-lg text-background/90 max-w-2xl mx-auto\">\n\t\t\t\t{subtitle}\n\t\t\t</p>\n\t\t\t<div class=\"mt-8 flex flex-col sm:flex-row gap-3 justify-center\">\n\t\t\t\t<Button size=\"lg\" variant=\"secondary\" onclick={onPrimary}>{primaryLabel}</Button>\n\t\t\t\t<Button\n\t\t\t\t\tsize=\"lg\"\n\t\t\t\t\tvariant=\"outline\"\n\t\t\t\t\tonclick={onSecondary}\n\t\t\t\t\tclass=\"border-background/30 text-background hover:bg-background/10\"\n\t\t\t\t>\n\t\t\t\t\t{secondaryLabel}\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18831:16142",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE4VVzY7bNhB+lYEawLuAFXmTdJs6tovsJT0EbYCiQIE4B0oaScxSpECOvHYEAX2IPmGfpEPJliV7g15Majgz38w3P24CLUoMlsFfDx/g37//AT5+36FV4hDMAxJSPUmdBkuyNc6DTCp0wfJzE9Ch8lZewHpHH++r6qXboSIvi4XD5+SJ0YSa2E2wcomVFYESOl9vA3LbYLPVW5JlZSxBA4mGFjJrSpi9UDKOapLKRYmevZuoPdRE5kI1MfyqPVBUy07fWzC0zUSC8MmaykHjhVtKlHDulyU4slLn73ohSVJ4KXR1/Ky8srIU9vBRxKiubJBTTr/3avSn3pYfbm5hvYGdkenw+MfJ+LlntsvxT3vhs+1zVUiT/JbQHb9xSeajDGENs4daqhQOpragcU8QyxxkigIy4Ziw2XyavDd5D55giwVqJ3cIZIx6lARUCIICFZPL/iBFJ3M955PLb6o5CJ2CK2QFlTVpnZA0OrQo0sNJ4IAdKJkXpDkhcBVi+vIUwZhmH8UHztGRsITpEOSEba/0EYXVUBqLJ52B8/kVzfMps91nuzy2yxpeVP5yc8tEr6K+e33H6hXD+ly8ekfzukn0zcyiEuTpeQqzWikopQ6L8PP9YlHtv0CchxlHlVtTMyuGpy5T5iksZJqihkzhHiRh6cIEfd9CtQ/fQHUIXy3AlUv+ugeV+/PtbH4u7i3Xv5uiVSp3vZhnS8TOqJoQpHZI4WIKHv204NFbRWyx6bun+UFmcGKh7UlZyZILYpN1MzyAUMTef0VrIBbJY+9uG3wf98hE0R8m/srEhYlPnq2iLvBmicrhCfT/sij5Ox1HT00ks+MQTKyHanwL7xZQ7kNRk4FS7MOn8H6vjqEdd9CFLfFcHOswKLBKcTfVeMNuuDbd/Ue+c326u3ef8eILY8OTRpap4u4Oyfc5dBpj9gb/nEs3ce0AGBV3Z/RqAC8Zuvej8kt/0c+LY5KvOIpj2lOQ02SPcKozzJgHBnrbt6b/4cJ1+XZ3a54gF1X4Gr7WjmR2uOaLnR13tZPfkN2pnKu+E1YK7ftoGF6WGp0omTyum2Fa200zXgDtKuqdXbs/C3ghnJHG4jOoqUlJjdPnEfqwG9qxwomQ2NgU7Zju14vLCkDh+3vJzTpSu1uMETdj3810iY1wr1I+d/34frrxjur3Et/93zmH1f+Vt1/a/wAhm1ng+gcAAA=="
+}

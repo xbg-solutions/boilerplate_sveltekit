@@ -1,0 +1,39 @@
+{
+  "id": "appshell01",
+  "name": "AppShell01",
+  "category": "blocks",
+  "group": "app-shell",
+  "title": "Fixed Sidebar",
+  "description": "Fixed left sidebar with collapsible nav and scrollable main content area.",
+  "tags": [
+    "layout",
+    "shell",
+    "sidebar",
+    "app",
+    "sidebar",
+    "fixed"
+  ],
+  "source": "<!--\n  AppShell01.svelte\n  Navbar1 (with links + upgrade) + breadcrumb + page title/description +\n  action buttons (Share, View, Edit, Publish) + slotted content area.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n  import Navbar01 from '$lib/components/blocks/navbar/Navbar01.svelte';\n  import type { Snippet } from 'svelte';\n\n  let {\n    class: className = '',\n    title = 'Project alpha',\n    description = 'Manage your project\\'s details such as name, image, description and settings.',\n    breadcrumbs = [{ label: 'Home', href: '#' }, { label: 'Settings', href: '#' }, { label: 'Profile details' }],\n    onshare = () => {},\n    onview = () => {},\n    onedit = () => {},\n    onpublish = () => {},\n    children\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    breadcrumbs?: Array<{ label: string; href?: string }>;\n    onshare?: () => void;\n    onview?: () => void;\n    onedit?: () => void;\n    onpublish?: () => void;\n    children?: Snippet;\n  } = $props();\n</script>\n\n<div class={cn('flex min-h-screen flex-col bg-muted/30', className)}>\n  <Navbar01 />\n\n  <div class=\"flex-1 px-4 py-6 md:px-8\">\n    <!-- Breadcrumb -->\n    <nav class=\"mb-4 flex items-center gap-1.5 text-sm text-muted-foreground\">\n      {#each breadcrumbs as crumb, i}\n        {#if i > 0}<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg>{/if}\n        {#if crumb.href && i < breadcrumbs.length - 1}\n          <a href={crumb.href} class=\"hover:text-foreground\">{crumb.label}</a>\n        {:else}\n          <span class={i === breadcrumbs.length - 1 ? 'font-medium text-foreground' : ''}>{crumb.label}</span>\n        {/if}\n      {/each}\n    </nav>\n\n    <!-- Page header -->\n    <div class=\"mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between\">\n      <div>\n        <h1 class=\"text-2xl font-bold\">{title}</h1>\n        {#if description}<p class=\"mt-1 text-sm text-muted-foreground\">{description}</p>{/if}\n      </div>\n      <div class=\"flex shrink-0 items-center gap-2\">\n        <Button variant=\"outline\" size=\"sm\" onclick={onshare}>Share</Button>\n        <Button variant=\"outline\" size=\"sm\" onclick={onview}>View</Button>\n        <Button variant=\"outline\" size=\"sm\" onclick={onedit}>Edit</Button>\n        <Button size=\"sm\" onclick={onpublish}>Publish</Button>\n      </div>\n    </div>\n\n    <!-- Content slot -->\n    {#if children}\n      {@render children()}\n    {:else}\n      <div class=\"flex min-h-32 items-center justify-center rounded-lg border border-dashed bg-background text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/if}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "Navbar01"
+      ],
+      "from": "$lib/components/blocks/navbar/Navbar01.svelte"
+    }
+  ],
+  "figmaNodeId": "11005:3814",
+  "playgroundUrl": null
+}

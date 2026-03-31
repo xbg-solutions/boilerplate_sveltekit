@@ -1,0 +1,32 @@
+{
+  "id": "cta06",
+  "name": "CTA06",
+  "category": "blocks",
+  "group": "cta",
+  "title": "Dark Rounded CTA",
+  "description": "Rounded-corner dark section with centred text and button.",
+  "tags": [
+    "cta",
+    "call-to-action",
+    "landing-page",
+    "dark",
+    "rounded"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tlet {\n\t\tclass: className = '',\n\t\theadline = 'Ready to transform your workflow?',\n\t\tonCta = () => {},\n\t\tonLearnMore = () => {}\n\t}: {\n\t\tclass?: string;\n\t\theadline?: string;\n\t\tonCta?: () => void;\n\t\tonLearnMore?: () => void;\n\t} = $props();\n</script>\n\n<section class={cn('w-full bg-muted py-8 px-4', className)}>\n\t<div class=\"mx-auto max-w-5xl rounded-xl bg-foreground text-background px-6 py-10\">\n\t\t<div class=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\">\n\t\t\t<!-- Left: Headline -->\n\t\t\t<h2 class=\"text-2xl font-bold\">{headline}</h2>\n\n\t\t\t<!-- Right: Buttons -->\n\t\t\t<div class=\"flex gap-3 sm:flex-shrink-0 flex-col sm:flex-row\">\n\t\t\t\t<Button\n\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\tclass=\"bg-background text-foreground hover:bg-background/90\"\n\t\t\t\t\tonclick={onCta}\n\t\t\t\t>\n\t\t\t\t\tGet started\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tvariant=\"ghost\"\n\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\tclass=\"text-background hover:bg-background/10\"\n\t\t\t\t\tonclick={onLearnMore}\n\t\t\t\t>\n\t\t\t\t\tLearn more\n\t\t\t\t</Button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:173717",
+  "playgroundUrl": null
+}

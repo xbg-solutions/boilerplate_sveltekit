@@ -1,0 +1,31 @@
+{
+  "id": "menuitem",
+  "name": "MenuItem",
+  "category": "atoms",
+  "group": "menu",
+  "title": "Menu Item",
+  "description": "Single action row for context menus and dropdown panels.",
+  "tags": [
+    "menu",
+    "dropdown",
+    "action"
+  ],
+  "source": "<!--\n  src/lib/components/ui/menu/MenuItem.svelte\n  Navigation menu item with direction and state variants.\n\n  Usage:\n  <MenuItem href=\"/about\" direction=\"horizontal\" state=\"current\">About</MenuItem>\n  <MenuItem direction=\"vertical\" showIcon>\n    {#snippet icon()}<SettingsIcon />{/snippet}\n    Settings\n  </MenuItem>\n-->\n<script lang=\"ts\">\n  import { tv, type VariantProps } from 'tailwind-variants';\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  const menuItemVariants = tv({\n    base: 'inline-flex items-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',\n    variants: {\n      direction: {\n        horizontal: 'text-sm',\n        vertical: 'text-lg'\n      },\n      state: {\n        default: 'text-muted-foreground hover:text-foreground',\n        hover: 'text-foreground',\n        current: 'text-foreground'\n      }\n    },\n    defaultVariants: {\n      direction: 'horizontal',\n      state: 'default'\n    }\n  });\n\n  type Direction = VariantProps<typeof menuItemVariants>['direction'];\n  type State = VariantProps<typeof menuItemVariants>['state'];\n\n  let {\n    direction = 'horizontal',\n    showIcon = false,\n    state = 'default',\n    href = undefined,\n    class: className = '',\n    icon,\n    children,\n    ...rest\n  }: {\n    direction?: Direction;\n    showIcon?: boolean;\n    state?: State;\n    href?: string | undefined;\n    class?: string;\n    icon?: Snippet;\n    children?: Snippet;\n    [key: string]: unknown;\n  } = $props();\n\n  let classes = $derived(cn(menuItemVariants({ direction, state }), className));\n</script>\n\n{#if href}\n  <a\n    {href}\n    class={classes}\n    aria-current={state === 'current' ? 'page' : undefined}\n    {...rest}\n  >\n    {#if showIcon}\n      {@render icon?.()}\n    {/if}\n    {@render children?.()}\n  </a>\n{:else}\n  <button\n    type=\"button\"\n    class={classes}\n    {...rest}\n  >\n    {#if showIcon}\n      {@render icon?.()}\n    {/if}\n    {@render children?.()}\n  </button>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "tv",
+        "type VariantProps"
+      ],
+      "from": "tailwind-variants"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

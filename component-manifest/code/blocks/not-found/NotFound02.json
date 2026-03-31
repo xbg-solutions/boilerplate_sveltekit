@@ -1,0 +1,32 @@
+{
+  "id": "notfound02",
+  "name": "NotFound02",
+  "category": "blocks",
+  "group": "not-found",
+  "title": "Split + Image",
+  "description": "404 text left with an illustration or image right.",
+  "tags": [
+    "404",
+    "error",
+    "not-found",
+    "split",
+    "illustration"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonHome?: () => void;\n\t}\n\n\tconst { class: className, onHome }: Props = $props();\n</script>\n\n<section\n\tclass={cn('w-full bg-background min-h-[60vh] flex items-center px-4', className)}\n>\n\t<div class=\"mx-auto max-w-5xl grid grid-cols-1 gap-8 sm:grid-cols-2 sm:items-center w-full\">\n\t\t<div>\n\t\t\t<p class=\"text-sm font-semibold text-muted-foreground uppercase tracking-wide\">404</p>\n\t\t\t<h1 class=\"mt-4 text-3xl font-bold\">Oops! Page not found</h1>\n\t\t\t<p class=\"mt-4 text-muted-foreground\">\n\t\t\t\tThe page you're looking for doesn't exist or has been moved.\n\t\t\t</p>\n\t\t\t<Button onclick={onHome} class=\"mt-8\">Back to home</Button>\n\t\t</div>\n\n\t\t<div class=\"aspect-square w-full rounded-2xl bg-muted\" />\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:185114",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE21UXU/bMBT9K3cRUotWE2DdhELKNF62vTCk7WES5cF1nMTCX7OdNqiqtB+xX7hfsus4awGhSq1z7HvOPdcn3WaaKp4V2c/rz/D39x/4bqUI8Ba+KtrwbJYFKuRG6Corguv4LKuF5D4r7rZZeLSxMAJ4bqT5ZO2JX3MZIrainr+GM6MD1wFpstIzJ2wASXWzWGbBL7OrpV4GoaxxAbbANOygdkbB5EiKVd4FIX3O9OTy2bHrLgTz4igzuKujUN6J4XysQGlXU8bh1hnrYRvBZWCSev+xAB+c0M1lAo3+YhRHdHoMiytYG1ENO7tEhTb80GKsLdLPDdqdQSqEXTGKLODIxsX0GOvLPHmOPnXpOQvCJL5IsNgyPZ1sSN1JCauGrCh7aJzpdAVKaNKSuw+n6/Yeasl7EIErTxiPnsD2ZD6ZHdo4xjaHWZaVWCcYJ6x6QrtgQNGebMj7XkLjRDV8EWakJ2fQUEsuwKviAJ7Hx2dqqcPxtpLGuMQHu5cLvA/EK6jxyonnSqyMrGBAVRd4RWrj+Oivs5Y7hpmB4NA13gPZiIqjxvx0Xub2wN+eHfwEMk9879DLIBMlsOgbDvwN3GKMQZuAW6hR5u3Za20eWF52tXcYPz9aDjYSPppu4jhIY2KbyO2gMtzrSQDeC0wFAi31sOJcgzJrXp3sVZ8aGWNrNJOCPSy2KTi7p31dYAfXOA7AS2txs8xT0f/B5+Pk99ewL6beYriI/9VR7HWM1GAKHZ73Q7wGu8sM8pSUkQwjmmKJ6/gfgINJ7//ufvcP2RitIzIEAAA="
+}

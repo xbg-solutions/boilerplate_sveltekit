@@ -1,0 +1,32 @@
+{
+  "id": "herosection15",
+  "name": "HeroSection15",
+  "category": "blocks",
+  "group": "hero-section",
+  "title": "Video Background Hero",
+  "description": "Full-viewport looping video background with overlay, headline, and CTAs.",
+  "tags": [
+    "hero",
+    "landing-page",
+    "above-the-fold",
+    "video",
+    "full-viewport"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Watch Your Productivity Soar',\n\t\tsubtitle = 'See how our platform transforms the way teams collaborate and ship faster.',\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'Watch demo',\n\t\tonPrimary,\n\t\tonSecondary,\n\t}: Props = $props();\n</script>\n\n<section\n\tclass={cn(\n\t\t'relative w-full h-screen min-h-96 flex items-center justify-center overflow-hidden px-4',\n\t\tclassName\n\t)}\n>\n\t<!-- Video Background with Overlay -->\n\t<div class=\"absolute inset-0 bg-gray-900\">\n\t\t<div class=\"absolute inset-0 bg-black/60\" />\n\t</div>\n\n\t<!-- Content -->\n\t<div class=\"relative z-10 text-center max-w-4xl mx-auto\">\n\t\t<h1 class=\"text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white\">\n\t\t\t{title}\n\t\t</h1>\n\t\t<p class=\"mt-6 text-xl text-gray-300 max-w-2xl mx-auto\">\n\t\t\t{subtitle}\n\t\t</p>\n\n\t\t<!-- CTA Buttons -->\n\t\t<div class=\"mt-10 flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button size=\"lg\" onclick={onPrimary} class=\"bg-white text-black hover:bg-gray-100\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button\n\t\t\t\tvariant=\"outline\"\n\t\t\t\tsize=\"lg\"\n\t\t\t\tonclick={onSecondary}\n\t\t\t\tclass=\"border-white text-white hover:bg-white/10\"\n\t\t\t>\n\t\t\t\t<svg\n\t\t\t\t\twidth=\"20\"\n\t\t\t\t\theight=\"20\"\n\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\tfill=\"currentColor\"\n\t\t\t\t\tclass=\"mr-2\"\n\t\t\t\t>\n\t\t\t\t\t<polygon points=\"5 3 19 12 5 21 5 3\" />\n\t\t\t\t</svg>\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\n\t\t<!-- Additional Trust Text -->\n\t\t<p class=\"mt-8 text-sm text-gray-400\">\n\t\t\tJoin thousands of teams building the future\n\t\t</p>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18877:43807",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE41W627bNhR+lTOhQBLArC9xssW1MyT90WIYtgIJdsG8H5RESVwoUiCPfKlhoA/RJ9yT7FCyZMlxgQGGTfLcv/Md0rtA81wEs+CPxw/w75ev8JuMhYFHHr2k1pQ6ho/CmmAQIJdqLXUczNCWYhAkUgkXzP7aBbgtvAN/QHoHdw9F8dathEJ/FnInzp1HRqPQSG6CuYusLBAU1+liGaBbBvdLvUSZF8Yi7CDSsIfEmhwu3igZDkuUyg0jffGup/ZYIpoT1ciQVPtAw1JW+t6CQtuERwI+WVM42PnDJUaKO/fjDBxaqdN39SFKVOL00JXh2fPCypzb7c88FOqVjaCS429Jjf5U25Lg8goW97AyMm6FT43xa/G+rkkJ7NUxg+rnF4J+0KkEFnDxO8cogz9NaX39cRmhXEncwpPh9mLQr9DrPwkBmVmDNygUx8TYHNBy7fzKAWYC1nwLKDjtIqMUD43lKIATh1wmC0i4I8jfNt67OPkIHyh5h9yiiNsEenAd045FbhqdFrTBK5yqk/3s0OAFvCn84vKKIJsPa755juk5xUFpKggrwBa7SF/W7i6soGrliqpjSakUZIwshdCQS80ydncLiRIbkChyxyLhWQX/lA5lsm22ZkVMU2bNMhnHZFls2LRJv22Q315RHyvWz79j7PUkriVm8Cs5UwQ0Y7VmLFd1l2lqeOiMKglzqZ1ANoIwZanlW3Y3Gh3m6X9YhIpCDm/JAoZ1jCGZ3NcUqzJ7X8/t2RxavD6z8YjosMEGhpxv2JpNNwryDeMlmmNK2bi1ryxuSMnls2p9S2uV1uvvaZ1QcBYaFXv6RS80PgxlmmEda51RJ1rHS9xVDN4f4gyzcROyaCPmFKM2Ju/Vb4XZ9Wh0SHlyJmXy3IxH67w4YNSg9PxwuI5cg9QJVhSZMKr4478YjY0vu1pbGraUF2x6wqZOBvPDZefkZ0HeVEodMzpSMnpZ7Nq52LfhqLcVPHWRVZtppolPs4Yn4w5Pqhq7Q7pv4w7rwKeJHO1W3EqukWKaEpXU1JGjsJPu8bCTdzu/+6O4LcHYWNhuGfWyLaPaDsejo+9OOXO3So+7Ja5ljBl5nYy6qSzpLvOEOiNYSbF+NBuSjGAEkyl9+gr0CCqSRqW11K33RhnbV2hbb9mkK7nvKs0Lo7YpdbYw9Ex59Ru4hvEdjCdwA5MxfV2309n0hGrrdq5/d36rd93RPtD2IY6lvw25gmdL1INngrlD4N7g/FA3weWdwZn2SPQTlUCvgykdPQQOTHJ4IsJSqpiGt3o5khJLK3pz1KZGldXXM639/xCKU/8H2f+9/w83me6svggAAA=="
+}

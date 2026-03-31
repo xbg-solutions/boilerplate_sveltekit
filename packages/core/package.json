@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/frontend-core",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "XBG Frontend Core - Base framework, types, stores, error handling, logging",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

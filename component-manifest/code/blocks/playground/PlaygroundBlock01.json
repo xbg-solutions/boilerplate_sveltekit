@@ -1,0 +1,40 @@
+{
+  "id": "playgroundblock01",
+  "name": "PlaygroundBlock01",
+  "category": "blocks",
+  "group": "playground",
+  "title": "Playground Block 01",
+  "description": "Playground components.",
+  "tags": [],
+  "source": "<!--\n  PlaygroundBlock01.svelte\n  Simple AI playground with model selector, textarea, and parameter panel.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Input,\n    Label,\n    Select,\n    Textarea,\n    Tabs,\n    TabsList,\n    TabsTrigger,\n    TabsContent\n  } from '$lib/components/ui';\n  import Separator from '$lib/components/ui/Separator.svelte';\n\n  let {\n    class: className = '',\n    models = [\n      { value: 'gpt-4', label: 'GPT-4' },\n      { value: 'gpt-3.5', label: 'GPT-3.5 Turbo' },\n      { value: 'claude-3', label: 'Claude 3' }\n    ]\n  }: {\n    class?: string;\n    models?: Array<{ value: string; label: string }>;\n  } = $props();\n\n  let selectedModel = $state(models[0]?.value ?? '');\n  let prompt = $state('');\n  let temperature = $state(0.7);\n  let maxLength = $state(256);\n  let topP = $state(0.9);\n  let activeTab = $state('complete');\n</script>\n\n<div class={cn('flex h-screen flex-col', className)}>\n  <!-- Header -->\n  <div class=\"flex items-center justify-between border-b px-4 py-3\">\n    <h1 class=\"text-lg font-semibold\">Playground</h1>\n    <div class=\"flex items-center gap-2\">\n      <Select\n        options={models}\n        bind:value={selectedModel}\n        placeholder=\"Select model\"\n      />\n      <Button variant=\"outline\" size=\"sm\">Save</Button>\n      <Button variant=\"outline\" size=\"sm\">\n        <!-- Lucide: Code -->\n        View code\n      </Button>\n      <Button variant=\"outline\" size=\"sm\">\n        <!-- Lucide: Share -->\n        Share\n      </Button>\n    </div>\n  </div>\n\n  <!-- Main Area -->\n  <div class=\"flex flex-1 overflow-hidden\">\n    <!-- Prompt Area -->\n    <div class=\"flex flex-1 flex-col p-4\">\n      <Tabs value={activeTab}>\n        <TabsList>\n          <TabsTrigger value=\"complete\">Complete</TabsTrigger>\n          <TabsTrigger value=\"insert\">Insert</TabsTrigger>\n          <TabsTrigger value=\"edit\">Edit</TabsTrigger>\n        </TabsList>\n\n        <TabsContent value=\"complete\" class=\"flex-1\">\n          <Textarea\n            placeholder=\"Write a tagline for an ice cream shop...\"\n            bind:value={prompt}\n            class=\"min-h-[300px] resize-none\"\n          />\n        </TabsContent>\n\n        <TabsContent value=\"insert\">\n          <Textarea\n            placeholder=\"Insert text here...\"\n            bind:value={prompt}\n            class=\"min-h-[300px] resize-none\"\n          />\n        </TabsContent>\n\n        <TabsContent value=\"edit\">\n          <Textarea\n            placeholder=\"Edit prompt...\"\n            bind:value={prompt}\n            class=\"min-h-[300px] resize-none\"\n          />\n        </TabsContent>\n      </Tabs>\n\n      <!-- Footer -->\n      <div class=\"mt-4 flex items-center gap-2\">\n        <Button>Submit</Button>\n        <Button variant=\"ghost\" size=\"sm\">\n          <!-- Lucide: RotateCcw -->\n          <span class=\"text-xs\">Reset</span>\n        </Button>\n      </div>\n    </div>\n\n    <!-- Right Panel: Parameters -->\n    <aside class=\"w-72 shrink-0 border-l bg-background p-4\">\n      <div class=\"space-y-6\">\n        <div class=\"space-y-2\">\n          <Label>Model</Label>\n          <Select\n            options={models}\n            bind:value={selectedModel}\n            placeholder=\"Select model\"\n          />\n        </div>\n\n        <div class=\"space-y-2\">\n          <div class=\"flex items-center justify-between\">\n            <Label>Temperature</Label>\n            <span class=\"text-sm text-muted-foreground\">{temperature}</span>\n          </div>\n          <input\n            type=\"range\"\n            min=\"0\"\n            max=\"2\"\n            step=\"0.1\"\n            bind:value={temperature}\n            class=\"w-full accent-primary\"\n          />\n        </div>\n\n        <div class=\"space-y-2\">\n          <Label>Maximum Length</Label>\n          <Input\n            type=\"number\"\n            bind:value={maxLength}\n            min={1}\n            max={4096}\n          />\n        </div>\n\n        <div class=\"space-y-2\">\n          <div class=\"flex items-center justify-between\">\n            <Label>Top P</Label>\n            <span class=\"text-sm text-muted-foreground\">{topP}</span>\n          </div>\n          <input\n            type=\"range\"\n            min=\"0\"\n            max=\"1\"\n            step=\"0.05\"\n            bind:value={topP}\n            class=\"w-full accent-primary\"\n          />\n        </div>\n      </div>\n    </aside>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Input",
+        "Label",
+        "Select",
+        "Textarea",
+        "Tabs",
+        "TabsList",
+        "TabsTrigger",
+        "TabsContent"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "Separator"
+      ],
+      "from": "$lib/components/ui/Separator.svelte"
+    }
+  ],
+  "figmaNodeId": "15005:206421",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81Y/W7bNhB/lZtQwC1g+iNJW9RxErTB1gVIh6AJtgFx/qDki81VogSSiu0ZBvYQe8I9yY6iLFOynTZAgNb/SDzeN393PHkZSJ5gMAj+/PAR/vvnX7iK+WKi0lyO4UOcRl+g1w/ageEingk5DgZG5dgO7kWMOhjcLgOzyKy4JRBfqex9lnX0A8bG0kKucRc9SqVBaUhNMPyJsZEEz3hhu9cvue3etUiyGOH9BWQbF2fCTCFJxxiDxhgjk6o2GJwbrpC3gRNLxhUZN6joTWLcGUnGTkdyqCMlMgMxl5OTUWD0KDi1ZshKqgwsIZKwgnuVJtB6EYuwmxsR624kW8c+m30H+JAbk8q2W1zILDfl+yUPMS7frwsHy8XN2sdyyUPtvV4KbbzljRKTCSqPcu5yZwk1J6OU/JI2q91c1Dy9RpsIys9e9m7FUmbdylsNMVaBRjHXeuAev1Fa4QRardKv4hg0UW7dGiiJDzzOcQCtSWbYUatN2aZ80Prj1Q2tYdXezXrYed1gJgrc5CpMdwuRQ/kY2aEndV6Q4JAEHP9dka1BLZSzAWijhJwc+zEQ9b1SfDGsDJRMa+VuCavTY3cCJ/AiU2mmX77yUuYAieNPBTyJRRtu8KUzcdu7O+sUyuHsjHL46ngtRooSwmXF7+8ZTDKkI8oVbhh6nbcbjoTPL1FOqCqq/YPXbzwNaXbli77bbPHIiAckdHm2LUBoDwsfhl1XM6c2xuFYPLgcniwj+bJ1H+Mcpow4ECXYFYvSmM6jwsqrVVFgttbhV+RjqsiiEom00TUKCkWCItUsImQS11+5NuJ+wUI0M6s8TBUJsxCyOTuCbMEOy9olTdN+pci2ARZP4J5qhWlMRJjGY+LcNJlhd9pfCz7uwoRn7KCyQuyumNdLgDQzIpWUC3e8q81OSG1zUJz0ybIGCY+HOlqEU3IPFZl3uh0WR8Gaq7sx7toNYVMJLg1JpLmJhcRRAFr8jUTQCTl7zR9w2HXMTxbeOFcc2GUeiTEVwjk5tT429/td4AwiIlcWntnk9ZQaZd1mQdpjb9ilo3SwKt8q1H3iQlJlI98PvAK4fUgfUN3H6YxNxXiMcoMvq+bKVaiv6BFV61KAjB35CLJtHEpcVKW38pOwvgk8WkktL4RSfBSsy5T0n5evw67H+HUNQmpUhuQvipcnSuNYWNmf6bFP0tHLcBpBlrfZjnBqGWX9GkiscHmL+sRmNf2hqJKBg+ETizlqB4rmAhARAvUqnoCeplmn09lUmvv5det68qrOsHYtEZJN2e1hr5fN70ChhTSTqYW3L9DdSkYZ9tfzUR3Ok4N3p1lMRDBFhT92nCWMnhylxV15b37nAH2qF2/RNn5JU7O58wqy3zMSmpDg6zdP1U5Pr/MwsfXW6La7+u1kmmqzt9s2+u3n1N7959Gs3nOJS9MEXb9e53Zs/owayQ+7W0tN8xqoGnO9NZfmP4vJ1MCVndEH9CiHdu11WK7Jv8r+jL09oNqlQewL661nghjCCQt59KX8Pmj0XD/f5G6EbMHe1JO7i+Wgma5irD8tbvFh1y1q+83pwP72TwhNkO6bEuzvWyaFbZD6yf72KJ80lTWEqyTdbEbWXanaiSqdFB2LJTllgVHDRnecZGPpjcCrLczVQVZShP0eq9u0H61kTNG3HzbbBXUB2uptkfmcyAdNsjaYWfZO/7G24zu9u/fM2H0exzSD2+yyTImEq8XzH2kJXD4XSZ6A+1LYieCLvUmTeRKieiza6htktZ3ZZb9JpLwuj3rv3qx+TPimGVw9D3Dpy+s7IHYLlxVie68fhax191mxur0adouWXhvW10/7pxOl0v3htLpb/Q+wHWHtqRIAAA=="
+}

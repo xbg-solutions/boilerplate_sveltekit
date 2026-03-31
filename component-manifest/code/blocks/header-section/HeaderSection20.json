@@ -1,0 +1,26 @@
+{
+  "id": "headersection20",
+  "name": "HeaderSection20",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "With Inline Stats",
+  "description": "Title and subtitle left, three inline stat values right.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "stats",
+    "split"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tvalue: string;\n\t\tlabel: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'By The Numbers',\n\t\tsubtitle = 'See the impact we make',\n\t\tstats = [\n\t\t\t{ value: '10K+', label: 'Active Users' },\n\t\t\t{ value: '500M', label: 'Transactions' },\n\t\t\t{ value: '99.9%', label: 'Uptime' }\n\t\t]\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:py-24', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12\">\n\t\t\t<div class=\"flex-1\">\n\t\t\t\t{#if title}\n\t\t\t\t\t<h1 class=\"text-4xl sm:text-5xl font-bold tracking-tight mb-3\">{title}</h1>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if subtitle}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{subtitle}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\n\t\t\t{#if stats && stats.length > 0}\n\t\t\t\t<div class=\"flex flex-wrap gap-8 lg:justify-end\">\n\t\t\t\t\t{#each stats as stat}\n\t\t\t\t\t\t<div class=\"flex flex-col\">\n\t\t\t\t\t\t\t<p class=\"text-4xl sm:text-5xl font-bold mb-1\">{stat.value}</p>\n\t\t\t\t\t\t\t<p class=\"text-sm text-muted-foreground\">{stat.label}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/each}\n\t\t\t\t</div>\n\t\t\t{/if}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18877:18750",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31V226bQBD9lRFJQ6J6jZ06UUPsVMlLVVWNKiVRK8V5WPCAt1kWxA6+CFnqR/QL+yXdBWJj18kLDMPMObNnZqB0FE/Q8Z2fN5/h7+8/8EPQFL4oKRTCHXHSTschLuRcqInjU15gx4mERO34j6VDy8wmW4eJa6Cus6yrZyjJ+gKucZ8/TBWhMvC+M9RhLjICyVU8Gjukx87VWI1JJFmaE5QQKlhBlKcJuIdSBF5BQmovVO6lCbOBBiqPeFhXDKX1jWnGZYE+aMqFii9rn+QByi3fahfie55m+gUjlFzrTzsgJEjirlMXwX6/1dA4bWWPT21KibRF40N1uzVidVpEMAL3Zgn3U4TbIgkw125nm9JG3CECmRCjGQ8J5ggJf8Z1pC3ChD3Wj2MqoVHH7fe+vnc70AjjXockZggP2vLAqvN/wlmv962VcJ9zpQ2lSNUrCRcX3Yt3rYyHzHQWTWwd+lRJ4je6j+Aws8bxiZFq6NWTYadBDTVWLLVKozJUx+6cRYWUEMQs4OFznKeFmkC2YAPIlqx/DjrxjXE6MOxrbU9W1XANJ2LWQI2dZMF4QanRbMHm7HwhmwncCYskLsBeWJhKkLFf2Xk6t7YgTDQL0Q6Sff5VaBLRkgVIc0QFMc9Y/3QNvAea9VtvjYIHIoKqwauN06RN++sswgWxwULag1b2mbEjs1ksSOUEKDeqmFFkJOIpQRKwD4ahrDGH3rTfZvNE1Axmi/5lxLYryLYLkDFU96QgnLAozbHuhOVaAwy9bA9bjecZJa423DVzNbJHR7XRlahi82G6gl6rlFeaM895Vsn9sd0HrApqn6M8QB5OGyauK2ProG+1fwdrny6vN8Z0ol+pYxi71Z7s6LMfUCdvCG2hqhXbA7VWeHN2z569reVWSKs/mxcvllnLehWNbf8OpqT6z7B6Wv0DPncmq1AGAAA="
+}

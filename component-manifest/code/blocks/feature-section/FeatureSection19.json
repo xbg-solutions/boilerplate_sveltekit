@@ -1,0 +1,25 @@
+{
+  "id": "featuresection19",
+  "name": "FeatureSection19",
+  "category": "blocks",
+  "group": "feature-section",
+  "title": "Split with Stat Cards",
+  "description": "Left text+CTA, right 2×2 grid of stat cards.",
+  "tags": [
+    "features",
+    "landing-page",
+    "split",
+    "stats"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Stat {\n\t\tnumber: string;\n\t\tlabel: string;\n\t\tdescription: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\theading?: string;\n\t\tsubtitle?: string;\n\t\tctaText?: string;\n\t\tstats?: Stat[];\n\t}\n\n\tconst defaultStats: Stat[] = [\n\t\t{ number: '10M+', label: 'Users Worldwide', description: 'Trusted by millions' },\n\t\t{ number: '99.99%', label: 'Uptime', description: 'Reliable infrastructure' },\n\t\t{ number: '50+', label: 'Integrations', description: 'Connect everything' },\n\t\t{ number: '24/7', label: 'Support', description: 'Always available' },\n\t];\n\n\tlet {\n\t\tclass: className,\n\t\theading = 'Trusted by the Best',\n\t\tsubtitle = 'Join thousands of companies succeeding with our platform.',\n\t\tctaText = 'Get Started',\n\t\tstats = defaultStats,\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-white py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div class=\"grid grid-cols-1 lg:grid-cols-2 gap-12 items-center\">\n\t\t\t<!-- Left Column: Content -->\n\t\t\t<div>\n\t\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 mb-4\">\n\t\t\t\t\t{heading}\n\t\t\t\t</h2>\n\t\t\t\t<p class=\"text-lg text-gray-600 mb-8\">\n\t\t\t\t\t{subtitle}\n\t\t\t\t</p>\n\t\t\t\t<button\n\t\t\t\t\tclass=\"inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors\"\n\t\t\t\t>\n\t\t\t\t\t{ctaText}\n\t\t\t\t\t<svg class=\"ml-2 w-4 h-4\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n\t\t\t\t\t\t<polyline points=\"12 5 19 12 12 19\"></polyline>\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t</div>\n\n\t\t\t<!-- Right Column: Stats Grid -->\n\t\t\t<div class=\"grid grid-cols-2 gap-6\">\n\t\t\t\t{#each stats as stat}\n\t\t\t\t\t<div class=\"p-6 rounded-lg bg-gray-50 border border-gray-200 text-center\">\n\t\t\t\t\t\t<div class=\"text-3xl sm:text-4xl font-bold text-blue-600 mb-2\">\n\t\t\t\t\t\t\t{stat.number}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"text-lg font-semibold text-gray-900 mb-1\">\n\t\t\t\t\t\t\t{stat.label}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"text-sm text-gray-600\">\n\t\t\t\t\t\t\t{stat.description}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t{/each}\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18191:182830",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE51W627bNhR+lTOtg1ssjC9N0th1OjT5EXTYhqHpsAFxflASJRGlSIGkfIEhYA+xJ9yT7JCSbElOUGCAYZKHh9+5fYfUPpA0Z8Ei+Ov2Hv79+x94KAS3sOE2gwdLLdxRHZvgLLCUiw2XcbCwumRnQcIFM8HicR/YXeEAnAD1GriPRXFu1kxYJwupYc/JIyUtkxZhgqWJNC8sCCrTm1VgzSr4sJIry/NCaQt7iCRUkGiVw+iV4OG4tFyYcSRH71HNKSKUTmjEarf3TrayssxDphdgrOYyfV8LBQ2ZGMhiVjvAleztVEP037UqTAsfCWrMTwOojNEYV0OxKUPLrWBDeWTpF7a1J+oYhYN20Tw+dX3BrBkLMUtoKazbNq0W3MBjfXoPbeSj6eTXH0dn0AQ9+sMwbeBPpUW84THDnV7ooy+6NJbFEO4g50Kg0IygOjuBnc/P5/MfusCIkJ/ifWaC01Aw4DLRFEMsI1tq9izm5aTr6SfMeaqp9S4MYe+UlCyywNZM72yGeXsWcXYxfteBfCgLR6cTtI9iQ3cG6BpJ7pxtsZ4acglmeyVfgB9+Q06f9YqOFehmEMVwywwa7HPAqf2suEQFVRoqYwMqgUjlBZWcGTBlFDHmAX0nqlJDIahNlM7PW7CGOA7rHv1DCmg0ezDliIF7XZ74rWrRcPgGXhVu8voNRrkc1/lwTSeXBlOLmamjvNlH8vVoQ5JSCAhTssm4ZVDsyPQKii25AJMvcLwCkbrxGrN7yM6bynfxMubrBmwV5FtCS6sgp1uyIVdb0bT6QC3VPAb3RyIlDJk6+ONyBiktyHQG6EtuSMRcgx6AEOo7QuAXluAFpkSZY5Hv6ssGCDkqob3DApfZ7GDdYmbJ261wwfn5Bc4ThCChEjFYTaOvWB5ieZpZ8BrI1R2ZTyaQh+Si44qnZMOPqmNtnM26xou+bZF2UK9q1OshasunHmzRRQ1La5XsHmqtcCm4ZCQRbNtLoqvptSvvW1fsUJTMm/fO1KX3aTAs5z4VWpUyZrFzOFPYjYv21Dt3SlNpuOOSK5vSeK0ffenH0tC56gqXZp0eeSOw6hvkW+bSC2vONrdqixsTmMDsAn8oxVdIoEgqyXCF1436ynAdlVpjdHfOh4Oc4AVoM9ydDfKKhl1uYDvFzUvU37nJFNVgO3OzuZPNGtmH5dhpDxEKJXYepcBGt8YrwyVM54Cj+8390Vatdxy7cZ12yziu63hk7rihbpfunz0XW777jod710UDyr/UYnVPXfWSsf+e0SiD+jahxk/6JeoC4ukuH5AJnr6XEwiVjpFb9VBLZy2rTpr3GeRv9aMTHbiKrXJaUtcu6Px5/TZUA1vj/lXwvH0Mqc/9k76fvmjWP0H/y6rJ+zfBiyY6b9o3DQ0l+7Grc3XCr968nSE96wcC5+7TEL2rPwurp+o/DCo/i1EKAAA="
+}

@@ -1,0 +1,33 @@
+{
+  "id": "banner03",
+  "name": "Banner03",
+  "category": "blocks",
+  "group": "banner",
+  "title": "Cookie Consent",
+  "description": "Bottom-fixed cookie consent bar with accept and manage buttons.",
+  "tags": [
+    "banner",
+    "announcement",
+    "notification",
+    "cookie",
+    "consent",
+    "fixed"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonAccept?: () => void;\n\t\tonReject?: () => void;\n\t}\n\n\tlet { class: className, onAccept, onReject }: Props = $props();\n\n\tlet visible = $state(true);\n\n\tconst handleAccept = () => {\n\t\tif (onAccept) {\n\t\t\tonAccept();\n\t\t}\n\t\tvisible = false;\n\t};\n\n\tconst handleReject = () => {\n\t\tif (onReject) {\n\t\t\tonReject();\n\t\t}\n\t\tvisible = false;\n\t};\n</script>\n\n{#if visible}\n\t<!-- Desktop -->\n\t<div class=\"hidden sm:flex w-full border-t bg-background px-6 py-4 items-center justify-between gap-4\">\n\t\t<p class=\"text-sm text-muted-foreground\">\n\t\t\tWe use cookies to enhance your experience. By clicking \"Accept,\" you consent to the use of all cookies. Learn more in our\n\t\t\t<a href=\"#\" class=\"underline hover:no-underline\">cookie policy</a>.\n\t\t</p>\n\t\t<div class=\"flex gap-2 flex-shrink-0\">\n\t\t\t<Button variant=\"outline\" size=\"sm\" onclick={handleReject}>Reject all</Button>\n\t\t\t<Button size=\"sm\" onclick={handleAccept}>Accept all</Button>\n\t\t</div>\n\t</div>\n\n\t<!-- Mobile -->\n\t<div class=\"sm:hidden flex flex-col gap-3 border-t bg-background px-4 py-4\">\n\t\t<p class=\"text-sm text-muted-foreground\">\n\t\t\tWe use cookies to enhance your experience. By clicking \"Accept,\" you consent to the use of all cookies. Learn more in our\n\t\t\t<a href=\"#\" class=\"underline hover:no-underline\">cookie policy</a>.\n\t\t</p>\n\t\t<div class=\"flex flex-col gap-2 w-full\">\n\t\t\t<Button variant=\"outline\" size=\"sm\" onclick={handleReject} class=\"w-full\">Reject all</Button>\n\t\t\t<Button size=\"sm\" onclick={handleAccept} class=\"w-full\">Accept all</Button>\n\t\t</div>\n\t</div>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17006:181928",
+  "playgroundUrl": null
+}

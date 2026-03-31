@@ -1,0 +1,27 @@
+{
+  "id": "bentogrid04",
+  "name": "BentoGrid04",
+  "category": "blocks",
+  "group": "bento-grid",
+  "title": "Equal 3-col",
+  "description": "Three equal-width cells in a single row.",
+  "tags": [
+    "bento",
+    "grid",
+    "features",
+    "landing-page",
+    "equal",
+    "3-col"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t}\n\n\tlet { class: customClass = '', title = 'Build something amazing', description = '' }: Props = $props();\n\n\tconst features = [\n\t\t{ name: 'Analytics', icon: '📊' },\n\t\t{ name: 'Security', icon: '🔒' },\n\t\t{ name: 'Performance', icon: '⚡' },\n\t\t{ name: 'Integrations', icon: '🔗' },\n\t\t{ name: 'Support', icon: '💬' },\n\t\t{ name: 'API', icon: '🔌' }\n\t];\n</script>\n\n<section class={cn('w-full py-16 px-4 sm:px-6', customClass)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<div class=\"text-center mb-12\">\n\t\t\t<p class=\"text-sm font-semibold text-foreground/60 mb-2\">Bento Grid</p>\n\t\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-4\">{title}</h2>\n\t\t\t{#if description}\n\t\t\t\t<p class=\"text-lg text-muted-foreground max-w-2xl mx-auto\">{description}</p>\n\t\t\t{/if}\n\t\t</div>\n\n\t\t<div class=\"mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3\">\n\t\t\t{#each features as feature}\n\t\t\t\t<div class=\"rounded-xl border bg-background p-6\">\n\t\t\t\t\t<div class=\"flex items-center justify-center h-12 w-12 rounded-lg bg-foreground/10 mb-4 text-xl\">\n\t\t\t\t\t\t{feature.icon}\n\t\t\t\t\t</div>\n\t\t\t\t\t<h3 class=\"font-semibold\">{feature.name}</h3>\n\t\t\t\t\t<p class=\"text-sm text-muted-foreground mt-2\">\n\t\t\t\t\t\t{#if feature.name === 'Analytics'}\n\t\t\t\t\t\t\tTrack metrics and gain insights into user behavior.\n\t\t\t\t\t\t{:else if feature.name === 'Security'}\n\t\t\t\t\t\t\tEnterprise-grade security with encryption.\n\t\t\t\t\t\t{:else if feature.name === 'Performance'}\n\t\t\t\t\t\t\tLightning-fast speed and optimized performance.\n\t\t\t\t\t\t{:else if feature.name === 'Integrations'}\n\t\t\t\t\t\t\tConnect with your favorite tools seamlessly.\n\t\t\t\t\t\t{:else if feature.name === 'Support'}\n\t\t\t\t\t\t\t24/7 customer support for all your needs.\n\t\t\t\t\t\t{:else if feature.name === 'API'}\n\t\t\t\t\t\t\tComplete API documentation and examples.\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17007:4769",
+  "playgroundUrl": null
+}

@@ -1,0 +1,32 @@
+{
+  "id": "faqsection01",
+  "name": "FaqSection01",
+  "category": "blocks",
+  "group": "faq-section",
+  "title": "Accordion + Footer Card",
+  "description": "Vertical accordion with a contact support card at the bottom.",
+  "tags": [
+    "faq",
+    "accordion",
+    "landing-page",
+    "accordion",
+    "support"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface FaqItem {\n\t\tquestion: string;\n\t\tanswer: string;\n\t\tcategory?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\titems?: FaqItem[];\n\t\teyebrow?: string;\n\t\tonContact?: () => void;\n\t}\n\n\tconst defaultFaqs: FaqItem[] = [\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui?',\n\t\t\tanswer:\n\t\t\t\t'Shadcn/ui is a popular, open-source UI component library for React that focuses on flexibility and customization. It provides a set of accessible, customizable components that you can use to build modern web applications.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'What is shadcn/ui kit for Figma?',\n\t\t\tanswer:\n\t\t\t\t'The shadcn/ui kit for Figma is our comprehensive design kit that brings the shadcn/ui components into the Figma environment.'\n\t\t},\n\t\t{\n\t\t\tquestion: \"I'm not familiar with shadcn/ui. Can I still use this kit?\",\n\t\t\tanswer:\n\t\t\t\t'Absolutely! Our kit is intuitive and comes with documentation to help you get started, regardless of your familiarity with Figma or shadcn/ui.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'Can I create multi-brand design systems with this UI kit?',\n\t\t\tanswer:\n\t\t\t\t'Yes! Our kit is designed with multi-brand support in mind. You can easily create and manage multiple styles for different brands within a single design system using Figma variables.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How will this kit save me time?',\n\t\t\tanswer:\n\t\t\t\t'By providing pre-built, customizable components and templates, you can skip the repetitive setup work and focus on the unique aspects of your design.'\n\t\t},\n\t\t{\n\t\t\tquestion: 'How does this improve my collaboration with developers?',\n\t\t\tanswer:\n\t\t\t\t'Our components are built to closely match the shadcn/ui library, significantly reducing misinterpretations and implementation errors.'\n\t\t}\n\t];\n\n\tlet { class: className, title = 'Frequently Asked Questions', description = 'Find answers to common questions.', items = defaultFaqs, eyebrow = 'FAQ Section', onContact }: Props = $props();\n\n\tlet openIndex: number | null = $state(0);\n\n\tfunction toggle(index: number) {\n\t\topenIndex = openIndex === index ? null : index;\n\t}\n\n\tfunction handleContact() {\n\t\tonContact?.();\n\t}\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl text-center\">\n\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">{eyebrow}</p>\n\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">{title}</h2>\n\t\t<p class=\"mt-3 text-muted-foreground\">\n\t\t\t{description}\n\t\t\t<a href=\"#\" class=\"underline hover:text-foreground\">Contact us.</a>\n\t\t</p>\n\t</div>\n\n\t<div class=\"mt-8 mx-auto max-w-2xl\">\n\t\t<div class=\"flex flex-col divide-y border-t\">\n\t\t\t{#each items as item, index (item.question)}\n\t\t\t\t<button\n\t\t\t\t\tonclick={() => toggle(index)}\n\t\t\t\t\tclass=\"flex w-full items-center justify-between py-4 text-left text-sm font-medium hover:text-foreground transition-colors\"\n\t\t\t\t>\n\t\t\t\t\t<span>{item.question}</span>\n\t\t\t\t\t<svg\n\t\t\t\t\t\twidth=\"16\"\n\t\t\t\t\t\theight=\"16\"\n\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\tstroke-width=\"2\"\n\t\t\t\t\t\tclass=\"flex-shrink-0 transition-transform duration-200 {openIndex === index ? 'rotate-180' : ''}\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<polyline points=\"6 9 12 15 18 9\" />\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t\t{#if openIndex === index}\n\t\t\t\t\t<div class=\"pb-4 text-sm text-muted-foreground\">\n\t\t\t\t\t\t{item.answer}\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n\n\t<div class=\"mt-8 mx-auto max-w-2xl rounded-lg bg-muted p-6 text-center\">\n\t\t<h3 class=\"text-base font-semibold\">Need more help?</h3>\n\t\t<p class=\"mt-2 text-sm text-muted-foreground\">\n\t\t\tCan't find the answer you're looking for? Please contact our support team.\n\t\t</p>\n\t\t<div class=\"mt-4\">\n\t\t\t<Button onclick={handleContact}>Contact us</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:173750",
+  "playgroundUrl": null
+}

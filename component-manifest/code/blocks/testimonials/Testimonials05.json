@@ -1,0 +1,25 @@
+{
+  "id": "testimonials05",
+  "name": "Testimonials05",
+  "category": "blocks",
+  "group": "testimonials",
+  "title": "Dark Testimonials",
+  "description": "Dark background testimonials grid.",
+  "tags": [
+    "testimonials",
+    "social-proof",
+    "landing-page",
+    "dark"
+  ],
+  "source": "<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface Testimonial {\n    quote: string;\n    author: string;\n    role?: string;\n    company?: string;\n    avatarUrl?: string;\n    rating?: number;\n  }\n\n  const defaultTestimonials: Testimonial[] = [\n    {\n      quote: '\"Shadcn UI Kit for Figma has completely transformed our design process. It\\'s incredibly intuitive and saves us so much time. The components are beautifully crafted and customizable.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"We absolutely love how the Shadcn UI Kit blends functionality and aesthetics seamlessly. It fits perfectly into our design workflow and gives us the flexibility to create stunning, professional and high-quality designs effortlessly.\"',\n      author: 'Lando Norris',\n      role: 'CEO',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n    {\n      quote: '\"This UI kit has been a game changer for our team. The quality is outstanding and the time savings are incredible.\"',\n      author: 'Jane Smith',\n      role: 'Founder',\n      company: 'Acme Inc.',\n      rating: 5,\n    },\n  ];\n\n  let { class: className, testimonial = defaultTestimonials[0] } = $props();\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-16 px-4 sm:py-24', className)}>\n  <div class=\"mx-auto max-w-2xl text-center\">\n    <div class=\"flex gap-1 mb-6 justify-center\">\n      {#each Array(5) as _, i}\n        <svg class=\"{i < (testimonial.rating ?? 5) ? 'text-yellow-400' : 'text-muted'}\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\">\n          <polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\" />\n        </svg>\n      {/each}\n    </div>\n\n    <blockquote class=\"text-xl sm:text-2xl font-medium leading-relaxed\">\n      {testimonial.quote}\n    </blockquote>\n\n    <div class=\"mt-8 flex flex-col items-center gap-2\">\n      <div class=\"h-12 w-12 rounded-full bg-background/20 overflow-hidden\">\n        <div class=\"h-full w-full bg-gradient-to-br from-background/40 to-background/20\"></div>\n      </div>\n      <div class=\"font-medium text-sm\">\n        {testimonial.author}\n        {#if testimonial.company}\n          <span class=\"text-background/80\">\n            · {testimonial.company}\n          </span>\n        {/if}\n      </div>\n    </div>\n  </div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:185053",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE81WXW7jNhC+ykC7gLOAJduCkzheJ0F22y3SFtuHZtECcVBQFCWxoUgtSfmnhoEeonfpe4/Sk3RIybbsZp/6UkCwxaH4zcw334y0CSQpWTANfn73Dfz9+x/wFdHP8MCM5aWSnAgT9ANLuFhymQZTq2vWDzIumAmmj5vArit32BnwuRbqrqois2DCOltCDHvJTpW0TFqECWaGal5ZEETm1/PAmnlwM5cAvKyUtrABKmELmVYl9F4Lngxqy4UZUNl7O5f+QYTSGaGsGzhs3BbA51pZNgVjNZf528ZGalsofWLUSrDbExtVZUXk+tRMFsQS/UmL0w1NLC7QKusyYdpbt02QmLCxkLKM1MJ2CZ52o358gmt4bMDaBPYp9ObBjwVJkY1P9/Adt5ApDR94XhIoiPGxCmaZWIPVRBrcLVkKqtbo1fBcQqUVZcZEcG/n855B3qhmKU/wBFJYc8sXDIhMwZAFM1AbMArKmhaA4bEIHgrmvSjpKgdEM0gYcsmzWiAG1SSz6NEh0NpYVfLfSCJYNA96/V0uO+p73+NjCj4qrbk5bLsi4Ob7r3842NoioPmOlgzuJY06BzzjUzhvLdv+F8n7CZNLjBK150goTLZQS7CY1TGvGLNMDWS1pJYrSQS3a58VwUIVzHKKzDBSYhcYsXZ0QsaRkApVyKht6FRd5pdKP2cCnTmUnLfsOs+ZYCuecO8Cz2BBiGUoqlpKzKvvapahGx+GP13wvAg/101QDbwBlmG1bRvP/4Tuh4Ibx+gzMur0mTAmgUCOwwBogb3OtFewo8kim42+dpnhWVVbYzFsdOgzd3Q5ITp5oq0R4F7DX5DZt0RieUtui39l/UHVMmX6P2X+1I4gbDw3qAQx2M/+7yPm2cfEDgPp+qXufxw+4XC7htdY6MqcvUG82aAZiDcOemaYF2EDer2h8qy3DF3DQZKHyB/LtcsDPa1smBD63K6rdTi6gGoVjsGUU1zF417/ENqbrZ+xs5QvWuh5UK5C5A1bnqzCZRivRANKmZuv7VA+OeLkiyWtwhGUSXgBv2Lf82x9egYF8ooRHCR3WpP12fkbQEH80ge+3e0jrlnke9wNhxmcddiLGv7h9hbw9C30fGhrJrCrwvFw2INpayuxv9Pedh7Akqe2QLDRBS4Kho1jd6sFZ8t3aoXLIQwhHuOFVnyPCTTRWmuM/70SqpuCD7JSYp1jOSqFPe4iHcUQw+g8Gl7BJIovII7hKoovYYTXOBqNYTSJRhOIR9EQn8PrMrq8hPNoEre23XPtuUl0NWqQHDIGNegEgNJY5AdOB47TlsLZAOty06gRV4lQ9Nk3455Tzw4WFeXgb12BM3wNh/ia4HWJGiau10LNBFmxtFu8biE86N7pwc/B95GmbDjxQ87/hFQJ4JaVplWI107ccXV0uAiRg6X78Zpm6V74B6EP4iHgKNduvIYFT1Mmj2p2AugBDg2Ua8wZIwmtChPtPzK62OMhuI2uMwTfUb2rydHqqDs67HrKTXkU2xGvzcjqNMTmFc+6AyRq59P2SJAGTccl7oQ7GZ7oF+CvP4/dvgg6cKjdQAc8276U8OF+d4dnm4mF9+7bESNqvhu3T9t/AJNJxN5uCgAA"
+}

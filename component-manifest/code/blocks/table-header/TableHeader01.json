@@ -1,0 +1,33 @@
+{
+  "id": "tableheader01",
+  "name": "TableHeader01",
+  "category": "blocks",
+  "group": "table-header",
+  "title": "Title + Search + Filters",
+  "description": "Title and description left, search input + filter button + new button right.",
+  "tags": [
+    "table",
+    "header",
+    "filters",
+    "app",
+    "search",
+    "filters"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tsearchPlaceholder?: string;\n\t\tnewLabel?: string;\n\t\tonNew?: () => void;\n\t\tonFilter?: () => void;\n\t}\n\n\tconst {\n\t\tclass: className,\n\t\ttitle = 'Table name',\n\t\tdescription = 'Read and write directly to databases and stores from your projects.',\n\t\tsearchPlaceholder = 'Search...',\n\t\tnewLabel = 'New',\n\t\tonNew,\n\t\tonFilter\n\t}: Props = $props();\n\n\tlet searchQuery = $state('');\n\n\t// SVG Icons\n\tconst SearchIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"11\" cy=\"11\" r=\"8\"></circle><path d=\"m21 21-4.35-4.35\"></path></svg>`;\n\n\tconst FilterIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 6h18M7 12h10M11 18h2\"></path></svg>`;\n\n\tconst PlusIcon = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line></svg>`;\n</script>\n\n<div class={cn('flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between', className)}>\n\t<!-- Left: Title and Description -->\n\t<div class=\"flex-1\">\n\t\t<h2 class=\"font-semibold\">{title}</h2>\n\t\t<p class=\"text-sm text-muted-foreground\">{description}</p>\n\t</div>\n\n\t<!-- Right: Search, Filter, New (Desktop) -->\n\t<div class=\"hidden sm:flex items-center gap-2\">\n\t\t<!-- Search Input -->\n\t\t<div class=\"relative\">\n\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t{@html SearchIcon}\n\t\t\t</div>\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\tplaceholder={searchPlaceholder}\n\t\t\t\tbind:value={searchQuery}\n\t\t\t\tclass=\"pl-8 pr-3 py-2 border rounded-md bg-background text-sm w-64\"\n\t\t\t/>\n\t\t</div>\n\n\t\t<!-- Filter Button -->\n\t\t<Button variant=\"outline\" size=\"sm\" onclick={onFilter}>\n\t\t\t<span class=\"mr-1\">{@html FilterIcon}</span>\n\t\t\tFilters\n\t\t</Button>\n\n\t\t<!-- New Button -->\n\t\t<Button onclick={onNew}>\n\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t{newLabel}\n\t\t</Button>\n\t</div>\n\n\t<!-- Mobile Layout -->\n\t<div class=\"sm:hidden space-y-2 w-full\">\n\t\t<!-- New and Filter buttons row -->\n\t\t<div class=\"flex gap-2\">\n\t\t\t<Button onclick={onNew} class=\"flex-1\">\n\t\t\t\t<span class=\"mr-1\">{@html PlusIcon}</span>\n\t\t\t\t{newLabel}\n\t\t\t</Button>\n\t\t\t<Button variant=\"outline\" onclick={onFilter}>\n\t\t\t\t<span>{@html FilterIcon}</span>\n\t\t\t</Button>\n\t\t</div>\n\n\t\t<!-- Search Input -->\n\t\t<div class=\"relative w-full\">\n\t\t\t<div class=\"absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground\">\n\t\t\t\t{@html SearchIcon}\n\t\t\t</div>\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\tplaceholder={searchPlaceholder}\n\t\t\t\tbind:value={searchQuery}\n\t\t\t\tclass=\"w-full pl-8 pr-3 py-2 border rounded-md bg-background text-sm\"\n\t\t\t/>\n\t\t</div>\n\t</div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "11005:5077",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE+VX/27bNhB+lZtQwAlmWZHSdplrZ1s7rCjQFF1bDAPmAaUk2mJDkQJJWfYMA3uIPeGeZEdKtPwjabf+2QFBdDx+PN59dzzSm0CQkgbj4Nenz+HvP/+Cd8xwCl/DW0pUVqDwE+OGKh0MA0MYb5jIg7FRNR0Gc8apDsa/bQKzrqwNq0BcZ/GHqhrpJcXVqEuJpnfpMykMFQbNBBOdKVYZ4EQsprPA6FlwPRMzw8pKKgMbyARsYa5kCYMHnKVRbRjXUSYGTw5gT2tj5BE0kzgr7EZRzRzersCt1ZxkFF4rWWnYWOXMZJxo/d0YtFFMLJ60SmNpOVbmtHWZSXE8pR19rzlaLyTPqToGCNq8JCnlx3opXtEGlWfnML2GpWT5bqLNxOnctg0HqdTmIIgxuM8r5H24FwZMYfCOpCjYjAyGJ8FYwBtKciAih0YxQyFnimaGr8FIyIkhNp/azWsjFYqO7LWsFVRKfkCsHnnLJ1xY+219jUY7lCfETiIFXu34GB5S4IIed1mbwoPKCmfnXVo5NdBu+XNN1doCtCGGng0GHhJF8PaX5/DCUtZT17pklbjm/UQvF7AqudBYjIUx1TiKmqYZNZcjqRZRcnFxESFkFkDDclMgKH6Mg4KyRWH8aMlo81SucHgBF5A8xD/U4jnhqBJYkTjC9MtbiuOsVgpL9JnkUu30obee9CrOBM1IhUola5EfTnyQTPQz15OMqQxTnVkn4hix2dpLCoUri4la0PWkIqaAHNVlEkMShw9Hl4/cP4eys/jBqK/fP9kvujYtXxpzOzJuLuFxEV/dfANxUsQXN3EM8VWRfJyT17zWXxojVger2HpkTaythKUBq2SnctK3jhqL3l/zyC9xyJVHdmuSvTU7OlFyTcleBGKSs2Xb0aabTJwN5pyuwP4LM8lhQarwEnQ5dholGytj6yp1mFHb6e34Q60Nm6/DlJqGUjEY9h3yfOtum8lXYQgv6dyMu6vQ9rgf93pjGLa43plZ4LaMu/sK54qkn8ILLtS0ZCm2PkRsXAveTqIi8ehqBzZ0heAS3LesDc3DOXbXhU/AZq9Jo4mq9SRCV67b0nPev7FVM+7a2bA7nEPAPgpnGMmtkdX5nWEULM+p8BzCAXmW3qSP0O7TPRFeiKo23t6RRUU5MWxJdwuP5kmqJcc4gSPjYTJ6hPdLFcZRAqFRRGhcTcO1U9zHibc7M5vvC1PyvTa+3e3pKWpHzHrcr7Ovl478WdCrq/7Cmm5O7rBtD0zxTTReEl5Tj3MXzx7Ch1vx8ArvR6zTah0mkEplb0MXCYZV5pAuwpRkt21w4MuhCR8/7D2LPNF7ee8y0qbav4D6lHSKJVGMCNtQZG3sSbOnnf1hg9clylJknGW3042/aLc9Z7oiYpe2Urlq7wjvuz/WpMXtVnVvR+9v68ahy7Yq7/N3zx+E/TtnfNs9dmXj3xfbU29Oj9CNTPEtCy8JvmjMnWcFD4k/LhUWRWjz2YTzmvPDQ2Ljsy2kS03qNtVg+9PdR8YdvcPTdi8j9zWgzyXplKYjoj5VTR+poM6jTxfN0YZ3lPl/aDzHOfl/95+WDPi8NvSRDrST/Nf+WsRV7S/F7e/bfwCkuB1sZw4AAA=="
+}

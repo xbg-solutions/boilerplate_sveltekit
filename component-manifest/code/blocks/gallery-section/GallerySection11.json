@@ -1,0 +1,26 @@
+{
+  "id": "gallerysection11",
+  "name": "GallerySection11",
+  "category": "blocks",
+  "group": "gallery-section",
+  "title": "Lightbox Gallery",
+  "description": "Grid that opens a fullscreen lightbox on image click.",
+  "tags": [
+    "gallery",
+    "images",
+    "landing-page",
+    "lightbox",
+    "interactive"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\timages?: Array<{ src?: string; alt?: string; caption?: string }>;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\ttitle = 'Explore our gallery',\n\t\tdescription,\n\t\timages = Array.from({ length: 12 }, (_, i) => ({ alt: `Image ${i + 1}` }))\n\t}: Props = $props();\n\n\tlet selectedIndex: number | null = $state(null);\n\n\tconst imagePlaceholder = `<div class=\"w-full h-full bg-muted rounded-lg flex items-center justify-center overflow-hidden\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"text-muted-foreground/40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>`;\n</script>\n\n<section class={cn('w-full px-4 py-16', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t{#if title || description}\n\t\t\t<div class=\"mb-8 text-center\">\n\t\t\t\t<p class=\"mb-2 text-sm font-medium text-muted-foreground\">Gallery Section</p>\n\t\t\t\t{#if title}\n\t\t\t\t\t<h2 class=\"mb-2 text-3xl font-bold tracking-tight sm:text-4xl\">{title}</h2>\n\t\t\t\t{/if}\n\t\t\t\t{#if description}\n\t\t\t\t\t<p class=\"text-lg text-muted-foreground\">{description}</p>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t<div class=\"mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3\">\n\t\t\t{#each images.slice(0, 12) as image, index}\n\t\t\t\t<button\n\t\t\t\t\tclass=\"aspect-square cursor-pointer transition-opacity hover:opacity-80\"\n\t\t\t\t\tonclick={() => (selectedIndex = index)}\n\t\t\t\t\ttype=\"button\"\n\t\t\t\t\taria-label={`Open image ${index + 1}`}\n\t\t\t\t>\n\t\t\t\t\t{@html imagePlaceholder}\n\t\t\t\t</button>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n\n\t{#if selectedIndex !== null}\n\t\t<div\n\t\t\tclass=\"fixed inset-0 z-50 bg-black/80 flex items-center justify-center\"\n\t\t\tonclick={() => (selectedIndex = null)}\n\t\t\trole=\"dialog\"\n\t\t\taria-label=\"Image lightbox\"\n\t\t>\n\t\t\t<div class=\"max-w-4xl w-full mx-4 relative\" onclick={(e) => e.stopPropagation()}>\n\t\t\t\t<div class=\"aspect-video bg-black rounded-lg flex items-center justify-center\">\n\t\t\t\t\t{@html imagePlaceholder}\n\t\t\t\t</div>\n\t\t\t\t<button\n\t\t\t\t\tclass=\"absolute top-4 right-4 text-white hover:text-white/80 transition-opacity\"\n\t\t\t\t\tonclick={() => (selectedIndex = null)}\n\t\t\t\t\ttype=\"button\"\n\t\t\t\t\taria-label=\"Close lightbox\"\n\t\t\t\t>\n\t\t\t\t\t<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line>\n\t\t\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line>\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "18191:188481",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE71W247bNhD9lamywNqotb7sBQuv7TYJgiBA0QboS4G66NISLbFLkSpJ23K1AvoR/cJ+SYekbMmXZJOXvkjkaDi3M3OoMhAko8E4+OXNe/j373/gB5akZiELeE84p2ob9AJDGN8wEQdjo1a0FywZpzoY/1oGZpvbs1aAerWl13l+pdeUGytbEE3PySMpDBUGzQQTHSmWG+BEJNN5YPQ8mM3F3LAsl8pACZGACpZKZnB5wdmivzKM634kLh9QzSqiKbUkEYWPSuYaSiucm4gTrb8bgzaKieTBCw0znB4LY+pDYFIcf2IZSai18lopsp2UoFXU6ADhprWLyKENqGbOTOXj5NQcxDYG9/oRy9NrRQdTuHxX5FwqCnKlIPFAXPZOgu21Y8RjLsYrW6lOCZyKxKRjGI6g6kHn9x6wLkxngJ8w6jE8frDH4KJk8C0Mq0eoul0X7Lgu4xQucrvodB+a+DXlNDI0/iBiWoxBrLIFVfCMC87tCW2IoR27251CpLUBF+NHjiClksd4ZAqPk5itfQkQ9k24tCZS/1okYbZCN6DkCj3FIU9gyWkBzNBMhxG1kMMfK23YcrvbyjW2AZebMGVxTAW20USvE9iw2KToYXQzDyCltr93uzWjmzeywO0ABjC6ASfFduYoElJQ3CGU8oniPlophY7eSkRmLw931odXtyjcZWNoYXwG4RJxTFwa/ZuBjUlhAcH6vMYD2/q9N3PfDtLtlNUdzYP+bBIxFWGDRFZy7x1u90u1iwIVc8m3nAkKucTpsBGNhjC8heEdDAdwC6OhU+tjffCJOMweES7cu9ay4ycmGuPEJqtzKiPRuaxByovwBvJtOLy77DU93K3c2B6gmhUhWRkJGSnCTXhX8Hq256Z8xZbg+/35GVpNXfnvx4YW4T24qnqw93acZt7WG3k9ncESSSbMaMxWGZxFBK3UNAc/+2wn/bxluAmyaoToLx2dcXhdcO9xgR0ORpHoCTkgNBZL0NnYKd24EpTe5qSfjtre+mxZHTk/V5ijlJ1dnI9PZVi2bRzl1/bo+6BGp/4gToEwCESiWOweYSS5xgIkJA+vbZKN8LoFUfmKkij1JKCvNGcR7Qx6SE1dINqLkZ4spbSSnCxWxkjRznoXBNE5whXqP1cESRIHU0sVulZHGsDKC81stqHMScTMFlJLDeN6F97jGLatShFhRE/TsuMJ8oDjkKhcYN2D8tuLD+OoIzywRhQjIScLyqfl4085FT4/S7TOniPblrFZ+3D5fWoyfsKW7ar0vdOmtn1b21qjwXC/EnUnHWb1zXTqOLtqIN4Z3BV5yQokYCY0NeEA/gpvB5aWFxjVU/9+8CIdN1V5qb7uttinqCS3pY0Z4TJpjLTKOg/81cXrX5Wd0uw8czjqwbmDmr0yy16KcmLY2hJ8Ex518dErbWRu70CSENtGnZrZzhivG3HNYir31fmaS+uAx74M/2ZKX5qShZYc+QAwHZuyLRe+HU9sUgyqnotGYHE9HZ+vm5ZDNL98WObBWy71KaonM/I/XuqjI3jQubtVi+Huct7a1R0uilG92I7qb3ixWuVPG7g7Oe9Nfs6Av7I/Qwft/mjWNZ/bn3kE2//IV79V/wG7mZVh/gsAAA=="
+}

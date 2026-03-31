@@ -1,0 +1,27 @@
+{
+  "id": "promosection02",
+  "name": "PromoSection02",
+  "category": "blocks",
+  "group": "promo-section",
+  "title": "Category Promo Cards",
+  "description": "3-col grid of category cards with background image overlays and 'Shop now' links.",
+  "tags": [
+    "promo",
+    "sale",
+    "marketing",
+    "e-commerce",
+    "categories",
+    "grid"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\theading?: string;\n\t}\n\n\tlet { class: className, heading = 'Shop by Category' }: Props = $props();\n\n\tconst categories = [\n\t\t{ id: 1, name: 'Electronics' },\n\t\t{ id: 2, name: 'Fashion' },\n\t\t{ id: 3, name: 'Home & Garden' },\n\t];\n</script>\n\n<section class={cn('w-full bg-background px-4 py-16 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-7xl\">\n\t\t<!-- Heading -->\n\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-12 text-center\">{heading}</h2>\n\n\t\t<!-- Category Cards Grid -->\n\t\t<div class=\"grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3\">\n\t\t\t{#each categories as category (category.id)}\n\t\t\t\t<div class=\"relative group overflow-hidden rounded-xl aspect-square\">\n\t\t\t\t\t<!-- Background Image Placeholder -->\n\t\t\t\t\t<div class=\"absolute inset-0 bg-gradient-to-b from-gray-300 via-gray-200 to-gray-300 flex items-center justify-center\">\n\t\t\t\t\t\t<svg\n\t\t\t\t\t\t\twidth=\"80\"\n\t\t\t\t\t\t\theight=\"80\"\n\t\t\t\t\t\t\tviewBox=\"0 0 24 24\"\n\t\t\t\t\t\t\tfill=\"none\"\n\t\t\t\t\t\t\tstroke=\"currentColor\"\n\t\t\t\t\t\t\tstroke-width=\"1\"\n\t\t\t\t\t\t\tclass=\"text-gray-400\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n\t\t\t\t\t\t\t<circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" />\n\t\t\t\t\t\t\t<polyline points=\"21 15 16 10 5 21\" />\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<!-- Overlay -->\n\t\t\t\t\t<div class=\"absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex flex-col items-center justify-center text-white\">\n\t\t\t\t\t\t<!-- Category Name -->\n\t\t\t\t\t\t<h3 class=\"text-3xl sm:text-4xl font-bold mb-4 text-center\">{category.name}</h3>\n\n\t\t\t\t\t\t<!-- Shop Now Link -->\n\t\t\t\t\t\t<a\n\t\t\t\t\t\t\thref=\"#\"\n\t\t\t\t\t\t\tclass=\"inline-block px-6 py-2 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-colors\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tShop now\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "19089:73914",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE5VW247bNhD9lakS1LuAuZZkb7pQvFt0g3QToEgL9KVAnAeKoiV2KVIl6YtgGOhH5Av7JR1KsnzdFgEMi3Ph8MzM4UibQNGSB0nwx+MT/PP3V3hHHc+1qeE3o0uNoslsMAwcFXIlVBYkziz4MJgLyW2QfN4Erq78fq9Avy7aT1V1Y5dcOq9LqeWX9Ewrx5XDMMHUMiMqB5Kq/H4WODsLHmZq5kRZaeNgA0zBFuYICQavpUhHCyekHTE1eItu3hFDmTll3OOuLGy8cuaYpNb+mIB1Rqj8bassOM1QOlZv2ziSN6f5bUn7+ITIh9DtgXsY/F7oCtK6r9QAtkl36j28rvzi6rqDhSlaB6z1FNx7fG5BbEBkCURD8JVJYPBecuaMVoJZDDg8dIp7p5+pLYRWpw7j3uGDLjl8D0/YNd67fUEw01FbYV9VNbV4FsZpE7zfMHU1WJH5QkpIc5JS9pwbvVAZVGsygaom0RuwZYLSG5C5f94NhvvqXG+bXk0zsewizoJyTejCaSjpmqzID2vZNRTdviMEPnTlJGSnLeJ+r+NrR8Zr6c9s1hNcz5EsJNUygzIlUQyNgXHfdgy96fqznY6K+KGtfXdUT+iGyvBkRHZw7CHm3Jv8H2FaWhJBTivSZL5Xxr4Ae3Hcp4W9eMUpKw6bTe1OquFqt7oR2fV2t+cEgeGSOrHk4OtfgV4ip6VekUJk2E9omsIzguWgtsIeEvvXghp+AKJP+3HfxY8lzfFeSLwdBRaQm33+FzDQ1Gq5cByEstyR0FMiN1hdrDVxmqTNNfSqmozDEJaCtkKMAtp7w1zyNQjHS9v1Cf5cWCfm9b5thyAQhl3mx5qZW4nMFYjqLpwFp7aCi7xwLxiXgq8e9RqtIYQQT/B37oRDS6KH0oqfG3E46GeOZrYwBhG/01Kbl9zIDmh07nHE66Y8k/AM8cPprqnBBoNPAEkGdffsj7lDoS9AIxnvG+NidB6LCcMkB+Zd7m5u0YnV/dL4CM3qws5Ky1oKxaHSOGN9GnEE0S3gSIhCuIU4urAPp80yP6bYCDnWX8wDnv6KHJe0/mZKpkjn59EkbK8KKfxdSXr9LVLRUGWFH3P+qmpjW0L6P6/4L2a2w2VVoMs5SY9mih9/p9D9MBt/wzCbnM6yflL4oe4n2vikcB2K5kX0Sa/gF6GeL6CgZxfG8DlCevUyRYXyvcYiavYMzbzH6R/7ejfVaJE2JW5zsLwUTR670SRz6FvRUD0KL7Tif8nfpKb06pRW9DKpLsqbkZ/H3ajdm3Yr5Gj7FsS1/8DBzNqPm+2X7b8/3oDxFgkAAA=="
+}

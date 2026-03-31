@@ -1,0 +1,30 @@
+{
+  "id": "descriptionlist03",
+  "name": "DescriptionList03",
+  "category": "blocks",
+  "group": "description-list",
+  "title": "Description List 03",
+  "description": "Key-value data display blocks — stacked, inline, two-column, and with icons.",
+  "tags": [
+    "description-list",
+    "data",
+    "detail"
+  ],
+  "source": "<!--\n  DescriptionList03.svelte\n  Editable form-style description list: title + description + \"Save\" button.\n  Each row: label left + input/textarea right (editable).\n  Desktop: 2-column. Mobile: stacked.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  interface DLField {\n    label: string;\n    key: string;\n    value?: string;\n    type?: 'text' | 'textarea' | 'email' | 'tel';\n  }\n\n  let {\n    class: className = '',\n    title = 'Profile Information',\n    description = 'Personal details and general information.',\n    fields = [\n      { label: 'Full name', key: 'fullName', value: 'Alex Thompson', type: 'text' },\n      { label: 'Address', key: 'address', value: '123 Main Street, City, Country', type: 'text' },\n      { label: 'Email address', key: 'email', value: 'alex@example.com', type: 'email' },\n      { label: 'Phone number', key: 'phone', value: '+1 234 567 890', type: 'tel' },\n      { label: 'About', key: 'about', value: 'A motivated professional with 5+ years of experience in software development.', type: 'textarea' }\n    ] as DLField[],\n    onsave = (_values: Record<string, string>) => {}\n  }: {\n    class?: string;\n    title?: string;\n    description?: string;\n    fields?: DLField[];\n    onsave?: (values: Record<string, string>) => void;\n  } = $props();\n\n  let values = $state(Object.fromEntries(fields.map(f => [f.key, f.value ?? ''])));\n</script>\n\n<div class={cn('rounded-lg border bg-background', className)}>\n  <!-- Header -->\n  <div class=\"flex items-start justify-between p-4 sm:p-6\">\n    <div>\n      <h2 class=\"font-semibold\">{title}</h2>\n      {#if description}<p class=\"mt-0.5 text-sm text-muted-foreground\">{description}</p>{/if}\n    </div>\n    <Button size=\"sm\" onclick={() => onsave(values)}>Save</Button>\n  </div>\n\n  <!-- Editable rows -->\n  <div class=\"border-t\">\n    {#each fields as field}\n      <div class=\"flex flex-col gap-1.5 border-b px-4 py-3 last:border-0 sm:flex-row sm:items-start sm:gap-4 sm:px-6\">\n        <label for={field.key} class=\"w-40 shrink-0 pt-1.5 text-sm font-medium\">{field.label}</label>\n        {#if field.type === 'textarea'}\n          <textarea\n            id={field.key}\n            rows={4}\n            bind:value={values[field.key]}\n            class=\"flex-1 resize-none rounded-md border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-ring\"\n          ></textarea>\n        {:else}\n          <input\n            id={field.key}\n            type={field.type ?? 'text'}\n            bind:value={values[field.key]}\n            class=\"flex-1 rounded-md border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-ring\"\n          />\n        {/if}\n      </div>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "15003:162123",
+  "playgroundUrl": null
+}

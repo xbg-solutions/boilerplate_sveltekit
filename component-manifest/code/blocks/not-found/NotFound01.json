@@ -1,0 +1,31 @@
+{
+  "id": "notfound01",
+  "name": "NotFound01",
+  "category": "blocks",
+  "group": "not-found",
+  "title": "Centred 404",
+  "description": "Large centred '404' with message and navigation CTAs.",
+  "tags": [
+    "404",
+    "error",
+    "not-found",
+    "centered"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tonHome?: () => void;\n\t\tonContact?: () => void;\n\t}\n\n\tconst { class: className, onHome, onContact }: Props = $props();\n</script>\n\n<section\n\tclass={cn(\n\t\t'w-full bg-background min-h-[60vh] flex flex-col items-center justify-center px-4 text-center',\n\t\tclassName\n\t)}\n>\n\t<p class=\"text-8xl font-black text-muted-foreground/20\">404</p>\n\t<h1 class=\"mt-4 text-3xl font-bold\">Page not found</h1>\n\t<p class=\"mt-2 text-muted-foreground max-w-sm\">\n\t\tSorry, we couldn't find the page you're looking for.\n\t</p>\n\t<div class=\"mt-8 flex gap-3\">\n\t\t<Button onclick={onHome}>Go home</Button>\n\t\t<Button variant=\"outline\" onclick={onContact}>Contact support</Button>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:185097",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE21Ty27bMBD8lQURwA5gRXmhCBzZRZNDeioC9FIgyoGmKJsNRRLkyg8YAvoR/cJ8SZembDhuLhK53J2ZXQ63zPBGsjH79fAE73/+wqM06GUFt5e3bMSQK71SpmJj9K0csVppGdj4Zctw42JZDFBeD/LNuYuwlBpjbMaD/CwurEEiIRhWBOGVQ9DczCclw1CyaWlKVI2zHmELwkAHtbcNDM60muUtKh1yYQb3H9IeWkR7kiosnZpIlLdqlx8riNrXXEh49tYF2MZgiULzEL6OIaBXZn6fgtZ8t42k6PAcJlNYWlUdTh6pBy7w/8Mu8VCPYac/Ao/T7wfNYgQJNf57DOjGvZgJnLm4GJ4TVJGn2cR5mCJIgcom6Ig12QozTGIGq6xutYbZPJtx8Tb3tjUVNMpki+zly+Vy8Qq1luvdJxNWg0LZhEzIOAr43QZU9Wa/devsFlCusQ8MRkcDig3E7Tk1ubumwqXO4tXFmru1hpq6ymaalCScpkVZZbX1MinLry/pksldRe4SyOLqgNLgnv7mAGV1RQXPfC7BWKQggRT54upUAdVef04JDV9nqyw0vbtK/Gm934xgJUHYVldmQLjkcsCFBBeZNrYdeAna2jcyBJH6ix3dXnOllsfEd2nEc+6ymwNJ0bvSGqGVeJts09V30ycLC1oUeUo4SV9yr7hBArYtamVkyY4hetd00719QuviK/iAVuQkcLozUTIOreNrpumkl9y9dv8AZ9J2ePoDAAA="
+}

@@ -1,0 +1,35 @@
+{
+  "id": "settingscard",
+  "name": "SettingsCard",
+  "category": "atoms",
+  "group": "settings-card",
+  "title": "Settings Card",
+  "description": "Label + description on the left with a control (switch/button) on the right.",
+  "tags": [
+    "settings",
+    "form",
+    "toggle"
+  ],
+  "source": "<!--\n  src/lib/components/ui/settings-card/SettingsCard.svelte\n  Settings form card with title, description, content slot, and optional footer.\n\n  Usage:\n  <SettingsCard title=\"Profile\" description=\"Manage your profile settings.\">\n    <Input label=\"Name\" value=\"John\" />\n    {#snippet footer()}<Button>Save changes</Button>{/snippet}\n  </SettingsCard>\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter } from '$lib/components/ui/card';\n  import type { Snippet } from 'svelte';\n\n  let {\n    title,\n    description = '',\n    class: className = '',\n    children,\n    footer,\n    ...rest\n  }: {\n    title: string;\n    description?: string;\n    class?: string;\n    children?: Snippet;\n    footer?: Snippet;\n    [key: string]: unknown;\n  } = $props();\n</script>\n\n<Card class={className} {...rest}>\n  <CardHeader>\n    <CardTitle>{title}</CardTitle>\n    {#if description}\n      <CardDescription>{description}</CardDescription>\n    {/if}\n  </CardHeader>\n  <CardContent>\n    {@render children?.()}\n  </CardContent>\n  {#if footer}\n    <CardFooter>\n      {@render footer?.()}\n    </CardFooter>\n  {/if}\n</Card>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "CardFooter"
+      ],
+      "from": "$lib/components/ui/card"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

@@ -1,0 +1,31 @@
+{
+  "id": "headersection02",
+  "name": "HeaderSection02",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Left-aligned",
+  "description": "Left-aligned headline and subtitle with CTA buttons.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "left-aligned"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background px-4 py-20 sm:py-28', className)}>\n\t<div class=\"mx-auto max-w-2xl\">\n\t\t{#if eyebrow}\n\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs\">\n\t\t\t\t{eyebrow}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t{#if title}\n\t\t\t<h1 class=\"text-4xl sm:text-6xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t{/if}\n\n\t\t{#if description}\n\t\t\t<p class=\"text-lg text-muted-foreground mb-8\">{description}</p>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col sm:flex-row gap-4\">\n\t\t\t<Button onclick={onPrimary} size=\"lg\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\">\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:176357",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31UzWrbQBB+lUENOAFvlaRuCI6d0lxyCaHQUgpVDytpJC9Z7YrVKJYrBH2IHnvug+VJuivJP7LjXuxh/r5vvplV7SmeoTf1vt3dw8uv3/CACTEuRaow9sYecSGXQsXelEyJYy8REgtv+r32aJW7OueweX2Xj3n+tnhGSc4X8gJf80daESqybbxZERmRE0iu0nngURF4t4EKSGS5NgQ1RAoaSIzOYHQiReiXJGThR2p0M0i7K4n0XmqkbVQ5IL8Ubb6rsNAm4RHCJ6PzAmrnDCiSvCg+TKEgI1R60zlxhaHRy303CZK474yxm0RotR/Kjci4WT3wEOV+rEArRnwsqtWnrtYGTs9gfgvPWsSb4Od18WG46aaVSIMJp9D+PdqljAczwhxGj7gEgxLt1uDlz9/ReGdcF/+yQMh0jEbBkq+ANISlkDEk2gDZ2BLDdc2OGuNDEVyze8usIG4I43XRUAuX9FVYSjFmep2yEWR8oEE79bTf6hxOcmecnlk1Zn5Hxh2WmlkUR6sTYl5H6nS0ZEkpJYQpC3n0lBpdqhjyik0gX7HLcyiyqTOuR+OtfGdNe6ezWDz3rQIvqxgvrSwZr9iSXVayP+aA6jcigV7qpnPt14bsCoSSQiFLJFYgCLOCRejuFVKes0toiWHcs9XGrsKRzkorov/+3FF+5yhfAGFFrCo2+C2HA3zfElgT9EXS30zPtl37NndxsaHaNp9U0unS2lfWTuybZqG250DGimhvmJFIFwR2sInlUXf9Zv7i4ijkztVsgfMhrky74dqhmT097Pdlca4dzm6TmZ+/BjYQvhXb/bBItyO1tnsSTvTJjoSz/iOjVSRF9DSvN9fYQCF+om0m06Hku1e/o3vX6H+NN2fdwDM3giuy3XVJ7j4C7xjc8AUdA9zufW3ZF9K9Cmu7b74VuPveNz+af3BHxcUhBgAA"
+}

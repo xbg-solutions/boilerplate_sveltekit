@@ -1,0 +1,32 @@
+{
+  "id": "dashboardblock07",
+  "name": "DashboardBlock07",
+  "category": "blocks",
+  "group": "dashboard",
+  "title": "Dashboard Block 07",
+  "description": "Dashboard components.",
+  "tags": [],
+  "source": "<!--\n  DashboardBlock07.svelte\n  Minimal dashboard with stats summary and a simple item list.\n  Clean, lightweight layout for overviews.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    Avatar,\n    Separator\n  } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    stats = [],\n    items = [],\n    heading = 'Overview',\n    listTitle = 'Recent Activity',\n    listDescription = '',\n    onItemClick = undefined\n  }: {\n    class?: string;\n    /** Stat items for the top summary row */\n    stats?: Array<{\n      title: string;\n      value: string;\n      change?: string;\n    }>;\n    /** List items (e.g. recent activity, transactions) */\n    items?: Array<{\n      id: string;\n      title: string;\n      subtitle: string;\n      value: string;\n      avatar?: string;\n    }>;\n    heading?: string;\n    listTitle?: string;\n    listDescription?: string;\n    onItemClick?: ((id: string) => void) | undefined;\n  } = $props();\n</script>\n\n<div class={cn('space-y-4 p-4 md:p-8', className)}>\n  <!-- Page Heading -->\n  <h1 class=\"text-2xl font-bold tracking-tight\">{heading}</h1>\n\n  <!-- Stats Row -->\n  <div class=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n    {#each stats as stat}\n      <Card>\n        <CardHeader class=\"pb-2\">\n          <CardDescription>{stat.title}</CardDescription>\n          <CardTitle class=\"text-3xl\">{stat.value}</CardTitle>\n        </CardHeader>\n        {#if stat.change}\n          <CardContent>\n            <p class=\"text-xs text-muted-foreground\">{stat.change}</p>\n          </CardContent>\n        {/if}\n      </Card>\n    {/each}\n  </div>\n\n  <!-- Activity List -->\n  <Card>\n    <CardHeader>\n      <CardTitle>{listTitle}</CardTitle>\n      {#if listDescription}\n        <CardDescription>{listDescription}</CardDescription>\n      {/if}\n    </CardHeader>\n    <CardContent>\n      <div class=\"space-y-0\">\n        {#each items as item, i}\n          <button\n            class=\"flex w-full items-center gap-4 py-3 text-left hover:bg-muted/50 rounded-md px-2 transition-colors\"\n            onclick={() => onItemClick?.(item.id)}\n          >\n            <Avatar\n              src={item.avatar}\n              fallback={item.title}\n              size=\"lg\"\n            />\n            <div class=\"flex-1 min-w-0\">\n              <p class=\"text-sm font-medium leading-none truncate\">{item.title}</p>\n              <p class=\"text-sm text-muted-foreground truncate\">{item.subtitle}</p>\n            </div>\n            <span class=\"text-sm font-medium shrink-0\">{item.value}</span>\n          </button>\n          {#if i < items.length - 1}\n            <Separator />\n          {/if}\n        {/each}\n      </div>\n    </CardContent>\n  </Card>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "Avatar",
+        "Separator"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "533:9069",
+  "playgroundUrl": null
+}

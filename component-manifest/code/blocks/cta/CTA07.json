@@ -1,0 +1,26 @@
+{
+  "id": "cta07",
+  "name": "CTA07",
+  "category": "blocks",
+  "group": "cta",
+  "title": "Dark Minimal CTA",
+  "description": "Minimal dark CTA with just a headline and single button.",
+  "tags": [
+    "cta",
+    "call-to-action",
+    "landing-page",
+    "dark",
+    "minimal"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tlet {\n\t\tclass: className = '',\n\t\teyebrow = 'CTA Section',\n\t\theadline = 'Start your journey today',\n\t\tctaLabel = 'Get started',\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\theadline?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t} = $props();\n</script>\n\n<section class={cn('w-full py-8 px-4', className)}>\n\t<div class=\"mx-auto max-w-4xl rounded-2xl bg-foreground text-background py-16 px-8 sm:py-24 sm:px-12 text-center\">\n\t\t<!-- Eyebrow -->\n\t\t<p class=\"text-sm font-medium uppercase tracking-wide opacity-60 mb-4\">{eyebrow}</p>\n\n\t\t<!-- Headline -->\n\t\t<h2 class=\"text-3xl font-bold mb-8\">{headline}</h2>\n\n\t\t<!-- CTA Button -->\n\t\t<button\n\t\t\tonclick={onCta}\n\t\t\tclass=\"inline-flex items-center gap-2 rounded-md border border-background/30 bg-background/10 px-6 py-3 text-sm font-medium text-background hover:bg-background/20 transition-colors\"\n\t\t>\n\t\t\t{ctaLabel}\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\" />\n\t\t\t\t<polyline points=\"12 5 19 12 12 19\" />\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:173735",
+  "playgroundUrl": null
+}

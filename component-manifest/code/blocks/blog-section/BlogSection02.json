@@ -1,0 +1,27 @@
+{
+  "id": "blogsection02",
+  "name": "BlogSection02",
+  "category": "blocks",
+  "group": "blog-section",
+  "title": "3-col No Image",
+  "description": "Three-column text-only cards with author avatar, title, and excerpt.",
+  "tags": [
+    "blog",
+    "articles",
+    "content",
+    "landing-page",
+    "3-col",
+    "text-only"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface BlogPost {\n\t\ttitle: string;\n\t\texcerpt?: string;\n\t\tdate?: string;\n\t\tcategory?: string;\n\t\timageUrl?: string;\n\t\tauthor?: { name: string; role?: string; avatarUrl?: string };\n\t\thref?: string;\n\t}\n\n\tinterface Props {\n\t\tclass?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tposts?: BlogPost[];\n\t\teyebrow?: string;\n\t}\n\n\tconst defaultPosts: BlogPost[] = [\n\t\t{\n\t\t\ttitle: 'Getting Started with shadcn/ui: A Complete Guide',\n\t\t\tdate: 'Mar 15, 2024',\n\t\t\tcategory: 'Tutorial',\n\t\t\texcerpt:\n\t\t\t\t\"Learn how to set up and maximize your development workflow with shadcn/ui's powerful component library.\",\n\t\t\tauthor: { name: 'John Doe', role: 'Developer' }\n\t\t},\n\t\t{\n\t\t\ttitle: 'Building Dark Mode with Next.js and Tailwind CSS',\n\t\t\tdate: 'Mar 12, 2024',\n\t\t\tcategory: 'Development',\n\t\t\texcerpt:\n\t\t\t\t'Implement a seamless dark mode toggle in your Next.js application using Tailwind CSS and shadcn/ui.',\n\t\t\tauthor: { name: 'Jane Smith', role: 'Designer' }\n\t\t},\n\t\t{\n\t\t\ttitle: 'Mastering React Server Components Effectively',\n\t\t\tdate: 'Mar 8, 2024',\n\t\t\tcategory: 'Advanced',\n\t\t\texcerpt:\n\t\t\t\t\"Deep dive into React Server Components and learn how they can improve your application's performance.\",\n\t\t\tauthor: { name: 'Alice Johnson', role: 'Developer' }\n\t\t}\n\t];\n\n\tlet { class: className, title = 'Latest Articles', description = 'Explore our recent posts and insights', posts = defaultPosts, eyebrow = 'Blog Section' }: Props = $props();\n</script>\n\n<section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>\n\t<div class=\"mx-auto max-w-6xl\">\n\t\t<div>\n\t\t\t<p class=\"text-xs uppercase tracking-widest text-muted-foreground\">{eyebrow}</p>\n\t\t\t<h2 class=\"mt-2 text-3xl sm:text-4xl font-bold tracking-tight\">{title}</h2>\n\t\t\t<p class=\"mt-3 text-muted-foreground\">{description}</p>\n\t\t</div>\n\n\t\t<div class=\"mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3\">\n\t\t\t{#each posts as post (post.title)}\n\t\t\t\t<article class=\"flex flex-col\">\n\t\t\t\t\t<div class=\"flex items-center text-xs text-muted-foreground\">\n\t\t\t\t\t\t{#if post.date}\n\t\t\t\t\t\t\t<span>{post.date}</span>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t{#if post.date && post.category}\n\t\t\t\t\t\t\t<span class=\"mx-1\">·</span>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t{#if post.category}\n\t\t\t\t\t\t\t<span>{post.category}</span>\n\t\t\t\t\t\t{/if}\n\t\t\t\t\t</div>\n\t\t\t\t\t<h3 class=\"mt-2 text-lg font-semibold leading-snug\">{post.title}</h3>\n\t\t\t\t\t{#if post.excerpt}\n\t\t\t\t\t\t<p class=\"mt-2 text-sm text-muted-foreground flex-1\">{post.excerpt}</p>\n\t\t\t\t\t{/if}\n\t\t\t\t\t{#if post.author}\n\t\t\t\t\t\t<div class=\"mt-4 flex items-center gap-3\">\n\t\t\t\t\t\t\t<div class=\"h-8 w-8 rounded-full bg-muted flex-shrink-0\" />\n\t\t\t\t\t\t\t<div class=\"min-w-0\">\n\t\t\t\t\t\t\t\t<p class=\"text-sm font-medium truncate\">{post.author.name}</p>\n\t\t\t\t\t\t\t\t{#if post.author.role}\n\t\t\t\t\t\t\t\t\t<p class=\"text-xs text-muted-foreground truncate\">{post.author.role}</p>\n\t\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t{/if}\n\t\t\t\t</article>\n\t\t\t{/each}\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17013:2661",
+  "playgroundUrl": null
+}

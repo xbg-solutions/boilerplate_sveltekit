@@ -1,0 +1,32 @@
+{
+  "id": "sidebarlayout02",
+  "name": "SidebarLayout02",
+  "category": "blocks",
+  "group": "sidebar",
+  "title": "Sidebar Layout 02",
+  "description": "Sidebar components.",
+  "tags": [],
+  "source": "<!--\n  SidebarLayout02.svelte\n  Icon-only sidebar that expands on hover to show labels.\n-->\n<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n  import { DynamicIcon } from '$lib/components/ui/icon';\n\n  let {\n    class: className = '',\n    items = [],\n    children\n  }: {\n    class?: string;\n    items?: Array<{\n      icon: string;\n      label: string;\n      href: string;\n      active?: boolean;\n    }>;\n    children?: Snippet;\n  } = $props();\n\n  let expanded = $state(false);\n</script>\n\n<div class={cn('flex h-screen', className)}>\n  <!-- Sidebar -->\n  <aside\n    class={cn(\n      'flex flex-col border-r bg-background transition-all duration-200',\n      expanded ? 'w-48' : 'w-16'\n    )}\n    onmouseenter={() => (expanded = true)}\n    onmouseleave={() => (expanded = false)}\n    role=\"navigation\"\n  >\n    <!-- Logo -->\n    <div class=\"flex h-14 items-center justify-center border-b\">\n      <!-- Lucide: Command -->\n      <span class=\"flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-bold text-primary-foreground\">\n        C\n      </span>\n    </div>\n\n    <!-- Nav Items -->\n    <nav class=\"flex flex-1 flex-col gap-1 p-2\">\n      {#each items as item}\n        <a\n          href={item.href}\n          class={cn(\n            'flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors',\n            item.active\n              ? 'bg-muted font-medium text-foreground'\n              : 'text-muted-foreground hover:bg-muted hover:text-foreground'\n          )}\n          title={item.label}\n        >\n          <!-- Icon -->\n          <DynamicIcon name={item.icon} size={20} />\n          {#if expanded}\n            <span class=\"truncate\">{item.label}</span>\n          {/if}\n        </a>\n      {/each}\n    </nav>\n  </aside>\n\n  <!-- Main Content -->\n  <main class=\"flex-1 overflow-y-auto\">\n    {@render children?.()}\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "DynamicIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    }
+  ],
+  "figmaNodeId": "5199:54247",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31W3a7TOBB+ldmAlFY6OekpaIV62rLASisk4IablSgXbuK03nXsyHbaU6JIPARPyJMw/mnj9KBz0daZ+Tye+fzNpF0iSE2TRfLv23/g5/cf8JmVdEsUfCAn2RqYzZObxBDGj0yUycKolt4kFeNUJ4svXWJOjd1sDYgLod40za0+UG6sbUs0/Z29kMJQYTBMsvwjyzYCzkf7k2fzgLWe94jOpOAn0CE9sycG6ENDRKlBCtjLA0WrBL2XR+BkS7m+3YgsW2/EUheKNQatYrfaJEZvkrWNyupGKgO2Bujgs2BNQw30UClZQ+pPT+8jZAeFuPifc7bNW8O4zgtxBXvbGiOvoIVEr7Al5y27wv99QopYYct8YlPO0G932r0cU+3sAqDgROuF//mEVMMK0vTG+5ihtUbDl6/BUOwZLxV1MfrFKMTrBWijmNjdR3vR+EYpcloGJJoxiyskeMYfWfeKVo+MpDDsQDHuVkpOiQiOfn0/zhAR4U6co8cqnjdKNnoyjTjwGqCl9WpDDJ1UhGtqIcvcX/zaopclO/gyV10hJmnF6QPsM0RQKtKbgb1p78RhRXlpBicjtBErv4gxF+pclw9pv7JCcqxOlVRlCra7bEuK/3dKtqIEo4jQzDAUNOEcylYR9zCfzc53BkNRryE9Zi9fpbCwi7s/U4+Y9v5Xilq2GgswVK26yRRWa5hEjNh2vcIi4wf6O6ynLYAV3gy2iiAHtnP5bRLrWHuv4+aD3MkzMWga6N0kgdu7l15CWeEShP9abVh1Oj8GgrahG4fAbYEsL+CdrGtMbjgD/RrTvT7mFRzx89RJjnlaZnVpL6NRrCbqBIY+mEzXUOEkyraSl94S3FklFfV3FiUI8O6SS26TOZefY/1rr8pQxidygPeu+waSkM9x9k4td4NodqTBxyabR2d2zygp9qGTiXaLfkhoSYa177hVZyG3dtnHvseSjYU7ItDm8SLmrXnA5+aUzS+0RULGzKXSg3zDnLBJ+GYfO8DKGi+ibg0qz9Ff05K1tY89EJ9e78MucBC3MwL68b+4xPSPT0WbjpgxzKDePW1ukkXedQx0N+vGdKRK54hHuH3fhWh2WPb41vqGhvmsh3y0q3vGqkuz9+Nqx1rHThYFTjfURZzmSIQhZs7ia1/mZFBSbpXUnyWLavRjLXdzLcjXlfiRMIEN6F7Rl+lXW2MsX5SqJbri8pidMtIaeZFt9xdOcGzvYZrfTjzny9zGsa/l0DP2DwbelP9z0X/tfwHdwN/SkwgAAA=="
+}

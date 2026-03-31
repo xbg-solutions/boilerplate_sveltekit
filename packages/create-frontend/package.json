@@ -17,7 +17,10 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "clean": "rm -rf lib",
-    "populate-registry": "node scripts/populate-registry.cjs"
+    "populate-registry": "node scripts/populate-registry.cjs",
+    "generate-manifest": "node scripts/generate-component-manifest.cjs",
+    "generate-manifest:images": "node scripts/generate-component-manifest.cjs --images",
+    "generate-manifest:update-meta": "node scripts/generate-component-manifest.cjs --update-meta"
   },
   "publishConfig": {
     "access": "public"

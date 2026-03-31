@@ -1,0 +1,40 @@
+{
+  "id": "dashboardblock06",
+  "name": "DashboardBlock06",
+  "category": "blocks",
+  "group": "dashboard",
+  "title": "Dashboard Block 06",
+  "description": "Dashboard components.",
+  "tags": [],
+  "source": "<!--\n  DashboardBlock06.svelte\n  Table-focused dashboard with pagination.\n  Minimal stats header, prominent data table with page controls.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    CardFooter,\n    Badge,\n    Input,\n    Table,\n    TableHeader,\n    TableBody,\n    TableRow,\n    TableHead,\n    TableCell\n  } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    rows = [],\n    columns = ['Customer', 'Type', 'Status', 'Date', 'Amount'],\n    currentPage = 1,\n    totalPages = 1,\n    totalItems = 0,\n    pageSize = 10,\n    title = 'Transactions',\n    description = 'A list of all transactions.',\n    onPageChange = undefined,\n    onSearch = undefined,\n    onRowClick = undefined,\n    onExport = undefined\n  }: {\n    class?: string;\n    /** Table rows */\n    rows?: Array<{\n      id: string;\n      name: string;\n      email: string;\n      status: string;\n      type: string;\n      amount: string;\n      date: string;\n    }>;\n    /** Column headers */\n    columns?: string[];\n    /** Pagination state */\n    currentPage?: number;\n    totalPages?: number;\n    totalItems?: number;\n    pageSize?: number;\n    title?: string;\n    description?: string;\n    onPageChange?: ((page: number) => void) | undefined;\n    onSearch?: ((query: string) => void) | undefined;\n    onRowClick?: ((id: string) => void) | undefined;\n    onExport?: (() => void) | undefined;\n  } = $props();\n\n  let searchQuery = $state('');\n\n  let startItem = $derived((currentPage - 1) * pageSize + 1);\n  let endItem = $derived(Math.min(currentPage * pageSize, totalItems));\n\n  function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {\n    switch (status.toLowerCase()) {\n      case 'fulfilled':\n      case 'completed':\n      case 'active': return 'default';\n      case 'pending':\n      case 'processing': return 'secondary';\n      case 'cancelled':\n      case 'failed':\n      case 'declined': return 'destructive';\n      default: return 'outline';\n    }\n  }\n</script>\n\n<div class={cn('space-y-4 p-4 md:p-8', className)}>\n  <!-- Header -->\n  <div class=\"flex flex-col gap-2 md:flex-row md:items-center md:justify-between\">\n    <div>\n      <h1 class=\"text-2xl font-bold tracking-tight\">{title}</h1>\n      <p class=\"text-muted-foreground\">{description}</p>\n    </div>\n    <div class=\"flex items-center gap-2\">\n      <Input\n        type=\"search\"\n        placeholder=\"Search...\"\n        class=\"w-[200px]\"\n        bind:value={searchQuery}\n        oninput={() => onSearch?.(searchQuery)}\n      />\n      <Button variant=\"outline\" onclick={() => onExport?.()}>\n        Export\n      </Button>\n    </div>\n  </div>\n\n  <!-- Table Card -->\n  <Card>\n    <CardContent class=\"p-0\">\n      <Table>\n        <TableHeader>\n          <TableRow>\n            {#each columns as col}\n              <TableHead class={col === 'Amount' ? 'text-right' : ''}>\n                {col}\n              </TableHead>\n            {/each}\n          </TableRow>\n        </TableHeader>\n        <TableBody>\n          {#each rows as row}\n            <TableRow\n              class=\"cursor-pointer\"\n              onclick={() => onRowClick?.(row.id)}\n            >\n              <TableCell>\n                <div class=\"font-medium\">{row.name}</div>\n                <div class=\"text-sm text-muted-foreground\">{row.email}</div>\n              </TableCell>\n              <TableCell>{row.type}</TableCell>\n              <TableCell>\n                <Badge variant={statusVariant(row.status)}>\n                  {row.status}\n                </Badge>\n              </TableCell>\n              <TableCell class=\"text-muted-foreground\">{row.date}</TableCell>\n              <TableCell class=\"text-right font-medium\">{row.amount}</TableCell>\n            </TableRow>\n          {/each}\n        </TableBody>\n      </Table>\n    </CardContent>\n\n    <!-- Pagination Footer -->\n    <CardFooter class=\"flex items-center justify-between border-t px-6 py-4\">\n      <p class=\"text-sm text-muted-foreground\">\n        Showing {startItem}-{endItem} of {totalItems}\n      </p>\n      <div class=\"flex items-center gap-2\">\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          disabled={currentPage <= 1}\n          onclick={() => onPageChange?.(currentPage - 1)}\n        >\n          Previous\n        </Button>\n        <span class=\"text-sm text-muted-foreground\">\n          Page {currentPage} of {totalPages}\n        </span>\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          disabled={currentPage >= totalPages}\n          onclick={() => onPageChange?.(currentPage + 1)}\n        >\n          Next\n        </Button>\n      </div>\n    </CardFooter>\n  </Card>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "CardFooter",
+        "Badge",
+        "Input",
+        "Table",
+        "TableHeader",
+        "TableBody",
+        "TableRow",
+        "TableHead",
+        "TableCell"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "533:8986",
+  "playgroundUrl": null
+}

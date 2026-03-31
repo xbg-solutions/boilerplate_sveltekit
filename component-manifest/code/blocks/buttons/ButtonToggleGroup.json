@@ -1,0 +1,27 @@
+{
+  "id": "buttontogglegroup",
+  "name": "ButtonToggleGroup",
+  "category": "blocks",
+  "group": "buttons",
+  "title": "Segmented Toggle",
+  "description": "Today / This week / This month / This year segmented control.",
+  "tags": [
+    "button",
+    "interactive",
+    "pattern",
+    "segment",
+    "toggle",
+    "filter"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\toptions?: string[];\n\t\tvalue?: string;\n\t\tonchange?: (value: string) => void;\n\t}\n\n\tconst defaultOptions = ['Today', 'This week', 'This month', 'This year'];\n\tconst { class: className = '', options = defaultOptions, value, onchange } = $props();\n\n\tlet selected = $state(value || options[0]);\n\n\tconst handleSelect = (option: string) => {\n\t\tselected = option;\n\t\tonchange?.(option);\n\t};\n</script>\n\n<div class={cn('inline-flex rounded-md border overflow-hidden divide-x', className)}>\n\t{#each options as option (option)}\n\t\t<button\n\t\t\ttype=\"button\"\n\t\t\tonclick={() => handleSelect(option)}\n\t\t\tclass={cn(\n\t\t\t\t'px-4 py-1.5 text-sm bg-background hover:bg-muted/50 transition-colors',\n\t\t\t\tselected === option && 'bg-muted font-medium'\n\t\t\t)}\n\t\t>\n\t\t\t{option}\n\t\t</button>\n\t{/each}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:30236",
+  "playgroundUrl": null
+}

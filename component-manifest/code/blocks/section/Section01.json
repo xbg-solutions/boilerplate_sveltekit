@@ -1,0 +1,24 @@
+{
+  "id": "section01",
+  "name": "Section01",
+  "category": "blocks",
+  "group": "section",
+  "title": "Section 01",
+  "description": "Generic content section containers with various header, background, and spacing configurations.",
+  "tags": [
+    "section",
+    "layout",
+    "container"
+  ],
+  "source": "<!--\n  Section01.svelte\n  Layout wrapper: N stacked content slots. Supports flat (no border) and card (white bg + border) variants.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  let {\n    class: className = '',\n    variant = 'flat' as 'flat' | 'card',\n    slots = 3,\n    children\n  }: {\n    class?: string;\n    variant?: 'flat' | 'card';\n    slots?: number;\n    children?: Snippet;\n  } = $props();\n</script>\n\n<div\n  class={cn(\n    'flex flex-col gap-4',\n    variant === 'card' && 'rounded-lg border bg-background p-4',\n    className\n  )}\n>\n  {#if children}\n    {@render children()}\n  {:else}\n    {#each Array(slots) as _}\n      <div class=\"flex min-h-16 items-center justify-center rounded-lg border border-dashed bg-muted/30 text-sm text-muted-foreground\">\n        Slot (swap it with your content)\n      </div>\n    {/each}\n  {/if}\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "11005:4955",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE21UzY6bMBB+lal3tYAah4226oH8tNtLL9VecqlUqsqAAbfGINskG1GkPkSfsE/SMT9R0i4HbM98nvm+mYGOKFZxEpHPHz7Cn1+/Yc9TK2oF9yuyIJYJeRQqI5HVLV+QXEhuSPSlI/bUuFvOgLgpxmPTLM2BS+tsCTP8JXtaK8uVxTBk84rSWMGc8341oZztEzvVrYWjZk3DdQRPYCxLf/AMpgBgZG3NEvZt09TaGsgls+CrGpJaZ1wHwBSCmc7AP5bCckgKeH12HpgWDGksY0XpLlYbk2rRWJBMFduYWBOTneMhKhcdOkgV9JDrugLvVookbK2QJkyVt76AubIgdq8EsrbnC6Msh3RYiZ7ObQBSyYyJxuUJiwVb8LzF6JsYOpOT5gEz8+4neE7YjBwqgbiH6ZyWQmaaD8n66CrXuwjrqIUq1ldJ0PxP6PVFaPSqtkq4Xl/HR/ukdHD0SOG20XVj/AANm3As6c6p3mTi4DADiW2XKn8MhVn5M7gXTWsJBWvom/8KsN1OpODuDjxdtyrjGZXF1ExsLE1wNorBAxcRznV1x6CP1dDS7kbkZw39iOze497Fmu1+MHi6iEvDZ9ANZ2kJj1qzkz9UJnBN+Ta5AZzKSWJMBmWVULSkq7eAA1gZmuLgYpLvrbEiP83HFxQNC82YKXHiUV/VWp6FD/dg+bOlphrXwUrzWvNR+zSz47NHguCbI2swORyFLQE/KT1/P8GZdIisp3td6BSOykOR966Lo9f9DTDl+Cfov/Z/AShnQaY5BAAA"
+}

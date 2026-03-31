@@ -1,0 +1,39 @@
+{
+  "id": "dashboardblock04",
+  "name": "DashboardBlock04",
+  "category": "blocks",
+  "group": "dashboard",
+  "title": "Dashboard Block 04",
+  "description": "Dashboard components.",
+  "tags": [],
+  "source": "<!--\n  DashboardBlock04.svelte\n  Orders dashboard variant with a different column layout.\n  Features a wider detail panel alongside orders and inline stats.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    Badge,\n    Separator,\n    Table,\n    TableHeader,\n    TableBody,\n    TableRow,\n    TableHead,\n    TableCell\n  } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    orders = [],\n    selectedOrder = null,\n    stats = [],\n    onSelectOrder = undefined,\n    onCreateOrder = undefined\n  }: {\n    class?: string;\n    /** Orders data */\n    orders?: Array<{\n      id: string;\n      customer: string;\n      email: string;\n      type: string;\n      status: string;\n      date: string;\n      amount: string;\n    }>;\n    /** Selected order detail */\n    selectedOrder?: {\n      id: string;\n      date: string;\n      items: Array<{ name: string; qty: number; price: string }>;\n      subtotal: string;\n      shipping: string;\n      tax: string;\n      total: string;\n      customer?: { name: string; email: string; phone?: string };\n      paymentMethod?: string;\n    } | null;\n    /** Summary stats */\n    stats?: Array<{\n      title: string;\n      value: string;\n      change?: string;\n    }>;\n    onSelectOrder?: ((id: string) => void) | undefined;\n    onCreateOrder?: (() => void) | undefined;\n  } = $props();\n\n  function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {\n    switch (status.toLowerCase()) {\n      case 'fulfilled': return 'default';\n      case 'pending': return 'secondary';\n      case 'cancelled':\n      case 'declined': return 'destructive';\n      default: return 'outline';\n    }\n  }\n</script>\n\n<div class={cn('flex min-h-screen flex-col', className)}>\n  <main class=\"flex flex-1 gap-4 p-4 md:p-8\">\n    <!-- Left Column: Stats + Table -->\n    <div class=\"flex flex-1 flex-col gap-4\">\n      <!-- Header -->\n      <div class=\"flex items-center justify-between\">\n        <div>\n          <h1 class=\"text-2xl font-bold tracking-tight\">Orders</h1>\n          <p class=\"text-muted-foreground\">Manage and track your orders.</p>\n        </div>\n        <Button onclick={() => onCreateOrder?.()}>Create Order</Button>\n      </div>\n\n      <!-- Stats Row -->\n      {#if stats.length > 0}\n        <div class=\"grid gap-4 sm:grid-cols-3\">\n          {#each stats as stat}\n            <Card>\n              <CardHeader class=\"pb-2\">\n                <CardDescription>{stat.title}</CardDescription>\n                <CardTitle class=\"text-2xl\">{stat.value}</CardTitle>\n              </CardHeader>\n              {#if stat.change}\n                <CardContent>\n                  <p class=\"text-xs text-muted-foreground\">{stat.change}</p>\n                </CardContent>\n              {/if}\n            </Card>\n          {/each}\n        </div>\n      {/if}\n\n      <!-- Orders Table -->\n      <Card>\n        <CardContent class=\"p-0\">\n          <Table>\n            <TableHeader>\n              <TableRow>\n                <TableHead>Customer</TableHead>\n                <TableHead>Type</TableHead>\n                <TableHead>Status</TableHead>\n                <TableHead>Date</TableHead>\n                <TableHead class=\"text-right\">Amount</TableHead>\n              </TableRow>\n            </TableHeader>\n            <TableBody>\n              {#each orders as order}\n                <TableRow\n                  class=\"cursor-pointer\"\n                  onclick={() => onSelectOrder?.(order.id)}\n                >\n                  <TableCell>\n                    <div class=\"font-medium\">{order.customer}</div>\n                    <div class=\"text-sm text-muted-foreground\">{order.email}</div>\n                  </TableCell>\n                  <TableCell>{order.type}</TableCell>\n                  <TableCell>\n                    <Badge variant={statusVariant(order.status)}>\n                      {order.status}\n                    </Badge>\n                  </TableCell>\n                  <TableCell>{order.date}</TableCell>\n                  <TableCell class=\"text-right font-medium\">{order.amount}</TableCell>\n                </TableRow>\n              {/each}\n            </TableBody>\n          </Table>\n        </CardContent>\n      </Card>\n    </div>\n\n    <!-- Right Column: Order Detail -->\n    {#if selectedOrder}\n      <Card class=\"hidden w-[420px] shrink-0 lg:block\">\n        <CardHeader>\n          <CardTitle>Order {selectedOrder.id}</CardTitle>\n          <CardDescription>Placed on {selectedOrder.date}</CardDescription>\n        </CardHeader>\n        <CardContent class=\"space-y-4\">\n          <!-- Line Items -->\n          <div>\n            <h4 class=\"text-sm font-medium mb-2\">Items</h4>\n            <div class=\"space-y-2\">\n              {#each selectedOrder.items as item}\n                <div class=\"flex justify-between text-sm\">\n                  <span>\n                    {item.name}\n                    <span class=\"text-muted-foreground\">x{item.qty}</span>\n                  </span>\n                  <span>{item.price}</span>\n                </div>\n              {/each}\n            </div>\n          </div>\n\n          <Separator />\n\n          <!-- Totals -->\n          <div class=\"space-y-1 text-sm\">\n            <div class=\"flex justify-between\">\n              <span class=\"text-muted-foreground\">Subtotal</span>\n              <span>{selectedOrder.subtotal}</span>\n            </div>\n            <div class=\"flex justify-between\">\n              <span class=\"text-muted-foreground\">Shipping</span>\n              <span>{selectedOrder.shipping}</span>\n            </div>\n            <div class=\"flex justify-between\">\n              <span class=\"text-muted-foreground\">Tax</span>\n              <span>{selectedOrder.tax}</span>\n            </div>\n            <Separator />\n            <div class=\"flex justify-between font-semibold\">\n              <span>Total</span>\n              <span>{selectedOrder.total}</span>\n            </div>\n          </div>\n\n          <Separator />\n\n          <!-- Customer Info -->\n          {#if selectedOrder.customer}\n            <div>\n              <h4 class=\"text-sm font-medium mb-1\">Customer</h4>\n              <p class=\"text-sm\">{selectedOrder.customer.name}</p>\n              <p class=\"text-sm text-muted-foreground\">{selectedOrder.customer.email}</p>\n              {#if selectedOrder.customer.phone}\n                <p class=\"text-sm text-muted-foreground\">{selectedOrder.customer.phone}</p>\n              {/if}\n            </div>\n          {/if}\n\n          <!-- Payment -->\n          {#if selectedOrder.paymentMethod}\n            <div>\n              <h4 class=\"text-sm font-medium mb-1\">Payment</h4>\n              <p class=\"text-sm text-muted-foreground\">{selectedOrder.paymentMethod}</p>\n            </div>\n          {/if}\n        </CardContent>\n      </Card>\n    {/if}\n  </main>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "Badge",
+        "Separator",
+        "Table",
+        "TableHeader",
+        "TableBody",
+        "TableRow",
+        "TableHead",
+        "TableCell"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "533:9356",
+  "playgroundUrl": null
+}

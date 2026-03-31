@@ -1,0 +1,32 @@
+{
+  "id": "texteditor",
+  "name": "TextEditor",
+  "category": "atoms",
+  "group": "text-editor",
+  "title": "Text Editor",
+  "description": "WYSIWYG editor with toolbar buttons for common formatting operations.",
+  "tags": [
+    "editor",
+    "rich-text",
+    "form",
+    "wysiwyg"
+  ],
+  "source": "<!--\n  src/lib/components/ui/text-editor/TextEditor.svelte\n  Rich text area with toolbar snippet.\n\n  Usage:\n  <TextEditor bind:value state=\"default\" placeholder=\"Write something...\">\n    {#snippet toolbar()}\n      <Button variant=\"ghost\" size=\"icon\"><BoldIcon /></Button>\n    {/snippet}\n  </TextEditor>\n-->\n<script lang=\"ts\">\n  import { tv, type VariantProps } from 'tailwind-variants';\n  import { cn } from '$lib/utils/cn';\n  import type { Snippet } from 'svelte';\n\n  const textEditorVariants = tv({\n    base: 'rounded-lg border bg-card text-card-foreground shadow-sm',\n    variants: {\n      state: {\n        default: '',\n        filled: '',\n        disabled: 'opacity-50 pointer-events-none'\n      }\n    },\n    defaultVariants: {\n      state: 'default'\n    }\n  });\n\n  type State = VariantProps<typeof textEditorVariants>['state'];\n\n  let {\n    value = $bindable(''),\n    state = 'default' as State,\n    placeholder = '',\n    class: className = '',\n    toolbar,\n    oninput,\n    onfocus,\n    onblur,\n    ...rest\n  }: {\n    value?: string;\n    state?: State;\n    placeholder?: string;\n    class?: string;\n    toolbar?: Snippet;\n    oninput?: (detail: { value: string }) => void;\n    onfocus?: (e: FocusEvent) => void;\n    onblur?: (e: FocusEvent) => void;\n    [key: string]: unknown;\n  } = $props();\n\n  function handleInput(e: Event) {\n    const target = e.target as HTMLTextAreaElement;\n    value = target.value;\n    oninput?.({ value });\n  }\n</script>\n\n<div class={cn(textEditorVariants({ state }), className)} {...rest}>\n  <div class=\"flex items-center gap-1 border-b px-3 py-2\">\n    {#if toolbar}\n      {@render toolbar()}\n    {/if}\n  </div>\n  <textarea\n    class=\"w-full min-h-[120px] resize-y bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed\"\n    {placeholder}\n    {value}\n    disabled={state === 'disabled'}\n    oninput={handleInput}\n    {onfocus}\n    {onblur}\n  />\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "tv",
+        "type VariantProps"
+      ],
+      "from": "tailwind-variants"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

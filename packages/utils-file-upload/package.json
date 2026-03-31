@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/utils-file-upload",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "XBG File Upload - Firebase Storage file handling",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

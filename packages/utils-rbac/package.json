@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/utils-rbac",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "XBG RBAC - Role hierarchy, permission checking, and store",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

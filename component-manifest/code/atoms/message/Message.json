@@ -1,0 +1,31 @@
+{
+  "id": "message",
+  "name": "Message",
+  "category": "atoms",
+  "group": "message",
+  "title": "Message",
+  "description": "Chat bubble with left/right alignment for sent vs. received messages.",
+  "tags": [
+    "chat",
+    "message",
+    "communication"
+  ],
+  "source": "<!--\n  src/lib/components/ui/message/Message.svelte\n  Message list item with sender, subject, preview, and time.\n\n  Usage:\n  <Message\n    sender=\"Jane Smith\"\n    subject=\"Meeting Tomorrow\"\n    preview=\"Hey, just wanted to confirm our meeting...\"\n    time=\"2:30 PM\"\n    state=\"active\"\n  />\n-->\n<script lang=\"ts\">\n  import { tv, type VariantProps } from 'tailwind-variants';\n  import { cn } from '$lib/utils/cn';\n\n  const messageVariants = tv({\n    base: 'flex flex-col gap-1 px-4 py-3 transition-colors cursor-pointer',\n    variants: {\n      state: {\n        default: 'hover:bg-muted/50',\n        hover: 'bg-muted/50',\n        active: 'bg-muted border-l-2 border-primary'\n      }\n    },\n    defaultVariants: {\n      state: 'default'\n    }\n  });\n\n  type State = VariantProps<typeof messageVariants>['state'];\n\n  let {\n    sender,\n    subject,\n    preview,\n    time,\n    state = 'default',\n    class: className = '',\n    ...rest\n  }: {\n    sender: string;\n    subject: string;\n    preview: string;\n    time: string;\n    state?: State;\n    class?: string;\n    [key: string]: unknown;\n  } = $props();\n\n  let classes = $derived(cn(messageVariants({ state }), className));\n</script>\n\n<div class={classes} {...rest}>\n  <div class=\"flex items-center justify-between gap-2\">\n    <span class=\"text-sm font-semibold text-foreground truncate\">{sender}</span>\n    <span class=\"text-xs text-muted-foreground flex-shrink-0\">{time}</span>\n  </div>\n  <p class=\"text-sm font-medium text-foreground truncate\">{subject}</p>\n  <p class=\"text-xs text-muted-foreground line-clamp-2\">{preview}</p>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "tv",
+        "type VariantProps"
+      ],
+      "from": "tailwind-variants"
+    },
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

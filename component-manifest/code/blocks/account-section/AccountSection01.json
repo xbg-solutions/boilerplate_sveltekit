@@ -1,0 +1,27 @@
+{
+  "id": "accountsection01",
+  "name": "AccountSection01",
+  "category": "blocks",
+  "group": "account-section",
+  "title": "Account Dashboard",
+  "description": "Sidebar nav with avatar/name + main area showing recent orders table and account summary stats.",
+  "tags": [
+    "account",
+    "profile",
+    "e-commerce",
+    "settings",
+    "dashboard",
+    "orders"
+  ],
+  "source": "<!--\n  AccountSection01.svelte\n  Account dashboard: left sidebar with avatar, name, email, nav links (Orders, Profile, Addresses, Payment, Wishlist, Sign out).\n  Right main: \"Recent Orders\" table (last 3) + \"Account Summary\" stats (Total orders, Wishlist items, Saved addresses).\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface Props {\n    class?: string;\n  }\n\n  let { class: className = '' }: Props = $props();\n\n  const user = {\n    name: 'Sarah Anderson',\n    email: 'sarah.anderson@example.com',\n    initials: 'SA'\n  };\n\n  const recentOrders = [\n    { id: '#12345', date: 'Mar 28, 2026', total: '$156.50', status: 'Delivered' },\n    { id: '#12321', date: 'Mar 15, 2026', total: '$89.99', status: 'Delivered' },\n    { id: '#12287', date: 'Mar 5, 2026', total: '$245.00', status: 'Delivered' }\n  ];\n\n  const stats = [\n    { label: 'Total Orders', value: '24' },\n    { label: 'Wishlist Items', value: '8' },\n    { label: 'Saved Addresses', value: '3' }\n  ];\n</script>\n\n<div class={cn('w-full bg-gray-50 py-8', className)}>\n  <div class=\"mx-auto max-w-7xl px-4\">\n    <div class=\"grid grid-cols-1 gap-8 md:grid-cols-4\">\n      <!-- Left sidebar -->\n      <div class=\"md:col-span-1\">\n        <div class=\"rounded-lg bg-white p-6 shadow-sm\">\n          <!-- Avatar and info -->\n          <div class=\"mb-6 flex items-center gap-4\">\n            <div class=\"flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-base font-bold text-white\">{user.initials}</div>\n            <div>\n              <p class=\"font-medium text-gray-900\">{user.name}</p>\n              <p class=\"text-sm text-gray-500\">{user.email}</p>\n            </div>\n          </div>\n\n          <hr class=\"mb-6\" />\n\n          <!-- Navigation -->\n          <nav class=\"space-y-1\">\n            <a href=\"#\" class=\"block rounded-md px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100\">Orders</a>\n            <a href=\"#\" class=\"block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Profile</a>\n            <a href=\"#\" class=\"block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Addresses</a>\n            <a href=\"#\" class=\"block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Payment Methods</a>\n            <a href=\"#\" class=\"block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\">Wishlist</a>\n          </nav>\n\n          <hr class=\"my-6\" />\n\n          <button type=\"button\" class=\"w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left\">Sign out</button>\n        </div>\n      </div>\n\n      <!-- Right main content -->\n      <div class=\"md:col-span-3 space-y-6\">\n        <!-- Account Summary Stats -->\n        <div class=\"grid grid-cols-1 gap-4 sm:grid-cols-3\">\n          {#each stats as stat}\n            <div class=\"rounded-lg bg-white p-6 shadow-sm\">\n              <p class=\"text-sm text-gray-500\">{stat.label}</p>\n              <p class=\"mt-2 text-3xl font-bold text-gray-900\">{stat.value}</p>\n            </div>\n          {/each}\n        </div>\n\n        <!-- Recent Orders -->\n        <div class=\"rounded-lg bg-white p-6 shadow-sm\">\n          <h2 class=\"mb-4 text-lg font-semibold text-gray-900\">Recent Orders</h2>\n          <div class=\"overflow-x-auto\">\n            <table class=\"w-full\">\n              <thead>\n                <tr class=\"border-b border-gray-200\">\n                  <th class=\"text-left text-sm font-medium text-gray-500 py-3\">Order ID</th>\n                  <th class=\"text-left text-sm font-medium text-gray-500 py-3\">Date</th>\n                  <th class=\"text-left text-sm font-medium text-gray-500 py-3\">Total</th>\n                  <th class=\"text-left text-sm font-medium text-gray-500 py-3\">Status</th>\n                </tr>\n              </thead>\n              <tbody>\n                {#each recentOrders as order}\n                  <tr class=\"border-b border-gray-100 hover:bg-gray-50\">\n                    <td class=\"py-3 text-sm font-medium text-gray-900\">{order.id}</td>\n                    <td class=\"py-3 text-sm text-gray-600\">{order.date}</td>\n                    <td class=\"py-3 text-sm font-medium text-gray-900\">{order.total}</td>\n                    <td class=\"py-3 text-sm\">\n                      <span class=\"inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700\">\n                        {order.status}\n                      </span>\n                    </td>\n                  </tr>\n                {/each}\n              </tbody>\n            </table>\n          </div>\n          <a href=\"#\" class=\"mt-4 inline-block text-sm font-medium text-blue-600 hover:text-blue-700\">View all orders</a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": null,
+  "playgroundUrl": null
+}

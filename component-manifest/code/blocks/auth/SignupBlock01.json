@@ -1,0 +1,47 @@
+{
+  "id": "signupblock01",
+  "name": "SignupBlock01",
+  "category": "blocks",
+  "group": "auth",
+  "title": "Centered Sign-up Card",
+  "description": "Sign-up form with name, email, password fields and terms agreement checkbox.",
+  "tags": [
+    "auth",
+    "login",
+    "sign-up",
+    "otp",
+    "sign-up",
+    "centered"
+  ],
+  "source": "<!--\n  SignupBlock01.svelte\n  Full create account form with name, email, password, confirm password, and Google signup.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import {\n    Button,\n    Card,\n    CardHeader,\n    CardContent,\n    CardTitle,\n    CardDescription,\n    CardFooter,\n    Input,\n    Label\n  } from '$lib/components/ui';\n  import { BrandIcon } from '$lib/components/ui/icon';\n\n  let {\n    class: className = '',\n    onSubmit = undefined,\n    onGoogleSignup = undefined,\n    onSignIn = undefined\n  }: {\n    class?: string;\n    onSubmit?: ((data: { name: string; email: string; password: string; confirmPassword: string }) => void) | undefined;\n    onGoogleSignup?: (() => void) | undefined;\n    onSignIn?: (() => void) | undefined;\n  } = $props();\n\n  let name = $state('');\n  let email = $state('');\n  let password = $state('');\n  let confirmPassword = $state('');\n\n  function handleSubmit() {\n    onSubmit?.({ name, email, password, confirmPassword });\n  }\n</script>\n\n<div class={cn('flex min-h-screen items-center justify-center p-4', className)}>\n  <Card class=\"w-full max-w-md\">\n    <CardHeader>\n      <CardTitle class=\"text-2xl\">Create an account</CardTitle>\n      <CardDescription>Enter your information below to create your account</CardDescription>\n    </CardHeader>\n    <CardContent>\n      <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class=\"space-y-4\">\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup01-name\">Full name</Label>\n          <Input\n            type=\"text\"\n            placeholder=\"John Doe\"\n            bind:value={name}\n          />\n        </div>\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup01-email\">Email</Label>\n          <Input\n            type=\"email\"\n            placeholder=\"m@example.com\"\n            bind:value={email}\n          />\n          <p class=\"text-xs text-muted-foreground\">We'll use this to contact you.</p>\n        </div>\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup01-password\">Password</Label>\n          <Input\n            type=\"password\"\n            bind:value={password}\n          />\n          <p class=\"text-xs text-muted-foreground\">Must be at least 8 characters long.</p>\n        </div>\n        <div class=\"space-y-2\">\n          <Label htmlFor=\"signup01-confirm-password\">Confirm Password</Label>\n          <Input\n            type=\"password\"\n            bind:value={confirmPassword}\n          />\n          <p class=\"text-xs text-muted-foreground\">Please confirm your password.</p>\n        </div>\n        <Button type=\"submit\" class=\"w-full\">Create Account</Button>\n        <Button variant=\"outline\" type=\"button\" class=\"w-full\" onclick={onGoogleSignup}>\n          <BrandIcon name=\"google\" size={16} colored class=\"mr-2\" />\n          Sign up with Google\n        </Button>\n      </form>\n    </CardContent>\n    <CardFooter class=\"justify-center\">\n      <p class=\"text-sm text-muted-foreground\">\n        Already have an account?\n        <button\n          type=\"button\"\n          class=\"text-primary underline-offset-4 hover:underline\"\n          onclick={onSignIn}\n        >\n          Sign in\n        </button>\n      </p>\n    </CardFooter>\n  </Card>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button",
+        "Card",
+        "CardHeader",
+        "CardContent",
+        "CardTitle",
+        "CardDescription",
+        "CardFooter",
+        "Input",
+        "Label"
+      ],
+      "from": "$lib/components/ui"
+    },
+    {
+      "specifiers": [
+        "BrandIcon"
+      ],
+      "from": "$lib/components/ui/icon"
+    }
+  ],
+  "figmaNodeId": "18748:247757",
+  "playgroundUrl": null
+}

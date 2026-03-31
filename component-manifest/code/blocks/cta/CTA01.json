@@ -1,0 +1,26 @@
+{
+  "id": "cta01",
+  "name": "CTA01",
+  "category": "blocks",
+  "group": "cta",
+  "title": "Dark Centred CTA",
+  "description": "Full-width dark section with centred headline, subtitle, and primary/secondary buttons.",
+  "tags": [
+    "cta",
+    "call-to-action",
+    "landing-page",
+    "dark",
+    "centered"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tlet {\n\t\tclass: className = '',\n\t\teyebrow = 'CTA Section',\n\t\theadline = 'Action-driving headline that creates urgency',\n\t\tdescription = 'Supporting description that explains the value proposition and encourages immediate action.',\n\t\tctaLabel = 'Get started',\n\t\tonCta = () => {}\n\t}: {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\theadline?: string;\n\t\tdescription?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t} = $props();\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-16 sm:py-24 px-4', className)}>\n\t<div class=\"mx-auto max-w-3xl text-center\">\n\t\t<!-- Eyebrow -->\n\t\t<p class=\"text-sm font-medium uppercase tracking-wide opacity-60 mb-4\">{eyebrow}</p>\n\n\t\t<!-- Headline -->\n\t\t<h2 class=\"text-3xl sm:text-4xl font-bold mb-6\">{headline}</h2>\n\n\t\t<!-- Description -->\n\t\t<p class=\"text-sm opacity-70 mb-8\">{description}</p>\n\n\t\t<!-- CTA Button -->\n\t\t<button\n\t\t\tonclick={onCta}\n\t\t\tclass=\"inline-flex items-center gap-2 rounded-md border border-background/30 bg-background/10 px-5 py-2.5 text-sm font-medium text-background hover:bg-background/20 transition-colors\"\n\t\t>\n\t\t\t{ctaLabel}\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\" />\n\t\t\t\t<polyline points=\"12 5 19 12 12 19\" />\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17014:173623",
+  "playgroundUrl": null
+}

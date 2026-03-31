@@ -1,0 +1,26 @@
+{
+  "id": "calendarblock08",
+  "name": "CalendarBlock08",
+  "category": "blocks",
+  "group": "calendar",
+  "title": "Calendar Block 08",
+  "description": "Calendar components.",
+  "tags": [],
+  "source": "<!--\n  CalendarBlock08.svelte\n  Single month with weekends disabled (Mon–Fri only selectable).\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n  import { Button } from '$lib/components/ui';\n\n  let {\n    class: className = '',\n    selectedDate = null,\n    month = new Date().getMonth(),\n    year = new Date().getFullYear()\n  }: {\n    class?: string;\n    selectedDate?: Date | null;\n    month?: number;\n    year?: number;\n  } = $props();\n\n  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];\n  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];\n\n  function getDim(y: number, m: number) { return new Date(y, m + 1, 0).getDate(); }\n  function getCalDays(y: number, m: number) {\n    const dim = getDim(y, m), fd = new Date(y, m, 1).getDay(), prev = getDim(y, m - 1);\n    const days: Array<{ day: number; cur: boolean; dow: number }> = [];\n    for (let i = fd - 1; i >= 0; i--) days.push({ day: prev - i, cur: false, dow: (fd - 1 - i + (7 - fd + 1)) % 7 });\n    for (let i = 1; i <= dim; i++) days.push({ day: i, cur: true, dow: new Date(y, m, i).getDay() });\n    while (days.length < 42) {\n      const idx = days.length;\n      days.push({ day: idx - dim - fd + 2, cur: false, dow: idx % 7 });\n    }\n    return days;\n  }\n\n  function isSelected(d: number) {\n    return selectedDate?.getFullYear() === year && selectedDate?.getMonth() === month && selectedDate?.getDate() === d;\n  }\n  function isWeekend(dow: number) { return dow === 0 || dow === 6; }\n\n  function prev() { if (month === 0) { month = 11; year--; } else month--; }\n  function next() { if (month === 11) { month = 0; year++; } else month++; }\n  let calDays = $derived(getCalDays(year, month));\n</script>\n\n<div class={cn('inline-flex flex-col rounded-md border p-4', className)}>\n  <div class=\"mb-4 flex items-center justify-between\">\n    <Button variant=\"ghost\" size=\"sm\" onclick={prev}>&lt;</Button>\n    <h3 class=\"text-sm font-medium\">{MONTHS[month]} {year}</h3>\n    <Button variant=\"ghost\" size=\"sm\" onclick={next}>&gt;</Button>\n  </div>\n  <div class=\"grid grid-cols-7\">\n    {#each DAYS as d}\n      <div class=\"flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground\">{d}</div>\n    {/each}\n    {#each calDays as { day, cur, dow }}\n      <button\n        type=\"button\"\n        class={cn(\n          'flex h-8 w-8 items-center justify-center rounded-full text-sm transition-colors',\n          (!cur || isWeekend(dow)) && 'text-muted-foreground/40 pointer-events-none',\n          cur && !isWeekend(dow) && 'hover:bg-muted',\n          cur && !isWeekend(dow) && isSelected(day) && 'bg-primary text-primary-foreground hover:bg-primary'\n        )}\n        onclick={() => cur && !isWeekend(dow) && (selectedDate = new Date(year, month, day))}\n        disabled={!cur || isWeekend(dow)}\n      >{day}</button>\n    {/each}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "18385:218391",
+  "playgroundUrl": null
+}

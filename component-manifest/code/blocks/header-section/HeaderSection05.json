@@ -1,0 +1,31 @@
+{
+  "id": "headersection05",
+  "name": "HeaderSection05",
+  "category": "blocks",
+  "group": "header-section",
+  "title": "Dark Header",
+  "description": "Dark background section header.",
+  "tags": [
+    "header",
+    "page-header",
+    "section",
+    "dark"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\timport { Button } from '$lib/components/ui';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\teyebrow?: string;\n\t\ttitle?: string;\n\t\tdescription?: string;\n\t\tprimaryLabel?: string;\n\t\tsecondaryLabel?: string;\n\t\tonPrimary?: () => void;\n\t\tonSecondary?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\teyebrow = 'New release ✦',\n\t\ttitle = 'The modern way to build for the web',\n\t\tdescription,\n\t\tprimaryLabel = 'Get started',\n\t\tsecondaryLabel = 'View demo',\n\t\tonPrimary,\n\t\tonSecondary\n\t}: Props = $props();\n</script>\n\n<section class={cn('w-full bg-foreground text-background py-20 sm:py-28 px-4', className)}>\n\t<div class=\"mx-auto max-w-3xl text-center\">\n\t\t{#if eyebrow}\n\t\t\t<div class=\"mb-6 inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-3 py-1 text-xs\">\n\t\t\t\t{eyebrow}\n\t\t\t</div>\n\t\t{/if}\n\n\t\t{#if title}\n\t\t\t<h1 class=\"text-4xl sm:text-6xl font-bold tracking-tight mb-4\">{title}</h1>\n\t\t{/if}\n\n\t\t{#if description}\n\t\t\t<p class=\"text-lg text-background/80 mb-8\">{description}</p>\n\t\t{/if}\n\n\t\t<div class=\"flex flex-col sm:flex-row gap-4 justify-center\">\n\t\t\t<Button onclick={onPrimary} size=\"lg\" variant=\"secondary\">\n\t\t\t\t{primaryLabel}\n\t\t\t</Button>\n\t\t\t<Button onclick={onSecondary} variant=\"outline\" size=\"lg\" class=\"border-background/30 text-background hover:bg-background/10\">\n\t\t\t\t{secondaryLabel}\n\t\t\t</Button>\n\t\t</div>\n\t</div>\n</section>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    },
+    {
+      "specifiers": [
+        "Button"
+      ],
+      "from": "$lib/components/ui"
+    }
+  ],
+  "figmaNodeId": "17014:176371",
+  "playgroundUrl": "https://svelte.dev/playground/untitled#H4sIAAAAAAAAE31VzWrbQBB+lUENOAGrchITgmOnNBTSQymBllKoelhJK3ub1a7YHfmnwtCH6LHnPliepLOSbEty0ou9mpmd+b6Zb6TSUyzj3sT7encPT79+wztmHuE9Zwk33tBDJuRKqMSboCn40EuF5NabfCs93OTumjNQXJPkbZ6/tksu0dkiZvlz9lgr5AopjTe1sRE5gmRqPgs9tKF3G6oQRZZrg1BCrGALqdEZDE6kiIIChbRBrAY3nbC7AlH3QmNNXuUKBYWo4t0NKm1SFnN4MDq3UDpjiLFk1r6ZgEUj1PymNvINj4xe9c0oUPK+MeE1E6FV35UbkTGz+cAiLvs+y6kZyUterR7qu+Q4PYPZLSy1SPbOT7vLx+5tzVZy7DCcQPX3kYYy7HCEGQw+8hUYLjlNDZ7+/B0MW3Sd//OCQ6ZJFgpWbAOoISqETCDVBpB8Kx7t7rS6MTxugkt2T8gsMoM82V3q9sIFfREEKeGZ3oXsGzI86kHFetJMdQYnuTucnlE3pkENxglLTamKg1U3YlbG6nSw8tNCSojmPlHhc6MLlQDyNfoRix+b53zjX4zAZhN3uIZ87Y8Hw0M7z7aVbqeJWDapQy9b+6ygNmVs7a/8y7Wsk8bcabAReojlK5FCM4ZtbernifwrEEoKxf1U8jUI5Jlt8sCc5f4FVCB50jDRhsbU/LVIBMSAWLYM5yPH5NKxO6/Rre0eWYXuCFlA0HbQA5E2Smt4VGI5xC7O9ySq5GPqAbWwOl/ROaU3gR9pEhEaAkXK91HMFwhEeUw4yjrfNFicv1iypbVD4bxbV8778wyuR67ItSvSzjAN8ucqdeZRzcD9+LGu+FRnt0VuFmP4UVgU6aY/aMrSvKa0iqWIH2flXs9bsOInp9xyHnqwZEYwhfS434nuUNrb1JpMnf5/5fbrsm0V0QU6bVHhNogd22MVXY6OtmOhl9xM+trqgu7u90uwD/ranWh/652ls/siUen6a7T9vv0Hu+iv5r4GAAA="
+}

@@ -1,0 +1,20 @@
+{
+  "id": "card04",
+  "name": "Card04",
+  "category": "blocks",
+  "group": "card",
+  "title": "Card 04",
+  "description": "Card components.",
+  "tags": [],
+  "source": "<!--\n  Card04.svelte\n  Project card: status badge + title + avatar stack top-right + metadata row\n  (category, location, assignee) + status/stage footer + updated timestamp.\n-->\n<script lang=\"ts\">\n  import { cn } from '$lib/utils/cn';\n\n  interface Assignee { name: string; avatar?: string; }\n\n  let {\n    class: className = '',\n    status = 'In progress',\n    title = 'Summer Camp',\n    category = 'Camp',\n    location = 'London, Great Britain',\n    assignee = 'Alex Johnson',\n    stage = 'Pre-Production (2/4)',\n    updatedAt = 'Updated 4h ago',\n    assignees = [] as Assignee[]\n  }: {\n    class?: string;\n    status?: string;\n    title?: string;\n    category?: string;\n    location?: string;\n    assignee?: string;\n    stage?: string;\n    updatedAt?: string;\n    assignees?: Assignee[];\n  } = $props();\n\n  function initials(n: string) {\n    return n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();\n  }\n</script>\n\n<div class={cn('rounded-lg border bg-background p-4', className)}>\n  <!-- Top row: status + avatar stack -->\n  <div class=\"flex items-start justify-between gap-2\">\n    <span class=\"inline-flex items-center rounded-full bg-foreground px-2.5 py-0.5 text-xs font-medium text-background\">{status}</span>\n    <!-- Avatar stack -->\n    {#if assignees.length}\n      <div class=\"flex -space-x-2\">\n        {#each assignees.slice(0, 5) as a}\n          <div class=\"h-6 w-6 overflow-hidden rounded-full border-2 border-background\">\n            {#if a.avatar}\n              <img src={a.avatar} alt={a.name} class=\"h-full w-full object-cover\" />\n            {:else}\n              <div class=\"flex h-full w-full items-center justify-center bg-muted text-[8px] font-semibold\">{initials(a.name)}</div>\n            {/if}\n          </div>\n        {/each}\n      </div>\n    {/if}\n  </div>\n\n  <!-- Title -->\n  <p class=\"mt-2 font-bold\">{title}</p>\n\n  <!-- Metadata row -->\n  <div class=\"mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground\">\n    {#if category}\n      <span class=\"flex items-center gap-1\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2z\"/></svg>\n        {category}\n      </span>\n    {/if}\n    {#if location}\n      <span class=\"flex items-center gap-1\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg>\n        {location}\n      </span>\n    {/if}\n    {#if assignee}\n      <span class=\"flex items-center gap-1\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>\n        {assignee}\n      </span>\n    {/if}\n  </div>\n\n  <!-- Footer -->\n  <div class=\"mt-3 flex items-center gap-2 border-t pt-3 text-xs text-muted-foreground\">\n    {#if stage}<span class=\"font-medium text-foreground\">{stage}</span>{/if}\n    {#if stage && updatedAt}<span>|</span>{/if}\n    {#if updatedAt}<span>{updatedAt}</span>{/if}\n  </div>\n</div>\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "15003:160084",
+  "playgroundUrl": null
+}

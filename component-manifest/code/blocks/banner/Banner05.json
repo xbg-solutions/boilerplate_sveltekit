@@ -1,0 +1,27 @@
+{
+  "id": "banner05",
+  "name": "Banner05",
+  "category": "blocks",
+  "group": "banner",
+  "title": "Dark Rounded Box",
+  "description": "Rounded dark callout box for featured announcements or upgrade prompts.",
+  "tags": [
+    "banner",
+    "announcement",
+    "notification",
+    "dark",
+    "rounded",
+    "callout"
+  ],
+  "source": "<script lang=\"ts\">\n\timport { cn } from '$lib/utils/cn';\n\n\tinterface Props {\n\t\tclass?: string;\n\t\tmessage?: string;\n\t\tctaLabel?: string;\n\t\tonCta?: () => void;\n\t}\n\n\tlet {\n\t\tclass: className,\n\t\tmessage = 'New update · Pro blocks are now available in shadcn/ui kit for Figma!',\n\t\tctaLabel,\n\t\tonCta\n\t}: Props = $props();\n\n\tlet visible = $state(true);\n\n\tconst handleClose = () => {\n\t\tvisible = false;\n\t};\n\n\tconst handleCta = () => {\n\t\tif (onCta) {\n\t\t\tonCta();\n\t\t}\n\t};\n</script>\n\n{#if visible}\n\t<div class={cn('inline-flex items-center gap-2 rounded-lg bg-foreground text-background text-sm px-4 py-3 w-full sm:w-auto relative', className)}>\n\t\t<p>\n\t\t\t<strong>{message.split('·')[0].trim()}</strong> · {message.split('·')[1]?.trim() || message} <span class=\"font-medium\">»</span>\n\t\t</p>\n\t\t<button\n\t\t\tonclick={handleClose}\n\t\t\tclass=\"absolute right-3 top-1/2 -translate-y-1/2 text-background/70 hover:text-background transition-colors\"\n\t\t\taria-label=\"Close banner\"\n\t\t>\n\t\t\t<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n\t\t\t\t<line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line>\n\t\t\t\t<line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line>\n\t\t\t</svg>\n\t\t</button>\n\t</div>\n{/if}\n",
+  "imports": [
+    {
+      "specifiers": [
+        "cn"
+      ],
+      "from": "$lib/utils/cn"
+    }
+  ],
+  "figmaNodeId": "17006:181943",
+  "playgroundUrl": null
+}
