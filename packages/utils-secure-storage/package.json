@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-secure-storage",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "XBG Secure Storage - Encrypted client-side storage with key derivation",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

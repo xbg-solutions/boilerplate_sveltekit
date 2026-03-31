@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-firebase-auth",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "XBG Firebase Auth - Auth service, token service, auth stores, auth guard",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

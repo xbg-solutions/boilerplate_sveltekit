@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-event-bus",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "XBG Event Bus - Pub/sub event system and stores",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

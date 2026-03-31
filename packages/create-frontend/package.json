@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "CLI tool and component registry for XBG frontend projects",
   "type": "module",
   "bin": {

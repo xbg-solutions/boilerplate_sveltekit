@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-file-upload",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "XBG File Upload - Firebase Storage file handling",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

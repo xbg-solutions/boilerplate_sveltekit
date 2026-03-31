@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-seo",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "XBG SEO - Meta tags, structured data, OpenGraph",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

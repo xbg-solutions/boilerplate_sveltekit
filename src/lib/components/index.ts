@@ -2,7 +2,7 @@
 export * from './ui';
 
 // Error Boundary Components
-export * from './error-boundary';
+export * from './error';
 
 // Advanced Components
 export * from './advanced';
