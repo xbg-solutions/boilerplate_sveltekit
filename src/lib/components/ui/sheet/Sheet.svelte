@@ -49,8 +49,8 @@
     children?: Snippet;
   } = $props();
 
-  let sheetElement: HTMLDivElement;
-  let contentElement: HTMLDivElement;
+  let sheetElement: HTMLDivElement = $state(null!);
+  let contentElement: HTMLDivElement = $state(null!);
   let previousActiveElement: Element | null = $state(null);
 
   // Handle open state changes

@@ -29,8 +29,8 @@
     children?: Snippet;
   } = $props();
 
-  let dialogElement: HTMLDivElement;
-  let contentElement: HTMLDivElement;
+  let dialogElement: HTMLDivElement = $state(null!);
+  let contentElement: HTMLDivElement = $state(null!);
   let previousActiveElement: Element | null = $state(null);
   let isAnimating = $state(false);
 

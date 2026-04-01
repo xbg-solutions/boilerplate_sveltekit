@@ -73,5 +73,5 @@
     oninput={handleInput}
     {onfocus}
     {onblur}
-  />
+  ></textarea>
 </div>
