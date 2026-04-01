@@ -79,7 +79,7 @@
     <!-- Render placeholder or fallback when not ready -->
     {#if placeholder}
       {#if typeof placeholder === 'object'}
-        <svelte:component this={placeholder} />
+        <placeholder></placeholder>
       {:else}
         {placeholder}
       {/if}

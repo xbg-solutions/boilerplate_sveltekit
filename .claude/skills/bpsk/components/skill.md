@@ -8,11 +8,15 @@ Three-tier component system: basic atoms (agent-coded), extended atoms (registry
 
 ## Three-Tier Component Model
 
-### Tier 1: Basic Atoms — Agent-coded
+### Tier 1: Basic Atoms — Included in Boilerplate
 
-Simple shadcn-style components that agents code directly following the Svelte 5 runes + `tv()` + `cn()` pattern. These are NOT in the registry.
+These components are **already present** in the boilerplate at `src/lib/components/ui/`. They follow the Svelte 5 runes + `tv()` + `cn()` pattern and are ready to use immediately. Import them from `$lib/components/ui`.
 
-**Basic atoms:** Button, Card (+ CardHeader, CardContent, CardTitle, CardDescription, CardFooter), Input, Label, Badge, Checkbox, RadioGroup (+ RadioGroupItem), Sheet, Tabs (+ TabsList, TabsTrigger, TabsContent), Table (+ TableHeader, TableBody, TableRow, TableHead, TableCell), DropdownMenu (+ DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator), Breadcrumb (+ BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator), Alert (+ AlertTitle, AlertDescription), Progress, Textarea, Popover, Pagination, Avatar, Separator, Skeleton.
+**⚠️ Do NOT recreate these components.** They already exist in every project scaffolded from this boilerplate. Do not hand-code them, and do not install them from shadcn-svelte or any other external registry. Use the existing implementations.
+
+**Basic atoms (already in `src/lib/components/ui/`):** Button, Card (+ CardHeader, CardContent, CardTitle, CardDescription, CardFooter), Input, Label, Badge, Checkbox, RadioGroup (+ RadioGroupItem), Sheet, Tabs (+ TabsList, TabsTrigger, TabsContent), Table (+ TableHeader, TableBody, TableRow, TableHead, TableCell), DropdownMenu (+ DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator), Breadcrumb (+ BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator), Alert (+ AlertTitle, AlertDescription), Progress, Textarea, Popover, Pagination, Avatar, Separator, Skeleton.
+
+If you need to modify or extend an existing atom, edit the file directly in `src/lib/components/ui/<name>/`.
 
 ### Tier 2: Extended Atoms — From Registry
 
@@ -99,6 +103,38 @@ The `add` command:
 
 ---
 
+## Controlling Overlay Open State (Dialog, Sheet, Popover)
+
+In Svelte 5, do NOT use `bind:open` with a derived or conditional expression:
+
+```svelte
+<!-- ❌ Will not compile in Svelte 5 -->
+<Dialog bind:open={selectedItem?.dialogOpen} />
+```
+
+Use the unbound `open` prop with an `onOpenChange` callback:
+
+```svelte
+<script lang="ts">
+  let dialogOpen = $state(false);
+  let selectedItem = $state(null);
+
+  function openDialog(item) {
+    selectedItem = item;
+    dialogOpen = true;
+  }
+</script>
+
+<!-- ✅ Correct Svelte 5 pattern -->
+<Dialog open={dialogOpen} onOpenChange={(v) => dialogOpen = v}>
+  <!-- Dialog content using selectedItem -->
+</Dialog>
+```
+
+For pages with multiple dialogs (e.g. an edit dialog and a delete dialog per table row), maintain separate `$state` booleans for each dialog's open state. Do not try to derive open state from the selected item object — keep open state flat.
+
+---
+
 ## Block Inventory
 
 Blocks come in numbered variants (01, 02, 03...) representing different layouts for the same purpose.
@@ -167,9 +203,9 @@ import LoginBlock01 from '$lib/components/blocks/auth/LoginBlock01.svelte';
 
 ---
 
-## Coding Basic Atoms
+## Creating or Modifying Basic Atoms
 
-When coding basic atoms yourself, follow this template:
+When creating a **new** atom that doesn't already exist in the boilerplate, or modifying an existing one, follow this template:
 
 ```svelte
 <script lang="ts">

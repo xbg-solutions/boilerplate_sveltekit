@@ -104,7 +104,7 @@
 {:else if showFallback}
   <!-- Show custom fallback component if provided -->
   {#if fallbackComponent}
-    <svelte:component this={fallbackComponent} />
+    <fallbackComponent></fallbackComponent>
   {:else}
     <!-- Default fallback content -->
     {#if fallback}

@@ -28,8 +28,8 @@
     content?: Snippet;
   } = $props();
 
-  let triggerElement: HTMLElement;
-  let contentElement: HTMLElement;
+  let triggerElement: HTMLElement = $state(null!);
+  let contentElement: HTMLElement = $state(null!);
   let hoverTimeout: ReturnType<typeof setTimeout>;
 
   // Handle trigger click

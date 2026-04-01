@@ -49,8 +49,8 @@
 
   // Local state
   let isOpen = $state(false);
-  let triggerElement: HTMLButtonElement;
-  let contentElement: HTMLDivElement;
+  let triggerElement: HTMLButtonElement = $state(null!);
+  let contentElement: HTMLDivElement = $state(null!);
 
   // Generate unique ID for accessibility
   const listboxId = `select-listbox-${Math.random().toString(36).substr(2, 9)}`;

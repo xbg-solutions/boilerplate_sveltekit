@@ -120,6 +120,50 @@ function validatePackageJson() {
   });
 }
 
+function getTailwindVersion() {
+  try {
+    const pkgPath = path.join('node_modules', 'tailwindcss', 'package.json');
+    if (fs.existsSync(pkgPath)) {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+      return pkg.version || null;
+    }
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
+function validateTailwind() {
+  const version = getTailwindVersion();
+  const major = version ? parseInt(version.split('.')[0], 10) : 0;
+
+  if (major >= 4) {
+    // Tailwind v4 uses CSS-based config via @theme directive
+    const cssFiles = ['src/app.css', 'src/app.pcss', 'src/styles/app.css'];
+    const found = cssFiles.find(f => {
+      if (!fs.existsSync(f)) return false;
+      const content = fs.readFileSync(f, 'utf8');
+      return content.includes('@theme');
+    });
+
+    if (found) {
+      log.success(`Tailwind v${version} CSS config detected (${found})`);
+    } else {
+      log.error(`Tailwind v${version} detected but no @theme directive found in CSS entry point`);
+      errorCount++;
+    }
+  } else {
+    // Tailwind v3 or unknown — look for config file
+    const configFiles = ['tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.ts'];
+    const found = configFiles.find(f => fs.existsSync(f));
+
+    if (found) {
+      log.success(`Tailwind config (${found})`);
+    } else {
+      log.error('Tailwind config missing (expected tailwind.config.js, .cjs, or .ts)');
+      errorCount++;
+    }
+  }
+}
+
 function validateFiles() {
   log.title('📁 File Structure Validation');
   
@@ -129,11 +173,13 @@ function validateFiles() {
     { path: 'src/lib/config/app.config.ts', desc: 'App configuration' },
     { path: 'svelte.config.js', desc: 'Svelte config' },
     { path: 'vite.config.ts', desc: 'Vite config' },
-    { path: 'tailwind.config.js', desc: 'Tailwind config' },
     { path: 'tsconfig.json', desc: 'TypeScript config' }
   ];
-  
+
   requiredFiles.forEach(({ path, desc }) => checkFile(path, desc));
+
+  // Tailwind — version-aware check (v3: config file, v4: CSS @theme directive)
+  validateTailwind();
   
   // Check component library
   if (fs.existsSync('src/lib/components/ui')) {
