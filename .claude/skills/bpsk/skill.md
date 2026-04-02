@@ -160,6 +160,10 @@ Routes under `/protected/**` require auth. The root layout enforces this. Use `r
 import { Button, Card, CardContent, Input } from '$lib/components/ui';
 import { AuthGuard, PageTransition, Seo } from '$lib/components/layout';
 
+// Advanced components
+import { DataTable, FormWizard, ImageUpload, ChartWrapper } from '$lib/components/advanced';
+import type { Column, DataTableOptions, WizardStep, ChartConfig } from '$lib/components/advanced';
+
 // Blocks
 import { LoginBlock01, DashboardBlock02 } from '$lib/components/blocks';
 

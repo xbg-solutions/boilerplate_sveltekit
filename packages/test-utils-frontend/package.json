@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-test-utils",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "description": "XBG Frontend Test Utilities - Mocks, helpers, and test fixtures",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

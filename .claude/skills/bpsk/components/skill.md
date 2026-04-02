@@ -201,6 +201,34 @@ import { DashboardBlock01 } from '$blocks/dashboard';
 import LoginBlock01 from '$lib/components/blocks/auth/LoginBlock01.svelte';
 ```
 
+### Advanced components
+
+Advanced components and their types are exported from `$lib/components/advanced`:
+
+```typescript
+// Components
+import { DataTable, FormWizard, ImageUpload, ChartWrapper } from '$lib/components/advanced';
+
+// Types — DataTable
+import type { Column, DataTableOptions, SortConfig, FilterConfig, BulkAction } from '$lib/components/advanced';
+
+// Types — FormWizard
+import type { WizardStep, ValidationResult, WizardOptions } from '$lib/components/advanced';
+
+// Types — ImageUpload
+import type { UploadedFile, ImageUploadOptions, CropConfig } from '$lib/components/advanced';
+
+// Types — ChartWrapper
+import type { ChartData, Dataset, ScaleOptions, ChartOptions, ChartType, ChartConfig } from '$lib/components/advanced';
+```
+
+Advanced components are also re-exported from the top-level `$lib/components` barrel, so this works too:
+
+```typescript
+import { DataTable, ChartWrapper } from '$lib/components';
+import type { Column, ChartConfig } from '$lib/components';
+```
+
 ---
 
 ## Creating or Modifying Basic Atoms
