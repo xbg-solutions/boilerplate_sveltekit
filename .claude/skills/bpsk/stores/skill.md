@@ -1,3 +1,8 @@
+---
+name: bpsk-stores
+description: Reactive UI state management — thin stores with minimal mutation helpers
+---
+
 # BPSK — Stores
 
 **Skill: `bpsk/stores`**

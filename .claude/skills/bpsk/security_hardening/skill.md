@@ -1,3 +1,8 @@
+---
+name: bpsk-security-hardening
+description: Security hardening guidelines for the SvelteKit boilerplate
+---
+
 # Security Hardening Skill
 
 **Skill ID**: `bpsk/security_hardening`

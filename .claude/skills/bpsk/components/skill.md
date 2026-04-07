@@ -1,3 +1,8 @@
+---
+name: bpsk-components
+description: Three-tier component system — basic atoms, extended atoms, and blocks via registry
+---
+
 # BPSK — Components & Blocks
 
 **Skill: `bpsk/components`**

@@ -1,3 +1,8 @@
+---
+name: bpsk-config
+description: Configuration system — what lives where and how to extend it
+---
+
 # BPSK — Configuration
 
 **Skill: `bpsk/config`**

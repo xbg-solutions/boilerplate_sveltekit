@@ -1,3 +1,8 @@
+---
+name: bpsk
+description: XBG Boilerplate SvelteKit — master reference for the SvelteKit 5 boilerplate project
+---
+
 # XBG Boilerplate SvelteKit
 
 **Skill: `bpsk`**

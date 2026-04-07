@@ -1,3 +1,8 @@
+---
+name: bpsk-services
+description: Singleton services encapsulating business logic, API calls, and cross-service coordination
+---
+
 # BPSK — Services
 
 **Skill: `bpsk/services`**

@@ -1,3 +1,8 @@
+---
+name: bpsk-utils
+description: Pure helper utilities — class merging, error handling, route protection, and validation
+---
+
 # BPSK — Utilities
 
 **Skill: `bpsk/utils`**

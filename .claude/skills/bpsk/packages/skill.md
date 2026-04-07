@@ -1,3 +1,8 @@
+---
+name: bpsk-packages
+description: npm package distribution — installation, development, and test suite structure
+---
+
 # BPSK — Package Distribution & Development
 
 **Skill: `bpsk/packages`**

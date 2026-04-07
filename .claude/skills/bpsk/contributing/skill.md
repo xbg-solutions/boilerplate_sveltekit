@@ -1,3 +1,8 @@
+---
+name: bpsk-contributing
+description: How to extend the boilerplate — adding components, updating the registry, and evolving the CLI
+---
+
 # BPSK — Contributing to the Boilerplate
 
 **Skill: `bpsk/contributing`**

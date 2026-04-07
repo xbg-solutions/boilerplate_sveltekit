@@ -1,3 +1,8 @@
+---
+name: bpsk-setup
+description: Bootstrap, configure, validate, and run a boilerplate project
+---
+
 # BPSK — Setup & Development Workflow
 
 **Skill: `bpsk/setup`**
