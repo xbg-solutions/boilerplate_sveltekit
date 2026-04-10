@@ -85,7 +85,7 @@
     "tailwind-variants": "^3.1.1",
     "terser": "^5.39.0",
     "typescript": "^5.8.2",
-    "vite": "^6.2.3",
+    "vite": "^6.4.2",
     "vite-bundle-analyzer": "^1.2.3"
   },
   "dependencies": {
