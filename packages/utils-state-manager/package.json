@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-state-manager",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG State Manager - Global state persistence",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

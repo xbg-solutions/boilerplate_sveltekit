@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-mutex",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG Mutex - Mutual exclusion for concurrent operations",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

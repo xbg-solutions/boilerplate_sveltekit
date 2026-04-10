@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-tab-sync",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG Tab Sync - Cross-tab synchronization via BroadcastChannel",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

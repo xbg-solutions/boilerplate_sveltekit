@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-sanitizer",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG Sanitizer - Input sanitization and XSS prevention",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

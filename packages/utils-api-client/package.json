@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-api-client",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG API Client - HTTP service, request/response handlers, caching",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

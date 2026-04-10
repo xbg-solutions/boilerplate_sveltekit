@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-performance",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "XBG Performance - Metrics and monitoring",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
