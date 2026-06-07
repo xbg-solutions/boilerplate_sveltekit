@@ -19,6 +19,6 @@
     "@xbg.solutions/bpsk-core": "^1.0.0"
   },
 "peerDependencies": {
-    "vitest": "^3.0.0", "svelte": "^5.0.0"
+    "vitest": "^4.0.0", "svelte": "^5.0.0"
   }
 }

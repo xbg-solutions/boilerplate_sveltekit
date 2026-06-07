@@ -13,10 +13,8 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     isolate: true,
     pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true
-      }
+    forks: {
+      singleFork: true
     },
     testTimeout: 5000,
     hookTimeout: 2000,
