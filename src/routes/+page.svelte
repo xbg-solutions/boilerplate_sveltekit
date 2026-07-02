@@ -9,20 +9,10 @@
   import { PhoneAuth, EmailLinkAuth } from '$lib/components/auth';
   import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
   import { goto } from '$app/navigation';
+  import { safeRedirectUrl } from '$lib/utils/redirect';
 
   // Get return URL and other params from data or URL
   let { data = {} }: { data?: { returnUrl?: string } } = $props();
-
-  /**
-   * Validate that a redirect URL is a safe relative path.
-   * Prevents open redirect attacks via crafted returnUrl parameters.
-   */
-  function safeRedirectUrl(url: string | undefined): string {
-    if (!url) return '/';
-    // Must start with '/' and must not contain protocol-relative URLs or external redirects
-    if (!url.startsWith('/') || url.startsWith('//') || url.includes('://')) return '/';
-    return url;
-  }
 
   let returnUrl = $derived(safeRedirectUrl(data?.returnUrl));
 

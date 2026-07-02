@@ -81,10 +81,7 @@ export default defineConfig({
     'import.meta.env.MODE': JSON.stringify(process.env.NODE_ENV || 'development')
   },
   
-  // Optimize development experience
-  server: {
-    fs: {
-      strict: false
-    }
-  }
+  // Note: do NOT set server.fs.strict:false — it disables Vite's dev-server
+  // file-serving allowlist and lets any page you visit while `npm run dev` is
+  // running read files outside the project root.
 });

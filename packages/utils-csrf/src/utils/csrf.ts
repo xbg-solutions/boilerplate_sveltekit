@@ -81,7 +81,9 @@ function createCsrfProtection() {
       // Generate a new secure token
       const newToken = generateToken();
       
-      // Store token in HttpOnly cookie using secure storage
+      // Store token in a cookie (NOT HttpOnly — client JS cannot set HttpOnly
+      // cookies; that's inherent to the double-submit pattern). Real CSRF
+      // enforcement must happen server-side by comparing cookie and header.
       const cookieSuccess = secureStorage.setItem(CSRF_TOKEN_KEY, newToken, {
         namespace: AUTH_NAMESPACE,
         mechanism: 'cookie',

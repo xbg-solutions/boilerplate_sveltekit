@@ -9,10 +9,13 @@
  */
 
 import { browser } from '$app/environment';
+import { safeRedirectUrl } from '$lib/utils/redirect';
 
 export const load = ({ url }: { url: URL }) => {
-  // Get the return URL from the query parameters
-  const returnUrl = url.searchParams.get('returnUrl') || '/protected';
+  // Get the return URL from the query parameters.
+  // Validated here so every downstream goto()/href in the confirm flow only
+  // ever sees a safe in-app path (prevents open redirect via crafted links).
+  const returnUrl = safeRedirectUrl(url.searchParams.get('returnUrl'), '/protected');
   
   // Get email from URL if present (as a fallback)
   const email = url.searchParams.get('email');

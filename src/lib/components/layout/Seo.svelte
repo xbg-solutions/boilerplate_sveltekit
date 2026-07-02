@@ -121,6 +121,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Structured Data (JSON-LD) -->
+  <!-- Every "<" in the JSON is unicode-escaped (u003c): JSON.stringify alone
+       does not neutralize a closing-script-tag sequence inside title/
+       description/author, which would otherwise break out of this block (XSS) -->
   {@html `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': type === 'article' ? 'Article' : 'WebPage',
@@ -142,5 +145,5 @@
     },
     datePublished: publishedTime,
     dateModified: modifiedTime || publishedTime
-  })}<\/script>`}
+  }).replace(/</g, '\\u003c')}<\/script>`}
 </svelte:head>

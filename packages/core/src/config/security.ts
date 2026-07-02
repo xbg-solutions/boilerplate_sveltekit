@@ -124,9 +124,11 @@ export const productionSecurityConfig: SecurityConfig = {
   headers: {
     'X-Frame-Options': 'DENY',
     'X-Content-Type-Options': 'nosniff',
-    'X-XSS-Protection': '1; mode=block',
+    // '0' disables the legacy XSS auditor — the filter is deprecated and its
+    // filtering mode enabled side-channel attacks; CSP is the real defense.
+    'X-XSS-Protection': '0',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
   },
 
@@ -281,6 +283,10 @@ export function validateStringInput(input: string, maxLength: number = 1000): {
  * Sanitize HTML content
  */
 export function sanitizeHtml(html: string): string {
+  if (typeof document === 'undefined') {
+    // SSR/prerender: fall back to manual entity escaping
+    return clientSecurityUtils.escapeHtml(html);
+  }
   const div = document.createElement('div');
   div.textContent = html;
   return div.innerHTML;

@@ -76,7 +76,14 @@ service cloud.firestore {
              email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
     }
 
+    // Every field in `fields` must be present in the document
     function hasRequiredFields(data, fields) {
+      return data.keys().hasAll(fields);
+    }
+
+    // The document may contain no fields outside `fields` — combine with
+    // hasRequiredFields to enforce an exact schema
+    function hasOnlyFields(data, fields) {
       return fields.hasAll(data.keys());
     }
 
@@ -211,9 +218,11 @@ service cloud.firestore {
                        request.auth.uid in request.resource.data.members &&
                        isRecentTimestamp(request.resource.data.createdAt);
 
-      // Project owners can update
+      // Project owners can update (ownership and creation date are immutable)
       allow update: if isAuthenticated() &&
-                       (resource.data.createdBy == request.auth.uid || isAdmin());
+                       (resource.data.createdBy == request.auth.uid || isAdmin()) &&
+                       request.resource.data.createdBy == resource.data.createdBy &&
+                       request.resource.data.createdAt == resource.data.createdAt;
 
       // Only admins or project owners can delete
       allow delete: if isAuthenticated() &&
@@ -243,7 +252,11 @@ service cloud.firestore {
 
     match /auditLogs/{logId} {
       allow read: if isAdmin();
-      allow create: if isAuthenticated(); // Anyone can log
+      // Users may only log entries attributed to themselves, with a fresh
+      // timestamp — otherwise any signed-in user could forge audit history
+      allow create: if isAuthenticated() &&
+                       request.resource.data.userId == request.auth.uid &&
+                       isRecentTimestamp(request.resource.data.timestamp);
       allow update, delete: if false; // Logs are immutable
     }
 

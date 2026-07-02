@@ -27,14 +27,28 @@ export default {
       assets: ''
     },
     
+    // Canonical CSP for the built app. Hash mode is required so SvelteKit can
+    // hash its inline hydration script — a CSP delivered from anywhere else
+    // (e.g. a hosting header) cannot know those hashes and would break the app.
+    // firebase.json intentionally carries only `frame-ancestors` (a directive
+    // that is ignored in <meta> CSP), everything else lives here.
     csp: {
-      mode: 'hash', // Using hash mode to avoid dynamic nonces
+      mode: 'hash',
       directives: {
-        'script-src': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
-        'script-src-elem': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
-        'connect-src': ['self', 'https://securetoken.googleapis.com', 'https://identitytoolkit.googleapis.com', 'https://*.firebaseapp.com', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
+        'default-src': ['self'],
+        'script-src': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com', 'https://*.googleapis.com'],
+        'script-src-elem': ['self', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com', 'https://*.googleapis.com'],
+        'style-src': ['self', 'unsafe-inline', 'https://fonts.googleapis.com'],
+        'font-src': ['self', 'https://fonts.gstatic.com', 'data:'],
+        'img-src': ['self', 'data:', 'blob:', 'https:'],
+        'connect-src': ['self', 'https://*.googleapis.com', 'wss://*.googleapis.com', 'https://*.firebaseapp.com', 'https://*.firebaseio.com', 'wss://*.firebaseio.com', 'https://*.cloudfunctions.net', 'https://www.google.com', 'https://*.google.com', 'https://www.gstatic.com', 'https://*.gstatic.com'],
         'frame-src': ['self', 'https://www.google.com', 'https://*.google.com', 'https://*.firebaseapp.com'],
-        'img-src': ['self', 'data:', 'https://www.gstatic.com', 'https://*.gstatic.com', 'https://www.google.com', 'https://*.google.com']
+        'worker-src': ['self', 'blob:'],
+        'object-src': ['none'],
+        'base-uri': ['self'],
+        'form-action': ['self'],
+        'manifest-src': ['self'],
+        'media-src': ['self']
       }
     },
     

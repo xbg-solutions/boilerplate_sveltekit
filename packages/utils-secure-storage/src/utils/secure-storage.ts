@@ -2,13 +2,24 @@
  * src/lib/utils/secure-storage.ts
  * Secure storage utility
  * 
- * A utility for securely storing and retrieving data with support for:
+ * A utility for storing and retrieving data with support for:
  * - Multiple storage mechanisms (cookies, localStorage, sessionStorage)
  * - Storage strategy selection based on data sensitivity
  * - Automatic data expiration
  * - Environment detection (browser vs SSR)
- * - Encryption for client-side storage
+ * - Optional encryption for client-side storage (setItemAsync/getItemAsync)
  * - Integration with error handling
+ *
+ * SECURITY: despite the name, this is NOT a confidentiality boundary.
+ * - The synchronous setItem/getItem path stores values as plaintext JSON;
+ *   only the *Async variants apply encryption, and only when explicitly
+ *   enabled via the `encryption` option.
+ * - Even then, the passphrase must live in client-side code, so the
+ *   encryption is obfuscation against casual inspection — anything stored
+ *   here is readable by any script running on the page (e.g. via XSS).
+ * - Cookies set here are never HttpOnly (impossible from client JS).
+ * Do not treat this as protection for secrets; it provides namespacing,
+ * TTLs, and tamper-evidence for low-sensitivity client state.
  */
 
 import {

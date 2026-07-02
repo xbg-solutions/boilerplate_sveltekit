@@ -52,6 +52,16 @@ console.log(data);`;
 		lock: 'M3 11h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11zM7 11V7a5 5 0 0 1 10 0v4',
 		code: 'M16 18 22 12 16 6M8 6 2 12 8 18',
 	};
+
+	// Escape before the highlighting spans are added: the result is rendered
+	// via {@html}, so an unescaped codeSnippet prop would be an XSS sink
+	function escapeHtml(value: string): string {
+		return value
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
+	}
 </script>
 
 <section class={cn('w-full bg-gray-950 py-16 px-4 sm:px-6 lg:px-8', className)}>
@@ -99,7 +109,7 @@ console.log(data);`;
 							<div class="w-3 h-3 rounded-full bg-gray-700"></div>
 						</div>
 					</div>
-					<pre class="text-gray-300 whitespace-pre-wrap">{@html codeSnippet.split('\n').map((line) => {
+					<pre class="text-gray-300 whitespace-pre-wrap">{@html escapeHtml(codeSnippet).split('\n').map((line) => {
 let htmlLine = line
 	.replace(/\bconst\b/g, '<span class="text-purple-400">const</span>')
 	.replace(/\bawait\b/g, '<span class="text-purple-400">await</span>')

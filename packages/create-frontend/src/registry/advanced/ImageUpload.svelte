@@ -367,6 +367,20 @@
     onPreview?.({ file });
   }
 
+  function openFileUrl(file: UploadedFile) {
+    if (!file.url) return;
+    // file.url comes back from the upload backend — only open web/blob URLs
+    // so a compromised or misconfigured backend can't hand us javascript: etc.
+    let parsed: URL;
+    try {
+      parsed = new URL(file.url, window.location.origin);
+    } catch {
+      return;
+    }
+    if (!['https:', 'http:', 'blob:'].includes(parsed.protocol)) return;
+    window.open(parsed.href, '_blank', 'noopener,noreferrer');
+  }
+
   function openCropModal(file: UploadedFile) {
     if (!defaultOptions.enableCrop) return;
     selectedFile = file;
@@ -595,7 +609,7 @@
                 </Button>
 
                 {#if file.url}
-                  <Button size="sm" variant="ghost" onclick={() => window.open(file.url, '_blank')}>
+                  <Button size="sm" variant="ghost" onclick={() => openFileUrl(file)}>
                     <Download class="w-4 h-4" />
                   </Button>
                 {/if}

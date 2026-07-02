@@ -37,7 +37,13 @@
 				return `<svg class="h-4 w-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
 			}
 		}
-		return value;
+		// Escape string values: this helper's return value is rendered via
+		// {@html}, so a raw string here would be an XSS sink for caller data
+		return value
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
 	}
 </script>
 

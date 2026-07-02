@@ -26,6 +26,9 @@ export * from './recaptcha';
 // Mutex utilities
 export * from './mutex';
 
+// Redirect validation utilities
+export * from './redirect';
+
 // Route handling utilities
 export * from './route-handler';
 

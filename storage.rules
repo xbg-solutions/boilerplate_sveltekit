@@ -45,10 +45,12 @@ service firebase.storage {
              request.resource.contentType == 'text/csv';
     }
 
-    // Helper function to check if user has admin role
+    // Helper function to check if user has admin role.
+    // Uses the same `role` custom claim as firestore.rules and app.config.ts —
+    // keep the claim scheme identical across both rule sets.
     function isAdmin() {
       return isAuthenticated() &&
-             request.auth.token.admin == true;
+             request.auth.token.role == 'admin';
     }
 
     // Helper function to validate metadata
