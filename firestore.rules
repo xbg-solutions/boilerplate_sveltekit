@@ -34,24 +34,36 @@ service cloud.firestore {
 
     /**
      * Role-based access control
-     * Customize these based on your app.config.ts role definitions
+     *
+     * Claim scheme — must stay in lockstep with app.config.ts (auth.roles /
+     * auth.claimMap), src/lib/utils/rbac.ts, and the bpsk manage-auth-users CLI:
+     * - `roles`: list of role names, e.g. ['client', 'admin']
+     * - boolean flags: isClient, isConsultant, isAdmin, isSysAdmin
+     * Either form grants the role, mirroring rbacUtil.hasRole().
      */
+    function roleFlag(role) {
+      return {
+        'client': 'isClient',
+        'consultant': 'isConsultant',
+        'admin': 'isAdmin',
+        'sysadmin': 'isSysAdmin'
+      }.get(role, '');
+    }
+
     function hasRole(role) {
       return isAuthenticated() &&
-             request.auth.token.role == role;
+             (role in request.auth.token.get('roles', []) ||
+              request.auth.token.get(roleFlag(role), false) == true);
     }
 
     function isAdmin() {
-      return hasRole('admin');
-    }
-
-    function isModerator() {
-      return hasRole('moderator') || isAdmin();
+      // sysadmin inherits admin per app.config.ts roleHierarchy
+      return hasRole('admin') || hasRole('sysadmin');
     }
 
     function hasAnyRole(roles) {
       return isAuthenticated() &&
-             request.auth.token.role in roles;
+             request.auth.token.get('roles', []).hasAny(roles);
     }
 
     /**
@@ -59,7 +71,7 @@ service cloud.firestore {
      */
     function hasAccountAccess(accountId) {
       return isAuthenticated() &&
-             request.auth.token.accountId == accountId;
+             request.auth.token.get('accountId', '') == accountId;
     }
 
     /**
@@ -89,14 +101,16 @@ service cloud.firestore {
 
     /**
      * Timestamp validation
+     * (`timestamp` itself is a reserved package name in the rules language,
+     * so the parameter must be called something else)
      */
-    function isValidTimestamp(timestamp) {
-      return timestamp is timestamp;
+    function isValidTimestamp(ts) {
+      return ts is timestamp;
     }
 
-    function isRecentTimestamp(timestamp) {
-      return isValidTimestamp(timestamp) &&
-             timestamp > request.time - duration.value(5, 'm'); // Within last 5 minutes
+    function isRecentTimestamp(ts) {
+      return isValidTimestamp(ts) &&
+             ts > request.time - duration.value(5, 'm'); // Within last 5 minutes
     }
 
     // =========================================================================

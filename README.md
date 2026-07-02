@@ -323,9 +323,27 @@ npm run analyze          # Bundle analysis
 npm run deploy           # Build + firebase deploy --only hosting
 ```
 
+**Deploy security rules too** — `npm run deploy` ships hosting only. `firestore.rules` and `storage.rules` are wired into `firebase.json` and must be deployed whenever they change:
+
+```bash
+firebase deploy --only firestore:rules,storage
+```
+
 ### Other Platforms
 
 Build output is in `build/` (static adapter). Works with Vercel, Netlify, Docker, or any static host.
+
+---
+
+## Security
+
+The boilerplate is pre-hardened; full documentation lives in `.claude/skills/bpsk/security_hardening/` (start with `SECURITY_SETUP.md`, and run through `SECURITY_DEPLOYMENT_CHECKLIST.md` before launch). Key points:
+
+- **The security rules are the trust boundary.** This is a static SPA (no server-side auth) — `firestore.rules` and `storage.rules` carry all authorization. "Protected" routes are client-side UX gating only.
+- **CSP** is hash-mode, generated from `kit.csp` in `svelte.config.js` and delivered as a `<meta>` tag — no `unsafe-inline`/`unsafe-eval` for scripts. `firebase.json` carries the other headers plus `frame-ancestors 'none'`. Add domains in `svelte.config.js`, never a full CSP in `firebase.json`.
+- **Custom claims scheme**: tokens carry a `roles` array of role names plus boolean flags (`isAdmin`, …) per the `claimMap` in `app.config.ts`. The rules, the RBAC util, and the `manage-auth-users` CLI all use this scheme — keep them in lockstep when changing roles.
+- **Redirects** flow through `safeRedirectUrl()` (`src/lib/utils/redirect.ts`); route user-supplied targets through it.
+- **Test rules locally**: Firestore/Storage emulators are configured in `firebase.json`; write grant/deny tests with `@firebase/rules-unit-testing`.
 
 ---
 

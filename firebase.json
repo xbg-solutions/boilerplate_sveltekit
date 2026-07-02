@@ -1,4 +1,10 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "hosting": {
     "target": "your-hosting-target",
     "public": "build",
@@ -82,6 +88,12 @@
   "emulators": {
     "auth": {
       "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "storage": {
+      "port": 9199
     },
     "hosting": {
       "port": 5000

@@ -73,6 +73,8 @@ This boilerplate includes:
 ### ✅ Firebase Security
 - **Storage Rules**: User segregation, file validation, size limits
 - **Firestore Rules**: RBAC, data isolation, audit logging
+- **Deployment Wiring**: Both rule files are wired into `firebase.json`, so `firebase deploy` actually ships them
+- **Claim Scheme**: Rules read the same claims the app issues — a `roles` array plus boolean flags (`isAdmin`, …) per `app.config.ts` `claimMap`
 - **App Check**: Bot protection for all Firebase services
 - **Auth Security**: Secure session management, role-based access
 

@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-sse",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "XBG SSE - Server-sent events client",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,6 +18,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@xbg.solutions/bpsk-core": "^1.0.0"
+    "@xbg.solutions/bpsk-core": "^2.0.0"
   }
 }

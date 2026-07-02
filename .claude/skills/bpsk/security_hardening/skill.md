@@ -113,9 +113,15 @@ The boilerplate includes these security features **already implemented**:
 
 #### Firebase Security
 - **Storage Rules Template**: User segregation, file validation, 50MB limits
-  - Files: `storage.rules`
+  - Files: `storage.rules` — wired into `firebase.json` (`"storage"` block), deployed via `firebase deploy --only storage`
 - **Firestore Rules Template**: RBAC, data isolation, audit logging
-  - Files: `firestore.rules`
+  - Files: `firestore.rules` — wired into `firebase.json` (`"firestore"` block), deployed via `firebase deploy --only firestore:rules`
+  - CLAIM SCHEME: both rule files read a `roles` array of role names plus boolean
+    flag claims (`isAdmin`, `isSysAdmin`, …) — the same scheme as `app.config.ts`
+    `claimMap`, `src/lib/utils/rbac.ts`, and the bpsk `manage-auth-users` CLI.
+    `sysadmin` inherits `admin`. Keep all five in lockstep when changing roles.
+  - GOTCHA: `timestamp` is a reserved package name in the rules language — never
+    use it as a function parameter (this once made firestore.rules uncompilable).
 - **App Check Integration**: Bot protection for Firebase services
   - Files: `src/lib/utils/app-check.ts`, integrated in `src/lib/utils/firebase.ts`
 - **Auth Security**: Secure session management, role-based access
@@ -203,11 +209,11 @@ When using this boilerplate for a new project:
 
 **Steps**:
 1. Read `SECURITY_SETUP.md` → Customization Guide section
-2. Edit `src/lib/config/security.ts` for CSP/headers
+2. Edit `kit.csp` in `svelte.config.js` for the production CSP (mirror in `src/lib/config/security.ts` for dev)
 3. Edit `storage.rules` or `firestore.rules` for data access
-4. Edit `src/lib/config/app.config.ts` for RBAC roles
+4. Edit `src/lib/config/app.config.ts` for RBAC roles — keep the rules' `roleFlag()` map and the CLI in lockstep with `claimMap`
 5. Test with Firebase emulators
-6. Deploy rules: `firebase deploy --only storage,firestore:rules`
+6. Deploy rules: `firebase deploy --only firestore:rules,storage`
 
 **Key Files**:
 - `SECURITY_SETUP.md` - Customization instructions
@@ -278,7 +284,7 @@ The `storage.rules` and `firestore.rules` files are **templates** with common pa
 [Root directory also contains:]
 ├── storage.rules                     # Firebase Storage security rules template
 ├── firestore.rules                   # Firestore security rules template
-├── firebase.json                     # Security headers configuration
+├── firebase.json                     # Security headers + rules wiring + emulator config
 └── src/
     ├── hooks.server.ts               # SvelteKit security middleware
     └── lib/
@@ -304,8 +310,8 @@ The `storage.rules` and `firestore.rules` files are **templates** with common pa
 | CSRF Protection | Request handlers | `src/lib/constants/csrf.constants.ts` | `SECURITY_HARDENING.md` |
 | Input Sanitization | `src/lib/utils/sanitizer.ts` | — | Code comments |
 | App Check | `src/lib/utils/app-check.ts` | `.env` (site key) | `SECURITY_SETUP.md` → App Check |
-| Storage Rules | `storage.rules` | — | `SECURITY_SETUP.md` → Customization |
-| Firestore Rules | `firestore.rules` | — | `SECURITY_SETUP.md` → Customization |
+| Storage Rules | `storage.rules` | `firebase.json` (`"storage"` block) | `SECURITY_SETUP.md` → Customization |
+| Firestore Rules | `firestore.rules` | `firebase.json` (`"firestore"` block) | `SECURITY_SETUP.md` → Customization |
 | Rate Limiting | `src/lib/utils/rate-limiter.ts` | — | `SECURITY_HARDENING.md` → Using |
 | Error Handling | `src/lib/utils/error-handler.ts` | — | Code comments |
 
@@ -359,9 +365,8 @@ When security features change:
 ## Version
 
 **Created**: 2026-03-14
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-07-02 (rules deployment wiring, claim-scheme alignment, CSP consolidation)
 **Boilerplate Version**: Compatible with all versions post-security-hardening
-**Security Rating**: ⭐⭐⭐⭐⭐ (5/5) - Production-ready
 
 ---
 

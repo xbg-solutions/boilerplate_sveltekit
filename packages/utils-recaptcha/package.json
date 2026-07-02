@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-recaptcha",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "XBG reCAPTCHA - reCAPTCHA v3 integration",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@xbg.solutions/bpsk-core": "^1.0.0"
+    "@xbg.solutions/bpsk-core": "^2.0.0"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

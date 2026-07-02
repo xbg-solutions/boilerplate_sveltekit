@@ -1,11 +1,13 @@
 {
   "name": "@xbg.solutions/bpsk-test-utils",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "XBG Frontend Test Utilities - Mocks, helpers, and test fixtures",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -15,10 +17,11 @@
   "publishConfig": {
     "access": "public"
   },
-"dependencies": {
-    "@xbg.solutions/bpsk-core": "^1.0.0"
+  "dependencies": {
+    "@xbg.solutions/bpsk-core": "^2.0.0"
   },
-"peerDependencies": {
-    "vitest": "^3.0.0", "svelte": "^5.0.0"
+  "peerDependencies": {
+    "vitest": "^3.0.0",
+    "svelte": "^5.0.0"
   }
 }

@@ -1,11 +1,13 @@
 {
   "name": "@xbg.solutions/bpsk-utils-api-client",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "XBG API Client - HTTP service, request/response handlers, caching",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -15,13 +17,13 @@
   "publishConfig": {
     "access": "public"
   },
-"dependencies": {
-    "@xbg.solutions/bpsk-core": "^1.0.0",
-    "@xbg.solutions/bpsk-utils-csrf": "^1.0.0",
-    "@xbg.solutions/bpsk-utils-firebase-auth": "^1.0.0",
-    "@xbg.solutions/bpsk-utils-sanitizer": "^1.0.0"
+  "dependencies": {
+    "@xbg.solutions/bpsk-core": "^2.0.0",
+    "@xbg.solutions/bpsk-utils-csrf": "^2.0.0",
+    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.0.0",
+    "@xbg.solutions/bpsk-utils-sanitizer": "^2.0.0"
   },
-"peerDependencies": {
+  "peerDependencies": {
     "svelte": "^5.0.0"
   }
 }

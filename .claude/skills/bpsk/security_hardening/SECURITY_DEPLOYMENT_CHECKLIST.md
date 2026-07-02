@@ -1,7 +1,7 @@
 # Production Security Deployment Checklist
 
 **Project**: Boilerplate Frontend
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-07-02
 
 This checklist must be completed before deploying to production. Check off each item as you complete it.
 
@@ -13,14 +13,14 @@ This checklist must be completed before deploying to production. Check off each 
 
 - [ ] **Firebase Security Rules Deployed**
   ```bash
-  # Deploy storage rules
-  firebase deploy --only storage
-
-  # Deploy Firestore rules (if using Firestore)
-  firebase deploy --only firestore:rules
+  # Rules are wired into firebase.json ("firestore" + "storage" blocks)
+  firebase deploy --only firestore:rules,storage
   ```
+  - Note: `npm run deploy` only deploys hosting — rules must be deployed explicitly (or via plain `firebase deploy`)
   - Verify rules are active in Firebase Console
   - Test with a non-admin account to ensure restrictions work
+  - Test locally first: the Firestore (8080) and Storage (9199) emulators are configured in `firebase.json`; grant/deny tests can use `@firebase/rules-unit-testing`
+  - Verify custom claims match the rules' scheme: `roles` array of role names + boolean flags (`isAdmin`, …) per `app.config.ts` `claimMap`
   - Document any custom rules added for your app
 
 - [ ] **Firebase Hosting Headers Configured**
@@ -30,7 +30,7 @@ This checklist must be completed before deploying to production. Check off each 
   # Test with curl
   curl -I https://your-domain.com
   ```
-  - [ ] Confirm CSP header is present and correct
+  - [ ] Confirm `Content-Security-Policy: frame-ancestors 'none'` header is present (the FULL CSP is a `<meta>` tag in the served HTML, generated from `kit.csp` in `svelte.config.js` — check the page source, not the headers)
   - [ ] Verify HSTS header is applied
 
 - [ ] **Firebase App Check Enabled**
@@ -88,8 +88,8 @@ This checklist must be completed before deploying to production. Check off each 
 
 - [ ] **CSP Verified**
   - [ ] Test CSP doesn't break functionality
-  - [ ] No inline scripts (or proper nonces if needed)
-  - [ ] External resources properly whitelisted
+  - [ ] Script sources hash-allowlisted (`kit.csp` mode: 'hash' — no `unsafe-inline`/`unsafe-eval` for scripts)
+  - [ ] External resources properly whitelisted in `svelte.config.js`
   - [ ] Test with browser console (should show no CSP violations)
 
 - [ ] **CORS Configuration**

@@ -46,11 +46,14 @@ service firebase.storage {
     }
 
     // Helper function to check if user has admin role.
-    // Uses the same `role` custom claim as firestore.rules and app.config.ts —
-    // keep the claim scheme identical across both rule sets.
+    // Claim scheme must stay in lockstep with firestore.rules, app.config.ts
+    // (auth.claimMap), and the bpsk manage-auth-users CLI: a `roles` array of
+    // role names plus boolean flags. sysadmin inherits admin per roleHierarchy.
     function isAdmin() {
       return isAuthenticated() &&
-             request.auth.token.role == 'admin';
+             (request.auth.token.get('roles', []).hasAny(['admin', 'sysadmin']) ||
+              request.auth.token.get('isAdmin', false) == true ||
+              request.auth.token.get('isSysAdmin', false) == true);
     }
 
     // Helper function to validate metadata
@@ -88,18 +91,18 @@ service firebase.storage {
     match /uploads/accounts/{accountId}/{fileName} {
       // Allow read if user has access to the account (custom claim: accountId)
       allow read: if isAuthenticated() &&
-                     (request.auth.token.accountId == accountId || isAdmin());
+                     (request.auth.token.get('accountId', '') == accountId || isAdmin());
 
       // Allow write if user has access to the account
       allow write: if isAuthenticated() &&
-                      request.auth.token.accountId == accountId &&
+                      request.auth.token.get('accountId', '') == accountId &&
                       isValidSize() &&
                       isAllowedFileType() &&
                       hasValidMetadata();
 
       // Allow delete if user has access to the account or is admin
       allow delete: if isAuthenticated() &&
-                       (request.auth.token.accountId == accountId || isAdmin());
+                       (request.auth.token.get('accountId', '') == accountId || isAdmin());
     }
 
     /**
@@ -109,18 +112,18 @@ service firebase.storage {
     match /uploads/projects/{projectId}/{fileName} {
       // Allow read if user is a project member (custom claim: projects array)
       allow read: if isAuthenticated() &&
-                     (projectId in request.auth.token.projects || isAdmin());
+                     (projectId in request.auth.token.get('projects', []) || isAdmin());
 
       // Allow write if user is a project member
       allow write: if isAuthenticated() &&
-                      projectId in request.auth.token.projects &&
+                      projectId in request.auth.token.get('projects', []) &&
                       isValidSize() &&
                       isAllowedFileType() &&
                       hasValidMetadata();
 
       // Allow delete if user is a project member or admin
       allow delete: if isAuthenticated() &&
-                       (projectId in request.auth.token.projects || isAdmin());
+                       (projectId in request.auth.token.get('projects', []) || isAdmin());
     }
 
     /**

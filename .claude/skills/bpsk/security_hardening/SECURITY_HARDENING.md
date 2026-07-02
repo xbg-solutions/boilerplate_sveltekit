@@ -1,17 +1,18 @@
 # Security Hardening Summary
 
-**Date**: 2026-03-14
+**Date**: 2026-03-14 (initial pass) · **Last Updated**: 2026-07-02 (second pass)
 **Status**: ✅ Hardening Complete
 
-This document summarizes the security hardening improvements made to the boilerplate frontend project.
+This document summarizes the security hardening improvements made to the boilerplate frontend project, across two passes:
+
+1. **2026-03 pass**: headers, hooks, rules templates, App Check, CSRF, rate limiting (sections 1–8)
+2. **2026-07 pass**: CSP consolidation, open-redirect protection, XSS sink review, rules deployment wiring + claim-scheme alignment, dependency fixes (section 9)
 
 ---
 
 ## 🎯 Overview
 
-The project has been hardened against common web security threats while maintaining its configurability patterns. All critical and important security issues from the audit have been addressed.
-
-**Security Rating**: Improved from ⭐⭐⭐⭐☆ (4/5) to ⭐⭐⭐⭐⭐ (5/5)
+The project has been hardened against common web security threats while maintaining its configurability patterns. All critical and important security issues from the audits have been addressed.
 
 ---
 
@@ -27,11 +28,11 @@ The project has been hardened against common web security threats while maintain
 **Headers Added**:
 - `X-Frame-Options: DENY` - Prevents clickjacking attacks
 - `X-Content-Type-Options: nosniff` - Prevents MIME-type sniffing
-- `X-XSS-Protection: 1; mode=block` - Legacy XSS protection
+- `X-XSS-Protection: 0` - Legacy XSS auditor explicitly disabled (the auditor itself is exploitable; modern guidance is `0`)
 - `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer information
 - `Permissions-Policy` - Disables unnecessary browser features
-- `Strict-Transport-Security` - Enforces HTTPS (with preload)
-- `Content-Security-Policy` - Comprehensive CSP with Firebase allowlist
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains` - Enforces HTTPS
+- `Content-Security-Policy: frame-ancestors 'none'` - Anti-framing only; the FULL CSP is NOT in `firebase.json` (see section 9 — it is generated hash-mode by SvelteKit from `kit.csp` in `svelte.config.js` and delivered as a `<meta>` tag)
 
 **Impact**: Protects against XSS, clickjacking, and other injection attacks
 
@@ -45,13 +46,15 @@ The project has been hardened against common web security threats while maintain
 - `src/hooks.server.ts` (NEW)
 
 **Features**:
-- **Security Headers**: Applies all security headers server-side (backup to Firebase headers)
-- **Request Validation**: Validates Content-Type, URL patterns, prevents path traversal
-- **CORS Handling**: Configurable CORS for API routes with origin allowlist
+- **Security Headers**: Applies security headers in the dev/preview server
+- **Request Validation**: Validates Content-Type, URL patterns
+- **CORS Handling**: Configurable CORS with a strict origin allowlist (never reflects Origin, adds `Vary: Origin`)
 - **Rate Limit Headers**: Adds informational rate limit headers to responses
 - **Environment Awareness**: Different CSP rules for development vs production
 
-**Impact**: Multi-layer security even if Firebase headers fail; better development experience
+**Important (adapter-static)**: these hooks run only in the dev server and at prerender time — they are NOT active on the deployed static site. Production headers come from `firebase.json`; the production CSP comes from `kit.csp` in `svelte.config.js`.
+
+**Impact**: Parity between dev and production security posture; better development experience
 
 ---
 
@@ -89,6 +92,10 @@ The project has been hardened against common web security threats while maintain
 - Timestamp validation (prevents backdating)
 - Immutable audit logs
 - Protected system collections
+
+**Claim scheme (2026-07)**: the rules read the same custom-claim scheme the app and CLI use — a `roles` array of role names (`['client', 'admin']`) plus boolean flags (`isAdmin`, `isSysAdmin`, …) per `app.config.ts` `claimMap`; either form grants the role, and `sysadmin` inherits `admin`. Keep `firestore.rules`, `storage.rules`, `app.config.ts`, `src/lib/utils/rbac.ts`, and the bpsk `manage-auth-users` CLI in lockstep.
+
+**Deployment wiring (2026-07)**: `firebase.json` now contains `"firestore"` and `"storage"` blocks pointing at the rule files, so `firebase deploy` (or `--only firestore:rules,storage`) actually ships them. Before this, the rules were never deployed and projects ran on whatever rules existed in the console.
 
 **Impact**: Prevents unauthorized access to files and data at the database level
 
@@ -191,6 +198,36 @@ btoa(String.fromCharCode(...array))
 
 ---
 
+### 9. 2026-07 Hardening Pass (Second Audit)
+
+**What Changed**: A full-app security sweep (commit `4726d9f` and follow-ups) verified the client, server, Firebase, and secrets surfaces and fixed everything critical/high.
+
+**CSP Consolidation**:
+- The production CSP moved to `kit.csp` in `svelte.config.js` (hash mode — no `unsafe-inline`/`unsafe-eval` for scripts; SvelteKit's inline hydration script is hash-allowlisted)
+- `firebase.json` now carries ONLY `frame-ancestors 'none'` as its CSP (a directive that must be an HTTP header) plus the non-CSP headers — do not re-add a full CSP there; it would intersect with the meta CSP and block hydration
+- `X-XSS-Protection` set to `0` per modern guidance
+
+**Open-Redirect Protection**:
+- `src/lib/utils/redirect.ts` `safeRedirectUrl()` validates every user-influenced redirect target (rejects absolute URLs, protocol-relative `//`, scheme injection, backslash tricks)
+- The email-link confirm flow (`src/routes/confirm/+page.ts`) runs `returnUrl` through it before any navigation
+
+**XSS Sink Review**:
+- All `{@html}` uses traced — every one renders hardcoded, developer-authored content (icon/SVG constants); no user- or remote-controlled data reaches an HTML sink
+- `window.open` targets are protocol-checked (`https:`/`http:`/`blob:` only)
+- All `target="_blank"` links carry `rel="noopener noreferrer"`
+- Caution: `src/lib/utils/sanitizer.ts` is a hand-rolled sanitizer, NOT DOMPurify-grade — do not pipe its output into `{@html}` for untrusted HTML
+
+**Firebase Rules — Deployment Wiring & Claim Alignment**:
+- `firebase.json` gained `"firestore"`/`"storage"` blocks (rules now actually deploy) plus Firestore (8080) and Storage (9199) emulator entries
+- Rules rewritten to the app's real claim scheme: `roles` array + boolean flags, `sysadmin` inherits `admin`; guarded `token.get(...)` access so claimless tokens deny cleanly instead of erroring
+- Fixed a compile-blocking bug: `timestamp` is a reserved package name in the rules language and was used as a function parameter — the rules never compiled before this fix
+- The bpsk `manage-auth-users` CLI now writes role NAMES (`'admin'`) into the `roles` claim, not flag names (`'isAdmin'`)
+- Both rule files verified end-to-end against the emulators with `@firebase/rules-unit-testing` (21 grant/deny assertions)
+
+**Impact**: The rules — which carry 100% of the authorization burden in this static-SPA architecture — now deploy, compile, and match the tokens the app actually issues.
+
+---
+
 ## 📁 File Structure Changes
 
 ### New Files Created
@@ -245,14 +282,15 @@ VITE_APP_CHECK_DEBUG_TOKEN=""              # Optional: for local testing
    - Get your reCAPTCHA site key
    - Configure enforcement for Storage, Firestore, Cloud Functions
 
-2. **Deploy Security Rules**:
+2. **Deploy Security Rules** (wired into `firebase.json`, so these work out of the box):
    ```bash
-   # Deploy storage rules
-   firebase deploy --only storage
+   # Deploy both rule sets
+   firebase deploy --only firestore:rules,storage
 
-   # Deploy Firestore rules
-   firebase deploy --only firestore:rules
+   # Or deploy everything (hosting + rules)
+   firebase deploy
    ```
+   Note: `npm run deploy` runs `firebase deploy --only hosting` and does NOT deploy rules — deploy them explicitly when they change.
 
 3. **Configure Hosting Headers**:
    - Headers are already in `firebase.json`
@@ -306,23 +344,22 @@ const throttledSearch = throttle(
 
 ### Customizing Security Headers
 
-**To add custom CSP rules**:
+**To add custom CSP rules** — the production CSP lives in `svelte.config.js`, not `security.ts`:
 
-Edit `src/lib/config/security.ts`:
-```typescript
-export const productionSecurityConfig: SecurityConfig = {
+```javascript
+// svelte.config.js — this is what ships to production (hash-mode meta CSP)
+kit: {
   csp: {
-    // Add your custom sources
-    scriptSrc: [
-      "'self'",
-      "https://your-custom-cdn.com"  // Add this
-    ],
-    // ... rest of config
+    mode: 'hash',
+    directives: {
+      'script-src': ['self', 'https://your-custom-cdn.com'],  // Add here
+      // ... rest of config
+    }
   }
 }
 ```
 
-Changes will apply automatically via `src/hooks.server.ts`.
+Also mirror the change in `src/lib/config/security.ts` so the dev-server CSP (applied by `src/hooks.server.ts`) stays consistent with production.
 
 ---
 
@@ -337,8 +374,11 @@ curl -I https://your-domain.com
 # Should see:
 # x-frame-options: DENY
 # x-content-type-options: nosniff
-# strict-transport-security: max-age=31536000; includeSubDomains; preload
-# content-security-policy: default-src 'self'; ...
+# strict-transport-security: max-age=31536000; includeSubDomains
+# content-security-policy: frame-ancestors 'none'
+#
+# The FULL CSP is a <meta http-equiv> tag in the served HTML, not a header:
+curl -s https://your-domain.com | grep -o 'http-equiv="content-security-policy"[^>]*' | head -c 200
 ```
 
 ### 2. Test CSP
@@ -346,7 +386,7 @@ curl -I https://your-domain.com
 1. Open your app in Chrome
 2. Open DevTools > Console
 3. Look for CSP violation errors
-4. If you see violations, adjust CSP in `security.ts`
+4. If you see violations, adjust `kit.csp` in `svelte.config.js` (production) and `security.ts` (dev)
 
 ### 3. Test Firebase Security Rules
 
@@ -447,10 +487,11 @@ App Check only protects services where enforcement is enabled:
 
 ### CSP Strictness
 
-The CSP in `firebase.json` includes `'unsafe-inline'` for styles:
-- This is needed for component-scoped styles in Svelte
-- If you need stricter CSP, use nonces or hashes
+The production CSP (`kit.csp` in `svelte.config.js`, hash mode) has NO `unsafe-inline`/`unsafe-eval` for scripts — SvelteKit's inline hydration script is covered by a generated hash. `style-src` does include `'unsafe-inline'`:
+- This is needed for component-scoped styles in Svelte + Tailwind
+- It permits style injection, not script execution — the one accepted soft spot
 - Monitor CSP violations in browser console
+- Known residual risk: `script-src` allowlists `https://*.google.com` / `*.googleapis.com` / `*.gstatic.com` wildcards (Firebase/reCAPTCHA); these host JSONP endpoints that could serve as CSP-bypass gadgets if an HTML-injection foothold ever exists. Narrow to exact hosts if your app allows.
 
 ### Source Maps
 
@@ -552,8 +593,8 @@ firebase deploy --only storage,firestore:rules
 **Solution**:
 1. Check Firebase Console > Storage/Firestore > Rules
 2. Review rules in `storage.rules` or `firestore.rules`
-3. Ensure user has required custom claims (admin, accountId, etc.)
-4. Test with Firebase emulator to debug
+3. Ensure user has required custom claims — the rules expect a `roles` array of role names and/or boolean flags (`isAdmin`, …); set them with `npx @xbg.solutions/bpsk` manage-auth-users
+4. Test with Firebase emulator to debug (`firebase emulators:start` — Firestore/Storage emulators are configured in `firebase.json`)
 
 ### CSP Blocking Resources
 
@@ -561,9 +602,10 @@ firebase deploy --only storage,firestore:rules
 
 **Solution**:
 1. Check browser console for CSP violation messages
-2. Add allowed domains to `src/lib/config/security.ts`
-3. Update `firebase.json` CSP header
+2. Add allowed domains to `kit.csp` in `svelte.config.js` (this is the production CSP)
+3. Mirror the change in `src/lib/config/security.ts` (dev-server CSP)
 4. Redeploy: `firebase deploy --only hosting`
+5. Do NOT add a full CSP to `firebase.json` — it would intersect with the meta CSP and block hydration
 
 ### Rate Limiting Not Working
 
@@ -589,6 +631,11 @@ firebase deploy --only storage,firestore:rules
 - [x] Rate limiting utilities created
 - [x] Deployment checklist created
 - [x] Documentation completed
+- [x] CSP consolidated to hash-mode `kit.csp` (2026-07)
+- [x] Open-redirect protection via `safeRedirectUrl()` (2026-07)
+- [x] XSS sinks audited — no user-controlled `{@html}` (2026-07)
+- [x] Rules wired into `firebase.json` and deployable (2026-07)
+- [x] Rules claim scheme aligned with app/CLI, emulator-verified (2026-07)
 
 ## 📖 Using This Boilerplate
 
@@ -614,5 +661,5 @@ firebase deploy --only storage,firestore:rules
 ---
 
 **Maintained by**: Development Team
-**Last Updated**: 2026-03-14
-**Next Review**: 2026-06-14 (3 months)
+**Last Updated**: 2026-07-02
+**Next Review**: 2026-10-02 (3 months)

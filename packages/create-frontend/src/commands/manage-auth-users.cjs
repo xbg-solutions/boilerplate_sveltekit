@@ -289,36 +289,39 @@ async function manageCustomAttributes(presetUid = null) {
       await admin.auth().setCustomUserClaims(uid, newClaims);
       console.log(chalk.green(`\nCustom attribute '${key}' set successfully.`));
     } else if (action === 2) {
-      // Add common roles
+      // Add common roles. The `roles` array holds role NAMES ('admin'), and
+      // each role also gets a boolean flag claim ('isAdmin') — this scheme is
+      // shared with app.config.ts (auth.claimMap), src/lib/utils/rbac.ts, and
+      // firestore.rules/storage.rules; keep all of them in lockstep.
       const roles = [];
-      
+
       const isClient = await prompt('Add client role? (y/n): ');
-      if (isClient.toLowerCase() === 'y') roles.push('isClient');
-      
+      if (isClient.toLowerCase() === 'y') roles.push('client');
+
       const isConsultant = await prompt('Add consultant role? (y/n): ');
-      if (isConsultant.toLowerCase() === 'y') roles.push('isConsultant');
-      
+      if (isConsultant.toLowerCase() === 'y') roles.push('consultant');
+
       const isAdmin = await prompt('Add admin role? (y/n): ');
-      if (isAdmin.toLowerCase() === 'y') roles.push('isAdmin');
-      
+      if (isAdmin.toLowerCase() === 'y') roles.push('admin');
+
       const isSysAdmin = await prompt('Add sysAdmin role? (y/n): ');
-      if (isSysAdmin.toLowerCase() === 'y') roles.push('isSysAdmin');
-      
+      if (isSysAdmin.toLowerCase() === 'y') roles.push('sysadmin');
+
       // Check if user selected any roles
       if (roles.length === 0) {
         console.log(chalk.yellow('No roles selected.'));
         return;
       }
-      
+
       // Update individual role flags
       const newClaims = { ...currentClaims };
-      
+
       // Always set all role flags explicitly (true/false)
-      newClaims.isClient = roles.includes('isClient');
-      newClaims.isConsultant = roles.includes('isConsultant');
-      newClaims.isAdmin = roles.includes('isAdmin');
-      newClaims.isSysAdmin = roles.includes('isSysAdmin');
-      
+      newClaims.isClient = roles.includes('client');
+      newClaims.isConsultant = roles.includes('consultant');
+      newClaims.isAdmin = roles.includes('admin');
+      newClaims.isSysAdmin = roles.includes('sysadmin');
+
       // Keep existing roles array or create a new one
       newClaims.roles = roles;
       
