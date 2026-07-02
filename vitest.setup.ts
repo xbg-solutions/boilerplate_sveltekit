@@ -29,10 +29,24 @@ beforeEach(() => {
 afterEach(() => {
   // Clear all timers
   vi.clearAllTimers();
-  
+
   // Clear any remaining mocks (but don't reset modules as it breaks test isolation)
   vi.clearAllMocks();
-  
+
+  // Restore vi.stubGlobal() stubs immediately. The config's unstubGlobals
+  // only restores BEFORE each test — the NEXT test file's module imports run
+  // before its first test, so a leaked stub like vi.stubGlobal('document', {})
+  // crashes unrelated suites at import time (historic order-dependent flake).
+  vi.unstubAllGlobals();
+
+  // Leaked fake timers stall real setTimeout/measured time in every later
+  // file — always return to real timers between tests.
+  // (Deliberately NOT vi.restoreAllMocks() here: it also wipes implementations
+  // configured in vi.mock factories via vi.fn().mockResolvedValue(...), which
+  // many suites rely on across tests. Individual tests that vi.spyOn globals
+  // like Date.now must mockRestore() them themselves.)
+  vi.useRealTimers();
+
   // Cleanup DOM and testing library state
   cleanup();
 });

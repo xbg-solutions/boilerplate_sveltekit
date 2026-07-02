@@ -172,7 +172,9 @@ describe('Error Handler Integration', () => {
     it('should detect network errors and categorize them properly', async () => {
       // Setup offline detection
       const originalOnline = navigator.onLine;
-      Object.defineProperty(navigator, 'onLine', { value: false, writable: true });
+      // configurable: true is required — without it this property can never be
+      // redefined again for the rest of the process (breaks later test files)
+      Object.defineProperty(navigator, 'onLine', { value: false, writable: true, configurable: true });
 
       try {
         // Create a function that detects network status
@@ -203,8 +205,8 @@ describe('Error Handler Integration', () => {
         }
         expect(mockConsole.error).toHaveBeenCalled();
       } finally {
-        // Restore original online status
-        Object.defineProperty(navigator, 'onLine', { value: originalOnline });
+        // Restore original online status (keep it redefinable for later files)
+        Object.defineProperty(navigator, 'onLine', { value: originalOnline, writable: true, configurable: true });
       }
     });
   });

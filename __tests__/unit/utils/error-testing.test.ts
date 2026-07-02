@@ -5,12 +5,7 @@
  * rather than just coverage. These utilities are critical for testing error boundaries.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { ErrorTester, ErrorBoundaryTestHelpers, type ErrorTestConfig } from '@xbg.solutions/bpsk-core';
-
-// Mock import.meta.env to prevent global exposure in tests
-vi.stubGlobal('import.meta', {
-  env: { DEV: false }
-});
+import { ErrorTester, ErrorBoundaryTestHelpers, type ErrorTestConfig } from '$lib/utils/error-testing';
 
 describe('ErrorTester', () => {
   beforeEach(() => {

@@ -443,25 +443,28 @@ describe('Toast Event Handlers', () => {
       const originalDateNow = Date.now;
       let counter = 1;
       vi.spyOn(Date, 'now').mockImplementation(() => originalDateNow() + counter++);
-      
-      // Trigger multiple events
-      loginHandler({ payload: { user: { email: 'test@example.com' } } });
-      appErrorHandler({ payload: { error: { message: 'Error' } } });
-      loginHandler({ payload: { user: { email: 'test2@example.com' } } });
-      
-      expect(mockToastService.success).toHaveBeenCalledTimes(2);
-      expect(mockToastService.error).toHaveBeenCalledTimes(1);
-      
-      // Check that IDs are unique
-      const successIds = mockToastService.success.mock.calls.map(call => call[1].id);
-      const errorIds = mockToastService.error.mock.calls.map(call => call[1].id);
-      
-      expect(successIds[0]).not.toBe(successIds[1]);
-      expect(successIds[0]).not.toBe(errorIds[0]);
-      expect(successIds[1]).not.toBe(errorIds[0]);
-      
-      // Restore Date.now
-      vi.mocked(Date.now).mockRestore();
+
+      try {
+        // Trigger multiple events
+        loginHandler({ payload: { user: { email: 'test@example.com' } } });
+        appErrorHandler({ payload: { error: { message: 'Error' } } });
+        loginHandler({ payload: { user: { email: 'test2@example.com' } } });
+
+        expect(mockToastService.success).toHaveBeenCalledTimes(2);
+        expect(mockToastService.error).toHaveBeenCalledTimes(1);
+
+        // Check that IDs are unique
+        const successIds = mockToastService.success.mock.calls.map(call => call[1].id);
+        const errorIds = mockToastService.error.mock.calls.map(call => call[1].id);
+
+        expect(successIds[0]).not.toBe(successIds[1]);
+        expect(successIds[0]).not.toBe(errorIds[0]);
+        expect(successIds[1]).not.toBe(errorIds[0]);
+      } finally {
+        // Restore Date.now even if an assertion throws — a leaked Date spy
+        // freezes time for every test file that runs after this one
+        vi.mocked(Date.now).mockRestore();
+      }
     });
   });
 

@@ -16,17 +16,19 @@ vi.mock('../../utils/browser', () => ({
   browser: true
 }));
 
-// Mock document and navigator for browser environment
-Object.defineProperty(global, 'document', {
-  value: {
-    visibilityState: 'visible'
-  }
+// Pin the browser-environment properties this suite depends on.
+// IMPORTANT: define the individual properties on the real jsdom objects —
+// never replace global document/navigator wholesale. In singleFork mode that
+// replacement leaks into every test file that runs afterwards and crashes
+// their imports (modules that call document.addEventListener at load time).
+Object.defineProperty(document, 'visibilityState', {
+  value: 'visible',
+  configurable: true
 });
 
-Object.defineProperty(global, 'navigator', {
-  value: {
-    onLine: true
-  }
+Object.defineProperty(navigator, 'onLine', {
+  value: true,
+  configurable: true
 });
 
 describe('TabSync Store', () => {

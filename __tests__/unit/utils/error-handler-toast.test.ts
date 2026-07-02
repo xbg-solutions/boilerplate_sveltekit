@@ -4,15 +4,14 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { toastService } from '@xbg.solutions/bpsk-core';
-import { 
-  showErrorToast, 
-  showSuccessToast, 
-  showWarningToast, 
+import { toastService } from '$lib/services/toast';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
   showInfoToast,
   withToastNotification
-} from '@xbg.solutions/bpsk-core';
-import { AppError } from '@xbg.solutions/bpsk-core';
+} from '$lib/utils/error-handler-toast';
 
 // Mock the toast service
 vi.mock('$lib/services/toast', () => ({
@@ -26,7 +25,7 @@ vi.mock('$lib/services/toast', () => ({
 }));
 
 // Mock the error handler
-vi.mock('./error-handler', () => ({
+vi.mock('$lib/utils/error-handler', () => ({
   normalizeError: vi.fn((error) => {
     if (error instanceof Error) {
       return {

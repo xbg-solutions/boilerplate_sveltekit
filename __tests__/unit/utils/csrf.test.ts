@@ -4,14 +4,16 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { csrfProtection } from '@xbg.solutions/bpsk-utils-csrf';
-import { secureStorage } from '@xbg.solutions/bpsk-utils-secure-storage';
-import { 
-  CSRF_TOKEN_KEY, 
-  CSRF_HEADER_NAME, 
+// Import the code under test from $lib (canonical source in this repo) so the
+// vi.mock() targets below resolve to the same modules the SUT imports.
+import { csrfProtection } from '$lib/utils/csrf';
+import { secureStorage } from '$lib/utils/secure-storage';
+import {
+  CSRF_TOKEN_KEY,
+  CSRF_HEADER_NAME,
   CSRF_PROTECTED_METHODS,
-  AUTH_NAMESPACE 
-} from '@xbg.solutions/bpsk-utils-csrf';
+  AUTH_NAMESPACE
+} from '$lib/constants/csrf.constants';
 
 // Mock the secure storage module
 vi.mock('$lib/utils/secure-storage', () => {
@@ -25,7 +27,7 @@ vi.mock('$lib/utils/secure-storage', () => {
 });
 
 // Mock the logger service
-vi.mock('../services/logging/logging.service', () => {
+vi.mock('$lib/services/logging/logging.service', () => {
   const mockLogger = {
     info: vi.fn(),
     warn: vi.fn(),

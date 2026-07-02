@@ -5,10 +5,16 @@
  * meta tag generation, structured data, SEO auditing, sitemap/robots.txt generation,
  * and development utilities. These tests validate actual SEO best practices.
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest';
 
 // Mock window and document BEFORE any imports using hoisted mocks
-const { mockDocument, mockWindow } = vi.hoisted(() => {
+const { mockDocument, mockWindow, originalDocument, originalWindow } = vi.hoisted(() => {
+  // Keep the real jsdom globals so we can restore them when this file ends —
+  // leaving these replacements in place crashes later test files whose
+  // imports touch the real DOM (singleFork runs all files in one process).
+  const originalDocument = globalThis.document;
+  const originalWindow = globalThis.window;
+
   // Mock DOM methods globally
   const mockDocument = {
     querySelector: vi.fn(),
@@ -32,14 +38,20 @@ const { mockDocument, mockWindow } = vi.hoisted(() => {
     value: mockWindow,
     writable: true
   });
-  
+
   Object.defineProperty(globalThis, 'document', {
     value: mockDocument,
     writable: true
   });
 
   // Return mocks for test access
-  return { mockDocument, mockWindow };
+  return { mockDocument, mockWindow, originalDocument, originalWindow };
+});
+
+// Restore the real jsdom globals for subsequent test files
+afterAll(() => {
+  Object.defineProperty(globalThis, 'window', { value: originalWindow, writable: true });
+  Object.defineProperty(globalThis, 'document', { value: originalDocument, writable: true });
 });
 
 // Mock import.meta.env
@@ -63,6 +75,11 @@ const mockPerformance = {
   getEntriesByType: vi.fn(() => [])
 };
 
+// Capture originals so afterAll can restore them — leaking these replacements
+// breaks later test files (e.g. performance.now() calls in the logger)
+const originalLocation = globalThis.location;
+const originalPerformance = globalThis.performance;
+
 Object.defineProperty(globalThis, 'location', {
   value: globalThis.window.location,
   writable: true
@@ -71,6 +88,11 @@ Object.defineProperty(globalThis, 'location', {
 Object.defineProperty(globalThis, 'performance', {
   value: mockPerformance,
   writable: true
+});
+
+afterAll(() => {
+  Object.defineProperty(globalThis, 'location', { value: originalLocation, writable: true });
+  Object.defineProperty(globalThis, 'performance', { value: originalPerformance, writable: true });
 });
 
 describe('SEO Utilities', () => {
