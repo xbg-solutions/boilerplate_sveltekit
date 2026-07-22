@@ -36,6 +36,7 @@
     onAddToCart?: () => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let selectedColor = $state(colors[0]);
 
   function renderStars(rate: number) {
@@ -93,7 +94,7 @@
             )}
             style={`background-color: ${color.value}`}
             title={color.name}
-          />
+          ></button>
         {/each}
       </div>
     </div>

@@ -41,8 +41,9 @@
 
 			<div class="space-y-4">
 				<div>
-					<label class="block text-sm font-medium mb-2">Username</label>
+					<label for="settings-username" class="block text-sm font-medium mb-2">Username</label>
 					<input
+						id="settings-username"
 						type="text"
 						bind:value={username}
 						placeholder="Username"
@@ -52,8 +53,9 @@
 
 				<div class="grid grid-cols-2 gap-4">
 					<div>
-						<label class="block text-sm font-medium mb-2">First name</label>
+						<label for="settings-first-name" class="block text-sm font-medium mb-2">First name</label>
 						<input
+							id="settings-first-name"
 							type="text"
 							bind:value={firstName}
 							placeholder="First name"
@@ -62,8 +64,9 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium mb-2">Last name</label>
+						<label for="settings-last-name" class="block text-sm font-medium mb-2">Last name</label>
 						<input
+							id="settings-last-name"
 							type="text"
 							bind:value={lastName}
 							placeholder="Last name"
@@ -73,8 +76,9 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium mb-2">Email address</label>
+					<label for="settings-email" class="block text-sm font-medium mb-2">Email address</label>
 					<input
+						id="settings-email"
 						type="email"
 						bind:value={email}
 						placeholder="email@example.com"
@@ -101,8 +105,9 @@
 
 			<div class="space-y-4">
 				<div>
-					<label class="block text-sm font-medium mb-2">Current password</label>
+					<label for="settings-current-password" class="block text-sm font-medium mb-2">Current password</label>
 					<input
+						id="settings-current-password"
 						type="password"
 						bind:value={currentPassword}
 						placeholder="Enter current password"
@@ -111,8 +116,9 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium mb-2">New password</label>
+					<label for="settings-new-password" class="block text-sm font-medium mb-2">New password</label>
 					<input
+						id="settings-new-password"
 						type="password"
 						bind:value={newPassword}
 						placeholder="Enter new password"
@@ -121,8 +127,9 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium mb-2">Confirm password</label>
+					<label for="settings-confirm-password" class="block text-sm font-medium mb-2">Confirm password</label>
 					<input
+						id="settings-confirm-password"
 						type="password"
 						bind:value={confirmPassword}
 						placeholder="Confirm new password"

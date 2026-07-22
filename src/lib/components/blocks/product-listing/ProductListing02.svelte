@@ -68,6 +68,7 @@
 					<div class="flex items-center border rounded-lg p-1 bg-background">
 						<button
 							onclick={() => (viewMode = 'grid')}
+							aria-label="Grid view"
 							class={cn(
 								'px-2 py-1.5 rounded transition-colors',
 								viewMode === 'grid'
@@ -84,6 +85,7 @@
 						</button>
 						<button
 							onclick={() => (viewMode = 'list')}
+							aria-label="List view"
 							class={cn(
 								'px-2 py-1.5 rounded transition-colors',
 								viewMode === 'list'

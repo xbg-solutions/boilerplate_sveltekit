@@ -73,8 +73,9 @@
 				<!-- Form Fields -->
 				<div class="space-y-4">
 					<div>
-						<label class="block text-sm font-medium mb-2">Card number</label>
+						<label for="checkout03-card-number" class="block text-sm font-medium mb-2">Card number</label>
 						<input
+							id="checkout03-card-number"
 							type="text"
 							value={cardNumber}
 							onchange={handleCardInput}
@@ -86,8 +87,9 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium mb-2">Cardholder name</label>
+						<label for="checkout03-cardholder-name" class="block text-sm font-medium mb-2">Cardholder name</label>
 						<input
+							id="checkout03-cardholder-name"
 							type="text"
 							bind:value={cardholderName}
 							placeholder="Full name"
@@ -97,8 +99,9 @@
 
 					<div class="grid grid-cols-3 gap-4">
 						<div>
-							<label class="block text-sm font-medium mb-2">Month</label>
+							<label for="checkout03-expiry-month" class="block text-sm font-medium mb-2">Month</label>
 							<input
+								id="checkout03-expiry-month"
 								type="text"
 								bind:value={expiryMonth}
 								placeholder="MM"
@@ -107,8 +110,9 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">Year</label>
+							<label for="checkout03-expiry-year" class="block text-sm font-medium mb-2">Year</label>
 							<input
+								id="checkout03-expiry-year"
 								type="text"
 								bind:value={expiryYear}
 								placeholder="YY"
@@ -117,8 +121,9 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">CVV</label>
+							<label for="checkout03-cvv" class="block text-sm font-medium mb-2">CVV</label>
 							<input
+								id="checkout03-cvv"
 								type="text"
 								bind:value={cvv}
 								placeholder="•••"

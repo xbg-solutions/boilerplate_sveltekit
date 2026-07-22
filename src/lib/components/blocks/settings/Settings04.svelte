@@ -38,11 +38,12 @@
 
 	let activeFilter = $state<'All' | 'Active' | 'Inactive'>('All');
 	let searchQuery = $state('');
+	// svelte-ignore state_referenced_locally
 	let enabledStates = $state<Record<string, boolean>>(
 		Object.fromEntries(integrations.map((int, idx) => [`${idx}`, int.enabled ?? false]))
 	);
 
-	$derived filteredIntegrations = integrations.filter((int, idx) => {
+	let filteredIntegrations = $derived(integrations.filter((int, idx) => {
 		const isEnabled = enabledStates[`${idx}`];
 		const matchesFilter =
 			activeFilter === 'All' ||
@@ -52,7 +53,7 @@
 		const matchesSearch = int.name.toLowerCase().includes(searchQuery.toLowerCase());
 
 		return matchesFilter && matchesSearch;
-	});
+	}));
 
 	// SVG Icons
 	function ExternalLinkIcon() {
@@ -150,6 +151,7 @@
 					<!-- Custom Toggle Switch -->
 					<button
 						onclick={() => toggleIntegration(globalIdx)}
+						aria-label={`Toggle ${integration.name}`}
 						class={cn(
 							'relative inline-flex h-5 w-9 items-center rounded-full transition-colors',
 							enabledStates[`${globalIdx}`] ? 'bg-foreground' : 'bg-muted'

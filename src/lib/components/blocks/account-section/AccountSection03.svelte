@@ -66,8 +66,9 @@
         <h2 class="mb-4 text-lg font-semibold text-gray-900">Add New Address</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <label for="address-full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input
+              id="address-full-name"
               type="text"
               bind:value={newAddress.fullName}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -75,8 +76,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+            <label for="address-street" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
             <input
+              id="address-street"
               type="text"
               bind:value={newAddress.street}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -84,8 +86,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+            <label for="address-city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
             <input
+              id="address-city"
               type="text"
               bind:value={newAddress.city}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -93,8 +96,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
+            <label for="address-state" class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
             <input
+              id="address-state"
               type="text"
               bind:value={newAddress.state}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -102,8 +106,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">ZIP/Postal Code</label>
+            <label for="address-zip-code" class="block text-sm font-medium text-gray-700 mb-1">ZIP/Postal Code</label>
             <input
+              id="address-zip-code"
               type="text"
               bind:value={newAddress.zipCode}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -111,8 +116,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+            <label for="address-country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
             <input
+              id="address-country"
               type="text"
               bind:value={newAddress.country}
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"

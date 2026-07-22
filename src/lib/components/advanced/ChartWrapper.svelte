@@ -30,7 +30,7 @@
     BarChart3,
     PieChart,
     LineChart,
-    Scatter3D,
+    ScatterChart,
     AlertTriangle,
     Maximize2,
     X
@@ -135,7 +135,7 @@
   } = $props();
 
   // State
-  let chartContainer: HTMLCanvasElement;
+  let chartContainer: HTMLCanvasElement | undefined = $state();
   let chart: any = $state(null);
   let isFullscreen = $state(false);
   let chartLibraryLoaded = $state(false);
@@ -394,7 +394,7 @@
       case 'doughnut':
         return PieChart;
       case 'scatter':
-        return Scatter3D;
+        return ScatterChart;
       default:
         return TrendingUp;
     }
@@ -431,8 +431,9 @@
         <div class="flex items-center justify-between">
           <div>
             {#if title}
+              {@const ChartIcon = getChartIcon(config.type)}
               <CardTitle class="flex items-center gap-2">
-                <svelte:component this={getChartIcon(config.type)} class="w-5 h-5" />
+                <ChartIcon class="w-5 h-5" />
                 {title}
               </CardTitle>
             {/if}

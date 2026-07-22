@@ -34,7 +34,7 @@
 	let { class: customClass = '', title = 'Simple, transparent pricing', description = '', plans = defaultPlans }: Props = $props();
 
 	const checkIcon = `<polyline points="20 6 9 17 4 12"/>`;
-	const proPlan = plans[0];
+	const proPlan = $derived(plans[0]);
 </script>
 
 <section class={cn('w-full py-16 px-4 sm:px-6', customClass)}>

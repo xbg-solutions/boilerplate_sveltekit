@@ -108,6 +108,7 @@
           <button
             type="button"
             onclick={() => { open = false; onclose(); }}
+            aria-label="Close"
             class="flex h-7 w-7 items-center justify-center rounded-full hover:bg-muted"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -116,11 +117,11 @@
 
         <!-- Month nav -->
         <div class="mb-3 flex items-center justify-between">
-          <button type="button" onclick={prev} class="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted">
+          <button type="button" onclick={prev} aria-label="Previous month" class="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           </button>
           <span class="text-sm font-medium">{MONTHS[viewMonth]} {viewYear}</span>
-          <button type="button" onclick={next} class="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted">
+          <button type="button" onclick={next} aria-label="Next month" class="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </button>
         </div>

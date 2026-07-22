@@ -27,11 +27,12 @@
 		<form class="space-y-6">
 			<!-- Rating Selector -->
 			<div>
-				<label class="block text-sm font-semibold mb-4">Rating</label>
+				<span class="block text-sm font-semibold mb-4">Rating</span>
 				<div class="flex gap-2">
 					{#each { length: 5 } as _, i}
 						<button
 							type="button"
+							aria-label={`Rate ${i + 1} ${i + 1 === 1 ? 'star' : 'stars'}`}
 							onclick={() => (rating = i + 1)}
 							class="transition-transform hover:scale-110"
 						>
@@ -75,13 +76,13 @@
 					placeholder="Tell us what you think about this product"
 					rows="6"
 					class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-				/>
+				></textarea>
 				<p class="text-xs text-muted-foreground mt-2">{review.length} / 2000 characters</p>
 			</div>
 
 			<!-- Recommendation -->
 			<div>
-				<label class="block text-sm font-semibold mb-3">Would you recommend this product?</label>
+				<span class="block text-sm font-semibold mb-3">Would you recommend this product?</span>
 				<div class="flex gap-6">
 					<label class="flex items-center gap-2 cursor-pointer">
 						<input
@@ -108,7 +109,7 @@
 
 			<!-- Image Upload -->
 			<div>
-				<label class="block text-sm font-semibold mb-3">Upload Photos (Optional)</label>
+				<span class="block text-sm font-semibold mb-3">Upload Photos (Optional)</span>
 				<div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
 					<svg
 						width="40"

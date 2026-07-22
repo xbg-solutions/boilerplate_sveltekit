@@ -66,11 +66,11 @@
   {#if calendarOpen}
     <div class="rounded-md border p-3">
       <div class="mb-3 flex items-center justify-between">
-        <button type="button" onclick={prev} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+        <button type="button" onclick={prev} aria-label="Previous month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
         <span class="text-sm font-medium">{MONTHS[month]} {year}</span>
-        <button type="button" onclick={next} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+        <button type="button" onclick={next} aria-label="Next month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </button>
       </div>
@@ -99,17 +99,17 @@
   <!-- From / To time inputs -->
   <div class="grid grid-cols-2 gap-3">
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">From</label>
+      <label for="cal24-from-time" class="text-xs font-medium text-muted-foreground">From</label>
       <div class="flex items-center gap-1.5 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <input type="time" bind:value={fromTime} class="w-full bg-transparent text-sm outline-none" />
+        <input id="cal24-from-time" type="time" bind:value={fromTime} class="w-full bg-transparent text-sm outline-none" />
       </div>
     </div>
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">To</label>
+      <label for="cal24-to-time" class="text-xs font-medium text-muted-foreground">To</label>
       <div class="flex items-center gap-1.5 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <input type="time" bind:value={toTime} class="w-full bg-transparent text-sm outline-none" />
+        <input id="cal24-to-time" type="time" bind:value={toTime} class="w-full bg-transparent text-sm outline-none" />
       </div>
     </div>
   </div>

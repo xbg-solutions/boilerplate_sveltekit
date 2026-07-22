@@ -136,7 +136,7 @@
   } = $props();
 
   // Default options
-  const defaultOptions: DataTableOptions = {
+  const defaultOptions: DataTableOptions = $derived({
     pagination: true,
     pageSize: 10,
     sorting: true,
@@ -149,15 +149,17 @@
     bordered: false,
     hover: true,
     ...options
-  };
+  });
 
   // State
   let searchQuery = $state('');
   let sortConfigState = $state<SortConfig | null>(null);
   let filterConfigState = $state<FilterConfig>({});
   let currentPage = $state(1);
+  // svelte-ignore state_referenced_locally
   let pageSizeState = $state(defaultOptions.pageSize || 10);
   let selectedRows = $state<Set<any>>(new Set());
+  // svelte-ignore state_referenced_locally
   let visibleColumnsSet = $state<Set<string>>(new Set(columns.map(c => c.key)));
 
   let selectAllChecked = $state(false);
@@ -385,7 +387,8 @@
             {#each bulkActions as action}
               <DropdownMenuItem onclick={() => handleBulkAction(action.key)}>
                 {#if action.icon}
-                  <svelte:component this={action.icon} class="w-4 h-4 mr-2" />
+                  {@const ActionIcon = action.icon}
+                  <ActionIcon class="w-4 h-4 mr-2" />
                 {/if}
                 {action.label}
               </DropdownMenuItem>
@@ -485,7 +488,7 @@
               <!-- Column Filter -->
               {#if column.filterable}
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
-                <div class="mt-1" onclick={(e: MouseEvent) => e.stopPropagation()}>
+                <div class="mt-1" role="presentation" onclick={(e: MouseEvent) => e.stopPropagation()}>
                   <Input
                     value={filterConfigState[column.key]?.toString() || ''}
                     placeholder="Filter..."
@@ -544,7 +547,8 @@
               {#each displayedColumns as column}
                 <TableCell class={getCellAlignment(column)}>
                   {#if column.component}
-                    <svelte:component this={column.component} {row} {column} value={row[column.key]} />
+                    {@const CellComponent = column.component}
+                    <CellComponent {row} {column} value={row[column.key]} />
                   {:else}
                     {@html renderCellContent(column, row)}
                   {/if}

@@ -22,6 +22,7 @@
 		onclose
 	}: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let activeTab = $state(defaultTab);
 	let loginEmail = $state('');
 	let loginPassword = $state('');
@@ -127,8 +128,9 @@
 				{#if activeTab === 'login'}
 					<div class="space-y-4">
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+							<label for="signin07-login-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 							<input
+								id="signin07-login-email"
 								type="email"
 								bind:value={loginEmail}
 								placeholder="you@example.com"
@@ -137,8 +139,9 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+							<label for="signin07-login-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 							<input
+								id="signin07-login-password"
 								type="password"
 								bind:value={loginPassword}
 								placeholder="••••••••"
@@ -196,8 +199,9 @@
 				{#if activeTab === 'signup'}
 					<div class="space-y-4">
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Name</label>
+							<label for="signin07-signup-name" class="block text-sm font-medium text-foreground mb-2">Name</label>
 							<input
+								id="signin07-signup-name"
 								type="text"
 								bind:value={signupName}
 								placeholder="John Doe"
@@ -206,8 +210,9 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+							<label for="signin07-signup-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 							<input
+								id="signin07-signup-email"
 								type="email"
 								bind:value={signupEmail}
 								placeholder="you@example.com"
@@ -216,8 +221,9 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+							<label for="signin07-signup-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 							<input
+								id="signin07-signup-password"
 								type="password"
 								bind:value={signupPassword}
 								placeholder="••••••••"

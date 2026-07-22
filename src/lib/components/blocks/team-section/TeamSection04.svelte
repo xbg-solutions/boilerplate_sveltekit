@@ -61,7 +61,7 @@
             <div class="h-12 w-12 rounded-full bg-muted text-sm font-semibold flex items-center justify-center text-muted-foreground flex-shrink-0">
               {member.name
                 .split(' ')
-                .map((n) => n[0])
+                .map((n: string) => n[0])
                 .join('')}
             </div>
 
@@ -81,7 +81,7 @@
           {#if member.twitter || member.linkedin}
             <div class="flex gap-2 flex-shrink-0">
               {#if member.twitter}
-                <a href={member.twitter} target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-muted rounded-md transition-colors">
+                <a href={member.twitter} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter) profile" class="p-2 hover:bg-muted rounded-md transition-colors">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-muted-foreground hover:text-foreground">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
@@ -89,7 +89,7 @@
               {/if}
 
               {#if member.linkedin}
-                <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="p-2 hover:bg-muted rounded-md transition-colors">
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="p-2 hover:bg-muted rounded-md transition-colors">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-muted-foreground hover:text-foreground">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect x="2" y="9" width="4" height="12" />

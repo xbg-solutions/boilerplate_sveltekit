@@ -33,8 +33,9 @@
 		<!-- Form -->
 		<div class="space-y-4 mb-6">
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-2">Name</label>
+				<label for="signup04-name" class="block text-sm font-medium text-foreground mb-2">Name</label>
 				<input
+					id="signup04-name"
 					type="text"
 					bind:value={name}
 					placeholder="John Doe"
@@ -43,8 +44,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+				<label for="signup04-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 				<input
+					id="signup04-email"
 					type="email"
 					bind:value={email}
 					placeholder="you@example.com"
@@ -53,8 +55,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+				<label for="signup04-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 				<input
+					id="signup04-password"
 					type="password"
 					bind:value={password}
 					placeholder="••••••••"

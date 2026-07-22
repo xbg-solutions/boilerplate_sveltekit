@@ -4,16 +4,18 @@
   search + avatar + upgrade button right. Mobile: hamburger → slide-down menu
   with collapsible Settings sub-items + user profile footer.
 -->
-<script lang="ts">
-  import { cn } from '$lib/utils/cn';
-  import type { Snippet } from 'svelte';
-
-  interface NavItem {
+<script module lang="ts">
+  export interface NavItem {
     label: string;
     href?: string;
     badge?: number | string;
     children?: NavItem[];
   }
+</script>
+
+<script lang="ts">
+  import { cn } from '$lib/utils/cn';
+  import type { Snippet } from 'svelte';
 
   interface User {
     name: string;
@@ -117,7 +119,7 @@
 
     <div class="ml-auto flex items-center gap-2">
       <!-- Search -->
-      <button type="button" class="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted">
+      <button type="button" aria-label="Search" class="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <!-- Avatar -->
@@ -167,7 +169,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
     </div>
     <div class="flex items-center gap-2">
-      <button type="button" class="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted">
+      <button type="button" aria-label="Search" class="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <button type="button" onclick={onupgrade} class="flex items-center gap-1 rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-background">

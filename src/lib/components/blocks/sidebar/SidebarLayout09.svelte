@@ -43,6 +43,7 @@
 
   let showUnreads = $state(false);
   let search = $state('');
+  // svelte-ignore state_referenced_locally
   let activeEmailId = $state(selectedEmailId);
 
   let filteredEmails = $derived(
@@ -65,6 +66,7 @@
           <button
             type="button"
             role="switch"
+            aria-label="Show unreads only"
             aria-checked={showUnreads}
             class={cn('relative inline-flex h-5 w-9 items-center rounded-full transition-colors', showUnreads ? 'bg-primary' : 'bg-muted')}
             onclick={() => (showUnreads = !showUnreads)}
@@ -159,7 +161,7 @@
         <p class="truncate text-sm font-medium">{user.name}</p>
         <p class="truncate text-xs text-muted-foreground">{user.email}</p>
       </div>
-      <button type="button" class="text-muted-foreground hover:text-foreground">
+      <button type="button" aria-label="Switch account" class="text-muted-foreground hover:text-foreground">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
       </button>
     </div>

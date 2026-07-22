@@ -38,6 +38,7 @@
 					Before
 				</p>
 				<button
+					aria-label="Toggle before and after comparison"
 					onclick={() => (showAfter = !showAfter)}
 					class={cn(
 						'relative inline-flex h-8 w-14 items-center rounded-full transition-colors',
@@ -49,7 +50,7 @@
 							'inline-block h-6 w-6 transform rounded-full bg-background transition-transform',
 							showAfter ? 'translate-x-7' : 'translate-x-1'
 						)}
-					/>
+					></span>
 				</button>
 				<p class={cn('text-sm font-semibold', showAfter ? 'text-foreground' : 'text-muted-foreground')}>
 					After

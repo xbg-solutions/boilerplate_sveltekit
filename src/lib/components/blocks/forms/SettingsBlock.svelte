@@ -222,8 +222,8 @@
                       theme.value === 'dark' ? 'bg-zinc-900' : 'bg-white'
                     )}>
                       <div class="space-y-1">
-                        <div class={cn('h-1.5 w-12 rounded', theme.value === 'dark' ? 'bg-zinc-700' : 'bg-zinc-200')} />
-                        <div class={cn('h-1.5 w-8 rounded', theme.value === 'dark' ? 'bg-zinc-700' : 'bg-zinc-200')} />
+                        <div class={cn('h-1.5 w-12 rounded', theme.value === 'dark' ? 'bg-zinc-700' : 'bg-zinc-200')}></div>
+                        <div class={cn('h-1.5 w-8 rounded', theme.value === 'dark' ? 'bg-zinc-700' : 'bg-zinc-200')}></div>
                       </div>
                     </div>
                     <span class="text-sm font-medium">{theme.label}</span>

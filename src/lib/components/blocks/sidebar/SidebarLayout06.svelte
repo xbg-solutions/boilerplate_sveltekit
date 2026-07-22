@@ -40,7 +40,7 @@
       <span class="font-semibold text-sm">{logo}</span>
       <span class="ml-auto text-xs text-muted-foreground">{version}</span>
       <!-- Lucide: ChevronsUpDown -->
-      <button type="button" class="text-muted-foreground hover:text-foreground">
+      <button type="button" aria-label="Switch workspace" class="text-muted-foreground hover:text-foreground">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
       </button>
     </div>
@@ -65,7 +65,7 @@
               >
                 <span>{link.label}</span>
                 {#if link.options}
-                  <button type="button" class="text-muted-foreground hover:text-foreground" onclick={(e) => e.preventDefault()}>
+                  <button type="button" aria-label="More options" class="text-muted-foreground hover:text-foreground" onclick={(e) => e.preventDefault()}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                   </button>
                 {/if}
@@ -96,7 +96,7 @@
     {#if breadcrumbs.length > 0}
       <div class="flex items-center gap-2 border-b px-6 py-3">
         <!-- Lucide: PanelLeft -->
-        <button type="button" class="text-muted-foreground hover:text-foreground">
+        <button type="button" aria-label="Toggle sidebar" class="text-muted-foreground hover:text-foreground">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
         </button>
         <Breadcrumb>

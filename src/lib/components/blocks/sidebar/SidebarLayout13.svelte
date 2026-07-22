@@ -3,6 +3,7 @@
   Settings modal/dialog: left nav list, right content panel, close button, breadcrumb.
 -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
 
   type SettingsItem = { label: string; href?: string; icon?: string; active?: boolean };
@@ -11,12 +12,14 @@
     class: className = '',
     items = [],
     title = 'Settings',
-    onclose
+    onclose,
+    children
   }: {
     class?: string;
     items?: SettingsItem[];
     title?: string;
     onclose?: () => void;
+    children?: Snippet;
   } = $props();
 
   // Lucide-style icon paths for common settings items
@@ -96,7 +99,7 @@
 
       <!-- Slot content -->
       <div class="flex-1 overflow-y-auto p-6">
-        <slot />
+        {@render children?.()}
       </div>
     </div>
   </div>

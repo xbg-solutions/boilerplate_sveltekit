@@ -9,7 +9,7 @@
   import { page } from '$app/stores';
   import { Card, Button, Alert, AlertDescription } from '$lib/components/ui';
   import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
-  import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
+  import { AUTH_ROUTES } from '$lib/constants/auth.constants';
 
   // Get authentication state
   const isAuthenticated = authService.isAuthenticated();

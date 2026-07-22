@@ -24,12 +24,13 @@
     models?: Array<{ value: string; label: string }>;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let selectedModel = $state(models[0]?.value ?? '');
   let inputText = $state('');
   let instructions = $state('');
   let output = $state('');
   let temperature = $state(0.7);
-  let maxLength = $state(256);
+  let maxLength = $state('256');
   let topP = $state(0.9);
 </script>
 

@@ -507,7 +507,7 @@ export class RouteHelper {
 
     // Remove href from last item (current page)
     if (breadcrumbs.length > 0) {
-      delete breadcrumbs[breadcrumbs.length - 1].href;
+      delete (breadcrumbs[breadcrumbs.length - 1] as { href?: string }).href;
     }
 
     return breadcrumbs;

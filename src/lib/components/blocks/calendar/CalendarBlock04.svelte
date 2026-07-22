@@ -50,7 +50,7 @@
   function isEnd(d: number): boolean {
     const n = dayNum(d), s = toNum(startDate), e = toNum(endDate);
     if (!e) return false;
-    return n === (s <= e ? e : s);
+    return n === (s === null || s <= e ? e : s);
   }
 
   function handleClick(d: number) {

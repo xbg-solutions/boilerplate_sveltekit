@@ -54,7 +54,7 @@
     "generate:service": "node __scripts__/generate-service.cjs",
     "build:packages": "npm run build --workspaces --if-present",
     "clean:packages": "npm run clean --workspaces --if-present",
-    "postinstall": "echo '\n✅ Dependencies installed!\n🚀 Run npm run setup to configure your project\n'"
+    "postinstall": "echo '\n\u2705 Dependencies installed!\n\ud83d\ude80 Run npm run setup to configure your project\n'"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",
@@ -91,6 +91,7 @@
   "dependencies": {
     "@material-symbols/font-400": "^0.29.1",
     "@material-symbols/svg-400": "^0.29.1",
+    "chart.js": "^4.5.1",
     "firebase": "^11.4.0",
     "simple-icons": "^16.11.0",
     "svelte": "^5.53.6",

@@ -20,7 +20,9 @@
 
   const today = new Date();
   let open = $state(false);
+  // svelte-ignore state_referenced_locally
   let viewYear = $state(selectedDate?.getFullYear() ?? today.getFullYear());
+  // svelte-ignore state_referenced_locally
   let viewMonth = $state(selectedDate?.getMonth() ?? today.getMonth());
 
   const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -53,7 +55,7 @@
 
 <div class={cn('flex flex-col gap-1.5', className)}>
   {#if label}
-    <label class="text-sm font-medium">{label}</label>
+    <span class="text-sm font-medium">{label}</span>
   {/if}
 
   <!-- Trigger button -->

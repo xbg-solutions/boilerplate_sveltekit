@@ -93,6 +93,7 @@
 				</p>
 				<button
 					onclick={() => (billing = billing === 'monthly' ? 'annual' : 'monthly')}
+					aria-label="Toggle annual billing"
 					class={cn(
 						'relative inline-flex h-8 w-14 items-center rounded-full transition-colors',
 						billing === 'annual' ? 'bg-foreground' : 'bg-muted'
@@ -103,7 +104,7 @@
 							'inline-block h-6 w-6 transform rounded-full bg-background transition-transform',
 							billing === 'annual' ? 'translate-x-7' : 'translate-x-1'
 						)}
-					/>
+					></span>
 				</button>
 				<p class={cn('text-sm font-semibold', billing === 'annual' ? 'text-foreground' : 'text-muted-foreground')}>
 					Annual <span class="ml-2 inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Save 20%</span>

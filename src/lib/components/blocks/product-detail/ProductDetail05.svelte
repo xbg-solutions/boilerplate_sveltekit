@@ -140,13 +140,13 @@
       <div class="space-y-2">
         <p class="text-sm font-semibold">Quantity</p>
         <div class="flex items-center gap-2 border rounded-md">
-          <button onclick={decrementQuantity} class="px-3 py-2 hover:bg-gray-100">
+          <button onclick={decrementQuantity} aria-label="Decrease quantity" class="px-3 py-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
           </button>
           <span class="flex-1 text-center font-medium">{quantity}</span>
-          <button onclick={incrementQuantity} class="px-3 py-2 hover:bg-gray-100">
+          <button onclick={incrementQuantity} aria-label="Increase quantity" class="px-3 py-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <line x1="5" y1="12" x2="19" y2="12"/>

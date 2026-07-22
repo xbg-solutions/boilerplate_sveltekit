@@ -83,7 +83,7 @@
 								<div
 									class="h-full bg-yellow-400"
 									style="width: {distribution.percentage}%"
-								/>
+								></div>
 							</div>
 							<span class="text-sm text-muted-foreground w-12 text-right">{distribution.percentage}%</span>
 						</div>

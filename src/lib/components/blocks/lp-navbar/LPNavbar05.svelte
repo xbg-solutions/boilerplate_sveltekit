@@ -1,12 +1,14 @@
-<script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import { Button } from '$lib/components/ui';
-
-	interface Link {
+<script module lang="ts">
+	export interface Link {
 		label: string;
 		href?: string;
 		children?: Link[];
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '$lib/utils/cn';
+	import { Button } from '$lib/components/ui';
 
 	let {
 		class: className = '',
@@ -75,6 +77,7 @@
 					{#if link.children && openDropdown === link.label}
 						<div
 							class="absolute top-full left-0 mt-2 w-48 rounded-md border bg-background shadow-lg py-2 z-50"
+							role="group"
 							onmouseenter={() => (openDropdown = link.label)}
 							onmouseleave={() => (openDropdown = null)}
 						>

@@ -4,7 +4,7 @@
 -->
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
+  import { AUTH_ROUTES } from '$lib/constants/auth.constants';
 
   // Component props
   let {

@@ -10,7 +10,9 @@
 
 	const { class: className = '', count = 24, liked = false, onlike } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let likeCount = $state(count);
+	// svelte-ignore state_referenced_locally
 	let isLiked = $state(liked);
 
 	const handleLike = () => {

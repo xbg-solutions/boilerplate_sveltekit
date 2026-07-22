@@ -11,6 +11,7 @@
 
 	const { class: className = '', label = 'Publish', onclick, onDropdown, open = false } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let isOpen = $state(open);
 
 	const handleDropdown = () => {
@@ -32,10 +33,11 @@
 		<span>{label}</span>
 	</button>
 
-	<div class="border-l" />
+	<div class="border-l"></div>
 
 	<button
 		type="button"
+		aria-label="Open dropdown menu"
 		onclick={handleDropdown}
 		class="flex items-center px-2 py-1.5 bg-background hover:bg-muted transition-colors"
 	>

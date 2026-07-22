@@ -60,7 +60,7 @@
           <div class="h-12 w-12 rounded-full bg-muted text-xs font-semibold flex items-center justify-center text-muted-foreground mb-3">
             {member.name
               .split(' ')
-              .map((n) => n[0])
+              .map((n: string) => n[0])
               .join('')}
           </div>
 

@@ -103,7 +103,7 @@
 						{/if}
 						{#if post.author}
 							<div class="mt-4 flex items-center gap-3">
-								<div class="h-8 w-8 rounded-full bg-muted flex-shrink-0" />
+								<div class="h-8 w-8 rounded-full bg-muted flex-shrink-0"></div>
 								<div class="min-w-0">
 									<p class="text-sm font-medium truncate">{post.author.name}</p>
 									{#if post.author.role}

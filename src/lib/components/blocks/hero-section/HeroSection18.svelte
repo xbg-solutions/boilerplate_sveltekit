@@ -33,7 +33,7 @@
 			<!-- Left Image -->
 			<div>
 				<div class="relative aspect-square w-full rounded-2xl bg-gray-800 flex items-center justify-center shadow-2xl border border-gray-700 overflow-hidden">
-					<div class="absolute inset-0 bg-gradient-to-b from-gray-700/20 to-transparent" />
+					<div class="absolute inset-0 bg-gradient-to-b from-gray-700/20 to-transparent"></div>
 					<svg
 						width="64"
 						height="64"

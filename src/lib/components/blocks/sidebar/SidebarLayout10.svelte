@@ -97,7 +97,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
                   {/if}
                   <span class="flex-1 truncate">{item.label}</span>
-                  <button type="button" class="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground" onclick={(e) => e.preventDefault()}>
+                  <button type="button" aria-label="Item options" class="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground" onclick={(e) => e.preventDefault()}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                   </button>
                 </a>
@@ -139,7 +139,7 @@
   <main class="flex flex-1 flex-col overflow-hidden">
     {#if breadcrumbs.length > 0}
       <div class="flex items-center gap-2 border-b px-6 py-3">
-        <button type="button" class="text-muted-foreground hover:text-foreground">
+        <button type="button" aria-label="Toggle sidebar" class="text-muted-foreground hover:text-foreground">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
         </button>
         <Breadcrumb>

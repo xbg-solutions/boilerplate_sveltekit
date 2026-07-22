@@ -94,7 +94,7 @@
   } = $props();
 
   // Default options
-  const defaultOptions: WizardOptions = {
+  const defaultOptions: WizardOptions = $derived({
     allowBackward: true,
     allowSkip: false,
     showProgress: true,
@@ -106,10 +106,11 @@
     autoSave: false,
     autoSaveDelay: 30000,
     ...options
-  };
+  });
 
   // State
   let currentStepIndex = $state(0);
+  // svelte-ignore state_referenced_locally
   let formData = $state<any>({ ...initialData });
   let stepErrors = $state<{ [stepId: string]: ValidationResult }>({});
   let completedSteps = $state<Set<string>>(new Set());
@@ -377,11 +378,13 @@
         <div class="flex items-center justify-between overflow-x-auto">
           {#each visibleSteps as step, index}
             {@const status = getStepStatus(step)}
-            <!-- svelte-ignore a11y_click_events_have_key_events -->
             <div
               class="flex items-center cursor-pointer min-w-0"
               class:opacity-50={defaultOptions.linearNavigation && status === 'pending'}
+              role="button"
+              tabindex="0"
               onclick={() => !defaultOptions.linearNavigation || status !== 'pending' ? goToStep(index) : null}
+              onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!defaultOptions.linearNavigation || status !== 'pending') goToStep(index); } }}
             >
               <!-- Step Circle -->
               <div
@@ -408,7 +411,7 @@
                 {:else}
                   {@const IconComponent = getStepIcon(step, status)}
                   {#if IconComponent}
-                    <svelte:component this={IconComponent} class="w-4 h-4" />
+                    <IconComponent class="w-4 h-4" />
                   {:else}
                     <span class="text-sm font-medium">{index + 1}</span>
                   {/if}
@@ -472,8 +475,8 @@
       {#if currentStep}
         <div class="min-h-[200px]">
           {#if currentStep.component}
-            <svelte:component
-              this={currentStep.component}
+            {@const StepComponent = currentStep.component}
+            <StepComponent
               data={formData}
               {readonly}
               {loading}

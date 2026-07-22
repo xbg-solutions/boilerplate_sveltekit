@@ -95,7 +95,7 @@ class MemoryCacheStorage implements CacheStorage {
  * LocalStorage cache storage
  */
 class LocalStorageCacheStorage implements CacheStorage {
-  private prefix = 'cache:';
+  protected prefix = 'cache:';
 
   async get<T>(key: string): Promise<CacheItem<T> | null> {
     if (typeof window === 'undefined') return null;
@@ -155,7 +155,7 @@ class LocalStorageCacheStorage implements CacheStorage {
     return (await this.keys()).length;
   }
 
-  private async cleanup(): Promise<void> {
+  protected async cleanup(): Promise<void> {
     const keys = await this.keys();
     const items: Array<{ key: string; item: CacheItem }> = [];
     
@@ -182,7 +182,7 @@ class LocalStorageCacheStorage implements CacheStorage {
  * SessionStorage cache storage
  */
 class SessionStorageCacheStorage extends LocalStorageCacheStorage {
-  private prefix = 'session_cache:';
+  protected prefix = 'session_cache:';
 
   async get<T>(key: string): Promise<CacheItem<T> | null> {
     if (typeof window === 'undefined') return null;
@@ -388,6 +388,14 @@ class CacheService {
     if (typeof window !== 'undefined') {
       setInterval(() => this.cleanupExpired(), 5 * 60 * 1000); // Every 5 minutes
     }
+  }
+
+  /**
+   * Get the underlying storage backend by name (used for advanced operations
+   * like pattern-based invalidation).
+   */
+  getStorage(storage: string): CacheStorage | undefined {
+    return this.storages.get(storage);
   }
 
   /**

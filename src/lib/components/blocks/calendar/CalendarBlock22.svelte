@@ -76,7 +76,7 @@
 
 <div class={cn('flex flex-col gap-1.5', className)}>
   {#if label}
-    <label class="text-sm font-medium">{label}</label>
+    <span class="text-sm font-medium">{label}</span>
   {/if}
 
   <!-- Trigger -->
@@ -96,11 +96,11 @@
   {#if open}
     <div class="z-10 mt-1 rounded-md border bg-background p-4 shadow-md">
       <div class="mb-4 flex items-center justify-between">
-        <button type="button" onclick={prev} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+        <button type="button" onclick={prev} aria-label="Previous month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
         <span class="text-sm font-medium">{MONTHS[viewMonth]} {viewYear} – {MONTHS[m2]} {y2}</span>
-        <button type="button" onclick={next} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+        <button type="button" onclick={next} aria-label="Next month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </button>
       </div>

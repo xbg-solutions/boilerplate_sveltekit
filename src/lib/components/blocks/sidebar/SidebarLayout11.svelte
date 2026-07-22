@@ -2,6 +2,10 @@
   SidebarLayout11.svelte
   File explorer sidebar (VS Code-style): Changes section and expandable Files tree.
 -->
+<script module lang="ts">
+  export type FileNode = { name: string; type: 'file' | 'dir'; children?: FileNode[] };
+</script>
+
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils/cn';
@@ -9,7 +13,6 @@
 
   type FileStatus = 'modified' | 'untracked' | 'added' | 'deleted';
   type ChangedFile = { path: string; status: FileStatus };
-  type FileNode = { name: string; type: 'file' | 'dir'; children?: FileNode[] };
 
   let {
     class: className = '',

@@ -9,6 +9,7 @@
 
 	const { class: className = '', open = false, onToggle } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let isOpen = $state(open);
 
 	const handleToggle = () => {

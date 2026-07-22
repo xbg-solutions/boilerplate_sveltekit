@@ -12,6 +12,7 @@
 
 	const { class: className = '', value = 22, min = 0, max, step = 1, onchange } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let count = $state(value);
 
 	const handleMinus = () => {
@@ -32,6 +33,7 @@
 		type="button"
 		onclick={handleMinus}
 		disabled={count <= min}
+		aria-label="Decrease value"
 		class="h-8 w-8 flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 	>
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -45,6 +47,7 @@
 		type="button"
 		onclick={handlePlus}
 		disabled={max !== undefined && count >= max}
+		aria-label="Increase value"
 		class="h-8 w-8 flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 	>
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

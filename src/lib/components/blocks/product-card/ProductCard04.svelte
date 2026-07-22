@@ -23,6 +23,7 @@
 
 <div
   class={cn('rounded-lg overflow-hidden bg-background', className)}
+  role="group"
   onmouseenter={() => (isHovering = true)}
   onmouseleave={() => (isHovering = false)}
 >

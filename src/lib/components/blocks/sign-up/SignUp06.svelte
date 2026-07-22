@@ -116,8 +116,9 @@
 				<div class="space-y-4 mb-6">
 					<div class="grid grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Name</label>
+							<label for="sign-up-first-name" class="block text-sm font-medium text-foreground mb-2">Name</label>
 							<input
+								id="sign-up-first-name"
 								type="text"
 								bind:value={name}
 								placeholder="John"
@@ -125,8 +126,9 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium text-foreground mb-2">Last Name</label>
+							<label for="sign-up-last-name" class="block text-sm font-medium text-foreground mb-2">Last Name</label>
 							<input
+								id="sign-up-last-name"
 								type="text"
 								bind:value={lastName}
 								placeholder="Doe"
@@ -136,8 +138,9 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+						<label for="sign-up-email-06" class="block text-sm font-medium text-foreground mb-2">Email</label>
 						<input
+							id="sign-up-email-06"
 							type="email"
 							bind:value={email}
 							placeholder="you@example.com"
@@ -146,8 +149,9 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+						<label for="sign-up-password-06" class="block text-sm font-medium text-foreground mb-2">Password</label>
 						<input
+							id="sign-up-password-06"
 							type="password"
 							bind:value={password}
 							placeholder="••••••••"

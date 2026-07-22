@@ -54,6 +54,7 @@
   function prev() { if (viewMonth === 0) { viewMonth = 11; viewYear--; } else viewMonth--; }
   function next() { if (viewMonth === 11) { viewMonth = 0; viewYear++; } else viewMonth++; }
 
+  // svelte-ignore state_referenced_locally
   let openSections = $state<Set<string>>(new Set(calendarLists.map(l => l.label)));
   function toggleSection(label: string) {
     openSections = openSections.has(label)
@@ -103,7 +104,7 @@
                   {:else}<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
                   {/if}
                   <span class="flex-1 truncate">{item.label}</span>
-                  <button type="button" class="text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100" onclick={(e) => e.preventDefault()}>
+                  <button type="button" aria-label="More options" class="text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100" onclick={(e) => e.preventDefault()}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
                   </button>
                 </a>
@@ -162,7 +163,7 @@
           <p class="text-xs text-muted-foreground">{user.email}</p>
         </div>
       </div>
-      <button type="button" class="text-muted-foreground hover:text-foreground">
+      <button type="button" aria-label="Open user menu" class="text-muted-foreground hover:text-foreground">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
       </button>
     </div>
@@ -170,11 +171,11 @@
     <!-- Mini calendar -->
     <div class="border-b p-3">
       <div class="mb-2 flex items-center justify-between">
-        <button type="button" onclick={prev} class="rounded p-1 hover:bg-muted">
+        <button type="button" onclick={prev} aria-label="Previous month" class="rounded p-1 hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
         <span class="text-sm font-medium">{MONTHS_SHORT[viewMonth]} {viewYear}</span>
-        <button type="button" onclick={next} class="rounded p-1 hover:bg-muted">
+        <button type="button" onclick={next} aria-label="Next month" class="rounded p-1 hover:bg-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </button>
       </div>

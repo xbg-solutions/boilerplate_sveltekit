@@ -19,8 +19,11 @@
   } = $props();
 
   const today = new Date();
+  // svelte-ignore state_referenced_locally
   let month = $state(selectedDate?.getMonth() ?? today.getMonth());
+  // svelte-ignore state_referenced_locally
   let year = $state(selectedDate?.getFullYear() ?? today.getFullYear());
+  // svelte-ignore state_referenced_locally
   let inputValue = $state(relativeLabel);
 
   const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -56,13 +59,14 @@
 
 <div class={cn('flex flex-col gap-2 rounded-md border p-4', className)}>
   {#if label}
-    <label class="text-sm font-medium">{label}</label>
+    <label for="calendar28-date" class="text-sm font-medium">{label}</label>
   {/if}
 
   <!-- Relative date input -->
   <div class="flex items-center gap-2 rounded-md border px-3 py-2">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-muted-foreground"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     <input
+      id="calendar28-date"
       type="text"
       bind:value={inputValue}
       class="flex-1 bg-transparent text-sm outline-none"
@@ -77,11 +81,11 @@
 
   <!-- Month navigator -->
   <div class="flex items-center justify-between">
-    <button type="button" onclick={prev} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+    <button type="button" onclick={prev} aria-label="Previous month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
     </button>
     <span class="text-sm font-medium">{MONTHS[month]} {year}</span>
-    <button type="button" onclick={next} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+    <button type="button" onclick={next} aria-label="Next month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
   </div>

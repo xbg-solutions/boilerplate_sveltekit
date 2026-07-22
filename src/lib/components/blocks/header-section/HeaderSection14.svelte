@@ -19,6 +19,7 @@
 		onSearch
 	}: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let activeFilter = $state(filters[0]);
 	let searchQuery = $state('');
 

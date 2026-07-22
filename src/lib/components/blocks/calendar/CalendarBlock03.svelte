@@ -16,7 +16,9 @@
     endDate?: Date | null;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let viewYear = $state(startDate ? startDate.getFullYear() : new Date().getFullYear());
+  // svelte-ignore state_referenced_locally
   let viewMonth = $state(startDate ? startDate.getMonth() : new Date().getMonth());
 
   /** Track whether next click sets start or end */

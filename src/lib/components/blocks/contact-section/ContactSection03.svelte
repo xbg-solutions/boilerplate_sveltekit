@@ -56,7 +56,7 @@
 				bind:value={message}
 				rows={5}
 				class="w-full rounded-lg bg-background/10 border border-background/20 px-4 py-2 text-background placeholder:text-background/40 focus:outline-none focus:ring-2 focus:ring-background/30"
-			/>
+			></textarea>
 
 			<Button type="submit" variant="secondary" class="w-full">Send message</Button>
 		</form>

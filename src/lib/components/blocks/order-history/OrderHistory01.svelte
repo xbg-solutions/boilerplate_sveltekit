@@ -71,18 +71,18 @@
 		}
 	]);
 
-	let filteredOrders = $derived(() => {
+	let filteredOrders = $derived.by(() => {
 		if (activeFilter === 'all') {
 			return allOrders;
 		}
 		return allOrders.filter((order) => order.statusType === activeFilter);
-	})();
+	});
 
-	let paginatedOrders = $derived(() => {
+	let paginatedOrders = $derived.by(() => {
 		const itemsPerPage = 5;
 		const startIdx = (currentPage - 1) * itemsPerPage;
 		return filteredOrders.slice(startIdx, startIdx + itemsPerPage);
-	})();
+	});
 
 	let totalPages = $derived(Math.ceil(filteredOrders.length / 5));
 

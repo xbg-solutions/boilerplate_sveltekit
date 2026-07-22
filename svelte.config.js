@@ -5,7 +5,15 @@ import staticAdapter from '@sveltejs/adapter-static';
 /** @type {import('@sveltejs/kit').Config} */
 export default {
   preprocess: vitePreprocess(),
-  
+
+  compilerOptions: {
+    // The blocks/ gallery uses href="#" placeholder links by design (downstream
+    // apps swap in real routes). Silence only that advisory; every other a11y
+    // warning stays live.
+    warningFilter: (warning) =>
+      !(warning.code === 'a11y_invalid_attribute' && warning.message.includes("'#'"))
+  },
+
   kit: {
     // Configuration for SvelteKit 2.x
     adapter: staticAdapter({

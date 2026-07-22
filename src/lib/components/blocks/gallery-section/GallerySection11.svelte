@@ -52,10 +52,12 @@
 		<div
 			class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
 			onclick={() => (selectedIndex = null)}
+			onkeydown={(e) => { if (e.key === 'Escape') selectedIndex = null; }}
 			role="dialog"
+			tabindex="-1"
 			aria-label="Image lightbox"
 		>
-			<div class="max-w-4xl w-full mx-4 relative" onclick={(e) => e.stopPropagation()}>
+			<div class="max-w-4xl w-full mx-4 relative" role="presentation" onclick={(e) => e.stopPropagation()}>
 				<div class="aspect-video bg-black rounded-lg flex items-center justify-center">
 					{@html imagePlaceholder}
 				</div>
@@ -73,3 +75,4 @@
 			</div>
 		</div>
 	{/if}
+</section>

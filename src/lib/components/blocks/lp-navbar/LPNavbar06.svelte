@@ -1,12 +1,14 @@
-<script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import { Button } from '$lib/components/ui';
-
-	interface Link {
+<script module lang="ts">
+	export interface Link {
 		label: string;
 		href?: string;
 		children?: Link[];
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '$lib/utils/cn';
+	import { Button } from '$lib/components/ui';
 
 	let {
 		class: className = '',
@@ -74,6 +76,7 @@
 					<!-- Dropdown Menu -->
 					{#if link.children && openDropdown === link.label}
 						<div
+							role="group"
 							class="absolute top-full left-0 mt-2 w-48 rounded-md border bg-background shadow-lg py-2 z-50"
 							onmouseenter={() => (openDropdown = link.label)}
 							onmouseleave={() => (openDropdown = null)}
@@ -122,6 +125,7 @@
 	{#if isOpen}
 		<!-- Overlay -->
 		<div
+			role="presentation"
 			class="fixed inset-0 z-40 bg-black/50 sm:hidden"
 			onclick={() => (isOpen = false)}
 		></div>
@@ -133,6 +137,7 @@
 				<span class="font-medium">Menu</span>
 				<button
 					onclick={() => (isOpen = false)}
+					aria-label="Close menu"
 					class="p-2 hover:bg-muted rounded-md transition-colors"
 				>
 					<svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="2">

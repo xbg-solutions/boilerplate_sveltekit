@@ -13,7 +13,7 @@
 	let lastName = $state('Doe');
 	let address = $state('123 Main Street');
 	let city = $state('New York');
-	let state = $state('NY');
+	let stateRegion = $state('NY');
 	let zip = $state('10001');
 	let country = $state('United States');
 	let shippingMethod = $state('standard');
@@ -56,8 +56,9 @@
 			<div class="rounded-lg border bg-background p-6">
 				<h2 class="text-lg font-semibold mb-4">Contact information</h2>
 				<div>
-					<label class="block text-sm font-medium mb-2">Email address</label>
+					<label for="checkout-email" class="block text-sm font-medium mb-2">Email address</label>
 					<input
+						id="checkout-email"
 						type="email"
 						bind:value={email}
 						placeholder="email@example.com"
@@ -72,8 +73,9 @@
 				<div class="space-y-4">
 					<div class="grid grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-medium mb-2">First name</label>
+							<label for="checkout-first-name" class="block text-sm font-medium mb-2">First name</label>
 							<input
+								id="checkout-first-name"
 								type="text"
 								bind:value={firstName}
 								placeholder="John"
@@ -81,8 +83,9 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">Last name</label>
+							<label for="checkout-last-name" class="block text-sm font-medium mb-2">Last name</label>
 							<input
+								id="checkout-last-name"
 								type="text"
 								bind:value={lastName}
 								placeholder="Doe"
@@ -92,8 +95,9 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium mb-2">Street address</label>
+						<label for="checkout-address" class="block text-sm font-medium mb-2">Street address</label>
 						<input
+							id="checkout-address"
 							type="text"
 							bind:value={address}
 							placeholder="Street address"
@@ -103,8 +107,9 @@
 
 					<div class="grid grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-medium mb-2">City</label>
+							<label for="checkout-city" class="block text-sm font-medium mb-2">City</label>
 							<input
+								id="checkout-city"
 								type="text"
 								bind:value={city}
 								placeholder="City"
@@ -112,10 +117,11 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">State</label>
+							<label for="checkout-state" class="block text-sm font-medium mb-2">State</label>
 							<input
+								id="checkout-state"
 								type="text"
-								bind:value={state}
+								bind:value={stateRegion}
 								placeholder="State"
 								class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
 							/>
@@ -124,8 +130,9 @@
 
 					<div class="grid grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-medium mb-2">Zip code</label>
+							<label for="checkout-zip" class="block text-sm font-medium mb-2">Zip code</label>
 							<input
+								id="checkout-zip"
 								type="text"
 								bind:value={zip}
 								placeholder="Zip code"
@@ -133,9 +140,10 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">Country</label>
+							<label for="checkout-country" class="block text-sm font-medium mb-2">Country</label>
 							<div class="relative">
 								<select
+									id="checkout-country"
 									bind:value={country}
 									class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring appearance-none pr-8"
 								>

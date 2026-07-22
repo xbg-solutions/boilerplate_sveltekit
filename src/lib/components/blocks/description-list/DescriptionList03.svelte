@@ -35,6 +35,7 @@
     onsave?: (values: Record<string, string>) => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let values = $state(Object.fromEntries(fields.map(f => [f.key, f.value ?? ''])));
 </script>
 

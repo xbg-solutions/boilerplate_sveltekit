@@ -22,7 +22,7 @@
 	let clientCountry = $state('United States');
 	let streetAddress = $state('2825 Winding Way');
 	let city = $state('Providence');
-	let state = $state('Rhode Island');
+	let stateRegion = $state('Rhode Island');
 
 	function handleSaveCard() {
 		onSaveCard?.();
@@ -61,8 +61,9 @@
 
 		<div class="grid gap-4 sm:grid-cols-2">
 			<div>
-				<label class="block text-sm font-medium mb-2">Name on card</label>
+				<label for="settings-name-on-card" class="block text-sm font-medium mb-2">Name on card</label>
 				<input
+					id="settings-name-on-card"
 					type="text"
 					bind:value={nameOnCard}
 					placeholder="Full name"
@@ -71,8 +72,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">Expiry</label>
+				<label for="settings-card-expiry" class="block text-sm font-medium mb-2">Expiry</label>
 				<input
+					id="settings-card-expiry"
 					type="text"
 					bind:value={cardExpiry}
 					placeholder="MM/YYYY"
@@ -81,8 +83,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">Card number</label>
+				<label for="settings-card-number" class="block text-sm font-medium mb-2">Card number</label>
 				<input
+					id="settings-card-number"
 					type="text"
 					bind:value={cardNumber}
 					placeholder="•••• •••• •••• ••••"
@@ -91,8 +94,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">CVV</label>
+				<label for="settings-card-cvv" class="block text-sm font-medium mb-2">CVV</label>
 				<input
+					id="settings-card-cvv"
 					type="text"
 					bind:value={cardCvv}
 					placeholder="•••"
@@ -117,8 +121,9 @@
 
 		<div class="grid gap-4 sm:grid-cols-2">
 			<div>
-				<label class="block text-sm font-medium mb-2">Client name</label>
+				<label for="settings-client-name" class="block text-sm font-medium mb-2">Client name</label>
 				<input
+					id="settings-client-name"
 					type="text"
 					bind:value={clientName}
 					placeholder="Full name"
@@ -127,8 +132,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">Email address</label>
+				<label for="settings-client-email" class="block text-sm font-medium mb-2">Email address</label>
 				<input
+					id="settings-client-email"
 					type="email"
 					bind:value={clientEmail}
 					placeholder="email@example.com"
@@ -137,9 +143,10 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">Country</label>
+				<label for="settings-client-country" class="block text-sm font-medium mb-2">Country</label>
 				<div class="relative">
 					<select
+						id="settings-client-country"
 						bind:value={clientCountry}
 						class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring appearance-none pr-8"
 					>
@@ -155,8 +162,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">Street address</label>
+				<label for="settings-street-address" class="block text-sm font-medium mb-2">Street address</label>
 				<input
+					id="settings-street-address"
 					type="text"
 					bind:value={streetAddress}
 					placeholder="Street address"
@@ -165,8 +173,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">City</label>
+				<label for="settings-city" class="block text-sm font-medium mb-2">City</label>
 				<input
+					id="settings-city"
 					type="text"
 					bind:value={city}
 					placeholder="City"
@@ -175,10 +184,11 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium mb-2">State</label>
+				<label for="settings-state" class="block text-sm font-medium mb-2">State</label>
 				<div class="relative">
 					<select
-						bind:value={state}
+						id="settings-state"
+						bind:value={stateRegion}
 						class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring appearance-none pr-8"
 					>
 						<option>Alabama</option>

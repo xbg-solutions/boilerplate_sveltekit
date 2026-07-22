@@ -73,16 +73,18 @@
             <h2 class="mb-4 text-lg font-semibold text-gray-900">Personal Information</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                <label for="account-first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                 <input
+                  id="account-first-name"
                   type="text"
                   bind:value={formData.firstName}
                   class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <label for="account-last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                 <input
+                  id="account-last-name"
                   type="text"
                   bind:value={formData.lastName}
                   class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -92,16 +94,18 @@
 
             <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label for="account-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input
+                  id="account-email"
                   type="email"
                   bind:value={formData.email}
                   class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label for="account-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
                 <input
+                  id="account-phone"
                   type="tel"
                   bind:value={formData.phone}
                   class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -117,8 +121,9 @@
             <h2 class="mb-4 text-lg font-semibold text-gray-900">Change Password</h2>
             <div class="space-y-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                <label for="account-current-password" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
                 <input
+                  id="account-current-password"
                   type="password"
                   bind:value={formData.currentPassword}
                   class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -126,16 +131,18 @@
               </div>
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                  <label for="account-new-password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
                   <input
+                    id="account-new-password"
                     type="password"
                     bind:value={formData.newPassword}
                     class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                  <label for="account-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
                   <input
+                    id="account-confirm-password"
                     type="password"
                     bind:value={formData.confirmPassword}
                     class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"

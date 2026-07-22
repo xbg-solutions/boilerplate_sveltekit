@@ -15,7 +15,9 @@
   } = $props();
 
   // Internal state: first month displayed
+  // svelte-ignore state_referenced_locally
   let viewYear = $state(selectedDate ? selectedDate.getFullYear() : new Date().getFullYear());
+  // svelte-ignore state_referenced_locally
   let viewMonth = $state(selectedDate ? selectedDate.getMonth() : new Date().getMonth());
 
   const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];

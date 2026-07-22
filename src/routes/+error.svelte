@@ -397,13 +397,13 @@
               {/if}
             </div>
             
-            {#if import.meta.env.DEV && error && error.stack}
+            {#if import.meta.env.DEV && error && (error as { stack?: string }).stack}
               <details class="mt-3">
                 <summary class="cursor-pointer text-gray-600 hover:text-gray-800 text-sm">
                   Stack Trace
                 </summary>
                 <pre class="mt-2 p-3 bg-gray-200 rounded text-xs overflow-auto whitespace-pre-wrap max-h-40">
-{error.stack}
+{(error as { stack?: string }).stack}
                 </pre>
               </details>
             {/if}

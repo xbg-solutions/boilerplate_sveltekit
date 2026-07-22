@@ -26,6 +26,7 @@
     ontoggle?: (value: boolean) => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let isDone = $state(done);
 
   function initials(n: string) {

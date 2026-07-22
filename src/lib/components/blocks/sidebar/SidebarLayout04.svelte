@@ -2,22 +2,25 @@
   SidebarLayout04.svelte
   Sidebar with tree-style nested/expandable items.
 -->
-<script lang="ts">
-  import type { Snippet } from 'svelte';
-  import { cn } from '$lib/utils/cn';
-  import { DynamicIcon } from '$lib/components/ui/icon';
-
+<script module lang="ts">
   /**
    * Recursive tree item structure.
    * Each item can have children for nesting.
    */
-  interface TreeItem {
+  export interface TreeItem {
     label: string;
     href?: string;
     icon?: string;
     active?: boolean;
     children?: TreeItem[];
   }
+</script>
+
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  import Self from './SidebarLayout04.svelte';
+  import { cn } from '$lib/utils/cn';
+  import { DynamicIcon } from '$lib/components/ui/icon';
 
   let {
     class: className = '',
@@ -67,7 +70,7 @@
             <span class="truncate">{item.label}</span>
           </button>
           {#if expandedItems[item.label]}
-            <svelte:self items={item.children} _depth={_depth + 1} _isNested={true} />
+            <Self items={item.children} _depth={_depth + 1} _isNested={true} />
           {/if}
         {:else}
           <a
@@ -99,7 +102,7 @@
 
       <!-- Tree Nav -->
       <nav class="flex-1 overflow-y-auto p-3">
-        <svelte:self {items} _depth={0} _isNested={true} />
+        <Self {items} _depth={0} _isNested={true} />
       </nav>
     </aside>
 

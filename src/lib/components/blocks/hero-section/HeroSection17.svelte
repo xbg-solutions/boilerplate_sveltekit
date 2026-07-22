@@ -33,8 +33,8 @@
 <section class={cn('w-full bg-gradient-to-b from-orange-50 to-pink-50 px-4 py-20 sm:py-28 sm:px-6 lg:px-8', className)}>
 	<!-- Decorative Gradient Blobs -->
 	<div class="absolute inset-0 overflow-hidden pointer-events-none">
-		<div class="absolute -top-40 -right-40 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl" />
-		<div class="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300/20 rounded-full blur-3xl" />
+		<div class="absolute -top-40 -right-40 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl"></div>
+		<div class="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300/20 rounded-full blur-3xl"></div>
 	</div>
 
 	<div class="relative z-10 mx-auto max-w-4xl">

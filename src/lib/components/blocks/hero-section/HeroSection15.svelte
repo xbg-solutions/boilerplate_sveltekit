@@ -31,7 +31,7 @@
 >
 	<!-- Video Background with Overlay -->
 	<div class="absolute inset-0 bg-gray-900">
-		<div class="absolute inset-0 bg-black/60" />
+		<div class="absolute inset-0 bg-black/60"></div>
 	</div>
 
 	<!-- Content -->

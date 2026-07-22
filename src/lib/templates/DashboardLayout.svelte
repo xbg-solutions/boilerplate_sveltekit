@@ -69,7 +69,7 @@
   <!-- Mobile sidebar overlay -->
   {#if sidebarOpen}
     <div class="fixed inset-0 z-40 lg:hidden">
-      <div class="fixed inset-0 bg-gray-600 bg-opacity-75" onclick={closeSidebar} onkeydown={closeSidebar}></div>
+      <div class="fixed inset-0 bg-gray-600 bg-opacity-75" role="presentation" onclick={closeSidebar} onkeydown={closeSidebar}></div>
     </div>
   {/if}
 
@@ -96,7 +96,8 @@
           onclick={closeSidebar}
         >
           {#if item.icon}
-            <svelte:component this={item.icon} class="h-5 w-5 mr-3" />
+            {@const Icon = item.icon}
+            <Icon class="h-5 w-5 mr-3" />
           {/if}
           {item.label}
           {#if item.badge}

@@ -52,6 +52,7 @@
 	<button
 		type="button"
 		onclick={onMore}
+		aria-label="More options"
 		class="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-background hover:bg-muted transition-colors"
 	>
 		<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

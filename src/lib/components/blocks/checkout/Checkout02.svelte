@@ -46,7 +46,7 @@
 	<div class="rounded-lg border bg-background p-6">
 		<div class="flex items-center justify-between">
 			{#each steps as step, idx}
-				<div class="flex items-center flex-1" key={step.number}>
+				<div class="flex items-center flex-1">
 					<div
 						class={cn(
 							'w-10 h-10 rounded-full flex items-center justify-center font-semibold transition',
@@ -96,9 +96,10 @@
 				<h2 class="text-2xl font-semibold">Contact Information</h2>
 				<div class="mt-6 space-y-4">
 					<div>
-						<label class="block text-sm font-medium mb-2">Email address</label>
+						<label for="checkout-email" class="block text-sm font-medium mb-2">Email address</label>
 						<input
 							type="email"
+							id="checkout-email"
 							bind:value={email}
 							placeholder="email@example.com"
 							class="w-full max-w-md rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -106,18 +107,20 @@
 					</div>
 					<div class="grid grid-cols-2 gap-4 max-w-md">
 						<div>
-							<label class="block text-sm font-medium mb-2">First name</label>
+							<label for="checkout-first-name" class="block text-sm font-medium mb-2">First name</label>
 							<input
 								type="text"
+								id="checkout-first-name"
 								bind:value={firstName}
 								placeholder="John"
 								class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">Last name</label>
+							<label for="checkout-last-name" class="block text-sm font-medium mb-2">Last name</label>
 							<input
 								type="text"
+								id="checkout-last-name"
 								bind:value={lastName}
 								placeholder="Doe"
 								class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -153,26 +156,29 @@
 				<h2 class="text-2xl font-semibold">Payment</h2>
 				<div class="mt-6 space-y-4 max-w-md">
 					<div>
-						<label class="block text-sm font-medium mb-2">Card number</label>
+						<label for="checkout-card-number" class="block text-sm font-medium mb-2">Card number</label>
 						<input
 							type="text"
+							id="checkout-card-number"
 							placeholder="•••• •••• •••• ••••"
 							class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
 						/>
 					</div>
 					<div class="grid grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-medium mb-2">Expiry</label>
+							<label for="checkout-expiry" class="block text-sm font-medium mb-2">Expiry</label>
 							<input
 								type="text"
+								id="checkout-expiry"
 								placeholder="MM/YY"
 								class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
 							/>
 						</div>
 						<div>
-							<label class="block text-sm font-medium mb-2">CVV</label>
+							<label for="checkout-cvv" class="block text-sm font-medium mb-2">CVV</label>
 							<input
 								type="text"
+								id="checkout-cvv"
 								placeholder="•••"
 								class="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
 							/>

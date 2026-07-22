@@ -208,7 +208,7 @@
             </TableCell>
             <TableCell>
               <div class="flex items-center gap-2">
-                <span class={cn('h-2 w-2 rounded-full', getStatusColor(task.status))} />
+                <span class={cn('h-2 w-2 rounded-full', getStatusColor(task.status))}></span>
                 <span class="text-sm capitalize">{task.status.replace('-', ' ')}</span>
               </div>
             </TableCell>

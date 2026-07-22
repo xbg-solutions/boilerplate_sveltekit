@@ -22,10 +22,9 @@
 		sponsored: i % 7 === 0,
 	}));
 
-	$derived totalPages = Math.ceil(products.length / itemsPerPage);
-	$derived paginatedProducts = products.slice(
-		(currentPage - 1) * itemsPerPage,
-		currentPage * itemsPerPage
+	let totalPages = $derived(Math.ceil(products.length / itemsPerPage));
+	let paginatedProducts = $derived(
+		products.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 	);
 </script>
 

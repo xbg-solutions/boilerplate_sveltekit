@@ -10,7 +10,9 @@
 
 	const { class: className = '', count = 24, bookmarked = false, onbookmark } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let bookmarkCount = $state(count);
+	// svelte-ignore state_referenced_locally
 	let isBookmarked = $state(bookmarked);
 
 	const handleBookmark = () => {

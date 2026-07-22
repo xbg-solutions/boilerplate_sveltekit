@@ -32,6 +32,7 @@
     onToggleWishlist?: () => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let wishlisted = $state(isWishlisted);
 
   function handleWishlist() {
@@ -60,6 +61,7 @@
   <!-- Wishlist button -->
   <button
     onclick={handleWishlist}
+    aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
     class="absolute top-3 right-3 z-10 h-8 w-8 rounded-full bg-white shadow hover:bg-gray-50 flex items-center justify-center transition-colors"
   >
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={wishlisted ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" class={wishlisted ? 'text-red-500 fill-red-500' : 'text-gray-600'}>

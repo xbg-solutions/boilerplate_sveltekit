@@ -40,6 +40,7 @@
           <div class="relative aspect-square bg-gray-100">
             <button
               type="button"
+              aria-label="Remove from wishlist"
               class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-100"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-red-500"><path d="M18 6 6 18M6 6 18 18"/></svg>

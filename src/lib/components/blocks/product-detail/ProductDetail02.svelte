@@ -41,7 +41,9 @@
     onAddToCart?: () => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let selectedColor = $state(colors[0]);
+  // svelte-ignore state_referenced_locally
   let selectedSize = $state(sizes[0]);
   let activeTab = $state<'description' | 'specifications' | 'reviews'>('description');
 
@@ -100,7 +102,7 @@
               )}
               style={`background-color: ${color.value}`}
               title={color.name}
-            />
+            ></button>
           {/each}
         </div>
       </div>

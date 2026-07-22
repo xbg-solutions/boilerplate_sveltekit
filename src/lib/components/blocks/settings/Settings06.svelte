@@ -56,7 +56,7 @@
 				{ key: 'appUpdates', label: 'Application updates' }
 			] as item}
 				<div class="flex items-center justify-between">
-					<label class="text-sm font-medium">{item.label}</label>
+					<span class="text-sm font-medium">{item.label}</span>
 					<div class="flex gap-1">
 						{#each notificationOptions as option}
 							<button
@@ -92,7 +92,7 @@
 				{ key: 'eventReminder', label: 'Event reminder summary' }
 			] as item}
 				<div class="flex items-center justify-between">
-					<label class="text-sm font-medium">{item.label}</label>
+					<span class="text-sm font-medium">{item.label}</span>
 					<div class="flex gap-1">
 						{#each notificationOptions as option}
 							<button

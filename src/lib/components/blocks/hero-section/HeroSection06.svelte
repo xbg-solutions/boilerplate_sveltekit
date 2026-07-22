@@ -50,13 +50,16 @@
 							src={videoUrl}
 							class="w-full h-full object-cover"
 							controls
-						></video>
+						>
+							<track kind="captions" />
+						</video>
 					{:else}
 						<div class="absolute inset-0 bg-muted"></div>
 					{/if}
 
 					<button
 						onclick={onPlay}
+						aria-label="Play video"
 						class="absolute inset-0 flex items-center justify-center hover:opacity-80 transition-opacity"
 					>
 						<div class="h-16 w-16 rounded-full bg-background/90 flex items-center justify-center shadow-lg hover:bg-background transition-colors">

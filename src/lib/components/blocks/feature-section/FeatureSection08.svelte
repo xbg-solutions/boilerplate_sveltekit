@@ -29,7 +29,7 @@
 	}: Props = $props();
 
 	let activeTab = $state(0);
-	const tabFeatures = features.slice(0, 4);
+	let tabFeatures = $derived(features.slice(0, 4));
 </script>
 
 <section class={cn('w-full bg-background py-16 px-4 sm:px-6 lg:px-8', className)}>

@@ -12,6 +12,7 @@
 
 	let { defaultTab = 'login', onsignin, onsignup, ongoogle, onapple }: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let activeTab = $state(defaultTab);
 	let loginEmail = $state('');
 	let loginPassword = $state('');
@@ -94,9 +95,10 @@
 		{#if activeTab === 'login'}
 			<div class="space-y-4">
 				<div>
-					<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+					<label for="signin-login-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 					<input
 						type="email"
+						id="signin-login-email"
 						bind:value={loginEmail}
 						placeholder="you@example.com"
 						class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -104,9 +106,10 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+					<label for="signin-login-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 					<input
 						type="password"
+						id="signin-login-password"
 						bind:value={loginPassword}
 						placeholder="••••••••"
 						class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -163,9 +166,10 @@
 		{#if activeTab === 'signup'}
 			<div class="space-y-4">
 				<div>
-					<label class="block text-sm font-medium text-foreground mb-2">Name</label>
+					<label for="signin-signup-name" class="block text-sm font-medium text-foreground mb-2">Name</label>
 					<input
 						type="text"
+						id="signin-signup-name"
 						bind:value={signupName}
 						placeholder="John Doe"
 						class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -173,9 +177,10 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+					<label for="signin-signup-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 					<input
 						type="email"
+						id="signin-signup-email"
 						bind:value={signupEmail}
 						placeholder="you@example.com"
 						class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -183,9 +188,10 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+					<label for="signin-signup-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 					<input
 						type="password"
+						id="signin-signup-password"
 						bind:value={signupPassword}
 						placeholder="••••••••"
 						class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"

@@ -31,6 +31,7 @@
 
   let digits: string[] = $state(['', '', '', '', '', '']);
   let inputs: HTMLInputElement[] = $state([]);
+  // svelte-ignore state_referenced_locally
   let remainingSeconds = $state(countdownSeconds);
 
   function startCountdown() {

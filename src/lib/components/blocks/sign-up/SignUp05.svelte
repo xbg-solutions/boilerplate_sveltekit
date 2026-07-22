@@ -87,9 +87,10 @@
 				<!-- Form -->
 				<div class="space-y-4 mb-6">
 					<div>
-						<label class="block text-sm font-medium text-foreground mb-2">Name</label>
+						<label for="signup-name" class="block text-sm font-medium text-foreground mb-2">Name</label>
 						<input
 							type="text"
+							id="signup-name"
 							bind:value={name}
 							placeholder="John Doe"
 							class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -97,9 +98,10 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+						<label for="signup-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 						<input
 							type="email"
+							id="signup-email"
 							bind:value={email}
 							placeholder="you@example.com"
 							class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"
@@ -107,9 +109,10 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+						<label for="signup-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 						<input
 							type="password"
+							id="signup-password"
 							bind:value={password}
 							placeholder="••••••••"
 							class="rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring w-full"

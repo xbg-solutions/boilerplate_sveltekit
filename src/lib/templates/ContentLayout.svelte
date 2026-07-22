@@ -86,7 +86,7 @@
 
   function generateBreadcrumbs(pathname: string): Array<{ label: string; href?: string }> {
     const segments = pathname.split('/').filter(Boolean);
-    const breadcrumbs = [{ label: 'Home', href: '/' }];
+    const breadcrumbs: { label: string; href?: string }[] = [{ label: 'Home', href: '/' }];
 
     let path = '';
     for (let i = 0; i < segments.length; i++) {
@@ -304,11 +304,11 @@
   }
 
   .prose h1,
-  .prose h2,
+  .prose :global(h2),
   .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
     color: theme('colors.gray.900');
     font-weight: 600;
     margin-top: 2em;
@@ -320,7 +320,7 @@
     line-height: 1.25;
   }
 
-  .prose h2 {
+  .prose :global(h2) {
     font-size: 1.5rem;
     line-height: 1.375;
   }
@@ -340,21 +340,21 @@
     margin: 2em auto;
   }
 
-  .prose blockquote {
+  .prose :global(blockquote) {
     border-left: 4px solid theme('colors.primary.DEFAULT');
     padding-left: 1rem;
     font-style: italic;
     margin: 1.5em 0;
   }
 
-  .prose code {
+  .prose :global(code) {
     background-color: theme('colors.gray.100');
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     font-size: 0.875em;
   }
 
-  .prose pre {
+  .prose :global(pre) {
     background-color: theme('colors.gray.900');
     color: theme('colors.gray.100');
     padding: 1rem;
@@ -363,19 +363,19 @@
     margin: 1.5em 0;
   }
 
-  .prose pre code {
+  .prose :global(pre code) {
     background-color: transparent;
     padding: 0;
     color: inherit;
   }
 
-  .prose ul,
-  .prose ol {
+  .prose :global(ul),
+  .prose :global(ol) {
     margin: 1.25em 0;
     padding-left: 1.5em;
   }
 
-  .prose li {
+  .prose :global(li) {
     margin: 0.5em 0;
   }
 

@@ -73,10 +73,11 @@
   <!-- Time inputs -->
   <div class="mt-4 grid grid-cols-2 gap-3">
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">Start Time</label>
+      <label for="calendar16-start-time" class="text-xs font-medium text-muted-foreground">Start Time</label>
       <div class="flex items-center gap-1.5 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <input
+          id="calendar16-start-time"
           type="time"
           bind:value={startTime}
           class="w-full bg-transparent text-sm outline-none"
@@ -84,10 +85,11 @@
       </div>
     </div>
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">End Time</label>
+      <label for="calendar16-end-time" class="text-xs font-medium text-muted-foreground">End Time</label>
       <div class="flex items-center gap-1.5 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <input
+          id="calendar16-end-time"
           type="time"
           bind:value={endTime}
           class="w-full bg-transparent text-sm outline-none"

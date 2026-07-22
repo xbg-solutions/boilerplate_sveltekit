@@ -1,12 +1,14 @@
-<script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import { Button } from '$lib/components/ui';
-
-	interface Link {
+<script module lang="ts">
+	export interface Link {
 		label: string;
 		href?: string;
 		children?: Link[];
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '$lib/utils/cn';
+	import { Button } from '$lib/components/ui';
 
 	let {
 		class: className = '',

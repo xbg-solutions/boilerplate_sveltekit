@@ -165,8 +165,9 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium mb-2">Promo code</label>
+					<label for="cart-promo-code" class="block text-sm font-medium mb-2">Promo code</label>
 					<input
+						id="cart-promo-code"
 						type="text"
 						bind:value={promoCode}
 						placeholder="Enter code"

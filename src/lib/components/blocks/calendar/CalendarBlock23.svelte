@@ -49,18 +49,19 @@
   <!-- Date + Time inputs row -->
   <div class="grid grid-cols-2 gap-3">
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">Date</label>
+      <span class="text-xs font-medium text-muted-foreground">Date</span>
       <div class="flex items-center gap-2 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-muted-foreground"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
         <span class={cn('text-sm', !selectedDate && 'text-muted-foreground')}>{selectedDate ? formatDate(selectedDate) : 'MM/DD/YYYY'}</span>
       </div>
     </div>
     <div class="flex flex-col gap-1">
-      <label class="text-xs font-medium text-muted-foreground">Time</label>
+      <label for="cal23-time" class="text-xs font-medium text-muted-foreground">Time</label>
       <div class="flex items-center gap-2 rounded-md border px-3 py-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-muted-foreground"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <input
           type="time"
+          id="cal23-time"
           bind:value={selectedTime}
           class="w-full bg-transparent text-sm outline-none"
           placeholder="HH:MM"
@@ -71,7 +72,7 @@
 
   <!-- Month navigator -->
   <div class="flex items-center justify-between">
-    <button type="button" onclick={prev} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+    <button type="button" onclick={prev} aria-label="Previous month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
     </button>
     <select bind:value={month} class="rounded border bg-background px-2 py-1 text-sm font-medium">
@@ -84,7 +85,7 @@
         <option value={y}>{y}</option>
       {/each}
     </select>
-    <button type="button" onclick={next} class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
+    <button type="button" onclick={next} aria-label="Next month" class="flex h-7 w-7 items-center justify-center rounded hover:bg-muted">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
   </div>

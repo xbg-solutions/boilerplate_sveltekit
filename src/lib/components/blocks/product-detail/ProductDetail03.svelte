@@ -26,7 +26,9 @@
     onAddToCart?: () => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let selectedSize = $state(sizes[0]);
+  // svelte-ignore state_referenced_locally
   let selectedColor = $state(colors[0]);
   let quantity = $state(1);
 
@@ -134,13 +136,13 @@
       <div>
         <p class="text-xs font-semibold text-muted-foreground mb-2 uppercase">Quantity</p>
         <div class="flex items-center gap-2 border rounded-md w-fit">
-          <button onclick={decrementQuantity} class="px-3 py-2 hover:bg-gray-100">
+          <button onclick={decrementQuantity} aria-label="Decrease quantity" class="px-3 py-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
           </button>
           <span class="px-3 font-medium">{quantity}</span>
-          <button onclick={incrementQuantity} class="px-3 py-2 hover:bg-gray-100">
+          <button onclick={incrementQuantity} aria-label="Increase quantity" class="px-3 py-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <line x1="5" y1="12" x2="19" y2="12"/>

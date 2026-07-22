@@ -107,7 +107,7 @@
   } = $props();
 
   // Default options
-  const defaultOptions: ImageUploadOptions = {
+  const defaultOptions: ImageUploadOptions = $derived({
     maxFiles: 10,
     maxFileSize: 10, // 10MB
     allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'],
@@ -121,7 +121,7 @@
     quality: 0.8,
     dragAndDrop: true,
     ...options
-  };
+  });
 
   // State
   let files = $state<UploadedFile[]>([]);
@@ -554,7 +554,10 @@
             {#if defaultOptions.showPreview}
               <div
                 class="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden cursor-pointer"
+                role="button"
+                tabindex="0"
                 onclick={() => openPreview(file)}
+                onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPreview(file); } }}
               >
                 <img
                   src={file.preview}

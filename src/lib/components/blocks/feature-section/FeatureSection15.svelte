@@ -60,7 +60,7 @@
 		<div class="flex flex-wrap justify-center gap-2 mb-8">
 			{#each tabs as tab, index}
 				<button
-					on:click={() => (activeTab = index)}
+					onclick={() => (activeTab = index)}
 					class={cn(
 						'px-4 py-2 rounded-lg font-medium transition-colors duration-200',
 						activeTab === index

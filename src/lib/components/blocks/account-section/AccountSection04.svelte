@@ -58,32 +58,36 @@
         <h2 class="mb-4 text-lg font-semibold text-gray-900">Add Payment Method</h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="sm:col-span-2">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+            <label for="add-card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
             <input
+              id="add-card-number"
               type="text"
               placeholder="1234 5678 9012 3456"
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+            <label for="add-card-expiry" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
             <input
+              id="add-card-expiry"
               type="text"
               placeholder="MM/YY"
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+            <label for="add-card-cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
             <input
+              id="add-card-cvv"
               type="text"
               placeholder="123"
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"
             />
           </div>
           <div class="sm:col-span-2">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+            <label for="add-card-holder-name" class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
             <input
+              id="add-card-holder-name"
               type="text"
               placeholder="Name on card"
               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none"

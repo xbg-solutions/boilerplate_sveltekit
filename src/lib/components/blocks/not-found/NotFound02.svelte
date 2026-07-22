@@ -23,6 +23,6 @@
 			<Button onclick={onHome} class="mt-8">Back to home</Button>
 		</div>
 
-		<div class="aspect-square w-full rounded-2xl bg-muted" />
+		<div class="aspect-square w-full rounded-2xl bg-muted"></div>
 	</div>
 </section>

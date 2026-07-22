@@ -174,7 +174,9 @@ class APICacheService {
         await this.cacheResponse(cacheKey, response, options);
         return response;
       } catch (error) {
-        this.logger.warn('Network request failed, falling back to cache', error);
+        this.logger.warn('Network request failed, falling back to cache', {
+          error: error instanceof Error ? error.message : String(error)
+        });
         
         const cached = await cacheService.get<APIResponse<T>>(cacheKey, storage);
         if (cached) {
@@ -271,7 +273,7 @@ class APICacheService {
     
     // This is a simplified implementation
     // In a production system, you might want to use tags for more efficient invalidation
-    const allKeys = await cacheService.storages?.get(storage)?.keys() || [];
+    const allKeys = await cacheService.getStorage(storage)?.keys() || [];
     const matchingKeys = allKeys.filter(key => regex.test(key));
     
     await Promise.all(

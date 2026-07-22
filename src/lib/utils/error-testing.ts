@@ -4,6 +4,9 @@
  * Helper functions for testing error boundaries and error handling
  */
 
+// Test-support helpers — this module is imported only by *.test.ts under vitest.
+import { vi, type MockInstance } from 'vitest';
+
 export interface ErrorTestConfig {
   type: 'sync' | 'async' | 'network' | 'chunk' | 'auth' | 'validation' | 'timeout';
   message?: string;
@@ -267,18 +270,18 @@ export class ErrorBoundaryTestHelpers {
    * Mock console methods for testing
    */
   static mockConsole(): {
-    error: jest.SpyInstance;
-    warn: jest.SpyInstance;
-    log: jest.SpyInstance;
+    error: MockInstance;
+    warn: MockInstance;
+    log: MockInstance;
     restore: () => void;
   } {
     const originalError = console.error;
     const originalWarn = console.warn;
     const originalLog = console.log;
 
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     return {
       error: errorSpy,
@@ -297,13 +300,13 @@ export class ErrorBoundaryTestHelpers {
    */
   static createMockErrorReportingService() {
     return {
-      reportError: jest.fn().mockResolvedValue(true),
-      addBreadcrumb: jest.fn(),
-      configure: jest.fn(),
-      clearBreadcrumbs: jest.fn(),
-      getBreadcrumbs: jest.fn().mockReturnValue([]),
-      getLocalReports: jest.fn().mockReturnValue([]),
-      clearLocalReports: jest.fn()
+      reportError: vi.fn().mockResolvedValue(true),
+      addBreadcrumb: vi.fn(),
+      configure: vi.fn(),
+      clearBreadcrumbs: vi.fn(),
+      getBreadcrumbs: vi.fn().mockReturnValue([]),
+      getLocalReports: vi.fn().mockReturnValue([]),
+      clearLocalReports: vi.fn()
     };
   }
 }

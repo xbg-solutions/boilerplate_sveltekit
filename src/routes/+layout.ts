@@ -11,7 +11,7 @@
 import { browser } from '$app/environment';
 import { initializationService } from '@xbg.solutions/bpsk-core';
 import { authService } from '@xbg.solutions/bpsk-utils-firebase-auth';
-import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
+import { AUTH_ROUTES } from '$lib/constants/auth.constants';
 import { redirect } from '@sveltejs/kit';
 import { APP_CONFIG, configHelpers } from '@xbg.solutions/bpsk-core';
 

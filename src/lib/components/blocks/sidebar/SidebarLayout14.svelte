@@ -31,7 +31,7 @@
     {#if breadcrumbs.length > 0}
       <div class="flex items-center gap-2 border-b px-6 py-3">
         {#if showPanelToggle}
-          <button type="button" class="text-muted-foreground hover:text-foreground">
+          <button type="button" aria-label="Toggle sidebar" class="text-muted-foreground hover:text-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
           </button>
         {/if}
@@ -48,7 +48,7 @@
         <!-- Right-side panel toggle -->
         {#if showPanelToggle}
           <div class="ml-auto">
-            <button type="button" class="text-muted-foreground hover:text-foreground">
+            <button type="button" aria-label="Toggle right panel" class="text-muted-foreground hover:text-foreground">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
             </button>
           </div>

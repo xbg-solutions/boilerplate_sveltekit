@@ -6,7 +6,7 @@
   import { goto } from '$app/navigation';
   import { Card, Alert, AlertDescription, Button, Label, Input } from '$lib/components/ui';
   import { safeVerifyEmailLink, isEmailSignInLink, getStoredEmail, storeEmail } from '@xbg.solutions/bpsk-utils-firebase-auth';
-  import { AUTH_ROUTES } from '@xbg.solutions/bpsk-core';
+  import { AUTH_ROUTES } from '$lib/constants/auth.constants';
   import { safeForceSync } from '@xbg.solutions/bpsk-utils-tab-sync';
   import { AUTH_EVENTS } from '@xbg.solutions/bpsk-core';
   import { publish } from '@xbg.solutions/bpsk-core';

@@ -62,7 +62,7 @@
 						<div class="text-4xl sm:text-5xl font-bold text-gray-900">{stat.value}</div>
 						<div class="mt-2 text-gray-600">{stat.label}</div>
 						{#if i < stats.length - 1}
-							<div class="hidden md:block absolute top-1/2 right-0 w-px h-12 bg-gray-200 -translate-y-1/2" />
+							<div class="hidden md:block absolute top-1/2 right-0 w-px h-12 bg-gray-200 -translate-y-1/2"></div>
 						{/if}
 					</div>
 				{/each}

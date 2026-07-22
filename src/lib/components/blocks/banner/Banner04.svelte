@@ -17,10 +17,10 @@
 		href
 	}: Props = $props();
 
-	const isLight = variant === 'light';
-	const containerClass = isLight
+	let isLight = $derived(variant === 'light');
+	let containerClass = $derived(isLight
 		? 'inline-flex items-center gap-3 rounded-full border bg-background px-4 py-2'
-		: 'inline-flex items-center gap-3 rounded-full border border-background/20 bg-foreground text-background px-4 py-2';
+		: 'inline-flex items-center gap-3 rounded-full border border-background/20 bg-foreground text-background px-4 py-2');
 </script>
 
 <a

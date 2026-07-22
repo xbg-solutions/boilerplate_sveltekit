@@ -28,6 +28,7 @@
     onpublish?: () => void;
   } = $props();
 
+  // svelte-ignore state_referenced_locally
   let currentTab = $state(activeTab);
 </script>
 

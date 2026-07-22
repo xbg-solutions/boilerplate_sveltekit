@@ -11,6 +11,7 @@
 	const defaultOptions = ['Today', 'This week', 'This month', 'This year'];
 	const { class: className = '', options = defaultOptions, value, onchange } = $props();
 
+	// svelte-ignore state_referenced_locally
 	let selected = $state(value || options[0]);
 
 	const handleSelect = (option: string) => {

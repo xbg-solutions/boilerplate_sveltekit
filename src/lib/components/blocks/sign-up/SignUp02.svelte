@@ -71,8 +71,9 @@
 		<!-- Form -->
 		<div class="space-y-4 mb-6">
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-2">Email</label>
+				<label for="signup-email" class="block text-sm font-medium text-foreground mb-2">Email</label>
 				<input
+					id="signup-email"
 					type="email"
 					bind:value={email}
 					placeholder="Placeholder"
@@ -81,8 +82,9 @@
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium text-foreground mb-2">Password</label>
+				<label for="signup-password" class="block text-sm font-medium text-foreground mb-2">Password</label>
 				<input
+					id="signup-password"
 					type="password"
 					bind:value={password}
 					placeholder="••••••••"

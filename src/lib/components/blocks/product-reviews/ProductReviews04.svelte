@@ -71,7 +71,7 @@
 							placeholder="Provide more context for your question"
 							rows="4"
 							class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-						/>
+						></textarea>
 					</div>
 
 					<div class="flex gap-3">

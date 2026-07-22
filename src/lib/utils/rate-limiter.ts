@@ -118,7 +118,7 @@ export function checkRateLimit(config: RateLimitConfig): {
  * @returns Decorator function
  */
 export function rateLimit<T extends (...args: any[]) => any>(
-  config: Omit<RateLimitConfig, 'key'>
+  config: Omit<RateLimitConfig, 'key'> & { key?: string }
 ): (target: T) => T {
   return (target: T): T => {
     // Generate a unique key for this function

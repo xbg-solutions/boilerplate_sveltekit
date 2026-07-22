@@ -98,7 +98,7 @@
   let actionText = $derived(isAuthError ? 'Sign In' : 'Continue');
 </script>
 
-<Card class="{containerClass || 'max-w-lg mx-auto mt-8'}">
+<Card class={containerClass || 'max-w-lg mx-auto mt-8'}>
   <h2 class="text-xl font-bold mb-4">Error {status}</h2>
 
   <Alert class="mb-4 {alertStyling.class}">

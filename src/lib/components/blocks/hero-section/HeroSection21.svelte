@@ -24,7 +24,7 @@
 <section class={cn('w-full bg-gray-950 px-4 py-20 sm:py-28 sm:px-6 lg:px-8 relative overflow-hidden', className)}>
 	<!-- Grid Background Effect -->
 	<div class="absolute inset-0 pointer-events-none">
-		<div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent" />
+		<div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent"></div>
 		<svg
 			class="absolute inset-0 w-full h-full opacity-10"
 			width="100%"
@@ -40,7 +40,7 @@
 	</div>
 
 	<!-- Glow Effects -->
-	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
+	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
 	<div class="relative z-10 mx-auto max-w-4xl">
 		<div class="text-center">

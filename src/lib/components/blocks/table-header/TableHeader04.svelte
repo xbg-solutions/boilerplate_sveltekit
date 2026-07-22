@@ -20,6 +20,7 @@
 		onExport
 	}: Props = $props();
 
+	// svelte-ignore state_referenced_locally
 	let activeTab = $state(tabs[0]);
 	let searchQuery = $state('');
 
