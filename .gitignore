@@ -278,3 +278,5 @@ local.config.*
 # Uncomment the following lines if needed:
 # .vscode/settings.json  # Include if you want shared VS Code settings
 # .env.local             # Include if you have team-shared local configs
+# npm auth token — never commit
+.npmrc

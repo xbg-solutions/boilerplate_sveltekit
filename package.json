@@ -38,7 +38,7 @@
     "test:coverage:all": "npm run test:coverage && npm run test:coverage:integration",
     "test:coverage:ui": "vitest run --coverage --ui --config vitest.unit.config.ts",
     "test:a11y": "vitest run --config vitest.a11y.config.ts",
-    "lint": "eslint . --ext .js,.ts,.svelte",
+    "lint": "eslint .",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "analyze": "ANALYZE=true npm run build",
     "analyze:serve": "npm run analyze && npx serve dist",
@@ -54,9 +54,11 @@
     "generate:service": "node __scripts__/generate-service.cjs",
     "build:packages": "npm run build --workspaces --if-present",
     "clean:packages": "npm run clean --workspaces --if-present",
-    "postinstall": "echo '\n\u2705 Dependencies installed!\n\ud83d\ude80 Run npm run setup to configure your project\n'"
+    "postinstall": "echo '\n✅ Dependencies installed!\n🚀 Run npm run setup to configure your project\n'",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/kit": "^2.20.6",
@@ -85,6 +87,7 @@
     "tailwind-variants": "^3.1.1",
     "terser": "^5.39.0",
     "typescript": "^5.8.2",
+    "typescript-eslint": "^8.67.0",
     "vite": "^6.4.2",
     "vite-bundle-analyzer": "^1.2.3"
   },
