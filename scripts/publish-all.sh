@@ -19,18 +19,43 @@ LOG="scripts/publish-logs/publish-$(date +%Y%m%dT%H%M%S).log"
 exec > >(tee -a "$LOG") 2>&1
 echo "publish run $(date -Iseconds) as $(npm whoami 2>/dev/null || echo 'NOT LOGGED IN') -> $LOG"
 ORDER="bpsk bpsk-core bpsk-test-utils bpsk-utils-sanitizer bpsk-utils-secure-storage bpsk-utils-csrf bpsk-utils-rbac bpsk-utils-firebase-auth bpsk-utils-api-client bpsk-utils-mutex bpsk-utils-event-bus bpsk-utils-file-upload bpsk-utils-performance bpsk-utils-recaptcha bpsk-utils-seo bpsk-utils-sse bpsk-utils-state-manager bpsk-utils-tab-sync"
-failed=""
+# Pass 1: work out what is still missing, BEFORE asking for a code, so the
+# 30-second OTP window is not spent on registry lookups.
+pending=""
 for short in $ORDER; do
   name="@xbg.solutions/$short"
   dir=$(node -e "const fs=require('fs');for(const d of fs.readdirSync('packages')){const f='packages/'+d+'/package.json';if(fs.existsSync(f)&&JSON.parse(fs.readFileSync(f)).name==='$name'){console.log(d);break}}")
+  if [ -z "$dir" ]; then echo "FAILED  $name (no workspace directory carries that name)"; exit 1; fi
   version=$(node -p "require('./packages/$dir/package.json').version")
+  if [ -z "$version" ]; then echo "FAILED  $name (could not read version)"; exit 1; fi
   if npm view "$name@$version" version >/dev/null 2>&1; then
-    echo "skip    $name@$version (already on the registry)"; continue
+    echo "skip    $name@$version (already on the registry)"
+  else
+    echo "pending $name@$version"
+    pending="$pending $short:$dir:$version"
   fi
-  if npm publish -w "$name" --access public ${OTP:+--otp="$OTP"}; then
+done
+if [ -z "$pending" ]; then echo "nothing to publish (log: $LOG)"; exit 0; fi
+
+# Pass 2: build everything pending now, so prepublishOnly's tsc is warm and
+# quick, then take the code and publish immediately.
+for item in $pending; do
+  dir=${item#*:}; dir=${dir%%:*}
+  (cd "packages/$dir" && npm run build --if-present >/dev/null 2>&1) || echo "warning: build failed in packages/$dir (publish will retry it)"
+done
+if [ -z "$OTP" ]; then
+  printf 'Enter the six-digit code from your authenticator NOW: '
+  read -r OTP </dev/tty
+fi
+
+failed=""
+for item in $pending; do
+  short=${item%%:*}; rest=${item#*:}; dir=${rest%%:*}; version=${rest#*:}
+  name="@xbg.solutions/$short"
+  if npm publish -w "$name" --access public --otp="$OTP"; then
     echo "ok      $name@$version"
   else
-    echo "FAILED  $name@$version (E401/E404 = not logged in; EOTP = code expired, re-run with a new one)"
+    echo "FAILED  $name@$version (EOTP = code expired, re-run with a new one; E401/E404 = not logged in)"
     failed="$failed $short"
   fi
 done
