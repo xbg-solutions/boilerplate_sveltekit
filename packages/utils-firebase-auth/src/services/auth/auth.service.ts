@@ -28,7 +28,7 @@ import { extractClaims } from '../../utils/tokens';
 import { goto } from '$app/navigation';
 
 // Import authentication method services
-import emailLinkService from './email-link';
+import emailLinkService, { clearStoredEmail } from './email-link';
 import phoneAuthService from './phone-auth';
 
 // Import auth types
@@ -563,9 +563,6 @@ export function createAuthService() {
       // Clear stored email before Firebase signout
       // This ensures email is cleared even if Firebase signout fails
       try {
-        // Using direct import reference instead of dynamic import
-        const { clearStoredEmail } = await import('../auth/email-link');
-        
         // Use the consistent clearStoredEmail function that handles all storage types
         const cleared = clearStoredEmail();
         authLogger.info('Cleared stored email during logout', { success: cleared });

@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-file-upload",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "XBG File Upload - Firebase Storage file handling",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,13 +17,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@xbg.solutions/bpsk-core": "^2.0.0",
-    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.0.0",
-    "@xbg.solutions/bpsk-utils-api-client": "^2.0.0"
-  },
   "peerDependencies": {
     "firebase": "^11.0.0",
-    "svelte": "^5.0.0"
+    "svelte": "^5.0.0",
+    "@xbg.solutions/bpsk-core": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-api-client": "^2.1.0"
+  },
+  "devDependencies": {
+    "@xbg.solutions/bpsk-core": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-api-client": "^2.1.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-sanitizer",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "XBG Sanitizer - Input sanitization and XSS prevention",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,7 +17,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@xbg.solutions/bpsk-core": "^2.0.0"
+  "peerDependencies": {
+    "@xbg.solutions/bpsk-core": "^2.1.0"
+  },
+  "devDependencies": {
+    "@xbg.solutions/bpsk-core": "^2.1.0"
   }
 }

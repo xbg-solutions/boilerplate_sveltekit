@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-csrf",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "XBG CSRF - Token generation, validation, and store",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,12 +17,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@xbg.solutions/bpsk-core": "^2.0.0",
-    "@xbg.solutions/bpsk-utils-sanitizer": "^2.0.0",
-    "@xbg.solutions/bpsk-utils-secure-storage": "^2.0.0"
-  },
   "peerDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.0.0",
+    "@xbg.solutions/bpsk-core": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-sanitizer": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-secure-storage": "^2.1.0"
+  },
+  "devDependencies": {
+    "@xbg.solutions/bpsk-core": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-sanitizer": "^2.1.0",
+    "@xbg.solutions/bpsk-utils-secure-storage": "^2.1.0"
   }
 }

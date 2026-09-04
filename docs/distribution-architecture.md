@@ -8,7 +8,7 @@ Boilerplate repos are forked/cloned to start new projects. When the boilerplate 
 
 ### Part 1: npm packages (runtime dependencies)
 
-The boilerplate is split into installable packages that live in `node_modules/` and are imported by project code. Updates propagate via standard `npm update`. Semver protects downstream projects from breaking changes.
+The boilerplate is split into installable packages that live in `node_modules/` and are imported by project code. Updates propagate via standard `npm update` **within a major**. A caret range (`^2.0.0`) also guarantees a project never receives anything published after the next major, so every major needs an explicit bump in every consumer — see `UPGRADING.md`. Since 2.1.0 the utils declare `bpsk-core` as a peer dependency, so a project always has exactly one copy of core (it holds module-level Firebase, toast and logger state).
 
 ### Part 2: CLI tool with component registry (project structure + UI)
 

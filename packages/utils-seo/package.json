@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-seo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "XBG SEO - Meta tags, structured data, OpenGraph",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,10 +17,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@xbg.solutions/bpsk-core": "^2.0.0"
-  },
   "peerDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.0.0",
+    "@xbg.solutions/bpsk-core": "^2.1.0"
+  },
+  "devDependencies": {
+    "@xbg.solutions/bpsk-core": "^2.1.0"
   }
 }
