@@ -280,3 +280,4 @@ local.config.*
 # .env.local             # Include if you have team-shared local configs
 # npm auth token — never commit
 .npmrc
+scripts/publish-logs/
