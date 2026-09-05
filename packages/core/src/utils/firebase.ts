@@ -98,6 +98,12 @@ function loadFirebaseConfig(): FirebaseOptions {
   const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
   const appId = import.meta.env.VITE_FIREBASE_APP_ID;
   const measurementId = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID;
+  // Optional. Only products using the Realtime Database set this; everything
+  // else leaves it undefined and `initializeApp` ignores the key entirely.
+  // Without it `getDatabase(app)` throws, and the message ("Can't determine
+  // Firebase Database URL") does not mention the env var, so it reads as an
+  // SDK fault rather than a missing config line.
+  const databaseURL = import.meta.env.VITE_FIREBASE_DATABASE_URL;
 
   // Validate required configuration
   if (!apiKey || !authDomain || !projectId || !appId) {
@@ -120,7 +126,10 @@ function loadFirebaseConfig(): FirebaseOptions {
     storageBucket,
     messagingSenderId,
     appId,
-    measurementId
+    measurementId,
+    // Spread rather than assigned: an explicit `databaseURL: undefined` key is
+    // not the same as an absent one to every consumer that enumerates config.
+    ...(databaseURL ? { databaseURL } : {})
   };
 }
 

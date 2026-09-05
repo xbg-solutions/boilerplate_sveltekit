@@ -5,13 +5,18 @@ says what actually changed in the packages, so the bump can be sized from
 facts rather than from svelte-check output.
 
 Peer requirements (all versions): `svelte ^5`, `@sveltejs/kit ^2`; `firebase
-^11` for `bpsk-utils-firebase-auth` and `bpsk-utils-file-upload` only.
+^11 || ^12` (since 2.1.1; `^11` before) for `bpsk-utils-firebase-auth` and
+`bpsk-utils-file-upload` only.
 `bpsk-core` and `bpsk-utils-sanitizer` have no Firebase peer, so a project that
 consumes only those two may sit on any `firebase` version.
 
-## 2.1.0 → 2.1.1 — compiled ESM carries explicit `.js` extensions
+## 2.1.0 → 2.1.1 — compiled ESM carries explicit `.js` extensions; firebase 12 allowed
 
-No API change. Every relative specifier in the published `lib/` output now
+No API change. `bpsk-utils-firebase-auth` and `bpsk-utils-file-upload` now accept
+`firebase ^11 || ^12` — the whole suite (svelte-check, 823 unit + 48 integration)
+was run against firebase 12.18 before widening. build and accounts are on 12;
+the other products on 11. A new package that needs firebase should declare the
+same range. Every relative specifier in the published `lib/` output now
 ends in `.js` (or `/index.js`), added by `scripts/add-js-extensions.mjs` at
 the end of each package's build. Before this, tsc emitted the specifiers as
 written in source and plain Node could not resolve them, which surfaced in
