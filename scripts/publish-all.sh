@@ -24,7 +24,17 @@ if [ -z "${PUBLISH_LOG:-}" ]; then
   exec script -q "$PUBLISH_LOG" "$0" "$@"
 fi
 LOG="$PUBLISH_LOG"
-echo "publish run $(date -Iseconds) as $(npm whoami 2>/dev/null || echo 'NOT LOGGED IN') -> $LOG"
+WHO=$(npm whoami 2>/dev/null || true)
+echo "publish run $(date -Iseconds) as ${WHO:-NOT LOGGED IN} -> $LOG"
+# Fail here rather than after the registry lookups and the builds. An expired
+# token does not announce itself: the registry answers a publish PUT with 404,
+# not 401, because it will not confirm a package exists to an unauthenticated
+# caller. That reads as "no such package" and sends you looking at the package
+# instead of at your session. Catch it up front.
+if [ -z "$WHO" ]; then
+  echo "FAILED  not logged in (or the token has expired) — run 'npm login', then re-run this script"
+  exit 1
+fi
 ORDER="bpsk bpsk-core bpsk-test-utils bpsk-utils-sanitizer bpsk-utils-secure-storage bpsk-utils-csrf bpsk-utils-rbac bpsk-utils-firebase-auth bpsk-utils-api-client bpsk-utils-mutex bpsk-utils-event-bus bpsk-utils-file-upload bpsk-utils-performance bpsk-utils-presence bpsk-utils-recaptcha bpsk-utils-seo bpsk-utils-sse bpsk-utils-state-manager bpsk-utils-tab-sync"
 # Pass 1: work out what is still missing, BEFORE asking for a code, so the
 # 30-second OTP window is not spent on registry lookups.
@@ -61,7 +71,7 @@ for item in $pending; do
   if npm publish -w "$name" --access public --auth-type=web ${OTP:+--otp="$OTP"} </dev/tty; then
     echo "ok      $name@$version"
   else
-    echo "FAILED  $name@$version (EOTP = second factor not completed in time, re-run; E401/E404 = not logged in)"
+    echo "FAILED  $name@$version (EOTP = second factor not completed in time, just re-run; 404 on PUT = expired token, run 'npm login' — the registry answers 404 rather than 401 when unauthenticated, so it is NOT a missing package)"
     failed="$failed $short"
   fi
 done
