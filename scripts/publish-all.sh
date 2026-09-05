@@ -13,11 +13,17 @@ set -u
 OTP="${1:-}"
 cd "$(dirname "$0")/.."
 
-# Everything that reaches the console is also appended to a timestamped log
-# under scripts/publish-logs/, so a failure can be read back after the fact.
+# Everything that reaches the console is also captured in a timestamped log
+# under scripts/publish-logs/. It is captured with `script`, not `tee`: a pipe
+# on stdout makes npm think it is non-interactive and it then demands a typed
+# one-time code instead of opening the browser for the second factor.
 mkdir -p scripts/publish-logs
-LOG="scripts/publish-logs/publish-$(date +%Y%m%dT%H%M%S).log"
-exec > >(tee -a "$LOG") 2>&1
+if [ -z "${PUBLISH_LOG:-}" ]; then
+  PUBLISH_LOG="scripts/publish-logs/publish-$(date +%Y%m%dT%H%M%S).log"
+  export PUBLISH_LOG
+  exec script -q "$PUBLISH_LOG" "$0" "$@"
+fi
+LOG="$PUBLISH_LOG"
 echo "publish run $(date -Iseconds) as $(npm whoami 2>/dev/null || echo 'NOT LOGGED IN') -> $LOG"
 ORDER="bpsk bpsk-core bpsk-test-utils bpsk-utils-sanitizer bpsk-utils-secure-storage bpsk-utils-csrf bpsk-utils-rbac bpsk-utils-firebase-auth bpsk-utils-api-client bpsk-utils-mutex bpsk-utils-event-bus bpsk-utils-file-upload bpsk-utils-performance bpsk-utils-recaptcha bpsk-utils-seo bpsk-utils-sse bpsk-utils-state-manager bpsk-utils-tab-sync"
 # Pass 1: work out what is still missing, BEFORE asking for a code, so the
