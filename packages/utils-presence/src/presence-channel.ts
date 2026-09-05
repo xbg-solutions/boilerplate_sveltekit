@@ -15,6 +15,13 @@
  * Product-agnostic on purpose. It knows about sessions, connection state and
  * teardown; it knows nothing about what a "project" or a "page" is. Callers
  * supply the path, their identity, and whatever `location` means to them.
+ *
+ * Firebase is resolved through `bpsk-core`, exactly as the other Firebase
+ * utilities here do — `getFirebaseApp()` for the app, then `getDatabase(app)`
+ * with no URL argument, the way `utils-file-upload` calls `getStorage(app)`
+ * with no bucket. WHICH instance is a deployment concern, not a code one: it
+ * comes from `databaseURL` in the centralised app config, which core reads from
+ * `VITE_FIREBASE_DATABASE_URL`. Requires `bpsk-core@^2.2.0`.
  */
 
 import { getFirebaseApp } from '@xbg.solutions/bpsk-core';
@@ -205,7 +212,12 @@ export function createPresenceChannel(opts: PresenceChannelOptions): PresenceCha
       const app = await getFirebaseApp();
       if (stopped) return;
 
-      db = opts.databaseURL ? getDatabase(app, opts.databaseURL) : getDatabase(app);
+      // No URL argument, matching every other Firebase utility here
+      // (`utils-file-upload` does `getStorage(app)` and never names a bucket).
+      // The instance comes from `databaseURL` in the centralised app config,
+      // which core builds from `VITE_FIREBASE_DATABASE_URL`. Consumers point at
+      // an instance through their env, never by passing one in from code.
+      db = getDatabase(app);
       sessionRef = ref(db, `${opts.path}/${sessionId}`);
       const rosterRef = ref(db, opts.path);
 
