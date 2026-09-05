@@ -9,6 +9,21 @@ Peer requirements (all versions): `svelte ^5`, `@sveltejs/kit ^2`; `firebase
 `bpsk-core` and `bpsk-utils-sanitizer` have no Firebase peer, so a project that
 consumes only those two may sit on any `firebase` version.
 
+## 2.1.0 → 2.1.1 — compiled ESM carries explicit `.js` extensions
+
+No API change. Every relative specifier in the published `lib/` output now
+ends in `.js` (or `/index.js`), added by `scripts/add-js-extensions.mjs` at
+the end of each package's build. Before this, tsc emitted the specifiers as
+written in source and plain Node could not resolve them, which surfaced in
+any consumer that prerendered a page pulling a bpsk package in server-side:
+
+    Cannot find module '.../bpsk-utils-secure-storage/lib/constants/secure-storage.constants'
+
+Consumers worked around it with `ssr: { noExternal: [/^@xbg\.solutions\//] }`
+in vite.config and `server: { deps: { inline: [/@xbg\.solutions\//] } }` in
+vitest configs (sf-mapper and morph carry both). On 2.1.1 those are no
+longer needed; they are harmless to keep.
+
 ## 2.0.0 → 2.1.0 — `bpsk-core` becomes a peer dependency
 
 Every `bpsk-utils-*` package and `bpsk-test-utils` now lists `bpsk-core` (and

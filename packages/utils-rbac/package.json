@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-rbac",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "XBG RBAC - Role hierarchy, permission checking, and store",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node ../../scripts/add-js-extensions.mjs lib",
     "build:watch": "tsc --watch",
     "clean": "rm -rf lib",
     "prepublishOnly": "npm run build"
@@ -19,10 +19,10 @@
   },
   "peerDependencies": {
     "svelte": "^5.0.0",
-    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.1.0",
-    "@xbg.solutions/bpsk-core": "^2.1.0"
+    "@xbg.solutions/bpsk-utils-firebase-auth": "^2.1.1",
+    "@xbg.solutions/bpsk-core": "^2.1.1"
   },
   "devDependencies": {
-    "@xbg.solutions/bpsk-core": "^2.1.0"
+    "@xbg.solutions/bpsk-core": "^2.1.1"
   }
 }
