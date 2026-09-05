@@ -73,6 +73,7 @@ Each utility is its own package. Projects install only what they need.
 | `@xbg.solutions/bpsk-utils-recaptcha` | reCAPTCHA v3 integration | `core` |
 | `@xbg.solutions/bpsk-utils-seo` | Meta tags, structured data, OpenGraph | `core` |
 | `@xbg.solutions/bpsk-utils-sse` | Server-sent events client | `core` |
+| `@xbg.solutions/bpsk-utils-presence` | Ephemeral who-is-here over Firebase RTDB (`onDisconnect`-backed sessions, per-user fan-in) | `core`, `firebase` |
 | `@xbg.solutions/bpsk-utils-performance` | Performance metrics, monitoring | `core` |
 | `@xbg.solutions/bpsk-utils-file-upload` | File handling with Firebase Storage | `core`, `utils-firebase-auth`, `utils-api-client` |
 | `@xbg.solutions/bpsk-utils-state-manager` | Global state persistence | `core`, `utils-secure-storage` |

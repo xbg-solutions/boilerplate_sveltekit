@@ -26,6 +26,7 @@
       "@xbg.solutions/bpsk-utils-performance": ["../utils-performance/lib/index.d.ts"],
       "@xbg.solutions/bpsk-utils-seo": ["../utils-seo/lib/index.d.ts"],
       "@xbg.solutions/bpsk-utils-sse": ["../utils-sse/lib/index.d.ts"],
+      "@xbg.solutions/bpsk-utils-presence": ["../utils-presence/lib/index.d.ts"],
       "@xbg.solutions/bpsk-utils-recaptcha": ["../utils-recaptcha/lib/index.d.ts"],
       "@xbg.solutions/bpsk-utils-file-upload": ["../utils-file-upload/lib/index.d.ts"],
       "@xbg.solutions/bpsk-utils-state-manager": ["../utils-state-manager/lib/index.d.ts"],
