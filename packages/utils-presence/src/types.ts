@@ -59,7 +59,11 @@ export interface PresenceChannelOptions {
    * is not swept by `staleAfterMs`. Default 2 minutes; must be well under it.
    */
   heartbeatMs?: number;
-  /** Explicit database URL. Defaults to the app's configured `databaseURL`. */
+  /**
+   * Explicit database URL. Optional from `bpsk-core@2.2.0`, which reads
+   * `VITE_FIREBASE_DATABASE_URL` into the app config; **required** on 2.1.x,
+   * where the config carries no `databaseURL` and `getDatabase(app)` throws.
+   */
   databaseURL?: string;
   /** Short label for diagnostics. */
   label?: string;

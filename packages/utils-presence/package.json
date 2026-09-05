@@ -18,11 +18,11 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@xbg.solutions/bpsk-core": "^2.2.0",
+    "@xbg.solutions/bpsk-core": "^2.1.0",
     "firebase": "^11.0.0 || ^12.0.0"
   },
   "devDependencies": {
-    "@xbg.solutions/bpsk-core": "^2.2.0",
+    "@xbg.solutions/bpsk-core": "^2.1.0",
     "firebase": "^12.11.0"
   }
 }
