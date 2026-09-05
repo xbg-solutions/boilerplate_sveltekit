@@ -281,3 +281,6 @@ local.config.*
 # npm auth token — never commit
 .npmrc
 scripts/publish-logs/
+
+# The repo-level agent brief ships; the rest of .claude/ stays local.
+!.claude/CLAUDE.md
