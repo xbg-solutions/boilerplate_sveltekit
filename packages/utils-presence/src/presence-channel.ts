@@ -197,10 +197,14 @@ export function createPresenceChannel(opts: PresenceChannelOptions): PresenceCha
     void update(sessionRef, { ...patch, lastActiveAt: serverTimestamp() }).catch(fail);
   };
 
-  const handleVisibility = (): void => {
-    // Idle, never absent. Removing someone because they switched tabs makes the
-    // roster untrustworthy at exactly the moment somebody glances at it.
+  // Idle, never absent. Removing someone because they switched tabs makes the
+  // roster untrustworthy at exactly the moment somebody glances at it.
+  const readVisibility = (): void => {
     idle = typeof document !== 'undefined' && document.visibilityState === 'hidden';
+  };
+
+  const handleVisibility = (): void => {
+    readVisibility();
     touch({ idle });
   };
 
@@ -257,7 +261,10 @@ export function createPresenceChannel(opts: PresenceChannelOptions): PresenceCha
       );
 
       document.addEventListener('visibilitychange', handleVisibility);
-      handleVisibility();
+      // Seed only. Touching here would `update` a node that does not exist yet,
+      // minting a partial one ahead of the onDisconnect registration;
+      // writeSession() carries `idle` when the connection comes up.
+      readVisibility();
 
       // Keeps a live-but-quiet tab out of the staleness sweep. Cheap: one small
       // write every couple of minutes, per tab.

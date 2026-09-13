@@ -1,6 +1,6 @@
 {
   "name": "@xbg.solutions/bpsk-utils-presence",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "XBG Presence - ephemeral who-is-here over Firebase Realtime Database",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
