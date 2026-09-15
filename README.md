@@ -339,11 +339,48 @@ Build output is in `build/` (static adapter). Works with Vercel, Netlify, Docker
 
 The boilerplate is pre-hardened; full documentation lives in `.claude/skills/bpsk/security_hardening/` (start with `SECURITY_SETUP.md`, and run through `SECURITY_DEPLOYMENT_CHECKLIST.md` before launch). Key points:
 
-- **The security rules are the trust boundary.** This is a static SPA (no server-side auth) — `firestore.rules` and `storage.rules` carry all authorization. "Protected" routes are client-side UX gating only.
+- **The API is the trust boundary; the rules are a backstop.** The app reads and writes through `@xbg.solutions/bpsk-utils-api-client` and holds no database client — there is no `firebase/firestore` import in this repo's app or package source, and there must not be one. `firestore.rules` and `storage.rules` are still deployed and should be written **closed**, precisely because nothing client-side needs them. "Protected" routes remain client-side UX gating only.
+- **Why one boundary and not two.** With client listeners, tenant scoping has to be decided twice — once in the rules and once in the API — and the two must agree for ever. One boundary in the API is also the only place a rule like *"this account, unless a sysadmin is acting deliberately, and log it when they do"* can be expressed at all.
+- **The one exception is presence.** `@xbg.solutions/bpsk-utils-presence` talks to **Realtime Database** directly, because presence is ephemeral session state rather than content and lives in a different store. Firebase **Auth** is likewise not covered by the rule: it is identity, not the database.
 - **CSP** is hash-mode, generated from `kit.csp` in `svelte.config.js` and delivered as a `<meta>` tag — no `unsafe-inline`/`unsafe-eval` for scripts. `firebase.json` carries the other headers plus `frame-ancestors 'none'`. Add domains in `svelte.config.js`, never a full CSP in `firebase.json`.
 - **Custom claims scheme**: tokens carry a `roles` array of role names plus boolean flags (`isAdmin`, …) per the `claimMap` in `app.config.ts`. The rules, the RBAC util, and the `manage-auth-users` CLI all use this scheme — keep them in lockstep when changing roles.
 - **Redirects** flow through `safeRedirectUrl()` (`src/lib/utils/redirect.ts`); route user-supplied targets through it.
 - **Test rules locally**: Firestore/Storage emulators are configured in `firebase.json`; write grant/deny tests with `@firebase/rules-unit-testing`.
+
+### Encrypted content makes the API-only rule structural
+
+The API-only pattern above was a design choice about where authorization lives.
+Since the platform began sealing client content it is also a hard constraint,
+and it is worth knowing why before anyone is tempted to "just read this one
+collection directly".
+
+XBG products encrypt content with
+`@xbg.solutions/utils-content-crypto`: each record has its own key, that key
+exists at rest only as wraps under a per-account data key, and **the data key
+comes from Accounts over a server-to-server call**. There is no client-held key
+material and there never will be — the model is deliberately custodial, so a
+future migration never depends on a client being reachable.
+
+So a browser reading such a document directly would get **ciphertext with
+nothing to open it**. Rules can grant access to the row; they cannot grant the
+key. The API decrypts at the first read and encrypts at the last write, and
+that is the only place either can happen.
+
+Two consequences that shape a frontend:
+
+- **No realtime listeners on content.** Poll a status endpoint and stop on a
+  terminal state, or consume a server-sent stream
+  (`@xbg.solutions/bpsk-utils-sse`) that the API has already decrypted.
+- **Timestamps arrive as ISO-8601 strings**, because the API serialises them. A
+  raw Firestore `Timestamp` crosses JSON as `{_seconds,…}`, which `new Date()`
+  cannot parse and which renders as an em-dash rather than failing — a bug that
+  looks like a styling problem.
+
+`@xbg.solutions/bpsk-utils-secure-storage` in the package table is unrelated and
+easily confused with this: it encrypts values in one browser's own storage,
+shares no key with content encryption, and protects nothing server-side.
+
+Background: `accounts.xbg.solutions/__docs__/01-content-key-custody.md`.
 
 ---
 
